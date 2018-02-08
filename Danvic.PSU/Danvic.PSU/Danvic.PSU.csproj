@@ -9,13 +9,25 @@
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Areas\Administrator\Models\" />
     <Folder Include="Areas\Administrator\Views\" />
-    <Folder Include="wwwroot\" />
-    <Folder Include="Views\" />
+    <Folder Include="Areas\Instructor\Controllers\" />
+    <Folder Include="Areas\Instructor\Data\" />
+    <Folder Include="Areas\Instructor\Models\" />
+    <Folder Include="Areas\Instructor\Views\" />
+    <Folder Include="Areas\Student\Controllers\" />
+    <Folder Include="Areas\Student\Data\" />
+    <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Areas\Student\Views\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\04_Rule\PSU.Model\PSU.Model.csproj" />
+    <ProjectReference Include="..\Controllers.PSU\Controllers.PSU.csproj" />
   </ItemGroup>
 
 </Project>

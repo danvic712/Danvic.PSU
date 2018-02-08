@@ -25,6 +25,16 @@ namespace Danvic.PSU
                 app.UseExceptionHandler("/Shared/Error");
             }
 
+            //加载静态文件
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Secret}/{action=Login}/{id?}");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

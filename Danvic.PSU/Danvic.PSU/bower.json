@@ -2,6 +2,12 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "v3.3.6"
+    "bootstrap": "v3.3.6",
+    "font-awesome": "Font-Awesome#v4.7.0",
+    "Ionicons": "ionicons#v2.0.1"
+  },
+  "resolutions": {
+    "bootstrap": "^3.0",
+    "jquery": "^3.2.1"
   }
 }
