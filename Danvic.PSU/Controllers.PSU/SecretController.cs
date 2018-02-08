@@ -8,9 +8,11 @@
 // Description: 
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
+using PSU.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU
 {
@@ -34,6 +36,18 @@ namespace Controllers.PSU
         #endregion
 
         #region Services
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel viewModel, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            //var result = await
+            return View(viewModel);
+        }
+
         #endregion
     }
 }

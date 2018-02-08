@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\04_Rule\PSU.IService\PSU.IService.csproj" />
     <ProjectReference Include="..\04_Rule\PSU.Model\PSU.Model.csproj" />
     <ProjectReference Include="..\Controllers.PSU\Controllers.PSU.csproj" />
   </ItemGroup>
