@@ -9,12 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Administrator\" />
-    <Folder Include="Areas\Instructor\" />
-    <Folder Include="Areas\Student\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\04_Rule\PSU.Model\PSU.Model.csproj" />
   </ItemGroup>
 
