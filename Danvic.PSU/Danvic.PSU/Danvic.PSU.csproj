@@ -5,18 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Administrator\Controllers\" />
-    <Folder Include="Areas\Administrator\Data\" />
-    <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Views\" />
-    <Folder Include="Areas\Instructor\Controllers\" />
-    <Folder Include="Areas\Instructor\Data\" />
-    <Folder Include="Areas\Instructor\Models\" />
-    <Folder Include="Areas\Instructor\Views\" />
-    <Folder Include="Areas\Student\Controllers\" />
-    <Folder Include="Areas\Student\Data\" />
-    <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Areas\Student\Views\" />
+    <Compile Remove="Areas\**" />
+    <Content Remove="Areas\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <None Remove="Areas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\Shared\" />
   </ItemGroup>
 
