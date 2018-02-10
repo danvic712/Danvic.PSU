@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Instructor - 复制\**" />
+    <Compile Remove="Areas\Student - 复制\**" />
+    <EmbeddedResource Remove="Areas\Instructor - 复制\**" />
+    <EmbeddedResource Remove="Areas\Student - 复制\**" />
+    <None Remove="Areas\Instructor - 复制\**" />
+    <None Remove="Areas\Student - 复制\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.2" />
   </ItemGroup>
 

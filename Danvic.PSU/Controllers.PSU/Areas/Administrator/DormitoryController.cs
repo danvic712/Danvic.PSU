@@ -1,9 +1,9 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "HomeController.cs">
+// <copyright file= "DormitoryController.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018-02-08 19:35:43
+// Date Created: 2018/2/10 星期六 15:43:36
 // Modified by:
 // Description: 
 //-----------------------------------------------------------------------
@@ -15,18 +15,12 @@ using System.Text;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    public class HomeController:Controller
+    public class DormitoryController:Controller
     {
         #region Initialize
         #endregion
 
         #region View
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         #endregion
 
         #region Service

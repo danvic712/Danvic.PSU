@@ -3,7 +3,7 @@
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018-02-08 19:35:43
+// Date Created: 2018/2/10 星期六 15:48:18
 // Modified by:
 // Description: 
 //-----------------------------------------------------------------------
@@ -12,10 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Controllers.PSU.Areas.Administrator
+namespace Controllers.PSU.Areas.Student
 {
-    [Area("Administrator")]
-    public class HomeController:Controller
+    [Area("Student")]
+    public class HomeController : Controller
     {
         #region Initialize
         #endregion

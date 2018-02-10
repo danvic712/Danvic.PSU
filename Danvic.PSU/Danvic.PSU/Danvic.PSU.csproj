@@ -20,6 +20,14 @@
     <None Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <None Include="Areas\Administrator\Views\_ViewImports.cshtml" />
     <None Include="Areas\Administrator\Views\_ViewStart.cshtml" />
+    <None Include="Areas\Instructor\Views\Home\Index.cshtml" />
+    <None Include="Areas\Instructor\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Instructor\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Instructor\Views\_ViewStart.cshtml" />
+    <None Include="Areas\Student\Views\Home\Index.cshtml" />
+    <None Include="Areas\Student\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Student\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Student\Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
