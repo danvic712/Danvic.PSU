@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\04_Rule\PSU.IService\PSU.IService.csproj" />
+  </ItemGroup>
+
 </Project>

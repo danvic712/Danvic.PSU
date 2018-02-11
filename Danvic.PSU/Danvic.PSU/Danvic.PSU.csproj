@@ -36,6 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\02_Infrastructure\PSU.EFCore\PSU.EFCore.csproj" />
+    <ProjectReference Include="..\03_Logic\PSU.Domain\PSU.Domain.csproj" />
     <ProjectReference Include="..\04_Rule\PSU.IService\PSU.IService.csproj" />
     <ProjectReference Include="..\04_Rule\PSU.Model\PSU.Model.csproj" />
     <ProjectReference Include="..\Controllers.PSU\Controllers.PSU.csproj" />

@@ -1,24 +1,48 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PSU.EFCore;
+using System;
+using System.Reflection;
 
 namespace Danvic.PSU
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("SQLConnection")));
+
+            //反射加载接口实现类，批量注入
+            Assembly assembly = Assembly.Load("PSU.Domain");
+            foreach (var implement in assembly.GetTypes())
+            {
+                Type[] interfaceType = implement.GetInterfaces();
+                foreach (var service in interfaceType)
+                {
+                    services.AddTransient(service, implement);
+                }
+            }
+
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -27,6 +51,9 @@ namespace Danvic.PSU
 
             //加载静态文件
             app.UseStaticFiles();
+
+            //权限验证
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -5,13 +5,13 @@
 // Author: Danvic712
 // Date Created: 2018/2/8 星期四 14:04:22
 // Modified by:
-// Description: 
+// Description: 网站首页控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PSU.IService;
 using PSU.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using System.Threading.Tasks;
 
 namespace Controllers.PSU
@@ -19,9 +19,20 @@ namespace Controllers.PSU
     public class SecretController : Controller
     {
         #region Initialize
+
+        private readonly ISecretService _service;
+
+        private readonly ILogger _logger;
+
+        public SecretController(ISecretService secret, ILogger<SecretController> logger)
+        {
+            _service = secret;
+            _logger = logger;
+        }
+
         #endregion
 
-        #region Views
+        #region View
 
         public IActionResult Login()
         {
@@ -35,7 +46,7 @@ namespace Controllers.PSU
 
         #endregion
 
-        #region Services
+        #region Service
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel viewModel, string returnUrl)
