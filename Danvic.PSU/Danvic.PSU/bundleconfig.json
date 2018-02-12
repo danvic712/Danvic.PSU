@@ -1,8 +1,6 @@
-﻿//Js、Css捆绑加载配置
-[
+﻿[
   {
-    "outputFileName": "wwwroot/css/AdminLTE.min.css",
-    // An array of relative input file paths. Globbing patterns supported
+    "outputFileName": "wwwroot/css/template/AdminLTE.min.css",
     "inputFiles": [
       "wwwroot/css/template/AdminLTE.css"
     ]
@@ -12,12 +10,10 @@
     "inputFiles": [
       "wwwroot/js/site.js"
     ],
-    // Optionally specify minification options
     "minify": {
       "enabled": true,
       "renameLocals": true
     },
-    // Optionally generate .map file
     "sourceMap": false
   }
 ]
