@@ -1,14 +1,16 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/css/template/AdminLTE.min.css",
+    "outputFileName": "wwwroot/css/view/login.min.css",
     "inputFiles": [
-      "wwwroot/css/template/AdminLTE.css"
+      "wwwroot/css/template/AdminLTE.css",
+      "wwwroot/css/template/green.css",
+      "wwwroot/css/view/login.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/javascript/login.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/javascript/login.js"
     ],
     "minify": {
       "enabled": true,
