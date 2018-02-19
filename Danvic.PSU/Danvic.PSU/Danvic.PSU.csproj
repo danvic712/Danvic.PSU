@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Areas\Administrator\Views\Home\Index.cshtml" />
     <None Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
     <None Include="Areas\Administrator\Views\_ViewImports.cshtml" />
@@ -41,6 +45,10 @@
     <ProjectReference Include="..\04_Rule\PSU.IService\PSU.IService.csproj" />
     <ProjectReference Include="..\04_Rule\PSU.Model\PSU.Model.csproj" />
     <ProjectReference Include="..\Controllers.PSU\Controllers.PSU.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

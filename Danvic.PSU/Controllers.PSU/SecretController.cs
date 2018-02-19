@@ -7,26 +7,33 @@
 // Modified by:
 // Description: 网站首页控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PSU.IService;
+using PSU.Entity.Identity;
 using PSU.Model;
-
+using System;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU
 {
+    [Authorize]
     public class SecretController : Controller
     {
         #region Initialize
 
-        private readonly ISecretService _service;
+        private readonly UserManager<AppUser> _userManager;
+
+        private readonly SignInManager<AppUser> _signInManager;
 
         private readonly ILogger _logger;
 
-        public SecretController(ISecretService secret, ILogger<SecretController> logger)
+        public SecretController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<SecretController> logger)
         {
-            _service = secret;
+            _userManager = userManager;
+            _signInManager = signInManager;
             _logger = logger;
         }
 
@@ -34,7 +41,35 @@ namespace Controllers.PSU
 
         #region View
 
-        public IActionResult Login()
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Lockout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("用户登出");
+            return RedirectToAction(nameof(SecretController.Login), "Secret");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
         {
             return View();
         }
@@ -49,14 +84,49 @@ namespace Controllers.PSU
         #region Service
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
             {
-                return View(viewModel);
+                var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd"));
+                    return RedirectToLocal(returnUrl);
+                }
+                else if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("用户：{0}于{1}账户被锁定", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd"));
+                    return RedirectToAction(nameof(Lockout));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "无效的登录尝试");
+                    return View(viewModel);
+                }
             }
-            //var result = await
+
             return View(viewModel);
+        }
+
+        #endregion
+
+        #region Method
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(SecretController.Login), "Sercret");
+            }
         }
 
         #endregion

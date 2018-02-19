@@ -7,6 +7,7 @@
 // Modified by:
 // Description: 网站用户类
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,24 +15,24 @@ using System.Text;
 
 namespace PSU.Entity.Identity
 {
-    public class AppUser : SysField
+    public class AppUser : IdentityUser
     {
         #region Constructed Function
 
-        public AppUser()
-        {
-            AppUserOID = Guid.NewGuid();
-        }
+        //public AppUser()
+        //{
+        //    AppUserOID = Guid.NewGuid();
+        //}
 
         #endregion
 
         #region Attribute
 
-        /// <summary>
-        /// 主键
-        /// </summary>
-        [Key]
-        public Guid AppUserOID { get; set; }
+        ///// <summary>
+        ///// 主键
+        ///// </summary>
+        //[Key]
+        //public Guid AppUserOID { get; set; }
 
         #endregion
     }

@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PSU.IService
 {
@@ -22,8 +23,9 @@ namespace PSU.IService
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
+        /// <param name="isPersistent"></param>
         /// <returns></returns>
-        bool SignIn(string account, string password);
+        bool SignInAsync(string account, string password,bool isPersistent);
 
         #endregion
     }

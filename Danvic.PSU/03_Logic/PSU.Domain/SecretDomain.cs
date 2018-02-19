@@ -18,9 +18,9 @@ namespace PSU.Domain
     {
         #region Interface Service Implement
 
-        public bool SignIn(string account, string password)
+        public bool SignInAsync(string account, string password, bool isPersistent)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
         #endregion
