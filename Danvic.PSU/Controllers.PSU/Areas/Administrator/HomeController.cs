@@ -15,7 +15,6 @@ using System.Text;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    [Route("[area]/[controller]/[action]")]
     public class HomeController:Controller
     {
         #region Initialize

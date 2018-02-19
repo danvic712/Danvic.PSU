@@ -8,6 +8,14 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/css/view/layout.min.css",
+    "inputFiles": [
+      "wwwroot/css/template/AdminLTE.css",
+      "wwwroot/css/template/skins/skin-green.css",
+      "wwwroot/css/template/bootstrap-timepicker.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/javascript/login.min.js",
     "inputFiles": [
       "wwwroot/javascript/login.js"
