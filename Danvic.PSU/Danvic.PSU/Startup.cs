@@ -52,7 +52,11 @@ namespace Danvic.PSU
             }
             else
             {
-                app.UseExceptionHandler("/Shared/Error");
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+
+                //app.UseExceptionHandler("/Shared/Error");
             }
 
             //加载静态文件
@@ -66,15 +70,11 @@ namespace Danvic.PSU
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Secret}/{action=Login}/{id?}");
-            });
-
-            app.UseMvc(routes =>
-            {
                 routes.MapRoute(
                   name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

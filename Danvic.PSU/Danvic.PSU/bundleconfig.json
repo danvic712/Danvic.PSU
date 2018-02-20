@@ -12,13 +12,28 @@
     "inputFiles": [
       "wwwroot/css/template/AdminLTE.css",
       "wwwroot/css/template/skins/skin-green.css",
-      "wwwroot/css/template/bootstrap-timepicker.css"
+      "wwwroot/css/template/bootstrap-timepicker.css",
+      "wwwroot/css/view/layout.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/javascript/login.min.js",
+    "outputFileName": "wwwroot/javascript/view/login.min.js",
     "inputFiles": [
-      "wwwroot/javascript/login.js"
+      "wwwroot/javascript/view/login.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/layout.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/bootstrap-timepicker.js",
+      "wwwroot/javascript/template/jquery.slimscroll.js",
+      "wwwroot/javascript/template/adminlte.js",
+      "wwwroot/javascript/view/layout.js"
     ],
     "minify": {
       "enabled": true,
