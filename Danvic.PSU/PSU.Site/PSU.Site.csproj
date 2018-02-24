@@ -21,11 +21,4 @@
     <ProjectReference Include="..\Controllers.PSU\Controllers.PSU.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Instructor\Views\" />
-    <Folder Include="Areas\Student\Views\" />
-    <Folder Include="wwwroot\css\view\" />
-    <Folder Include="wwwroot\javascript\view\" />
-  </ItemGroup>
-
 </Project>
