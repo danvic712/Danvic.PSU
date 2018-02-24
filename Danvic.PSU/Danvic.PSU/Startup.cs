@@ -70,6 +70,7 @@ namespace Danvic.PSU
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Secret}/{action=Login}/{id?}");
+
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
