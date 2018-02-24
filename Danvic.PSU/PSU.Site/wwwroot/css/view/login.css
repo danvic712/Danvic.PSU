@@ -4,3 +4,12 @@
  */
 body {
 }
+
+.login-msg-box {
+    margin-bottom: 25px;
+}
+
+.login-error-msg {
+    margin-top: 3px;
+    background-color: #FF7851 !important;
+}
