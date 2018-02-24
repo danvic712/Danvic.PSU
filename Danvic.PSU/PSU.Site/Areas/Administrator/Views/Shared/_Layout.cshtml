@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] - Danvic.PSU</title>
+    <environment include="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/lib/Ionicons/css/ionicons.css" rel="stylesheet" />
+        <link href="~/css/template/AdminLTE.css" rel="stylesheet" />
+        <link href="~/css/template/skins/skin-green.css" rel="stylesheet" />
+        <link href="~/css/template/bootstrap-timepicker.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        <link href="http://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/Ionicons/css/ionicons.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link href="~/css/view/layout.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+</head>
+<body class="sidebar-mini skin-green fixed" style="height: auto; min-height: 100%;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <!-- 头部 -->
+        <header class="main-header">
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index" class="logo">
+                <span class="logo-mini"><b>P</b>SU</span>
+                <span class="logo-lg"><b>Danvic.</b>PSU</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">你有 9 条新的通知 </li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Design some buttons
+                                                    <small class="pull-right">20%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">20% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Create a nice theme
+                                                    <small class="pull-right">40%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">40% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Some task I need to do
+                                                    <small class="pull-right">60%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">60% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Make beautiful transitions
+                                                    <small class="pull-right">80%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">80% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- end task item -->
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">查看全部通知</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">管理员</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="~/images/template/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                    <p>
+                                        管理员 - 超级管理员
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">个人中心</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">退出</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 左侧菜单栏 -->
+        <aside class="main-sidebar">
+            <section class="sidebar" style="height:auto;">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/images/template/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>你好，管理员</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> 超级管理员</a>
+                    </div>
+                </div>
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">菜单 Menu</li>
+                    <li class="active">
+                        <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                            <i class="fa fa-dashboard"></i> <span>数据全局概览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-bullhorn"></i> <span>网站公告管理</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-graduation-cap"></i> <span>学校信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href=""><i class="fa fa-list-ul"></i> 基础信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 院系信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 专业信息维护</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-home"></i>
+                            <span>宿舍信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href=""><i class="fa fa-list-ul"></i> 宿舍楼信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 宿舍信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 床铺信息维护</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-train"></i> <span>入学信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href=""><i class="fa fa-list-ul"></i> 迎新服务维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 卧具信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 制服信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 金额信息维护</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 学生疑问管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>数据统计分析</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href=""><i class="fa fa-list-ul"></i> 新生数据分析</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 宿舍数据统计</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa fa-cogs"></i>
+                            <span>基础信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href=""><i class="fa fa-list-ul"></i> 个人账户信息</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 教师账户管理</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 学生账户管理</a></li>
+                            <li><a href=""><i class="fa fa-list-ul"></i> 地区数据维护</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- 页面主体内容 -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+        <!-- 尾部版权 -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.1.0
+            </div>
+            <strong>
+                Copyright  &copy; 2017 - @DateTime.Now.Year Powered By
+                <a href="https://github.com/Lanesra712/Danvic.PSU" target="_blank"> Danvic712 </a>
+            </strong>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/javascript/template/bootstrap-timepicker.js"></script>
+        <script src="~/javascript/template/jquery.slimscroll.js"></script>
+        <script src="~/javascript/template/adminlte.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js">
+        </script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js">
+        </script>
+        <script src="~/javascript/view/layout.min.js" asp-append-version="true"></script>
+    </environment>
+</body>
+</html>
+
