@@ -5,15 +5,85 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:44:20
 // Modified by:
-// Description: 
+// Description: 新生车辆服务预定表
 //-----------------------------------------------------------------------
+using PSU.Utility.System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace PSU.Entity.SignUp
 {
     public class ServiceInfo
     {
+        #region Constructed Function
+
+        public ServiceInfo()
+        {
+            ServiceInfoOID = Guid.NewGuid();
+            Id = TimeUtility.GetTimespans();
+            ScheduledTime = DateTime.Now;
+        }
+
+        #endregion
+
+        #region Attribute
+
+        /// <summary>
+        /// 主键
+        /// </summary>
+        [Key]
+        public Guid ServiceInfoOID { get; set; }
+
+        /// <summary>
+        /// 编号
+        /// </summary>
+        [Required]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 预订人姓名
+        /// </summary>
+        [MaxLength(20)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 联系方式
+        /// </summary>
+        public int Tel { get; set; }
+
+        /// <summary>
+        /// 人数
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 预定时间
+        /// </summary>
+        public DateTime ScheduledTime { get; set; }
+
+        /// <summary>
+        /// 预计出发时间
+        /// </summary>
+        public DateTime DepartureTime { get; set; }
+
+        /// <summary>
+        /// 出发地点
+        /// </summary>
+        [MaxLength(20)]
+        public string Place { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark { get; set; }
+
+        /// <summary>
+        /// 是否取消
+        /// </summary>
+        public bool IsCancel { get; set; }
+
+        #endregion
     }
 }

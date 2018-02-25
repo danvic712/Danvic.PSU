@@ -9,4 +9,8 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\01_Entity\PSU.Entity\PSU.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

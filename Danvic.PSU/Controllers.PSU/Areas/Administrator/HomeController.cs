@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018-02-08 19:35:43
 // Modified by:
-// Description: 
+// Description: Administrator-Home控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +23,11 @@ namespace Controllers.PSU.Areas.Administrator
         #region View
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Bulletin()
         {
             return View();
         }

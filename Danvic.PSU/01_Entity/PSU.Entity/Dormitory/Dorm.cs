@@ -5,15 +5,99 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:41:26
 // Modified by:
-// Description: 
+// Description: 寝室信息表
 //-----------------------------------------------------------------------
+using PSU.Utility.System;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Dormitory
 {
-    public class Dorm
+    public class Dorm : SysField
     {
+        #region Constructed Function
+
+        public Dorm()
+        {
+            DormOID = Guid.NewGuid();
+            Id = TimeUtility.GetTimespans();
+            CreatedOn = DateTime.Now;
+        }
+
+        #endregion
+
+        #region Attribute
+
+        /// <summary>
+        /// 主键
+        /// </summary>
+        [Key]
+        public Guid DormOID { get; set; }
+
+        /// <summary>
+        /// 编号
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 寝室名
+        /// </summary>
+        [Required]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 寝室楼名称
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string BuildingName { get; set; }
+
+        /// <summary>
+        /// 楼层
+        /// </summary>
+        [Required]
+        public int Floor { get; set; }
+
+        /// <summary>
+        /// 寝室类型
+        /// 1:4人间;2:6人间;3:8人间;4:套房;5:其它
+        /// </summary>
+        public short Type { get; set; }
+
+        /// <summary>
+        /// 可容纳人数
+        /// </summary>
+        [Required]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// 已选择人数
+        /// </summary>
+        public int SelectedCount { get; set; }
+
+        /// <summary>
+        /// 寝室是否人数已满
+        /// </summary>
+        public bool IsSelectedAll { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool IsEnabled { get; set; }
+
+        #endregion
+
+        #region Foreign Key
+
+        /// <summary>
+        /// 寝室楼主键
+        /// </summary>
+        public Guid BuildingFK { get; set; }
+
+        [ForeignKey("BuildingFK")]
+        public virtual Building Building { get; set; }
+
+        #endregion
     }
 }

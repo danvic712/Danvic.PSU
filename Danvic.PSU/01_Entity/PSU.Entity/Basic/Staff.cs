@@ -1,31 +1,22 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "Major.cs">
+// <copyright file= "Staff.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018-02-19 20:42:47
+// Date Created: 2018-02-25 15:13:09
 // Modified by:
-// Description: 专业信息表
+// Description: 教职工信息表
 //-----------------------------------------------------------------------
-using PSU.Entity.Dormitory;
-using PSU.Utility.System;
+using PSU.Entity.School;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PSU.Entity.School
+namespace PSU.Entity.Basic
 {
-    public class Major : SysField
+    public class Staff : SysField
     {
         #region Constructed Function
-
-        public Major()
-        {
-            MajorOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
         #endregion
 
         #region Attribute
@@ -34,43 +25,42 @@ namespace PSU.Entity.School
         /// 主键
         /// </summary>
         [Key]
-        public Guid MajorOID { get; set; }
+        public Guid StaffOID { get; set; }
 
         /// <summary>
-        /// 编号
-        /// </summary>
-        [Required]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 专业名称
+        /// 用户姓名
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
 
         /// <summary>
-        /// 所属院系名称
+        /// 工号
         /// </summary>
-        [MaxLength(20)]
-        public string DepartmentName { get; set; }
+        [Required]
+        public int JobNumber { get; set; }
 
         /// <summary>
-        /// 所在校区名称
+        /// 所属院系、部门
         /// </summary>
-        [MaxLength(20)]
-        public string CampusName { get; set; }
+        [MaxLength(50)]
+        public string Department { get; set; }
 
         /// <summary>
-        /// 专业代码
+        /// 所属专业
         /// </summary>
-        public int Code { get; set; }
+        [MaxLength(50)]
+        public string Major { get; set; }
 
         /// <summary>
-        /// 介绍
+        /// 是否为学校负责人
         /// </summary>
-        [MaxLength(200)]
-        public string Introduction { get; set; }
+        public bool IsSupervisor { get; set; }
+
+        /// <summary>
+        /// 是否为院系负责人
+        /// </summary>
+        public bool IsMaster { get; set; }
 
         /// <summary>
         /// 是否启用
@@ -87,15 +77,15 @@ namespace PSU.Entity.School
         public Guid DepartmentFK { get; set; }
 
         /// <summary>
-        /// 校区主键
+        /// 专业主键
         /// </summary>
-        public Guid CampusFK { get; set; }
+        public Guid MajorFK { get; set; }
 
         [ForeignKey("DepartmentFK")]
-        public virtual Department Department { get; set; }
+        public virtual Department UDepartment { get; set; }
 
-        [ForeignKey("CampusFK")]
-        public virtual Campus Campus { get; set; }
+        [ForeignKey("MajorFK")]
+        public virtual Major UMajor { get; set; }
 
         #endregion
     }

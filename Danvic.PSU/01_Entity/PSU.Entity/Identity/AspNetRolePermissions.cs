@@ -5,15 +5,25 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:42:10
 // Modified by:
-// Description: 
+// Description: 网站角色权限表
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Entity.Identity
 {
     public class AspNetRolePermissions
     {
+        #region Attribute
+
+        /// <summary>
+        /// 角色Id
+        /// </summary>
+        public virtual string RoleId { get; set; }
+
+        /// <summary>
+        /// 权限Id
+        /// </summary>
+        public virtual string PermissionId { get; set; }
+
+        #endregion
     }
 }

@@ -22,7 +22,6 @@ namespace PSU.Entity.Admission
             BeddingOID = Guid.NewGuid();
             Id = TimeUtility.GetTimespans();
             CreatedOn = DateTime.Now;
-            //CreatedIp = CommonUtility.GetClientIp();
         }
 
         #endregion
