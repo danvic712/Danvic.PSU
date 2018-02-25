@@ -15,7 +15,7 @@ using System.Text;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    public class HomeController:Controller
+    public class HomeController : Controller
     {
         #region Initialize
         #endregion
@@ -28,6 +28,16 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         public IActionResult Bulletin()
+        {
+            return View();
+        }
+
+        public IActionResult Detail()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
         {
             return View();
         }

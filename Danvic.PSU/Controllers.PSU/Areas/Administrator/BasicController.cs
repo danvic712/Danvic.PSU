@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/10 星期六 15:41:59
 // Modified by:
-// Description: 
+// Description: Administrator-Basic控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +21,27 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region View
+
+        public IActionResult Staff()
+        {
+            return View();
+        }
+
+        public IActionResult Region()
+        {
+            return View();
+        }
+
+        public IActionResult Student()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service

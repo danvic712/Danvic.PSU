@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/10 星期六 15:44:13
 // Modified by:
-// Description: 
+// Description: Administrator-Admission控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +21,31 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region View
+
+        public IActionResult Bedding( )
+        {
+            return View();
+        }
+
+        public IActionResult Question()
+        {
+            return View();
+        }
+
+        public IActionResult Service()
+        {
+            return View();
+        }
+        public IActionResult Suit()
+        {
+            return View();
+        }
+
+        public IActionResult Tuition()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service

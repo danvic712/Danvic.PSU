@@ -196,7 +196,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "学校信息管理"?"display: block;":"")">
                             <li class="@(ViewData["CurrName"].ToString() == "基础信息维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="School" asp-action="Information">
                                     <i class="fa fa-list-ul"></i><span> 基础信息维护 </span>
@@ -222,15 +222,15 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "宿舍信息管理"?"display: block;":"")">
                             <li class="@(ViewData["CurrName"].ToString() == "宿舍楼信息维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Building">
                                     <i class="fa fa-list-ul"></i><span> 宿舍楼信息维护 </span>
                                 </a>
                             </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "宿舍信息维护"?"active":"")">
+                            <li class="@(ViewData["CurrName"].ToString() == "寝室信息维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
-                                    <i class="fa fa-list-ul"></i><span> 宿舍信息维护 </span>
+                                    <i class="fa fa-list-ul"></i><span> 寝室信息维护 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "床铺信息维护"?"active":"")">
@@ -247,7 +247,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "入学信息管理"?"display: block;":"")">
                             <li class="@(ViewData["CurrName"].ToString() == "迎新服务维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Admission" asp-action="Service">
                                     <i class="fa fa-list-ul"></i><span> 迎新服务维护 </span>
@@ -283,7 +283,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "数据统计分析"?"display: block;":"")">
                             <li class="@(ViewData["CurrName"].ToString() == "新生数据分析"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Statistics" asp-action="Student">
                                     <i class="fa fa-list-ul"></i><span> 新生数据分析 </span>
@@ -304,7 +304,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "基础信息管理"?"display: block;":"")">
                             <li class="@(ViewData["CurrName"].ToString() == "个人账户信息"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Basic" asp-action="Profile">
                                     <i class="fa fa-list-ul"></i><span> 个人账户信息 </span>

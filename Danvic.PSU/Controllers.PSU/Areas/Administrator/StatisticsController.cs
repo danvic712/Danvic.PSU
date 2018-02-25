@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/10 星期六 15:45:35
 // Modified by:
-// Description: 
+// Description: Administrator-Statistics控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +21,37 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region View
+
+        public IActionResult Behavior()
+        {
+            return View();
+        }
+
+        public IActionResult BehaviorByChart()
+        {
+            return View();
+        }
+
+        public IActionResult Dormitory()
+        {
+            return View();
+        }
+
+        public IActionResult DormitoryByChart()
+        {
+            return View();
+        }
+
+        public IActionResult Student()
+        {
+            return View();
+        }
+
+        public IActionResult StudentByChart()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service
