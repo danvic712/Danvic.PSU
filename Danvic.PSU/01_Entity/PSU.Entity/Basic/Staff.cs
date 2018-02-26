@@ -7,7 +7,9 @@
 // Modified by:
 // Description: 教职工信息表
 //-----------------------------------------------------------------------
+using PSU.Entity.Identity;
 using PSU.Entity.School;
+using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +19,14 @@ namespace PSU.Entity.Basic
     public class Staff : SysField
     {
         #region Constructed Function
+
+        public Staff()
+        {
+            StaffOID = Guid.NewGuid();
+            JobNumber = TimeUtility.GetTimespans();
+            CreatedOn = DateTime.Now;
+        }
+
         #endregion
 
         #region Attribute
@@ -72,6 +82,11 @@ namespace PSU.Entity.Basic
         #region Foreign Key
 
         /// <summary>
+        /// 账号主键
+        /// </summary>
+        public string AppUserFK { get; set; }
+
+        /// <summary>
         /// 院系主键
         /// </summary>
         public Guid DepartmentFK { get; set; }
@@ -80,6 +95,9 @@ namespace PSU.Entity.Basic
         /// 专业主键
         /// </summary>
         public Guid MajorFK { get; set; }
+
+        [ForeignKey("AppUserFK")]
+        public virtual AppUser AppUser { get; set; }
 
         [ForeignKey("DepartmentFK")]
         public virtual Department UDepartment { get; set; }

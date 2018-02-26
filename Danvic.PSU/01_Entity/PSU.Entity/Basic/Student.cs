@@ -7,6 +7,7 @@
 // Modified by:
 // Description: 学生信息表
 //-----------------------------------------------------------------------
+using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -175,6 +176,11 @@ namespace PSU.Entity.Basic
         #region Foreign Key
 
         /// <summary>
+        /// 账号主键
+        /// </summary>
+        public string AppUserFK { get; set; }
+
+        /// <summary>
         /// 省份主键
         /// </summary>
         public Guid ProvinceFK { get; set; }
@@ -188,6 +194,9 @@ namespace PSU.Entity.Basic
         /// 县区主键
         /// </summary>
         public Guid DistrictFK { get; set; }
+
+        [ForeignKey("AppUserFK")]
+        public virtual AppUser AppUser { get; set; }
 
         [ForeignKey("ProvinceFK")]
         public virtual Region SProvince { get; set; }

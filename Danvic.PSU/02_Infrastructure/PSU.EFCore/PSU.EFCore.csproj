@@ -5,12 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.0.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\01_Entity\PSU.Entity\PSU.Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.identity.entityframeworkcore\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

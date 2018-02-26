@@ -91,7 +91,9 @@ namespace Controllers.PSU
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: true);
+
+                //Todo:根据用户角色创建claim进行权限验证
 
                 if (result.Succeeded)
                 {

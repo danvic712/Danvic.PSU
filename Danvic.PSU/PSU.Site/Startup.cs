@@ -93,6 +93,15 @@ namespace PSU.Site
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            //Add Policy Based on Role
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministrator", policy => policy.RequireRole("Administrator"));
+                options.AddPolicy("RequireInstructor", policy => policy.RequireRole("Instructor"));
+                options.AddPolicy("RequireStudent", policy => policy.RequireRole("Student"));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

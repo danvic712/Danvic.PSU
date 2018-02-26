@@ -7,7 +7,6 @@
 // Modified by:
 // Description: 网站公告表
 //-----------------------------------------------------------------------
-using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -79,7 +78,7 @@ namespace PSU.Entity.Basic
         public string PublisherFK { get; set; }
 
         [ForeignKey("PublisherFK")]
-        public virtual AppUser Publish { get; set; }
+        public virtual Staff Publish { get; set; }
 
         #endregion
     }

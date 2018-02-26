@@ -14,24 +14,15 @@ using PSU.Entity.Dormitory;
 using PSU.Entity.Identity;
 using PSU.Entity.School;
 using PSU.Entity.SignUp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.EFCore
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        { }
 
-        #region Create Table 
-
-        /// <summary>
-        /// 网站公告表
-        /// </summary>
-        public virtual DbSet<Bulletin> Announcement { get; set; }
+        #region Admission
 
         /// <summary>
         /// 卧具信息表
@@ -39,9 +30,52 @@ namespace PSU.EFCore
         public virtual DbSet<Bedding> Bedding { get; set; }
 
         /// <summary>
-        /// 选取卧具信息表
+        /// 学生提问表
         /// </summary>
-        public virtual DbSet<BeddingInfo> BeddingInfo { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
+
+        /// <summary>
+        /// 迎新车辆服务表
+        /// </summary>
+        public virtual DbSet<Service> Service { get; set; }
+
+        /// <summary>
+        /// 制服信息表
+        /// </summary>
+        public virtual DbSet<Suit> Suit { get; set; }
+
+        /// <summary>
+        /// 金额信息表
+        /// </summary>
+        public virtual DbSet<Tuition> Tuition { get; set; }
+
+        #endregion
+
+        #region Basic
+
+        /// <summary>
+        /// 网站公告表
+        /// </summary>
+        public virtual DbSet<Bulletin> Bulletin { get; set; }
+
+        /// <summary>
+        /// 地区信息表
+        /// </summary>
+        public virtual DbSet<Region> Region { get; set; }
+
+        /// <summary>
+        /// 教职工信息表
+        /// </summary>
+        public virtual DbSet<Staff> Staff { get; set; }
+
+        /// <summary>
+        /// 学生信息表
+        /// </summary>
+        public virtual DbSet<Student> Student { get; set; }
+
+        #endregion
+
+        #region Dormitory
 
         /// <summary>
         /// 寝室楼信息表
@@ -54,14 +88,26 @@ namespace PSU.EFCore
         public virtual DbSet<Bunk> Bunk { get; set; }
 
         /// <summary>
-        /// 选取床铺信息表
-        /// </summary>
-        public virtual DbSet<BunkInfo> BunkInfo { get; set; }
-
-        /// <summary>
         /// 校区信息表
         /// </summary>
         public virtual DbSet<Campus> Campus { get; set; }
+
+        /// <summary>
+        /// 寝室信息表
+        /// </summary>
+        public virtual DbSet<Dorm> Dorm { get; set; }
+
+        #endregion
+
+        #region Identity
+
+        public virtual DbSet<AppUser> IdentityUser { get; set; }
+
+        public virtual DbSet<AppRole> IdentityRole { get; set; }
+
+        #endregion
+
+        #region School
 
         /// <summary>
         /// 学校信息表
@@ -74,11 +120,6 @@ namespace PSU.EFCore
         public virtual DbSet<Department> Department { get; set; }
 
         /// <summary>
-        /// 寝室信息表
-        /// </summary>
-        public virtual DbSet<Dorm> Dorm { get; set; }
-
-        /// <summary>
         /// 专业信息表
         /// </summary>
         public virtual DbSet<Major> Major { get; set; }
@@ -88,15 +129,19 @@ namespace PSU.EFCore
         /// </summary>
         public virtual DbSet<MajorClass> MajorClass { get; set; }
 
-        /// <summary>
-        /// 学生提问表
-        /// </summary>
-        public virtual DbSet<Question> Question { get; set; }
+        #endregion
+
+        #region SignUp
 
         /// <summary>
-        /// 地区信息表
+        /// 选取卧具信息表
         /// </summary>
-        public virtual DbSet<Region> Region { get; set; }
+        public virtual DbSet<BeddingInfo> BeddingInfo { get; set; }
+
+        /// <summary>
+        /// 选取床铺信息表
+        /// </summary>
+        public virtual DbSet<BunkInfo> BunkInfo { get; set; }
 
         /// <summary>
         /// 已报名信息表
@@ -104,39 +149,14 @@ namespace PSU.EFCore
         public virtual DbSet<Register> Register { get; set; }
 
         /// <summary>
-        /// 教职工信息表
-        /// </summary>
-        public virtual DbSet<Staff> Staff { get; set; }
-
-        /// <summary>
-        /// 迎新车辆服务表
-        /// </summary>
-        public virtual DbSet<Service> Service { get; set; }
-
-        /// <summary>
         /// 预定车辆服务信息表
         /// </summary>
         public virtual DbSet<ServiceInfo> ServiceInfo { get; set; }
 
         /// <summary>
-        /// 学生信息表
-        /// </summary>
-        public virtual DbSet<Student> Student { get; set; }
-
-        /// <summary>
-        /// 制服信息表
-        /// </summary>
-        public virtual DbSet<Suit> Suit { get; set; }
-
-        /// <summary>
         /// 选择制服信息表
         /// </summary>
         public virtual DbSet<SuitInfo> SuitInfo { get; set; }
-
-        /// <summary>
-        /// 金额信息表
-        /// </summary>
-        public virtual DbSet<Tuition> Tuition { get; set; }
 
         /// <summary>
         /// 新生缴费金额信息表
@@ -150,6 +170,10 @@ namespace PSU.EFCore
             base.OnModelCreating(modelBuilder);
 
             #region Cancel Cascading Deletion
+
+
+
+
             //modelBuilder.Entity<Question>().HasRequired<Student>(s => s.Student).WithMany().WillCascadeOnDelete(false);
             //modelBuilder.Entity<Question>().HasRequired<AppUser>(s => s.AskFor).WithMany().WillCascadeOnDelete(false);
             //modelBuilder.Entity<Question>().HasRequired<AppUser>(s => s.Reply).WithMany().WillCascadeOnDelete(false);

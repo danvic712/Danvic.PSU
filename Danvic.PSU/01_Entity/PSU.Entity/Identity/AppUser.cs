@@ -13,5 +13,18 @@ namespace PSU.Entity.Identity
 {
     public class AppUser : IdentityUser
     {
+        #region Attribute
+
+        ///// <summary>
+        ///// 账号对应的教职工信息
+        ///// </summary>
+        //public Staff Staff { get; set; }
+
+        ///// <summary>
+        ///// 账号对应的学生账户
+        ///// </summary>
+        //public Student Student { get; set; }
+
+        #endregion
     }
 }

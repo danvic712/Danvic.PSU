@@ -7,6 +7,7 @@
 // Modified by:
 // Description: 专业班级表
 //-----------------------------------------------------------------------
+using PSU.Entity.Basic;
 using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
@@ -94,13 +95,13 @@ namespace PSU.Entity.School
         /// <summary>
         /// 辅导员主键
         /// </summary>
-        public string InstructorFK { get; set; }
+        public Guid InstructorFK { get; set; }
 
         [ForeignKey("MajorFK")]
         public virtual Major Major { get; set; }
 
         [ForeignKey("InstructorFK")]
-        public virtual AppUser Instructor { get; set; }
+        public virtual Staff Instructor { get; set; }
 
         #endregion
     }

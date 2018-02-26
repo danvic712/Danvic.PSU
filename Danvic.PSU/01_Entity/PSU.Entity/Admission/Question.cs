@@ -131,10 +131,10 @@ namespace PSU.Entity.Admission
         public virtual Student Student { get; set; }
 
         [ForeignKey("AskForFK")]
-        public virtual AppUser AskFor { get; set; }
+        public virtual Staff AskFor { get; set; }
 
         [ForeignKey("ReplyFK")]
-        public virtual AppUser Reply { get; set; }
+        public virtual Staff Reply { get; set; }
 
         #endregion
     }
