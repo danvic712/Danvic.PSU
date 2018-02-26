@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-Basic控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Text;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class BasicController:Controller
     {
         #region Initialize
