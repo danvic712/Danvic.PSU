@@ -18,29 +18,19 @@ namespace PSU.Entity.Admission
 {
     public class Question
     {
-        #region Constructed Function
-
-        public Question()
-        {
-            QuestionOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid QuestionOID { get; set; }
+        public string QuestionOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 学生姓名
@@ -115,7 +105,7 @@ namespace PSU.Entity.Admission
         /// <summary>
         /// 提问学生外键
         /// </summary>
-        public Guid StudentFK { get; set; }
+        public string StudentFK { get; set; }
 
         /// <summary>
         /// 提问对象主键

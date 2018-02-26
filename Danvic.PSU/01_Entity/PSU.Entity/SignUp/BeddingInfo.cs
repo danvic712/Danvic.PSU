@@ -18,30 +18,19 @@ namespace PSU.Entity.SignUp
 {
     public class BeddingInfo
     {
-        #region Constructed Function
-
-        public BeddingInfo()
-        {
-            BeddingInfoOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            ChosenTime = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid BeddingInfoOID { get; set; }
+        public string BeddingInfoOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 选择学生姓名
@@ -72,7 +61,7 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 选择时间
         /// </summary>
-        public DateTime ChosenTime { get; set; }
+        public DateTime ChosenTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 备注
@@ -87,12 +76,12 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 学生主键
         /// </summary>
-        public Guid StudentFK { get; set; }
+        public string StudentFK { get; set; }
 
         /// <summary>
         /// 卧具信息主键
         /// </summary>
-        public Guid BeddingFK { get; set; }
+        public string BeddingFK { get; set; }
 
         [ForeignKey("StudentFK")]
         public virtual Student Student { get; set; }

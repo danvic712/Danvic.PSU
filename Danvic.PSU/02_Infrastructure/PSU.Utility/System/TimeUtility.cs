@@ -29,9 +29,9 @@ namespace PSU.Utility.System
         /// 获取当前时间的序列
         /// </summary>
         /// <returns></returns>
-        public static int GetTimespans()
+        public static long GetTimespans()
         {
-            return Convert.ToInt32(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            return Convert.ToInt64(DateTime.Now.ToString("yyyyMMddHHmmss"));
         }
 
         #endregion

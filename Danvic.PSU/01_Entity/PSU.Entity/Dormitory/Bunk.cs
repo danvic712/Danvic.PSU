@@ -17,30 +17,19 @@ namespace PSU.Entity.Dormitory
 {
     public class Bunk : SysField
     {
-        #region Constructed Function
-
-        public Bunk()
-        {
-            BunkOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid BunkOID { get; set; }
+        public string BunkOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 所属寝室名称
@@ -91,12 +80,12 @@ namespace PSU.Entity.Dormitory
         /// <summary>
         /// 所属寝室主键
         /// </summary>
-        public Guid DormFK { get; set; }
+        public string DormFK { get; set; }
 
         /// <summary>
         /// 选择学生主键
         /// </summary>
-        public Guid StudentFK { get; set; }
+        public string StudentFK { get; set; }
 
         [ForeignKey("DormFK")]
         public virtual Dorm Dorm { get; set; }

@@ -16,30 +16,19 @@ namespace PSU.Entity.Basic
 {
     public class Bulletin : SysField
     {
-        #region Constructed Function
-
-        public Bulletin()
-        {
-            BulletinOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid BulletinOID { get; set; }
+        public string BulletinOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 标题

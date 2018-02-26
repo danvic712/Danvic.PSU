@@ -17,30 +17,19 @@ namespace PSU.Entity.Basic
 {
     public class Student : SysField
     {
-        #region Constructed Function
-
-        public Student()
-        {
-            StudentOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid StudentOID { get; set; }
+        public string StudentOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 姓名
@@ -183,17 +172,17 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 省份主键
         /// </summary>
-        public Guid ProvinceFK { get; set; }
+        public string ProvinceFK { get; set; }
 
         /// <summary>
         /// 城市主键
         /// </summary>
-        public Guid CityFK { get; set; }
+        public string CityFK { get; set; }
 
         /// <summary>
         /// 县区主键
         /// </summary>
-        public Guid DistrictFK { get; set; }
+        public string DistrictFK { get; set; }
 
         [ForeignKey("AppUserFK")]
         public virtual AppUser AppUser { get; set; }

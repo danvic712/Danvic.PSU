@@ -18,30 +18,19 @@ namespace PSU.Entity.SignUp
 {
     public class BunkInfo
     {
-        #region Constructed Function
-
-        public BunkInfo()
-        {
-            BunkInfoOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            ChosenTime = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid BunkInfoOID { get; set; }
+        public string BunkInfoOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 学生姓名
@@ -86,7 +75,7 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 选择时间
         /// </summary>
-        public DateTime ChosenTime { get; set; }
+        public DateTime ChosenTime { get; set; } = DateTime.Now;
 
         #endregion
 
@@ -95,17 +84,17 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 学生主键
         /// </summary>
-        public Guid StudentFK { get; set; }
+        public string StudentFK { get; set; }
 
         /// <summary>
         /// 寝室楼主键
         /// </summary>
-        public Guid BuildingFK { get; set; }
+        public string BuildingFK { get; set; }
 
         /// <summary>
         /// 寝室主键
         /// </summary>
-        public Guid DormFK { get; set; }
+        public string DormFK { get; set; }
 
         [ForeignKey("StudentFK")]
         public virtual Student Student { get; set; }

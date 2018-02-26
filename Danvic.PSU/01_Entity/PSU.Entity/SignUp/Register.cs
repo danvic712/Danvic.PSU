@@ -15,28 +15,18 @@ namespace PSU.Entity.SignUp
 {
     public class Register
     {
-        #region Constructed Function
-
-        public Register()
-        {
-            RegisterOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid RegisterOID { get; set; }
+        public string RegisterOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 学生姓名

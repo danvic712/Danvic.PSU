@@ -19,7 +19,7 @@ namespace PSU.Entity
         /// <summary>
         /// 创建人主键
         /// </summary>
-        public Guid CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         /// <summary>
         /// 创建人IP地址
@@ -35,12 +35,12 @@ namespace PSU.Entity
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 修改人主键
         /// </summary>
-        public Guid ModifiedBy { get; set; }
+        public string ModifiedBy { get; set; }
 
         /// <summary>
         /// 修改人IP地址

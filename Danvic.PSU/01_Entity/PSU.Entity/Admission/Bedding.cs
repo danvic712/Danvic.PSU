@@ -8,37 +8,25 @@
 // Description: 卧具信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.Admission
 {
     public class Bedding : SysField
     {
-        #region Constructed Function
-
-        public Bedding()
-        {
-            BeddingOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid BeddingOID { get; set; }
+        public string BeddingOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 物品名称

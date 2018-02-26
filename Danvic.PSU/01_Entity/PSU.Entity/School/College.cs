@@ -15,30 +15,19 @@ namespace PSU.Entity.School
 {
     public class College : SysField
     {
-        #region Constructed Function
-
-        public College()
-        {
-            CollegeOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid CollegeOID { get; set; }
+        public string CollegeOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 中文名称

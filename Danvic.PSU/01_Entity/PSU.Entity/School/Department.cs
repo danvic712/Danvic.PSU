@@ -17,30 +17,19 @@ namespace PSU.Entity.School
 {
     public class Department : SysField
     {
-        #region Constructed Function
-
-        public Department()
-        {
-            DepartmentOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid DepartmentOID { get; set; }
+        public string DepartmentOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 院系名称
@@ -116,12 +105,12 @@ namespace PSU.Entity.School
         /// <summary>
         /// 学校主键
         /// </summary>
-        public Guid CollageFK { get; set; }
+        public string CollageFK { get; set; }
 
         /// <summary>
         /// 校区主键
         /// </summary>
-        public Guid CampusFK { get; set; }
+        public string CampusFK { get; set; }
 
         [ForeignKey("CollageFK")]
         public virtual College Collage { get; set; }

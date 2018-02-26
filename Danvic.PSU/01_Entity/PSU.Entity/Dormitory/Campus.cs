@@ -17,30 +17,19 @@ namespace PSU.Entity.Dormitory
 {
     public class Campus : SysField
     {
-        #region Constructed Function
-
-        public Campus()
-        {
-            CampusOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid CampusOID { get; set; }
+        public string CampusOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 校区名称
@@ -99,17 +88,17 @@ namespace PSU.Entity.Dormitory
         /// <summary>
         /// 省份主键
         /// </summary>
-        public Guid ProvinceFK { get; set; }
+        public string ProvinceFK { get; set; }
 
         /// <summary>
         /// 城市主键
         /// </summary>
-        public Guid CityFK { get; set; }
+        public string CityFK { get; set; }
 
         /// <summary>
         /// 县区主键
         /// </summary>
-        public Guid DistrictFK { get; set; }
+        public string DistrictFK { get; set; }
 
         [ForeignKey("ProvinceFK")]
         public virtual Region CProvince { get; set; }

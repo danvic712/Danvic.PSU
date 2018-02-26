@@ -18,24 +18,13 @@ namespace PSU.Entity.Basic
 {
     public class Staff : SysField
     {
-        #region Constructed Function
-
-        public Staff()
-        {
-            StaffOID = Guid.NewGuid();
-            JobNumber = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid StaffOID { get; set; }
+        public string StaffOID { get; set; }
 
         /// <summary>
         /// 用户姓名
@@ -48,7 +37,7 @@ namespace PSU.Entity.Basic
         /// 工号
         /// </summary>
         [Required]
-        public int JobNumber { get; set; }
+        public long JobNumber { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 所属院系、部门
@@ -89,12 +78,12 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 院系主键
         /// </summary>
-        public Guid DepartmentFK { get; set; }
+        public string DepartmentFK { get; set; }
 
         /// <summary>
         /// 专业主键
         /// </summary>
-        public Guid MajorFK { get; set; }
+        public string MajorFK { get; set; }
 
         [ForeignKey("AppUserFK")]
         public virtual AppUser AppUser { get; set; }

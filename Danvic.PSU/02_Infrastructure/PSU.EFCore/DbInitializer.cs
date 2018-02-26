@@ -28,21 +28,21 @@ namespace PSU.EFCore
                 return;
             }
 
-            AppUser user = new AppUser
-            {
-                UserName = "Admin",
-                Email = "admin@example.com",
+            //AppUser user = new AppUser
+            //{
+            //    UserName = "Admin",
+            //    Email = "admin@example.com",
 
-            };
-            context.IdentityUser.Add(user);
-            context.SaveChanges();
+            //};
+            //context.IdentityUser.Add(user);
+            //context.SaveChanges();
 
-            AppRole role = new AppRole
-            {
+            //AppRole role = new AppRole
+            //{
 
-            };
-            context.IdentityRole.Add(role);
-            context.SaveChanges();
+            //};
+            //context.IdentityRole.Add(role);
+            //context.SaveChanges();
 
 
 

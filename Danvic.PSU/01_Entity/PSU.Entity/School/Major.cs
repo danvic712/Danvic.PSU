@@ -17,30 +17,19 @@ namespace PSU.Entity.School
 {
     public class Major : SysField
     {
-        #region Constructed Function
-
-        public Major()
-        {
-            MajorOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid MajorOID { get; set; }
+        public string MajorOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 专业名称
@@ -84,12 +73,12 @@ namespace PSU.Entity.School
         /// <summary>
         /// 院系主键
         /// </summary>
-        public Guid DepartmentFK { get; set; }
+        public string DepartmentFK { get; set; }
 
         /// <summary>
         /// 校区主键
         /// </summary>
-        public Guid CampusFK { get; set; }
+        public string CampusFK { get; set; }
 
         [ForeignKey("DepartmentFK")]
         public virtual Department Department { get; set; }

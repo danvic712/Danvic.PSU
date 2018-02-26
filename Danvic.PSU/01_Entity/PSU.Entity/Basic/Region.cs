@@ -14,16 +14,13 @@ namespace PSU.Entity.Basic
 {
     public class Region
     {
-        #region Constructed Function
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid RegionOID { get; set; }
+        public string RegionOID { get; set; }
 
         #endregion
     }

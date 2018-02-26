@@ -15,29 +15,19 @@ namespace PSU.Entity.SignUp
 {
     public class TuitionInfo
     {
-        #region Constructed Function
-
-        public TuitionInfo()
-        {
-            TuitionInfoOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid TuitionInfoOID { get; set; }
+        public string TuitionInfoOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 学生姓名

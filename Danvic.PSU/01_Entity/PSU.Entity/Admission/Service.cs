@@ -15,30 +15,19 @@ namespace PSU.Entity.Admission
 {
     public class Service : SysField
     {
-        #region Constructed Function
-
-        public Service()
-        {
-            ServiceOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid ServiceOID { get; set; }
+        public string ServiceOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 名称

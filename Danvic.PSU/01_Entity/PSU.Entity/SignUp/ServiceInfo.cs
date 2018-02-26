@@ -15,30 +15,19 @@ namespace PSU.Entity.SignUp
 {
     public class ServiceInfo
     {
-        #region Constructed Function
-
-        public ServiceInfo()
-        {
-            ServiceInfoOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            ScheduledTime = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid ServiceInfoOID { get; set; }
+        public string ServiceInfoOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 预订人姓名
@@ -59,7 +48,7 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 预定时间
         /// </summary>
-        public DateTime ScheduledTime { get; set; }
+        public DateTime ScheduledTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 预计出发时间

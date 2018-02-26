@@ -15,30 +15,19 @@ namespace PSU.Entity.Admission
 {
     public class Tuition : SysField
     {
-        #region Constructed Function
-
-        public Tuition()
-        {
-            TuitionOID = Guid.NewGuid();
-            Id = TimeUtility.GetTimespans();
-            CreatedOn = DateTime.Now;
-        }
-
-        #endregion
-
         #region Attribute
 
         /// <summary>
         /// 主键
         /// </summary>
         [Key]
-        public Guid TuitionOID { get; set; }
+        public string TuitionOID { get; set; }
 
         /// <summary>
         /// 编号
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 收费项目名称
