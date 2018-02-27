@@ -9,7 +9,6 @@
 //-----------------------------------------------------------------------
 using PSU.Entity.Dormitory;
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -92,6 +91,11 @@ namespace PSU.Entity.School
         /// </summary>
         [MaxLength(500)]
         public string ImageSrc { get; set; }
+
+        /// <summary>
+        /// 展示图二进制流
+        /// </summary>
+        public byte Image { get; set; }
 
         /// <summary>
         /// 是否启用

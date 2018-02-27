@@ -8,7 +8,6 @@
 // Description: 学生提问表
 //-----------------------------------------------------------------------
 using PSU.Entity.Basic;
-using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;

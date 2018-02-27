@@ -10,4 +10,4 @@ html,body{height:100%}.layout-boxed html,.layout-boxed body{height:100%}body{fon
  *   Login Page Style v1.0.0
  *   Author: Danvic712
  */
-.login-msg-box{margin-bottom:25px}.login-error-msg{margin-top:3px;background-color:#ff7851 !important}
+body{background:url(../../images/template/boxed-bg.jpg) repeat fixed}.login-msg-box{margin-bottom:25px}.login-error-msg{margin-top:3px;background-color:#ff7851 !important}

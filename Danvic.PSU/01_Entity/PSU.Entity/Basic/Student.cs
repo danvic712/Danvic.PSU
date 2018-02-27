@@ -26,7 +26,7 @@ namespace PSU.Entity.Basic
         public string StudentOID { get; set; }
 
         /// <summary>
-        /// 编号
+        /// 学号
         /// </summary>
         [Required]
         public long Id { get; set; } = TimeUtility.GetTimespans();
@@ -52,12 +52,6 @@ namespace PSU.Entity.Basic
         /// 生日日期
         /// </summary>
         public DateTime Birthday { get; set; }
-
-        /// <summary>
-        /// 图片地址
-        /// </summary>
-        [MaxLength(500)]
-        public string ImageSrc { get; set; }
 
         /// <summary>
         /// 详细地址
@@ -94,12 +88,6 @@ namespace PSU.Entity.Basic
         /// </summary>
         [MaxLength(50)]
         public string District { get; set; }
-
-        /// <summary>
-        /// 学号
-        /// </summary>
-        [Required]
-        public int SId { get; set; }
 
         /// <summary>
         /// 系部名称
@@ -167,7 +155,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 账号主键
         /// </summary>
-        public string AppUserFK { get; set; }
+        public string IdentityUserFK { get; set; }
 
         /// <summary>
         /// 省份主键
@@ -184,8 +172,8 @@ namespace PSU.Entity.Basic
         /// </summary>
         public string DistrictFK { get; set; }
 
-        [ForeignKey("AppUserFK")]
-        public virtual AppUser AppUser { get; set; }
+        [ForeignKey("IdentityUserFK")]
+        public virtual AppUser IdentityUser { get; set; }
 
         [ForeignKey("ProvinceFK")]
         public virtual Region SProvince { get; set; }

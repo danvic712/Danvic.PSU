@@ -7,12 +7,9 @@
 // Modified by:
 // Description: 新生选择卧具信息表
 //-----------------------------------------------------------------------
-using PSU.Entity.Admission;
-using PSU.Entity.Basic;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.SignUp
 {
@@ -37,20 +34,26 @@ namespace PSU.Entity.SignUp
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string SName { get; set; }
+        public string StudentName { get; set; }
 
         /// <summary>
         /// 选择学生学号
         /// </summary>
         [Required]
-        public int SId { get; set; }
+        public long StudentId { get; set; }
+
+        /// <summary>
+        /// 选择卧具Id
+        /// </summary>
+        [Required]
+        public long BeddingId { get; set; }
 
         /// <summary>
         /// 卧具类型名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string BName { get; set; }
+        public string BeddingName { get; set; }
 
         /// <summary>
         /// 卧具信息描述
@@ -68,26 +71,6 @@ namespace PSU.Entity.SignUp
         /// </summary>
         [MaxLength(200)]
         public string Remark { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 学生主键
-        /// </summary>
-        public string StudentFK { get; set; }
-
-        /// <summary>
-        /// 卧具信息主键
-        /// </summary>
-        public string BeddingFK { get; set; }
-
-        [ForeignKey("StudentFK")]
-        public virtual Student Student { get; set; }
-
-        [ForeignKey("BeddingFK")]
-        public virtual Bedding Bedding { get; set; }
 
         #endregion
     }

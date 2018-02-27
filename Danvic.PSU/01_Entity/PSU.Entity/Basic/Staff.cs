@@ -10,7 +10,6 @@
 using PSU.Entity.Identity;
 using PSU.Entity.School;
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,17 +26,17 @@ namespace PSU.Entity.Basic
         public string StaffOID { get; set; }
 
         /// <summary>
+        /// 工号
+        /// </summary>
+        [Required]
+        public long Id { get; set; } = TimeUtility.GetTimespans();
+
+        /// <summary>
         /// 用户姓名
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
-
-        /// <summary>
-        /// 工号
-        /// </summary>
-        [Required]
-        public long JobNumber { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
         /// 所属院系、部门
@@ -73,7 +72,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 账号主键
         /// </summary>
-        public string AppUserFK { get; set; }
+        public string IdentityUserFK { get; set; }
 
         /// <summary>
         /// 院系主键
@@ -85,8 +84,8 @@ namespace PSU.Entity.Basic
         /// </summary>
         public string MajorFK { get; set; }
 
-        [ForeignKey("AppUserFK")]
-        public virtual AppUser AppUser { get; set; }
+        [ForeignKey("IdentityUserFK")]
+        public virtual AppUser IdentityUser { get; set; }
 
         [ForeignKey("DepartmentFK")]
         public virtual Department UDepartment { get; set; }

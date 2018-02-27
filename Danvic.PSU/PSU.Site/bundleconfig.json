@@ -40,5 +40,18 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/index.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/echarts.common.min.js",
+      "wwwroot/javascript/template/macarons.js",
+      "wwwroot/javascript/view/Administrator/index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

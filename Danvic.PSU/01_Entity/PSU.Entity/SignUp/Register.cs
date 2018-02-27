@@ -36,6 +36,12 @@ namespace PSU.Entity.SignUp
         public string Name { get; set; }
 
         /// <summary>
+        /// 学生学号
+        /// </summary>
+        [Required]
+        public long StudentId { get; set; }
+
+        /// <summary>
         /// 来校方式
         /// 1:火车;2:客车;3:飞机;4:自驾;5:客船;6:其它
         /// </summary>

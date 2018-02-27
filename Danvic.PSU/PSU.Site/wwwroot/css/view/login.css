@@ -3,6 +3,7 @@
  *   Author: Danvic712
  */
 body {
+    background: url(../../images/template/boxed-bg.jpg) repeat fixed;
 }
 
 .login-msg-box {

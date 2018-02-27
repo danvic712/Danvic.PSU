@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"] - Danvic.PSU</title>
+    <title>@ViewData["Title"] - 稷下园</title>
     <environment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -24,6 +24,9 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link href="~/css/view/layout.min.css" rel="stylesheet" asp-append-version="true" />
     </environment>
+
+    @RenderSection("styles", false)
+
 </head>
 <body class="sidebar-mini skin-green fixed" style="height: auto; min-height: 100%;">
     <div class="wrapper" style="height: auto; min-height: 100%;">
@@ -135,20 +138,6 @@
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
@@ -339,12 +328,17 @@
         <!-- 尾部版权 -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 1.1.0
+                Powered By <span class="text-blue">Danvic712</span>
+                <a href="https://github.com/Lanesra712/Danvic.PSU" target="_blank">
+                    <i class="fa fa-github text-black"></i>
+                </a>
+                <a href="https://weibo.com/Lanesra712" target="_blank">
+                    <i class="fa fa-weibo text-danger"></i>
+                </a>
             </div>
-            <strong>
-                Copyright  &copy; 2017 - @DateTime.Now.Year Powered By
-                <a href="https://github.com/Lanesra712/Danvic.PSU" target="_blank"> Danvic712 </a>
-            </strong>
+            <p>
+                Copyright  &copy; 2017 - @DateTime.Now.Year <a href="javascript:void(0)"> 稷下园 </a> 版权所有
+            </p>
         </footer>
     </div>
 
@@ -364,6 +358,9 @@
         </script>
         <script src="~/javascript/view/layout.min.js" asp-append-version="true"></script>
     </environment>
+
+    @RenderSection("scripts", false)
+
 </body>
 </html>
 

@@ -8,6 +8,7 @@
 // Description: 网站用户类
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.Identity
 {
@@ -15,15 +16,16 @@ namespace PSU.Entity.Identity
     {
         #region Attribute
 
-        ///// <summary>
-        ///// 账号对应的教职工信息
-        ///// </summary>
-        //public Staff Staff { get; set; }
+        /// <summary>
+        /// 图片地址
+        /// </summary>
+        [MaxLength(500)]
+        public string ImageSrc { get; set; }
 
-        ///// <summary>
-        ///// 账号对应的学生账户
-        ///// </summary>
-        //public Student Student { get; set; }
+        /// <summary>
+        /// 图片二进制流
+        /// </summary>
+        public byte Image { get; set; }
 
         #endregion
     }

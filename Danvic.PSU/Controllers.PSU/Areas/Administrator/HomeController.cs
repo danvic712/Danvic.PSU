@@ -5,13 +5,12 @@
 // Author: Danvic712
 // Date Created: 2018-02-08 19:35:43
 // Modified by:
-// Description: Administrator-Home控制器
+// Description: Administrator-Home-控制器
 //-----------------------------------------------------------------------
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Logging;
+using PSU.IService.Areas.Administrator;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
 {
@@ -20,13 +19,30 @@ namespace Controllers.PSU.Areas.Administrator
     public class HomeController : Controller
     {
         #region Initialize
+
+        private readonly IHomeService _service;
+
+        private readonly ILogger _logger;
+
+        public HomeController(IHomeService service, ILogger<HomeController> logger)
+        {
+            _service = service;
+            _logger = logger;
+        }
+
         #endregion
 
         #region View
 
-        public IActionResult Index()
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var webModel = await _service.InitPageAsync();
+            return View(webModel);
         }
 
         public IActionResult Bulletin()

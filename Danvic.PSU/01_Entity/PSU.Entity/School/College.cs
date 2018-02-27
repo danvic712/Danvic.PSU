@@ -91,7 +91,7 @@ namespace PSU.Entity.School
         public string Description { get; set; }
 
         /// <summary>
-        /// 介绍
+        /// 详细介绍
         /// </summary>
         [MaxLength(500)]
         public string Introduction { get; set; }
@@ -103,34 +103,20 @@ namespace PSU.Entity.School
         public string SchoolBadge { get; set; }
 
         /// <summary>
-        /// 宣传图1
+        /// 校徽图片二进制流
         /// </summary>
-        [MaxLength(500)]
-        public string PromotionalOne { get; set; }
+        public byte Badge { get; set; }
 
         /// <summary>
-        /// 宣传图2
+        /// 宣传图地址
         /// </summary>
         [MaxLength(500)]
-        public string PromotionalTwo { get; set; }
+        public string ImageSrc { get; set; }
 
         /// <summary>
-        /// 宣传图3
+        /// 宣传图二进制流
         /// </summary>
-        [MaxLength(500)]
-        public string PromotionalThree { get; set; }
-
-        /// <summary>
-        /// 宣传图4
-        /// </summary>
-        [MaxLength(500)]
-        public string PromotionalFour { get; set; }
-
-        /// <summary>
-        /// 宣传图5
-        /// </summary>
-        [MaxLength(500)]
-        public string PromotionalFive { get; set; }
+        public byte Image { get; set; }
 
         /// <summary>
         /// 是否启用

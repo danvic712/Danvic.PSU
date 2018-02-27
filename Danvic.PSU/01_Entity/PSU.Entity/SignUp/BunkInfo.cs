@@ -7,12 +7,9 @@
 // Modified by:
 // Description: 新生选择床铺信息表
 //-----------------------------------------------------------------------
-using PSU.Entity.Basic;
-using PSU.Entity.Dormitory;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.SignUp
 {
@@ -37,20 +34,26 @@ namespace PSU.Entity.SignUp
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string SName { get; set; }
+        public string StudentName { get; set; }
 
         /// <summary>
         /// 学生学号
         /// </summary>
         [Required]
-        public int SId { get; set; }
+        public long StudentId { get; set; }
+
+        /// <summary>
+        /// 寝室楼Id
+        /// </summary>
+        [Required]
+        public long BuildingId { get; set; }
 
         /// <summary>
         /// 寝室楼名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string BName { get; set; }
+        public string BuildingName { get; set; }
 
         /// <summary>
         /// 寝室所在楼层数
@@ -59,51 +62,35 @@ namespace PSU.Entity.SignUp
         public int Floor { get; set; }
 
         /// <summary>
+        /// 寝室Id
+        /// </summary>
+        [Required]
+        public long DormId { get; set; }
+
+        /// <summary>
         /// 寝室名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string DName { get; set; }
+        public string DormName { get; set; }
+
+        /// <summary>
+        /// 床铺Id
+        /// </summary>
+        [Required]
+        public long BunkId { get; set; }
 
         /// <summary>
         /// 床铺号
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string BNum { get; set; }
+        public string BunkNumber { get; set; }
 
         /// <summary>
         /// 选择时间
         /// </summary>
         public DateTime ChosenTime { get; set; } = DateTime.Now;
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 学生主键
-        /// </summary>
-        public string StudentFK { get; set; }
-
-        /// <summary>
-        /// 寝室楼主键
-        /// </summary>
-        public string BuildingFK { get; set; }
-
-        /// <summary>
-        /// 寝室主键
-        /// </summary>
-        public string DormFK { get; set; }
-
-        [ForeignKey("StudentFK")]
-        public virtual Student Student { get; set; }
-
-        [ForeignKey("BuildingFK")]
-        public virtual Building Building { get; set; }
-
-        [ForeignKey("DormFK")]
-        public virtual Dorm Dorm { get; set; }
 
         #endregion
     }

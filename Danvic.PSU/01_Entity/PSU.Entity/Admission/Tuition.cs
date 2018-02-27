@@ -8,7 +8,6 @@
 // Description: 金额信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.Admission

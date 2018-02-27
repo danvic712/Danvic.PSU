@@ -7,8 +7,9 @@
 // Modified by:
 // Description: 地区信息表
 //-----------------------------------------------------------------------
-using System;
+using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Basic
 {
@@ -21,6 +22,36 @@ namespace PSU.Entity.Basic
         /// </summary>
         [Key]
         public string RegionOID { get; set; }
+
+        /// <summary>
+        /// 编号
+        /// </summary>
+        [Required]
+        public long Id { get; set; } = TimeUtility.GetTimespans();
+
+        /// <summary>
+        /// 地区名称
+        /// </summary>
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 地区级别
+        /// </summary>
+        public short Level { get; set; }
+
+        #endregion
+
+        #region Foreign Key
+
+        /// <summary>
+        /// 父级地区主键
+        /// </summary>
+        public string ParentFK { get; set; }
+
+        [ForeignKey("ParentFK")]
+        public virtual Region ParentRegion { get; set; }
 
         #endregion
     }

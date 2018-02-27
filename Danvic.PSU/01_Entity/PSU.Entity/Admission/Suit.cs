@@ -8,7 +8,6 @@
 // Description: 制服信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.Admission
@@ -53,6 +52,11 @@ namespace PSU.Entity.Admission
         /// </summary>
         [MaxLength(500)]
         public string ImageSrc { get; set; }
+
+        /// <summary>
+        /// 图片的二进制数据
+        /// </summary>
+        public byte Image { get; set; }
 
         /// <summary>
         /// 是否启用

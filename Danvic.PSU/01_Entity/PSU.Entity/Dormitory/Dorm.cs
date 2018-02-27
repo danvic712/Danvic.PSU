@@ -8,7 +8,6 @@
 // Description: 寝室信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

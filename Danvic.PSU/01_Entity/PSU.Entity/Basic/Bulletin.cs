@@ -8,9 +8,7 @@
 // Description: 网站公告表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Basic
 {
@@ -45,29 +43,10 @@ namespace PSU.Entity.Basic
 
         /// <summary>
         /// 公告类型
-        /// 1:公告信息;2:优惠政策
+        /// 1:公告信息;2:学校政策
         /// </summary>
         [Required]
         public short Type { get; set; }
-
-        /// <summary>
-        /// 发布人
-        /// </summary>
-        [Required]
-        [MaxLength(10)]
-        public string Publisher { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 发布人主键
-        /// </summary>
-        public string PublisherFK { get; set; }
-
-        [ForeignKey("PublisherFK")]
-        public virtual Staff Publish { get; set; }
 
         #endregion
     }

@@ -86,21 +86,23 @@ namespace PSU.Site
                 }
             }
 
-            services.AddMvc(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            services.AddMvc();
 
-            //Add Policy Based on Role
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdministrator", policy => policy.RequireRole("Administrator"));
-                options.AddPolicy("RequireInstructor", policy => policy.RequireRole("Instructor"));
-                options.AddPolicy("RequireStudent", policy => policy.RequireRole("Student"));
-            });
+            //services.AddMvc(config =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                     .RequireAuthenticatedUser()
+            //                     .Build();
+            //    config.Filters.Add(new AuthorizeFilter(policy));
+            //});
+
+            ////Add Policy Based on Role
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("RequireAdministrator", policy => policy.RequireRole("Administrator"));
+            //    options.AddPolicy("RequireInstructor", policy => policy.RequireRole("Instructor"));
+            //    options.AddPolicy("RequireStudent", policy => policy.RequireRole("Student"));
+            //});
 
         }
 

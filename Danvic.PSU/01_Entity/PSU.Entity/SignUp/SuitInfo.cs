@@ -9,9 +9,7 @@
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace PSU.Entity.SignUp
 {
@@ -36,20 +34,26 @@ namespace PSU.Entity.SignUp
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string SName { get; set; }
+        public string StudentName { get; set; }
 
         /// <summary>
         /// 选择学生学号
         /// </summary>
         [Required]
-        public int SId { get; set; }
+        public int StudentId { get; set; }
 
         /// <summary>
-        /// 支付类型名称
+        /// 制服Id
+        /// </summary>
+        [Required]
+        public long SuitId { get; set; }
+
+        /// <summary>
+        /// 制服类型名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string SuName { get; set; }
+        public string SuitName { get; set; }
 
         /// <summary>
         /// 上衣尺寸

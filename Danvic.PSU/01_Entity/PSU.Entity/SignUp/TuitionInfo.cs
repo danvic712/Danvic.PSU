@@ -34,13 +34,13 @@ namespace PSU.Entity.SignUp
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string SName { get; set; }
+        public string StudentName { get; set; }
 
         /// <summary>
         /// 学生学号
         /// </summary>
         [Required]
-        public int SId { get; set; }
+        public long StudentId { get; set; }
 
         /// <summary>
         /// 已付款

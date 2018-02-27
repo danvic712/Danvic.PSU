@@ -28,6 +28,8 @@ namespace PSU.EFCore
                 return;
             }
 
+            //UserManager<AppUser> userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
+
             //AppUser user = new AppUser
             //{
             //    UserName = "Admin",

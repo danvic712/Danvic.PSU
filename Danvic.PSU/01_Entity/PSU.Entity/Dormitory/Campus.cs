@@ -68,7 +68,7 @@ namespace PSU.Entity.Dormitory
         /// <summary>
         /// 详细地址
         /// </summary>
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Address { get; set; }
 
         /// <summary>
