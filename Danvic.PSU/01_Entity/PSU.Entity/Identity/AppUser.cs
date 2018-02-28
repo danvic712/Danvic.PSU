@@ -27,6 +27,11 @@ namespace PSU.Entity.Identity
         /// </summary>
         public byte Image { get; set; }
 
+        /// <summary>
+        /// 登录次数
+        /// </summary>
+        public int LoginTimes { get; set; }
+
         #endregion
     }
 }

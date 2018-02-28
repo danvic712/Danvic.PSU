@@ -10,6 +10,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.IService.Areas.Administrator;
+using PSU.Model.Areas.Administrator.Home;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
@@ -63,6 +64,14 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region Service
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BulletinEditViewModel webModel)
+        {
+            return View();
+        }
+
         #endregion
     }
 }

@@ -12,8 +12,15 @@
     "inputFiles": [
       "wwwroot/css/template/AdminLTE.css",
       "wwwroot/css/template/skins/skin-green.css",
-      "wwwroot/css/template/bootstrap-timepicker.css",
+      "wwwroot/css/template/bootstrap-datepicker.css",
+      "wwwroot/css/template/dataTables.bootstrap.css",
       "wwwroot/css/view/layout.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/template/simditor.min.css",
+    "inputFiles": [
+      "wwwroot/css/template/simditor.css"
     ]
   },
   {
@@ -31,7 +38,10 @@
   {
     "outputFileName": "wwwroot/javascript/view/layout.min.js",
     "inputFiles": [
-      "wwwroot/javascript/template/bootstrap-timepicker.js",
+      "wwwroot/javascript/template/jquery.dataTables.js",
+      "wwwroot/javascript/template/dataTables.bootstrap.js",
+      "wwwroot/javascript/template/bootstrap-datepicker.js",
+      "wwwroot/javascript/template/bootstrap-datepicker.zh-CN.min.js",
       "wwwroot/javascript/template/jquery.slimscroll.js",
       "wwwroot/javascript/template/adminlte.js",
       "wwwroot/javascript/view/layout.js"
@@ -48,6 +58,32 @@
       "wwwroot/javascript/template/echarts.common.min.js",
       "wwwroot/javascript/template/macarons.js",
       "wwwroot/javascript/view/Administrator/index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/bulletin.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/bulletin.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/edit.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/module.js",
+      "wwwroot/javascript/template/hotkeys.js",
+      "wwwroot/javascript/template/uploader.js",
+      "wwwroot/javascript/template/simditor.js",
+      "wwwroot/javascript/view/Administrator/edit.js"
     ],
     "minify": {
       "enabled": true,

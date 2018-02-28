@@ -12,11 +12,13 @@
     <title>@ViewData["Title"] - 稷下园</title>
     <environment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/css/template/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href="~/lib/Ionicons/css/ionicons.css" rel="stylesheet" />
         <link href="~/css/template/AdminLTE.css" rel="stylesheet" />
         <link href="~/css/template/skins/skin-green.css" rel="stylesheet" />
-        <link href="~/css/template/bootstrap-timepicker.css" rel="stylesheet" />
+        <link href="~/css/template/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="~/css/view/layout.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
@@ -264,7 +266,10 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/javascript/template/bootstrap-timepicker.js"></script>
+        <script src="~/javascript/template/jquery.dataTables.js"></script>
+        <script src="~/javascript/template/dataTables.bootstrap.js"></script>
+        <script src="~/javascript/template/bootstrap-datepicker.js"></script>
+        <script src="~/javascript/template/bootstrap-datepicker.zh-CN.min.js"></script>
         <script src="~/javascript/template/jquery.slimscroll.js"></script>
         <script src="~/javascript/template/adminlte.js"></script>
     </environment>
