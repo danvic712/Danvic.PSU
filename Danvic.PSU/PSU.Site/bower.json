@@ -5,7 +5,8 @@
     "font-awesome": "Font-Awesome#v4.7.0",
     "Ionicons": "ionicons#v2.0.1",
     "jquery-validation-unobtrusive": "v3.2.6",
-    "bootstrap": "v3.3.6"
+    "bootstrap": "v3.3.6",
+    "layer": "v3.1.1"
   },
   "resolutions": {
     "bootstrap": "v3.3.6"

@@ -19,6 +19,7 @@
   {
     "outputFileName": "wwwroot/javascript/view/login.min.js",
     "inputFiles": [
+      "wwwroot/javascript/template/jquery.cookie.js",
       "wwwroot/javascript/view/login.js"
     ],
     "minify": {

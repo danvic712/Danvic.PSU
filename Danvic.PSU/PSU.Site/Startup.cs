@@ -65,16 +65,6 @@ namespace PSU.Site
                 options.SlidingExpiration = true;
             });
 
-            //var skipHTTPS = Configuration.GetValue<bool>("LocalTest:skipHTTPS");
-            //services.Configure<MvcOptions>(options =>
-            //{
-            //    // Set LocalTest:skipHTTPS to true to skip SSL requrement in debug mode. This is useful when not using Visual Studio.
-            //    if (Environment.IsDevelopment() && !skipHTTPS)
-            //    {
-            //        options.Filters.Add(new RequireHttpsAttribute());
-            //    }
-            //});
-
             //反射加载接口实现类，批量注入
             Assembly assembly = Assembly.Load("PSU.Domain");
             foreach (var implement in assembly.GetTypes())
@@ -104,6 +94,7 @@ namespace PSU.Site
             //    options.AddPolicy("RequireStudent", policy => policy.RequireRole("Student"));
             //});
 
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +114,8 @@ namespace PSU.Site
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.Entity.Identity;
 using PSU.Model;
+using PSU.Utility.System;
 using System;
 using System.Threading.Tasks;
 
@@ -98,6 +99,11 @@ namespace Controllers.PSU
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd"));
+
+                    //记录用户信息session
+                    //var user = await _userManager.GetUserAsync(User);//此处未做验证,代码可能有错
+                    //HttpContext.Session.Set("CurrentUser", ByteUtility.Object2Bytes(user));
+
                     return RedirectToLocal(returnUrl);
                 }
                 else if (result.IsLockedOut)
