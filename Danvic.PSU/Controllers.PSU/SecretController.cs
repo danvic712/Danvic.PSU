@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.Entity.Identity;
+using PSU.IService;
 using PSU.Model;
-using PSU.Utility.System;
 using System;
 using System.Threading.Tasks;
 
@@ -29,12 +29,15 @@ namespace Controllers.PSU
 
         private readonly SignInManager<AppUser> _signInManager;
 
+        private readonly ISecretService _service;
+
         private readonly ILogger _logger;
 
-        public SecretController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<SecretController> logger)
+        public SecretController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ISecretService service, ILogger<SecretController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _service = service;
             _logger = logger;
         }
 
@@ -98,7 +101,10 @@ namespace Controllers.PSU
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd"));
+                    _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+
+                    //记录登录日志信息
+                    await _service.AddLogSync("", "");
 
                     //记录用户信息session
                     //var user = await _userManager.GetUserAsync(User);//此处未做验证,代码可能有错
@@ -108,7 +114,7 @@ namespace Controllers.PSU
                 }
                 else if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("用户：{0}于{1}账户被锁定", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd"));
+                    _logger.LogWarning("用户：{0}于{1}账户被锁定", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
                     return RedirectToAction(nameof(Lockout));
                 }
                 else

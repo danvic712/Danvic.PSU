@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Web;
 using PSU.EFCore;
 
 namespace PSU.Site
@@ -17,28 +14,35 @@ namespace PSU.Site
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-
-            using (var scope = host.Services.CreateScope())
+            var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            try
             {
-                var services = scope.ServiceProvider;
-                try
+                using (var scope = host.Services.CreateScope())
                 {
+                    var services = scope.ServiceProvider;
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Initialize(context);
                 }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "数据库数据种植出错");
-                }
+                logger.Debug("开始捕获全局错误信息：");
+                host.Run();
             }
-
-            host.Run();
+            catch (Exception exception)
+            {
+                //NLog: catch setup errors
+                logger.Error(exception, "程序发生错误");
+                throw exception;
+            }
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .UseNLog()
                 .Build();
     }
 }

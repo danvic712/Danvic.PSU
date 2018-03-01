@@ -59,6 +59,11 @@ namespace PSU.EFCore
         public virtual DbSet<Bulletin> Bulletin { get; set; }
 
         /// <summary>
+        /// 网站登录日志表
+        /// </summary>
+        public virtual DbSet<Logging> Logging { get; set; }
+
+        /// <summary>
         /// 地区信息表
         /// </summary>
         public virtual DbSet<Region> Region { get; set; }

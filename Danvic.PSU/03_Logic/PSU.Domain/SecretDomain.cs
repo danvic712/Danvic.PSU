@@ -5,12 +5,11 @@
 // Author: Danvic712
 // Date Created: 2018/2/11 星期日 13:48:44
 // Modified by:
-// Description: 
+// Description: Secret控制器邻域功能接口实现
 //-----------------------------------------------------------------------
 using PSU.IService;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace PSU.Domain
 {
@@ -18,8 +17,18 @@ namespace PSU.Domain
     {
         #region Interface Service Implement
 
-        public bool SignInAsync(string account, string password, bool isPersistent)
+        /// <summary>
+        /// 添加用户登录记录
+        /// </summary>
+        /// <param name="userOID">用户主键</param>
+        /// <param name="userName">用户姓名</param>
+        /// <returns></returns>
+        public Task AddLogSync(string userOID, string userName)
         {
+            //1、新增登录日志信息记录
+
+            //2、更新用户登录次数
+
             throw new NotImplementedException();
         }
 

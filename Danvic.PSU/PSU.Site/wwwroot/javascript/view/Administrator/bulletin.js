@@ -69,7 +69,7 @@ $(function () {
     });
 
     $(document).on('click', '#add', function () {
-        window.open('/Administrator/Home/Edit');
+        window.location.href = '/Administrator/Home/Edit';
     });
 
     $(document).on('click', '#search', function () {

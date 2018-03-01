@@ -7,6 +7,8 @@
 // Modified by:
 // Description: Administrator-Home-首页功能实现仓储
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using System;
 using System.Collections.Generic;
@@ -20,9 +22,12 @@ namespace PSU.Repository.Areas.Administrator
 
         private readonly ApplicationDbContext _context;
 
+        private readonly DbSet<IdentityUser> _dbSet;
+
         public HomeRepository(ApplicationDbContext context)
         {
             _context = context;
+            _dbSet = _context.Set<IdentityUser>();
         }
 
         #endregion

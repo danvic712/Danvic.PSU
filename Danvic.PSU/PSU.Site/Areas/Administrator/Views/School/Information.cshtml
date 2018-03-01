@@ -5,6 +5,15 @@
     ViewData["CurrName"] = "基础信息维护";
 }
 
+@section styles{
+    <environment include="Development">
+        <link href="~/css/template/simditor.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/template/simditor.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+}
+
 <section class="content-header">
     <h1>
         基础信息
@@ -22,9 +31,232 @@
 </section>
 
 <section class="content">
-    <!-- Main row -->
     <div class="row">
+        <div class="col-sm-12">
+            <form asp-area="" asp-controller="" asp-action="" class="form-horizontal" role="form">
+                <div class="box box-solid">
+                    <div class="box box-header">
+                        <h3 class="box-title">综合信息</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-2 text-right">
+                                <span class="profile-picture">
+                                    <img src="~/images/template/photo1.png" class="img-responsive" alt="学校图片" />
+                                </span>
+                                <a href="#" class="btn btn-sm btn-block btn-success">
+                                    <i class="ace-icon fa fa-plus-circle bigger-120"></i>
+                                    <span class="bigger-110">更换图片</span>
+                                </a>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-10">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label no-padding-right" for="name">
+                                        <span style="vertical-align:middle;color:red">*</span> 学校全称
+                                    </label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="name" class="col-sm-5 form-control" placeholder="中文名称" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="name" class="col-sm-4 col-sm-offset-1 form-control" placeholder="英文名称" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label no-padding-right col-sm-2 col-xs-4" for="datetime">建立时间</label>
+                                    <div class="col-sm-10 col-xs-8">
+                                        <div class="input-group col-sm-3">
+                                            <input id="datetime" class="form-control date-picker" type="text" readonly />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar bigger-110"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label no-padding-right" for="name"> 校训 </label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="name" class="col-sm-3 col-xs-10 form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label no-padding-right" for="name"> 简介 </label>
+                                    <div class="col-sm-8">
+                                        <textarea style="resize: none;" cols="60" rows="4" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-solid">
+                    <div class="box box-header">
+                        <h3 class="box-title">校区信息</h3>
+                        <button class="btn btn-minier btn-pink pull-right">
+                            <i class="ace-icon fa fa-plus"></i>
+                            添加校区
+                        </button>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-email">
+                                    <span style="vertical-align:middle;color:red">*</span> 校区名称
+                                </label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="name" />
+                                </div>
+
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-phone">
+                                    <span style="vertical-align:middle;color:red">*</span> 联系电话
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="form-field-phone" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-phone fa-flip-horizontal grey"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-1 control-label no-padding-right" for="name">
+                                    <span style="vertical-align:middle;color:red">*</span> 所在地
+                                </label>
+                                <div class="col-sm-3">
+                                    <select name="" class="form-control">
+                                        <option>省份</option>
+                                    </select>
+                                    <select name="" class="form-control">
+                                        <option>城市</option>
+                                    </select>
+                                    <select name="" class="form-control">
+                                        <option>区县</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="name">
+                                <span style="vertical-align:middle;color:red">*</span> 详细地址
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="name" class="col-sm-12 form-control" />
+                            </div>
+                            <label class="col-sm-1 control-label no-padding-right" for="form-field-phone"> 邮编 </label>
+                            <div class="col-sm-2">
+                                <input type="text" id="name" class="col-sm-10 col-xs-10 form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-solid">
+                    <div class="box box-header">
+                        <h3 class="box-title">联系方式</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <label class="col-sm-1  col-sm-offset-1 control-label no-padding-right" for="form-field-website">
+                                    <span style="vertical-align:middle;color:red">*</span> 官方网站
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input id="form-field-website" class="form-control" type="text" readonly />
+                                        <span class="input-group-addon">
+                                            <i class="ace-icon fa fa-globe"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-twitter"> 官方微博 </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input id="form-field-website" class="form-control" type="text" readonly />
+                                        <span class="input-group-addon">
+                                            <i class="ace-icon fa fa-weibo text-red"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-facebook"> 公众号 </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input type="text" id="form-field-facebook" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <i class="ace-icon fa fa-weixin text-green"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <label class="col-sm-1 col-sm-offset-1 control-label no-padding-right" for="form-field-email">
+                                    <span style="vertical-align:middle;color:red">*</span> 电子邮箱
+                                </label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input type="email" id="form-field-email" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <i class="ace-icon fa fa-envelope text-yellow"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-phone">官方QQ</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <input type="email" id="form-field-email" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <i class="ace-icon fa fa-qq fa-flip-horizontal text-light-blue"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-solid">
+                    <div class="box box-header">
+                        <div class="box-title">详细信息</div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="name"> 详细介绍 </label>
+                                <div class="col-sm-10">
+                                    <div class="col-sm-10">
+                                        <textarea id="detail" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="text-right">
+                        <button class="btn btn-success" type="submit">
+                            <i class="ace-icon fa fa-check"></i>
+                            保存
+                        </button>
+                        &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- /.row (main row) -->
 </section>
 
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/template/module.js"></script>
+        <script src="~/javascript/template/hotkeys.js"></script>
+        <script src="~/javascript/template/uploader.js"></script>
+        <script src="~/javascript/template/simditor.js"></script>
+        <script src="~/javascript/view/Administrator/information.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/information.min.js" asp-append-version="true"></script>
+    </environment>
+}

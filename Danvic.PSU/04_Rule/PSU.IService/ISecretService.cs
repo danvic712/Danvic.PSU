@@ -5,11 +5,8 @@
 // Author: Danvic712
 // Date Created: 2018/2/11 星期日 13:46:31
 // Modified by:
-// Description: 
+// Description: Secret控制器邻域功能接口
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PSU.IService
@@ -19,13 +16,12 @@ namespace PSU.IService
         #region Service
 
         /// <summary>
-        /// 登录接口
+        /// 添加用户登录记录
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="password"></param>
-        /// <param name="isPersistent"></param>
+        /// <param name="userOID">用户主键</param>
+        /// <param name="userName">用户姓名</param>
         /// <returns></returns>
-        bool SignInAsync(string account, string password,bool isPersistent);
+        Task AddLogSync(string userOID, string userName);
 
         #endregion
     }
