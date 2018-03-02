@@ -64,6 +64,11 @@ namespace PSU.EFCore
         public virtual DbSet<Logging> Logging { get; set; }
 
         /// <summary>
+        /// 账号操作记录表
+        /// </summary>
+        public virtual DbSet<Record> Record { get; set; }
+
+        /// <summary>
         /// 地区信息表
         /// </summary>
         public virtual DbSet<Region> Region { get; set; }
