@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewData["Title"] = "院系信息";
+    ViewData["NavTitle"] = "学校信息管理";
+    ViewData["CurrName"] = "院系信息维护";
+}
+
+@section styles{
+    <environment include="Development">
+        <link href="~/css/template/simditor.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/template/simditor.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+}
+
+<section class="content-header">
+    <h1>
+        院系信息
+        <small>Department Information</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li>学校信息</li>
+        <li class="active">
+            <a asp-area="Administrator" asp-controller="School" asp-action="Department">
+                院系信息
+            </a>
+        </li>
+        <li class="active">编辑</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-area="Administrator" asp-controller="School" asp-action="EditDepartment" method="post" class="form-horizontal" role="form">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="box box-default">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="name">
+                                        <span style="vertical-align:middle;color:red">*</span> 院系名称
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" id="name" type="text" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="code">
+                                        <span style="vertical-align:middle;color:red">*</span> 院系代码
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input class="form-control" id="code" type="text" placeholder="">
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="code">
+                                        <span style="vertical-align:middle;color:red">*</span> 联系电话
+                                    </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="form-field-phone" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-phone fa-flip-horizontal grey"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="code"> 院系主页 </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input id="form-field-website" class="form-control" type="text" />
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-globe"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="form-field-twitter"> 官方微博 </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input id="form-field-website" class="form-control" type="text" />
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-weibo text-red"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="form-field-email">电子邮箱</label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="email" id="form-field-email" class="form-control" />
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-envelope text-yellow"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="form-field-facebook"> 公众号 </label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" id="form-field-facebook" class="form-control" />
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-weixin text-green"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="form-field-phone">官方QQ</label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="email" id="form-field-email" class="form-control" />
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-qq fa-flip-horizontal text-light-blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="form-field-facebook"> 是否启用 </label>
+                                    <div class="col-md-2">
+                                        <select name="" class="form-control">
+                                            <option value="">启用</option>
+                                            <option value="">不启用</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box box-default">
+                            <div class="box-body box-profile">
+                                <img src="~/images/template/photo1.png" class="img-responsive" alt="学校图片" />
+                            </div>
+                            <div class="box-footer">
+                                <a href="#" class="btn btn-sm btn-block btn-success">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <span class="bigger-110">更换图片</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-solid">
+                    <div class="box box-header">
+                        <div class="box-title">详细信息</div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea id="editor" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <div class="text-right">
+                        <button class="btn btn-success" type="submit">
+                            <i class="ace-icon fa fa-check"></i>
+                            保存
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-default" type="reset">
+                            <i class="ace-icon fa fa-undo"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/template/module.js"></script>
+        <script src="~/javascript/template/hotkeys.js"></script>
+        <script src="~/javascript/template/uploader.js"></script>
+        <script src="~/javascript/template/simditor.js"></script>
+        <script src="~/javascript/view/Administrator/editdepartment.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/editdepartment.min.js" asp-append-version="true"></script>
+    </environment>
+}

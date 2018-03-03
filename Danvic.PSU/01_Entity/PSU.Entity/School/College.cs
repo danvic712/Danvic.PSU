@@ -82,7 +82,7 @@ namespace PSU.Entity.School
         /// 官方QQ
         /// </summary>
         [MaxLength(20)]
-        public string QQ { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 描述

@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "编辑公告";
-    ViewData["NavTitle"] = "网站公告管理";
-    ViewData["CurrName"] = "";
+    ViewData["Title"] = "院系信息";
+    ViewData["NavTitle"] = "学校信息管理";
+    ViewData["CurrName"] = "院系信息维护";
 }
 
 <section class="content-header">
     <h1>
-        网站公告
-        <small>Site Bulletin</small>
+        院系信息
+        <small>Department Information</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -16,9 +16,10 @@
                 <i class="fa fa-dashboard"></i> 首页
             </a>
         </li>
+        <li>学校信息</li>
         <li class="active">
-            <a asp-area="Administrator" asp-controller="Home" asp-action="Bulletin">
-                网站公告
+            <a asp-area="Administrator" asp-controller="School" asp-action="Department">
+                院系信息
             </a>
         </li>
         <li class="active">详情</li>
@@ -30,7 +31,7 @@
         <section class="col-lg-7 connectedSortable">
             <div class="box box-solid">
                 <div class="box box-header">
-                    <h4 class="box-title">这是公告的标题~~~</h4>
+                    <h4 class="box-title">这是院系名称~~~</h4>
                 </div>
                 <div class="box-body">
                     <p style="text-align: justify;">
@@ -79,7 +80,7 @@
                         <span class="time"><i class="fa fa-clock-o"></i>&nbsp; 2017-12-15 12:05</span>
                         <h3 class="timeline-header"><a href="javascript:void(0)">创建用户：</a>系统管理员</h3>
                         <div class="timeline-body">
-                            完成新公告创建
+                            完成计算机与软件工程系信息创建
                         </div>
                     </div>
                 </li>
@@ -89,7 +90,7 @@
                         <span class="time"><i class="fa fa-clock-o"></i>&nbsp; 2018-02-15 12:05</span>
                         <h3 class="timeline-header"><a href="javascript:void(0)">修改用户：</a>系统管理员</h3>
                         <div class="timeline-body">
-                            修改公告详情信息
+                            修改计算机与软件工程系详细信息修改
                         </div>
                     </div>
                 </li>

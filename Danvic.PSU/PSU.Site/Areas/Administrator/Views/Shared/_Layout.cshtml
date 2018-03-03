@@ -122,6 +122,11 @@
                                     <i class="fa fa-list-ul"></i><span> 专业信息维护 </span>
                                 </a>
                             </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "专业班级维护"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="School" asp-action="MajorClass">
+                                    <i class="fa fa-list-ul"></i><span> 专业班级维护 </span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="@(ViewData["NavTitle"].ToString() == "宿舍信息管理"?"treeview menu-open":"treeview")">
@@ -202,6 +207,11 @@
                             <li class="@(ViewData["CurrName"].ToString() == "宿舍数据统计"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Statistics" asp-action="Dormitory">
                                     <i class="fa fa-list-ul"></i><span> 宿舍数据统计 </span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "用户登录统计"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Login">
+                                    <i class="fa fa-list-ul"></i><span> 用户登录统计 </span>
                                 </a>
                             </li>
                         </ul>

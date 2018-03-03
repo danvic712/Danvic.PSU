@@ -54,6 +54,11 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service

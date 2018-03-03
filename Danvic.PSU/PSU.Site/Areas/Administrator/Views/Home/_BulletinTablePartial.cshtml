@@ -4,196 +4,41 @@
             <table id="bulletin-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="center">编号</th>
-                        <th class="center">标题</th>
-                        <th class="center">公告内容</th>
-                        <th class="center">公告类型</th>
-                        <th class="center">发布时间</th>
-                        <th class="center">发布人</th>
-                        <th class="center">操作</th>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">标题</th>
+                        <th class="text-center">公告内容</th>
+                        <th class="text-center">公告类型</th>
+                        <th class="text-center">发布时间</th>
+                        <th class="text-center">发布人</th>
+                        <th class="text-center">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Trident</td>
+                    @for (int i = 1; i < 16; i++)
+                    {
+                    <tr class="text-center">
+                        <td>@i</td>
+                        <td>这是标题啊啊啊啊</td>
+                        <td>打生打死大家可能会减少贷款然后就开始了</td>
+                        <td>公告</td>
+                        <td>2017-10-24</td>
+                        <td>发布人</td>
                         <td>
-                            Internet
-                            Explorer 4.0
+                            <a class="btn btn-xs btn-link" id="detail">
+                                <i class="fa fa-info"></i>
+                                查看
+                            </a>
+                            <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
+                                <i class="fa fa-pencil"></i>
+                                编辑
+                            </a>
+                            <a class="btn btn-xs btn-link" id="delete">
+                                <i class="fa fa-trash-o"></i>
+                                删除
+                            </a>
                         </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
                     </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
-                    <tr>
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        <td> 4</td>
-                        <td>X</td>
-                    </tr>
+                    }
                 </tbody>
             </table>
         </div>

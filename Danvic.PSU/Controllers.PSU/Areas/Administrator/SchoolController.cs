@@ -39,6 +39,31 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        public IActionResult MajorClass()
+        {
+            return View();
+        }
+
+        public IActionResult EditDepartment()
+        {
+            return View();
+        }
+
+        public IActionResult EditMajor()
+        {
+            return View();
+        }
+
+        public IActionResult DepartmentDetail()
+        {
+            return View();
+        }
+
+        public IActionResult MajorDetail()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service
