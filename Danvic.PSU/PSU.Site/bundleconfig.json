@@ -157,5 +157,16 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/majorclass.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/majorclass.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

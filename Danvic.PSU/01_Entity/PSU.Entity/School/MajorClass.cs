@@ -39,10 +39,28 @@ namespace PSU.Entity.School
         public string Name { get; set; }
 
         /// <summary>
+        /// 专业代码
+        /// </summary>
+        [Required]
+        public int MajorCode { get; set; }
+
+        /// <summary>
         /// 专业名称
         /// </summary>
         [MaxLength(50)]
         public string MajorName { get; set; }
+
+        /// <summary>
+        /// 所属院系名称
+        /// </summary>
+        [MaxLength(20)]
+        public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// 所在校区名称
+        /// </summary>
+        [MaxLength(20)]
+        public string CampusName { get; set; }
 
         /// <summary>
         /// 班级微信号
@@ -57,13 +75,19 @@ namespace PSU.Entity.School
         public string QQ { get; set; }
 
         /// <summary>
+        /// 辅导员工号
+        /// </summary>
+        [Required]
+        public long InstructorId { get; set; }
+
+        /// <summary>
         /// 辅导员姓名
         /// </summary>
         [MaxLength(20)]
         public string InstructorName { get; set; }
 
         /// <summary>
-        /// 届数
+        /// 级数
         /// </summary>
         public int SessionNum { get; set; }
 

@@ -5,11 +5,10 @@
                 <thead>
                     <tr>
                         <th class="text-center">编号</th>
+                        <th class="text-center">班级名称</th>
                         <th class="text-center">专业名称</th>
-                        <th class="text-center">专业代码</th>
-                        <th class="text-center">所属系部名称</th>
-                        <th class="text-center">学制</th>
-                        <th class="text-center">培养方向</th>
+                        <th class="text-center">级数</th>
+                        <th class="text-center">辅导员姓名</th>
                         <th class="text-center">是否启用</th>
                         <th class="text-center">操作</th>
                     </tr>
@@ -22,17 +21,12 @@
                                 int num = 20171011 + i;
                             }
                             <td>@num</td>
+                            <td>网络140 @i</td>
                             <td>网络工程</td>
-                            <td>CS0001</td>
-                            <td>计算机与软件工程系</td>
-                            <td>四年</td>
-                            <td>全日制本科生</td>
+                            <td>14级</td>
+                            <td>我是辅导员啊</td>
                             <td>启用</td>
                             <td>
-                                <a class="btn btn-xs btn-link" id="detail">
-                                    <i class="fa fa-info"></i>
-                                    查看
-                                </a>
                                 <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
                                     <i class="fa fa-pencil"></i>
                                     编辑

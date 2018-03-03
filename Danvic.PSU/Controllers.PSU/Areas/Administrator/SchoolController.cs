@@ -54,6 +54,11 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        public IActionResult EditMajorClass()
+        {
+            return View();
+        }
+
         public IActionResult DepartmentDetail()
         {
             return View();
@@ -67,6 +72,9 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region Service
+
+        
+
         #endregion
     }
 }

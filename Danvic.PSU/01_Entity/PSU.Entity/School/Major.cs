@@ -7,6 +7,7 @@
 // Modified by:
 // Description: 专业信息表
 //-----------------------------------------------------------------------
+using PSU.Entity.Dormitory;
 using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -43,9 +44,29 @@ namespace PSU.Entity.School
         public string DepartmentName { get; set; }
 
         /// <summary>
+        /// 所在校区名称
+        /// </summary>
+        [MaxLength(20)]
+        public string CampusName { get; set; }
+
+        /// <summary>
         /// 专业代码
         /// </summary>
         public int Code { get; set; }
+
+        /// <summary>
+        /// 学制
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string AcademicSys { get; set; }
+
+        /// <summary>
+        /// 培养方向
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string TrainingDirection { get; set; }
 
         /// <summary>
         /// 介绍
@@ -67,8 +88,16 @@ namespace PSU.Entity.School
         /// </summary>
         public string DepartmentFK { get; set; }
 
+        /// <summary>
+        /// 校区主键
+        /// </summary>
+        public string CampusFK { get; set; }
+
         [ForeignKey("DepartmentFK")]
         public virtual Department Department { get; set; }
+
+        [ForeignKey("CampusFK")]
+        public virtual Campus Campus { get; set; }
 
         #endregion
     }

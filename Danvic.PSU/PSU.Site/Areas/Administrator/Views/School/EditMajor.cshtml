@@ -27,7 +27,7 @@
         </li>
         <li>学校信息</li>
         <li class="active">
-            <a asp-area="Administrator" asp-controller="School" asp-action="Major">
+            <a asp-area="Administrator" asp-controller="School" asp-action="MajorClass">
                 专业信息
             </a>
         </li>
@@ -58,7 +58,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="editor"> 公告内容： </label>
+                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="campus"> 所属校区： </label>
+                    <div class="col-md-3 col-xs-9">
+                        <select id="campus" class="form-control">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="editor"> 专业详情： </label>
                     <div class="col-md-9 col-xs-9">
                         <textarea class="col-md-6" rows="3" id="editor"></textarea>
                     </div>
