@@ -23,55 +23,48 @@
 
 <section class="content">
     <div class="row">
-        <section class="col-lg-7 connectedSortable">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs pull-right">
-                    <li class="pull-left header"><i class="fa fa-line-chart"></i> 最近七日登录人数 </li>
-                </ul>
-                <div class="tab-content no-padding">
-                    <div class="chart tab-pane active" id="register-line-chart" style="position: relative; height: 300px;"></div>
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">用户账户：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
                 </div>
             </div>
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs pull-right">
-                    <li class="pull-left header"><i class="fa fa-bar-chart"></i> 用户登录地点分布 </li>
-                </ul>
-                <div class="tab-content no-padding">
-                    <div class="chart tab-pane active" id="most-bar-chart" style="position: relative; height: 300px;"></div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">登录IP：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
                 </div>
             </div>
-        </section>
-        <section class="col-lg-5 connectedSortable">
-            <div class="box box-solid">
-                <div class="box-header">
-                    <i class="fa fa-dashboard"></i>
-                    <h3 class="box-title">
-                        登录时间分布
-                    </h3>
-                </div>
-                <div class="box-body">  
-                    <div id="dash-board" style="height: 276px; width: 100%;"></div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">登录日期：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="datetime" class="form-control date-picker" type="text" readonly />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar bigger-110"></i>
+                    </span>
                 </div>
             </div>
-            <div class="box box-solid">
-                <div class="box-header">
-                    <i class="fa fa-edge"></i>
-                    <h3 class="box-title">
-                        用户浏览器版本
-                    </h3>
-                </div>
-                <div class="box-body">
-                    <div id="browser-pie" style="height: 277px; width: 100%;"></div>
-                </div>
+            <div class="form-group col-md-3">
+                <button id="search" class="btn btn-dropbox btn-flat col-md-4">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
             </div>
-        </section>
+        </div>
+    </div>
+    <div class="row">
+        @await Html.PartialAsync("_LoginTablePartial")
     </div>
 </section>
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/template/echarts.common.min.js"></script>
-        <script src="~/javascript/template/macarons.js"></script>
         <script src="~/javascript/view/Administrator/login.js"></script>
     </environment>
     <environment exclude="Development">

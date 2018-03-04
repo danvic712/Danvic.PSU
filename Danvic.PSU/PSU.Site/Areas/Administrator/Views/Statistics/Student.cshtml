@@ -22,9 +22,54 @@
 </section>
 
 <section class="content">
-    <!-- Main row -->
     <div class="row">
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">专业班级：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-institution"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">专业方向：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <select id="" name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">网络工程</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">报名状态：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <select name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">已完成预报名</option>
+                        <option value="">未完成预报名</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <button id="search" class="btn btn-dropbox btn-flat col-md-4">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- /.row (main row) -->
+    <div class="row">
+        @await Html.PartialAsync("_StudentTablePartial")
+    </div>
 </section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/student.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/student.min.js" asp-append-version="true"></script>
+    </environment>
+}
 

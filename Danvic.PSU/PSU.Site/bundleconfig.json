@@ -236,11 +236,44 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/student.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/student.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/dormitory.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/dormitory.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/login.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/login.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/loginchart.min.js",
     "inputFiles": [
       "wwwroot/javascript/template/echarts.common.min.js",
       "wwwroot/javascript/template/macarons.js",
-      "wwwroot/javascript/view/Administrator/login.js"
+      "wwwroot/javascript/view/Administrator/loginchart.js"
     ],
     "minify": {
       "enabled": true,

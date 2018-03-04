@@ -1,13 +1,135 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using PSU.Entity.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewData["Title"] - 稷下园</title>
+    <environment include="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/css/template/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/lib/Ionicons/css/ionicons.css" rel="stylesheet" />
+        <link href="~/css/template/AdminLTE.css" rel="stylesheet" />
+        <link href="~/css/template/skins/skin-green.css" rel="stylesheet" />
+        <link href="~/css/template/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="~/css/view/layout.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute">
+        <link href="http://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/Ionicons/css/ionicons.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link href="~/css/view/layout.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+
+    @RenderSection("styles", false)
+
 </head>
-<body>
-    <div>
-        @RenderBody()
+<body class="hold-transition skin-green layout-top-nav" style="height: auto; min-height: 100%;">
+    <div class="wrapper">
+        <!-- 头部 -->
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a asp-area="Student" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                            <i class="fa fa-leaf"></i>
+                            <b style="font-family:KaiTi">
+                                稷下园
+                                <sub style="font-family:Consolas">JiXia</sub>
+                            </b>
+                        </a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">我的大学 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">入学报名</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">@UserManager.GetUserName(User)        这是我的名字啊</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-toggle="control-sidebar">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>退出</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 页面主体内容 -->
+        <div class="content-wrapper">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+
+        <!-- 尾部版权 -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="pull-right hidden-xs">
+                    Powered By <span class="text-blue">Danvic712</span>
+                    <a href="https://github.com/Lanesra712/Danvic.PSU" target="_blank">
+                        <i class="fa fa-github text-black"></i>
+                    </a>
+                    <a href="https://weibo.com/Lanesra712" target="_blank">
+                        <i class="fa fa-weibo text-danger"></i>
+                    </a>
+                </div>
+                <p>
+                    Copyright  &copy; 2017 - @DateTime.Now.Year <a href="javascript:void(0)"> 稷下园 </a> 版权所有
+                </p>
+            </div>
+        </footer>
     </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/javascript/template/jquery.dataTables.js"></script>
+        <script src="~/javascript/template/dataTables.bootstrap.js"></script>
+        <script src="~/javascript/template/bootstrap-datepicker.js"></script>
+        <script src="~/javascript/template/bootstrap-datepicker.zh-CN.min.js"></script>
+        <script src="~/javascript/template/jquery.slimscroll.js"></script>
+        <script src="~/javascript/template/adminlte.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js">
+        </script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js">
+        </script>
+        <script src="~/javascript/view/layout.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", false)
+
 </body>
 </html>
+

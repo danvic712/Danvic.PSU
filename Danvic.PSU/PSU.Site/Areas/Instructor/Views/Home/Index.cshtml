@@ -1,7 +1,22 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "我的首页";
+    ViewData["NavTitle"] = "数据全局概览";
+    ViewData["CurrName"] = "";
 }
 
-<h2>Index</h2>
+<section class="content-header">
+    <h1>
+        数据中心
+        <small>Data Center</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li class="active">数据中心</li>
+    </ol>
+</section>
 

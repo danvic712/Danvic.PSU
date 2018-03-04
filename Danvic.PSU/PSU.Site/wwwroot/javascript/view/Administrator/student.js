@@ -1,15 +1,8 @@
 ﻿/*!
- *   Administrator Statistics Login Page JavaScript v1.0.0
+ *   Administrator Student Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {
-    $('.date-picker').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd'
-    });
-
     $('#bulletin-table').DataTable({
         "processing": true,//加载效果
         /* 

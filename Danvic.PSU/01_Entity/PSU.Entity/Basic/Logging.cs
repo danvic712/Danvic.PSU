@@ -39,7 +39,7 @@ namespace PSU.Entity.Basic
         /// 用户姓名
         /// </summary>
         [MaxLength(50)]
-        public string UserName { get; set; }
+        public string Account { get; set; }
 
         /// <summary>
         /// 用户Ip地址

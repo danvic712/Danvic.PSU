@@ -1,0 +1,36 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">用户账户</th>
+                        <th class="text-center">登录IP</th>
+                        <th class="text-center">浏览器信息</th>
+                        <th class="text-center">操作系统信息</th>
+                        <th class="text-center">屏幕分辨率</th>
+                        <th class="text-center">登录时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 15; i++)
+                    {
+                        <tr class="text-center">
+                            @{
+                                int num = 20171011 + i;
+                            }
+                            <td>@num</td>
+                            <td>admin@exmaple.com</td>
+                            <td>127.0.0.1</td>
+                            <td>Chrome 57</td>
+                            <td>Windows 10</td>
+                            <td>1366 * 768</td>
+                            <td>@DateTime.Now.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
