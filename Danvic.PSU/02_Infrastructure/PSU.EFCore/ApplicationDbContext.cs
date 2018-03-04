@@ -25,9 +25,9 @@ namespace PSU.EFCore
         #region Admission
 
         /// <summary>
-        /// 卧具信息表
+        /// 物品信息表
         /// </summary>
-        public virtual DbSet<Bedding> Bedding { get; set; }
+        public virtual DbSet<Goods> Goods { get; set; }
 
         /// <summary>
         /// 学生提问表
@@ -38,11 +38,6 @@ namespace PSU.EFCore
         /// 迎新车辆服务表
         /// </summary>
         public virtual DbSet<Service> Service { get; set; }
-
-        /// <summary>
-        /// 制服信息表
-        /// </summary>
-        public virtual DbSet<Suit> Suit { get; set; }
 
         /// <summary>
         /// 金额信息表

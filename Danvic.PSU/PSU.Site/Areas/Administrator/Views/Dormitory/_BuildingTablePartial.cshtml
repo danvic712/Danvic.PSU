@@ -1,0 +1,45 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">宿舍楼名称</th>
+                        <th class="text-center">所属校区</th>
+                        <th class="text-center">总楼层</th>
+                        <th class="text-center">宿舍楼类型</th>
+                        <th class="text-center">是否启用</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 15; i++)
+                    {
+                        <tr class="text-center">
+                            @{
+                                int num = 20171011 + i;
+                            }
+                            <td>@num</td>
+                            <td>宿舍楼 @i</td>
+                            <td>我是新校区名称啊</td>
+                            <td>6层</td>
+                            <td>男生寝室</td>
+                            <td>启用</td>
+                            <td>
+                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
+                                    <i class="fa fa-pencil"></i>
+                                    编辑
+                                </a>
+                                <a class="btn btn-xs btn-link" id="delete">
+                                    <i class="fa fa-trash-o"></i>
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

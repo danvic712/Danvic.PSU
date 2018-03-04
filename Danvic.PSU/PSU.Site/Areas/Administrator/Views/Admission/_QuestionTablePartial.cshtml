@@ -1,0 +1,41 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">学生姓名</th>
+                        <th class="text-center">提问内容</th>
+                        <th class="text-center">提问对象姓名</th>
+                        <th class="text-center">提问时间</th>
+                        <th class="text-center">是否回复</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                    <tr class="text-center">
+                        @{
+                                int num = 20171011 + i;
+                        }
+                        <td>@num</td>
+                        <td>姓名</td>
+                        <td>这是提问内容</td>
+                        <td>姓名</td>
+                        <td>2017-12-22 09-32</td>
+                        <td>未回复</td>
+                        <td>
+                            <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
+                                <i class="fa fa-pencil"></i>
+                                回复
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

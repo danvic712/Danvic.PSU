@@ -1,18 +1,18 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "Suit.cs">
+// <copyright file= "Goods.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018-02-19 20:37:17
+// Date Created: 2018-02-19 20:34:02
 // Modified by:
-// Description: 制服信息表
+// Description: 物品信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.Admission
 {
-    public class Suit : SysField
+    public class Goods : SysField
     {
         #region Attribute
 
@@ -20,7 +20,7 @@ namespace PSU.Entity.Admission
         /// 主键
         /// </summary>
         [Key]
-        public string SuitOID { get; set; }
+        public string BeddingOID { get; set; }
 
         /// <summary>
         /// 编号
@@ -29,32 +29,31 @@ namespace PSU.Entity.Admission
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 名称
+        /// 物品名称
         /// </summary>
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
 
         /// <summary>
-        /// 上衣尺寸
+        /// 物品描述
         /// </summary>
-        [MaxLength(20)]
-        public string CoatSize { get; set; }
+        [MaxLength(200)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// 裤子尺寸
+        /// 物品尺寸
         /// </summary>
-        [MaxLength(20)]
-        public string PantsSize { get; set; }
+        [MaxLength(100)]
+        public string Size { get; set; }
 
         /// <summary>
         /// 图片地址
         /// </summary>
-        [MaxLength(500)]
         public string ImageSrc { get; set; }
 
         /// <summary>
-        /// 图片的二进制数据
+        /// 图片二进制流
         /// </summary>
         public byte Image { get; set; }
 

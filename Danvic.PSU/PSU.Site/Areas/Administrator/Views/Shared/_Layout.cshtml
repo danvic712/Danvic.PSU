@@ -168,14 +168,9 @@
                                     <i class="fa fa-list-ul"></i><span> 迎新服务维护 </span>
                                 </a>
                             </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "卧具信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Admission" asp-action="Bedding">
-                                    <i class="fa fa-list-ul"></i><span> 卧具信息维护 </span>
-                                </a>
-                            </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "制服信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Admission" asp-action="Suit">
-                                    <i class="fa fa-list-ul"></i><span> 制服信息维护 </span>
+                            <li class="@(ViewData["CurrName"].ToString() == "物品信息维护"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Admission" asp-action="Goods">
+                                    <i class="fa fa-list-ul"></i><span> 物品信息维护 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "金额信息维护"?"active":"")">

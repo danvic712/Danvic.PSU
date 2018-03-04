@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "寝室信息";
-    ViewData["NavTitle"] = "宿舍信息管理";
-    ViewData["CurrName"] = "寝室信息维护";
+    ViewData["Title"] = "物品信息";
+    ViewData["NavTitle"] = "入学信息管理";
+    ViewData["CurrName"] = "物品信息维护";
 }
 
 <section class="content-header">
     <h1>
-        寝室信息
-        <small>Dormitory Information</small>
+        物品信息
+        <small>Bedding Information</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -16,8 +16,8 @@
                 <i class="fa fa-dashboard"></i> 首页
             </a>
         </li>
-        <li>宿舍信息</li>
-        <li class="active">寝室信息</li>
+        <li>入学信息</li>
+        <li class="active">物品信息</li>
     </ol>
 </section>
 
@@ -25,35 +25,29 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">宿舍名称：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">物品名称：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="name" type="text" class="form-control">
                     <div class="input-group-addon">
-                        <i class="fa fa-building"></i>
+                        <i class="fa fa-bookmark"></i>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">宿舍类型：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">物品编号：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="type" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">四人间</option>
-                        <option value="">六人间</option>
-                        <option value="">八人间</option>
-                        <option value="">套房</option>
-                    </select>
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-info"></i>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="campus">所在楼层：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">是否启用：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="campus" name="" class="form-control">
-                        <option value="">请选择</option>
-                        @for (int i = 1; i < 6; i++)
-                        {
-                            <option value="">@i 层</option>
-                        }
+                    <select name="" class="form-control">
+                        <option value="">启用</option>
+                        <option value="">未启用</option>
                     </select>
                 </div>
             </div>
@@ -67,17 +61,17 @@
             </div>
         </div>
     </div>
-
     <div class="row">
-        @await Html.PartialAsync("_InformationTablePartial")
+        @await Html.PartialAsync("_GoodsTablePartial")
     </div>
 </section>
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/view/Administrator/dorm.js"></script>
+        <script src="~/javascript/view/Administrator/goods.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/javascript/view/Administrator/dorm.min.js" asp-append-version="true"></script>
+        <script src="~/javascript/view/Administrator/goods.min.js" asp-append-version="true"></script>
     </environment>
 }
+

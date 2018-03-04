@@ -168,5 +168,84 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/building.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/building.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/dorm.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/dorm.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/service.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/service.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/goods.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/goods.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/tuition.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/tuition.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/question.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/question.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/login.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/echarts.common.min.js",
+      "wwwroot/javascript/template/macarons.js",
+      "wwwroot/javascript/view/Administrator/login.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

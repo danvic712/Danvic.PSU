@@ -1,15 +1,8 @@
 ﻿/*!
- *   Administrator Bulletin Page JavaScript v1.0.0
+ *   Administrator Building Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {
-    $('.date-picker').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd'
-    });
-
     $('#bulletin-table').DataTable({
         "processing": true,//加载效果
         /* 
@@ -69,11 +62,11 @@ $(function () {
     });
 
     $(document).on('click', '#add', function () {
-        window.location.href = '/Administrator/Home/Edit';
+        window.location.href = '/Administrator/Dormitory/EditBuliding';
     });
 
     $(document).on('click', '#detail', function () {
-        window.location.href = '/Administrator/Home/Detail';
+        window.location.href = '/Administrator/School/MajorDetail';
     });
 
     $(document).on('click', '#search', function () {

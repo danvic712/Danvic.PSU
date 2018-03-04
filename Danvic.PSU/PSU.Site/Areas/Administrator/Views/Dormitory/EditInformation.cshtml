@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "寝室信息";
+    ViewData["NavTitle"] = "宿舍信息管理";
+    ViewData["CurrName"] = "寝室信息维护";
+}
+
+<section class="content-header">
+    <h1>
+        寝室信息
+        <small>Dormitory Information</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li>宿舍信息</li>
+        <li class="active">
+            <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
+                寝室信息
+            </a>
+        </li>
+        <li class="active">编辑</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <section class="col-lg-7 connectedSortable">
+            <form asp-area="Administrator" asp-controller="School" asp-action="EditMajorClass" method="post" class="form-horizontal" role="form">
+                <div class="box">
+                    <div class="box box-body">
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="name"> 宿舍名称： </label>
+                            <div class="col-md-5 col-xs-9">
+                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="campus"> 所属宿舍楼： </label>
+                            <div class="col-md-5 col-xs-9">
+                                <select id="campus" name="" class="form-control">
+                                    <option value="">请选择</option>
+                                    <option value="">我是宿舍楼1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label no-padding-right" for="floor">所在楼层：</label>
+                            <div class="col-md-5">
+                                <select id="floor" name="" class="form-control">
+                                    <option value="">请选择</option>
+                                    @for (int i = 1; i < 6; i++)
+                                    {
+                                        <option value="">@i 层</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label no-padding-right" for="type">宿舍类型：</label>
+                            <div class="col-md-5">
+                                <select id="type" name="" class="form-control">
+                                    <option value="">请选择</option>
+                                    <option value="">四人间</option>
+                                    <option value="">六人间</option>
+                                    <option value="">八人间</option>
+                                    <option value="">套房</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label no-padding-right" for="count">可容纳人数：</label>
+                            <div class="col-md-5 col-xs-9">
+                                <input class="col-md-5 col-xs-12 form-control" id="count" type="text" placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="state"> 是否启用： </label>
+                            <div class="col-md-5 col-xs-9">
+                                <select id="state" class="form-control">
+                                    <option value="">启用</option>
+                                    <option value="">不启用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="text-right">
+                            <button class="btn btn-success col-md-offset-2" type="submit">
+                                <i class="ace-icon fa fa-check"></i>
+                                保存
+                            </button>
+                            &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section class="col-md-5 connectedSortable">
+            <div class="box box-default">
+                <div class="box-body box-profile">
+
+                    <p class="text-muted text-center">我是宿舍楼名称啊</p>
+
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>所属校区</b> <a class="pull-right">我是新校区</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>总楼层</b> <a class="pull-right">6层</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>宿舍楼类型</b> <a class="pull-right">男生寝室</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+    </environment>
+    <environment exclude="Development">
+    </environment>
+}

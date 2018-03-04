@@ -1,0 +1,47 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">服务名称</th>
+                        <th class="text-center">服务地点</th>
+                        <th class="text-center">开始时间</th>
+                        <th class="text-center">结束时间</th>
+                        <th class="text-center">服务描述</th>
+                        <th class="text-center">是否启用</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <tr class="text-center">
+                            @{
+                                int num = 20171011 + i;
+                            }
+                            <td>@num</td>
+                            <td>迎新服务</td>
+                            <td>火车站</td>
+                            <td>2017年12月23日</td>
+                            <td>2017年12月25日</td>
+                            <td>这是服务详细信息描述啊</td>
+                            <td>启用</td>
+                            <td>
+                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
+                                    <i class="fa fa-pencil"></i>
+                                    编辑
+                                </a>
+                                <a class="btn btn-xs btn-link" id="delete">
+                                    <i class="fa fa-trash-o"></i>
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

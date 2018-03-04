@@ -22,9 +22,54 @@
 </section>
 
 <section class="content">
-    <!-- Main row -->
     <div class="row">
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">提问对象：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">提问日期：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="datetime" class="form-control date-picker" type="text" readonly />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar bigger-110"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">问题状态：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <select name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">已回复</option>
+                        <option value="">未回复</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <button id="search" class="btn btn-dropbox btn-flat col-md-4">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- /.row (main row) -->
+    <div class="row">
+        @await Html.PartialAsync("_QuestionTablePartial")
+    </div>
 </section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/question.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/question.min.js" asp-append-version="true"></script>
+    </environment>
+}
 

@@ -1,0 +1,45 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">物品名称</th>
+                        <th class="text-center">物品描述</th>
+                        <th class="text-center">物品尺寸</th>
+                        <th class="text-center">图片地址</th>
+                        <th class="text-center">是否启用</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <tr class="text-center">
+                            @{
+                                int num = 20171011 + i;
+                            }
+                            <td>@num</td>
+                            <td>卧具包</td>
+                            <td>这是物品详细信息描述啊</td>
+                            <td>100 cm * 200 cm</td>
+                            <td>这是图片地址</td>
+                            <td>启用</td>
+                            <td>
+                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
+                                    <i class="fa fa-pencil"></i>
+                                    编辑
+                                </a>
+                                <a class="btn btn-xs btn-link" id="delete">
+                                    <i class="fa fa-trash-o"></i>
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

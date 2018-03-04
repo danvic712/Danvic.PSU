@@ -39,6 +39,16 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        public IActionResult EditBuliding()
+        {
+            return View();
+        }
+
+        public IActionResult EditInformation()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service

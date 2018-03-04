@@ -1,5 +1,5 @@
 ﻿/*!
- *   Administrator Bulletin Page JavaScript v1.0.0
+ *   Administrator Question Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {
@@ -69,11 +69,11 @@ $(function () {
     });
 
     $(document).on('click', '#add', function () {
-        window.location.href = '/Administrator/Home/Edit';
+        window.location.href = '/Administrator/Dormitory/EditBuliding';
     });
 
     $(document).on('click', '#detail', function () {
-        window.location.href = '/Administrator/Home/Detail';
+        window.location.href = '/Administrator/School/MajorDetail';
     });
 
     $(document).on('click', '#search', function () {

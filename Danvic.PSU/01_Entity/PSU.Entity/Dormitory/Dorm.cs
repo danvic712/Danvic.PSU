@@ -65,11 +65,6 @@ namespace PSU.Entity.Dormitory
         public int SelectedCount { get; set; }
 
         /// <summary>
-        /// 寝室是否人数已满
-        /// </summary>
-        public bool IsSelectedAll { get; set; }
-
-        /// <summary>
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }

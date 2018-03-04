@@ -24,7 +24,7 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region View
 
-        public IActionResult Bedding( )
+        public IActionResult Goods( )
         {
             return View();
         }
@@ -35,10 +35,6 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         public IActionResult Service()
-        {
-            return View();
-        }
-        public IActionResult Suit()
         {
             return View();
         }
