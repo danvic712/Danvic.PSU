@@ -5,11 +5,9 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:40:58
 // Modified by:
-// Description: 床位信息表
+// Description: 寝室类型表
 //-----------------------------------------------------------------------
-using PSU.Entity.Basic;
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,66 +30,41 @@ namespace PSU.Entity.Dormitory
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 所属寝室名称
+        /// 寝室类型名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string DormName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// 床铺号
+        /// 可容纳人数
         /// </summary>
         [Required]
         [MaxLength(10)]
         public string Number { get; set; }
 
         /// <summary>
-        /// 床铺选择状态
-        /// 1:已选;2:未选;3:锁定中
+        /// 朝向
         /// </summary>
         [Required]
-        public short Status { get; set; }
+        [MaxLength(20)]
+        public string Toward { get; set; }
 
         /// <summary>
-        /// 选中人姓名
+        /// 类型示意图地址
         /// </summary>
-        [MaxLength(10)]
-        public string SelectedName { get; set; }
+        [MaxLength(500)]
+        public string ImageSrc { get; set; }
 
         /// <summary>
-        /// 选中人学号
+        /// 类型示意图二进制流
         /// </summary>
-        public int SelectedId { get; set; }
-
-        /// <summary>
-        /// 选择时间
-        /// </summary>
-        public DateTime SelectedTime { get; set; }
+        public byte Image { get; set; }
 
         /// <summary>
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 所属寝室主键
-        /// </summary>
-        public string DormFK { get; set; }
-
-        /// <summary>
-        /// 选择学生主键
-        /// </summary>
-        public string StudentFK { get; set; }
-
-        [ForeignKey("DormFK")]
-        public virtual Dorm Dorm { get; set; }
-
-        [ForeignKey("StudentFK")]
-        public virtual Student Student { get; set; }
 
         #endregion
     }

@@ -22,9 +22,123 @@
 </section>
 
 <section class="content">
-    <!-- Main row -->
     <div class="row">
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="~/images/template/user2-160x160.jpg" alt="我的头像">
+                    <h3 class="profile-username text-center">这是我的名字啊</h3>
+
+                    <p class="text-muted text-center">系统管理员</p>
+
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>系统角色</b> <a class="pull-right">管理员</a>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block"><b>更换头像</b></a>
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">上次登录</h3>
+                </div>
+                <div class="box-body">
+                    <strong><i class="fa fa-clock-o margin-r-5"></i> 登录时间</strong>
+
+                    <p class="text-muted">
+                        @DateTime.Now.ToString()
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> 位置</strong>
+
+                    <p class="text-muted">安徽省芜湖市弋江区</p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> 总登录次数</strong>
+
+                    <p class="text-muted">42次</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="profile-user-info profile-user-info-striped">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 真实姓名 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="username">alexdoe</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 联系地址 </div>
+
+                            <div class="profile-info-value">
+                                <i class="fa fa-map-marker text-orange bigger-110"></i>
+                                <span class="editable editable-click" id="country">中国</span>
+                                <span class="editable editable-click" id="city">安徽省</span>
+                                <span class="editable editable-click" id="city">芜湖市</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 工号 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="age">20180101000000</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 年龄 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="age">38</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 创建日期 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="signup">@DateTime.Now.AddMonths(-13).ToString()</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 性别 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="login">男</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 手机号 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="about">13912345678</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 电子邮箱 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="about">admin@example.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.row (main row) -->
 </section>
 

@@ -269,6 +269,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/bunk.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/bunk.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/loginchart.min.js",
     "inputFiles": [
       "wwwroot/javascript/template/echarts.common.min.js",

@@ -78,8 +78,16 @@ namespace PSU.Entity.Dormitory
         /// </summary>
         public string BuildingFK { get; set; }
 
+        /// <summary>
+        /// 寝室类型主键
+        /// </summary>
+        public string BunkFK { get; set; }
+
         [ForeignKey("BuildingFK")]
         public virtual Building Building { get; set; }
+
+        [ForeignKey("BunkFK")]
+        public virtual Bunk Bunk { get; set; }
 
         #endregion
     }

@@ -39,6 +39,22 @@ namespace PSU.Entity.Basic
         public string Name { get; set; }
 
         /// <summary>
+        /// 年龄
+        /// </summary>
+        public int Age { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public bool Gender { get; set; }
+
+        /// <summary>
+        /// 联系地址
+        /// </summary>
+        [MaxLength(200)]
+        public string Address { get; set; }
+
+        /// <summary>
         /// 所属院系、部门
         /// </summary>
         [MaxLength(50)]
