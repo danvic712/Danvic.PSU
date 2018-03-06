@@ -45,10 +45,10 @@ namespace PSU.Entity.School
         public string CampusName { get; set; }
 
         /// <summary>
-        /// 院系代码
+        /// 详细地址
         /// </summary>
-        [MaxLength(20)]
-        public string Code { get; set; }
+        [MaxLength(200)]
+        public string Address { get; set; }
 
         /// <summary>
         /// 联系方式
@@ -101,6 +101,11 @@ namespace PSU.Entity.School
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// 是否为部门
+        /// </summary>
+        public bool IsBranch { get; set; }
 
         #endregion
 

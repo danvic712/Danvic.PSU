@@ -58,36 +58,45 @@
                                 <div class="box box-primary">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right" for="name">
-                                                <span style="vertical-align:middle;color:red">*</span> 学校全称
+                                            <label class="col-md-2 control-label no-padding-right" for="name">
+                                                <span class="required-label">*</span> 学校全称
                                             </label>
-                                            <div class="col-sm-3">
-                                                <input type="text" id="name" class="col-sm-5 form-control" placeholder="中文名称" />
+                                            <div class="col-md-3">
+                                                <input type="text" id="name" class="form-control" placeholder="中文名称" />
                                             </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" id="name" class="col-sm-4 col-sm-offset-1 form-control" placeholder="英文名称" />
+                                            <div class="col-md-3">
+                                                <input type="text" id="name" class="form-control" placeholder="英文名称" />
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label no-padding-right col-sm-2 col-xs-4" for="datetime">建立时间</label>
-                                            <div class="col-sm-10 col-xs-8">
-                                                <div class="input-group col-sm-4">
+                                            <label class="col-md-2 control-label no-padding-right" for="datetime">建立时间</label>
+                                            <div class="col-md-3 col-xs-8">
+                                                <div class="input-group col-md-12">
                                                     <input id="datetime" class="form-control date-picker" type="text" readonly />
                                                     <span class="input-group-addon">
-                                                        <i class="fa fa-calendar bigger-110"></i>
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <label class="col-md-2 control-label no-padding-right" for="code">院校代码</label>
+                                            <div class="col-md-3 col-xs-8">
+                                                <div class="input-group col-md-12">
+                                                    <input id="code" class="form-control" type="text" />
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-id-badge"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right" for="name"> 校训 </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" id="name" class="col-sm-4 col-xs-10 form-control" />
+                                            <label class="col-md-2 control-label no-padding-right" for="name"> 校训 </label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="name" class="col-md-4 col-xs-10 form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right" for="name"> 简介 </label>
-                                            <div class="col-sm-8">
+                                            <label class="col-md-2 control-label no-padding-right" for="name"> 简介 </label>
+                                            <div class="col-md-8">
                                                 <textarea style="resize: none;" cols="60" rows="4" class="form-control"></textarea>
                                             </div>
                                         </div>
@@ -101,26 +110,26 @@
                     <div class="box box-header">
                         <h3 class="box-title">校区信息</h3>
                         <button class="btn btn-minier btn-pink pull-right">
-                            <i class="ace-icon fa fa-plus"></i>
+                            <i class="fa fa-plus"></i>
                             添加校区
                         </button>
                     </div>
                     <div class="box-body">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-email">
-                                <span style="vertical-align:middle;color:red">*</span> 校区名称
+                            <label class="col-md-2 control-label no-padding-right" for="form-field-email">
+                                <span class="required-label">*</span> 校区名称
                             </label>
-                            <div class="col-sm-8">
+                            <div class="col-md-8">
                                 <input type="text" class="form-control" id="name" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="form-field-phone">
-                                <span style="vertical-align:middle;color:red">*</span> 联系电话
+                            <label class="col-md-2 control-label no-padding-right" for="form-field-phone">
+                                <span class="required-label">*</span> 联系电话
                             </label>
-                            <div class="col-sm-3">
+                            <div class="col-md-3">
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="form-field-phone" />
                                     <span class="input-group-addon">
@@ -128,17 +137,17 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-5">
-                                <label class="col-sm-2 control-label no-padding-right" for="form-field-phone"> 邮编 </label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="name" class="col-sm-10 col-xs-10 form-control" />
+                            <div class="col-md-5">
+                                <label class="col-md-2 control-label no-padding-right" for="form-field-phone"> 邮编 </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="name" class="col-md-10 col-xs-10 form-control" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="name">
-                                <span style="vertical-align:middle;color:red">*</span> 所在地
+                            <label class="col-md-2 control-label no-padding-right" for="name">
+                                <span class="required-label">*</span> 所在地
                             </label>
                             <div class="col-md-10 form-inline">
                                 <select name="" class="form-control">
@@ -154,10 +163,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right" for="name">
-                                <span style="vertical-align:middle;color:red">*</span> 详细地址
+                            <label class="col-md-2 control-label no-padding-right" for="name">
+                                <span class="required-label">*</span> 详细地址
                             </label>
-                            <div class="col-sm-10">
+                            <div class="col-md-10">
                                 <input type="text" id="name" class="form-control col-md-8" />
                             </div>
                         </div>
@@ -171,13 +180,13 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="col-md-4 control-label no-padding-right" for="form-field-website">
-                                    <span style="vertical-align:middle;color:red">*</span> 官方网站
+                                    <span class="required-label">*</span> 官方网站
                                 </label>
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <input id="form-field-website" class="form-control" type="text" />
                                         <span class="input-group-addon">
-                                            <i class="ace-icon fa fa-globe"></i>
+                                            <i class="fa fa-globe"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -188,7 +197,7 @@
                                     <div class="input-group">
                                         <input id="form-field-website" class="form-control" type="text" />
                                         <span class="input-group-addon">
-                                            <i class="ace-icon fa fa-weibo text-red"></i>
+                                            <i class="fa fa-weibo text-red"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -199,7 +208,7 @@
                                     <div class="input-group">
                                         <input type="text" id="form-field-facebook" class="form-control" />
                                         <span class="input-group-addon">
-                                            <i class="ace-icon fa fa-weixin text-green"></i>
+                                            <i class="fa fa-weixin text-green"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -209,13 +218,13 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="col-md-4 control-label no-padding-right" for="form-field-email">
-                                    <span style="vertical-align:middle;color:red">*</span> 电子邮箱
+                                    <span class="required-label">*</span> 电子邮箱
                                 </label>
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <input type="email" id="form-field-email" class="form-control" />
                                         <span class="input-group-addon">
-                                            <i class="ace-icon fa fa-envelope text-yellow"></i>
+                                            <i class="fa fa-envelope text-yellow"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -226,7 +235,7 @@
                                     <div class="input-group">
                                         <input type="email" id="form-field-email" class="form-control" />
                                         <span class="input-group-addon">
-                                            <i class="ace-icon fa fa-qq fa-flip-horizontal text-light-blue"></i>
+                                            <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
                                         </span>
                                     </div>
                                 </div>

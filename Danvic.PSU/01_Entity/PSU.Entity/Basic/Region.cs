@@ -37,6 +37,13 @@ namespace PSU.Entity.Basic
         public string Name { get; set; }
 
         /// <summary>
+        /// 父级地区名称
+        /// </summary>
+        [Required]
+        [MaxLength(50)]
+        public string ParentName { get; set; }
+
+        /// <summary>
         /// 地区级别
         /// </summary>
         public short Level { get; set; }

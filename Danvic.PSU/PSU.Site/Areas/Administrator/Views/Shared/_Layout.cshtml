@@ -225,14 +225,19 @@
                                     <i class="fa fa-list-ul"></i><span> 个人账户信息 </span>
                                 </a>
                             </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "教师账户管理"?"active":"")">
+                            <li class="@(ViewData["CurrName"].ToString() == "职工账户管理"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Basic" asp-action="Staff">
-                                    <i class="fa fa-list-ul"></i><span> 教师账户管理 </span>
+                                    <i class="fa fa-list-ul"></i><span> 职工账户管理 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "学生账户管理"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Basic" asp-action="Student">
                                     <i class="fa fa-list-ul"></i><span> 学生账户管理 </span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "部门数据维护"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Basic" asp-action="Branch">
+                                    <i class="fa fa-list-ul"></i><span> 部门数据维护 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "地区数据维护"?"active":"")">

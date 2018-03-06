@@ -43,6 +43,12 @@ namespace PSU.Entity.School
         public string NameEN { get; set; }
 
         /// <summary>
+        /// 院校代码
+        /// </summary>
+        [Required]
+        public int Code { get; set; }
+
+        /// <summary>
         /// 校训
         /// </summary>
         [MaxLength(100)]

@@ -22,9 +22,58 @@
 </section>
 
 <section class="content">
-    <!-- Main row -->
     <div class="row">
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="code">地区编号：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="code" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-id-badge"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">地区名称：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="department">地区级别：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <select id="department" name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">省级行政区</option>
+                        <option value="">地级行政区</option>
+                        <option value="">县级行政区</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <button id="search" class="btn btn-dropbox btn-flat col-md-4">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
+                <button id="add" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
+                    <i class="fa fa-plus"></i>&nbsp;新建
+                </button>
+            </div>
+        </div>
     </div>
-    <!-- /.row (main row) -->
+    <div class="row">
+        @await Html.PartialAsync("_RegionTablePartial")
+    </div>
 </section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/region.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/region.min.js" asp-append-version="true"></script>
+    </environment>
+}
 

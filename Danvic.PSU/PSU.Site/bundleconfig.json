@@ -280,11 +280,68 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/staff.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/staff.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/studentaccount.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/studentaccount.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/branch.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/branch.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/region.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/region.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/loginchart.min.js",
     "inputFiles": [
       "wwwroot/javascript/template/echarts.common.min.js",
       "wwwroot/javascript/template/macarons.js",
       "wwwroot/javascript/view/Administrator/loginchart.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/index.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/echarts.common.min.js",
+      "wwwroot/javascript/template/macarons.js",
+      "wwwroot/javascript/view/Instructor/index.js"
     ],
     "minify": {
       "enabled": true,

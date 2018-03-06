@@ -202,3 +202,12 @@ body {
         border-top: 1px dotted #DCEBF7;
         padding-left: 12px
     }
+
+a:hover {
+    color: red;
+}
+
+.required-label {
+    vertical-align: middle;
+    color: red
+}

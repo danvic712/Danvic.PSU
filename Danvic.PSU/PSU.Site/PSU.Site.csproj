@@ -28,6 +28,11 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\javascript\view\Administrator\region.min.js">
+      <DependentUpon>region.js</DependentUpon>
+    </Content>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -24,6 +24,11 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region View
 
+        public IActionResult Branch()
+        {
+            return View();
+        }
+
         public IActionResult Staff()
         {
             return View();
