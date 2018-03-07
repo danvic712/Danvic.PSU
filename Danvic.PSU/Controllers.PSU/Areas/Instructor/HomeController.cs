@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/10 星期六 15:47:25
 // Modified by:
-// Description: 
+// Description: Instructor-Home控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;

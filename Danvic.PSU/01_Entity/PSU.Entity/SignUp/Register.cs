@@ -53,6 +53,11 @@ namespace PSU.Entity.SignUp
         public DateTime ArriveTime { get; set; }
 
         /// <summary>
+        /// 完成预报名时间
+        /// </summary>
+        public DateTime DateTime { get; set; }
+
+        /// <summary>
         /// 到达地点
         /// </summary>
         [Required]

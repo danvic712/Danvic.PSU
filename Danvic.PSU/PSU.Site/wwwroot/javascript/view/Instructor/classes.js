@@ -1,5 +1,5 @@
 ﻿/*!
- *   Instructor Question Page JavaScript v1.0.0
+ *   Instructor Classes Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {

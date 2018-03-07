@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "新生疑问";
-    ViewData["NavTitle"] = "新生疑问管理";
+    ViewData["Title"] = "新生报名";
+    ViewData["NavTitle"] = "新生报名情况";
     ViewData["CurrName"] = "";
 }
 
 <section class="content-header">
     <h1>
-        新生疑问
-        <small>Student's Question</small>
+        新生报名
+        <small>Student's Register</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -16,7 +16,7 @@
                 <i class="fa fa-dashboard"></i> 首页
             </a>
         </li>
-        <li class="active">新生疑问</li>
+        <li class="active">新生报名</li>
     </ol>
 </section>
 
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">提问日期：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">报名日期：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="datetime" class="form-control date-picker" type="text" readonly />
                     <span class="input-group-addon">
@@ -42,12 +42,15 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">问题状态：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">到达地点：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select name="" class="form-control">
                         <option value="">请选择</option>
-                        <option value="">已回复</option>
-                        <option value="">未回复</option>
+                        <option value="">火车站</option>
+                        <option value="">汽车站</option>
+                        <option value="">飞机场</option>
+                        <option value="">港口</option>
+                        <option value="">学校</option>
                     </select>
                 </div>
             </div>
@@ -59,15 +62,15 @@
         </div>
     </div>
     <div class="row">
-        @await Html.PartialAsync("_InformationTablePartial")
+        @await Html.PartialAsync("_RegisterTablePartial")
     </div>
 </section>
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/view/Instructor/question.js"></script>
+        <script src="~/javascript/view/Instructor/register.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/javascript/view/Instructor/question.min.js" asp-append-version="true"></script>
+        <script src="~/javascript/view/Instructor/register.min.js" asp-append-version="true"></script>
     </environment>
 }

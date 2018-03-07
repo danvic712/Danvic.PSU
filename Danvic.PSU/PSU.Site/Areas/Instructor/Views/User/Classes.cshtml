@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "新生疑问";
-    ViewData["NavTitle"] = "新生疑问管理";
+    ViewData["Title"] = "我的班级";
+    ViewData["NavTitle"] = "我的班级管理";
     ViewData["CurrName"] = "";
 }
 
 <section class="content-header">
     <h1>
-        新生疑问
-        <small>Student's Question</small>
+        我的班级
+        <small>My Classes</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -16,7 +16,7 @@
                 <i class="fa fa-dashboard"></i> 首页
             </a>
         </li>
-        <li class="active">新生疑问</li>
+        <li class="active">我的班级</li>
     </ol>
 </section>
 
@@ -24,31 +24,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">学生姓名：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">班级名称：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="name" type="text" class="form-control">
                     <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-pencil-square-o"></i>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">提问日期：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="classname">专业名称：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <input id="datetime" class="form-control date-picker" type="text" readonly />
-                    <span class="input-group-addon">
-                        <i class="fa fa-calendar bigger-110"></i>
-                    </span>
+                    <input id="classname" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-id-badge"></i>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">问题状态：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">班级QQ：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">已回复</option>
-                        <option value="">未回复</option>
-                    </select>
+                    <input id="classname" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-qq"></i>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
@@ -59,15 +58,15 @@
         </div>
     </div>
     <div class="row">
-        @await Html.PartialAsync("_InformationTablePartial")
+        @await Html.PartialAsync("_ClassesTablePartial")
     </div>
 </section>
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/view/Instructor/question.js"></script>
+        <script src="~/javascript/view/Instructor/classes.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/javascript/view/Instructor/question.min.js" asp-append-version="true"></script>
+        <script src="~/javascript/view/Instructor/classes.min.js" asp-append-version="true"></script>
     </environment>
 }

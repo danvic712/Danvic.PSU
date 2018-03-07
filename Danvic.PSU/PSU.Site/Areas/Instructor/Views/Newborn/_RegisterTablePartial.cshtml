@@ -1,0 +1,38 @@
+﻿<div class="col-xs-12">
+    <div class="box">
+        <div class="box-body">
+            <table id="bulletin-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">学生学号</th>
+                        <th class="text-center">学生姓名</th>
+                        <th class="text-center">所属班级</th>
+                        <th class="text-center">来校方式</th>
+                        <th class="text-center">预计到校时间</th>
+                        <th class="text-center">预计到达地点</th>
+                        <th class="text-center">完成预报名时间</th>
+                        <th class="text-center">备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < 15; i++)
+                    {
+                        <tr class="text-center">
+                            @{
+                                int num = 20171011 + i;
+                            }
+                            <td>@num</td>
+                            <td>张三</td>
+                            <td>网络1401</td>
+                            <td>火车</td>
+                            <td>2017-12-22 09-32</td>
+                            <td>火车站</td>
+                            <td>@DateTime.Now.ToString()</td>
+                            <td>备注备注备注</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -359,5 +359,27 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/register.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/register.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/classes.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/classes.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]
