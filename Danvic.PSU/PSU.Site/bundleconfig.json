@@ -348,5 +348,16 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/question.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/question.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]
