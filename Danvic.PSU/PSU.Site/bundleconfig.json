@@ -24,6 +24,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/css/view/ulayout.min.css",
+    "inputFiles": [
+      "wwwroot/css/view/ulayout.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/login.min.js",
     "inputFiles": [
       "wwwroot/javascript/template/jquery.cookie.js",
@@ -375,6 +381,28 @@
     "outputFileName": "wwwroot/javascript/view/Instructor/classes.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/classes.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/dormitory.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/dormitory.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/information.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/information.js"
     ],
     "minify": {
       "enabled": true,

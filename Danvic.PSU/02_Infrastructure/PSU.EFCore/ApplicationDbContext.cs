@@ -141,7 +141,7 @@ namespace PSU.EFCore
         /// <summary>
         /// 选取卧具信息表
         /// </summary>
-        public virtual DbSet<BeddingInfo> BeddingInfo { get; set; }
+        public virtual DbSet<GoodsInfo> BeddingInfo { get; set; }
 
         /// <summary>
         /// 选取床铺信息表

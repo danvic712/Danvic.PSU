@@ -43,6 +43,19 @@ namespace PSU.Entity.SignUp
         public long StudentId { get; set; }
 
         /// <summary>
+        /// 所属班级
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string ClassName { get; set; }
+
+        /// <summary>
+        /// 所属班级Id
+        /// </summary>
+        [Required]
+        public long ClassId { get; set; }
+
+        /// <summary>
         /// 寝室楼Id
         /// </summary>
         [Required]
@@ -75,12 +88,6 @@ namespace PSU.Entity.SignUp
         public string DormName { get; set; }
 
         /// <summary>
-        /// 床铺Id
-        /// </summary>
-        [Required]
-        public long BunkId { get; set; }
-
-        /// <summary>
         /// 床铺号
         /// </summary>
         [Required]
@@ -90,6 +97,7 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 选择时间
         /// </summary>
+        [Required]
         public DateTime ChosenTime { get; set; } = DateTime.Now;
 
         #endregion

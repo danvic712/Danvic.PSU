@@ -20,7 +20,7 @@ namespace PSU.Entity.Admission
         /// 主键
         /// </summary>
         [Key]
-        public string BeddingOID { get; set; }
+        public string GoodsOID { get; set; }
 
         /// <summary>
         /// 编号

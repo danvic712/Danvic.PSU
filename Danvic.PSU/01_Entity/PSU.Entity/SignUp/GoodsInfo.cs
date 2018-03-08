@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "BeddingInfo.cs">
+// <copyright file= "GoodsInfo.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.SignUp
 {
-    public class BeddingInfo
+    public class GoodsInfo
     {
         #region Attribute
 
@@ -21,7 +21,7 @@ namespace PSU.Entity.SignUp
         /// 主键
         /// </summary>
         [Key]
-        public string BeddingInfoOID { get; set; }
+        public string GoodsInfoOID { get; set; }
 
         /// <summary>
         /// 编号

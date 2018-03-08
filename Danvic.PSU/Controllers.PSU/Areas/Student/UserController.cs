@@ -1,11 +1,11 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "HomeController.cs">
+// <copyright file= "UserController.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018/2/10 星期六 15:48:18
+// Date Created: 2018-03-08 20:56:47
 // Modified by:
-// Description: Student-Home控制器
+// Description: Student-User控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,14 +15,14 @@ using System.Text;
 namespace Controllers.PSU.Areas.Student
 {
     [Area("Student")]
-    public class HomeController : Controller
+    public class UserController:Controller
     {
         #region Initialize
         #endregion
 
         #region View
 
-        public IActionResult Index()
+        public IActionResult Profile()
         {
             return View();
         }
