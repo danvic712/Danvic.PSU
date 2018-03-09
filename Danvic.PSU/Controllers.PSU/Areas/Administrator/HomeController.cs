@@ -54,7 +54,7 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 公告页面
+        /// 公告编辑页面
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -63,14 +63,35 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        /// <summary>
+        /// 公告详情页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Detail()
         {
             return View();
         }
 
-        public IActionResult Edit()
+        /// <summary>
+        /// 公告编辑页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Edit(string id)
         {
-            return View();
+            BulletinEditViewModel webModel = new BulletinEditViewModel
+            {
+                Title = "",
+                Content = "",
+                Target = 0,
+                Type = 0
+            };
+            if (!string.IsNullOrEmpty(id))
+            {
+                //Todo:编辑页面，加载公告相关信息
+            }
+            return View(webModel);
         }
 
         #endregion
@@ -89,22 +110,6 @@ namespace Controllers.PSU.Areas.Administrator
 
             webModel = await _service.SearchBulletinAsync(webModel, _context);
 
-            //var data = new ReturnData
-            //{
-            //    Id = "1111111111111",
-            //    Content = "11111111",
-            //    DateTime = DateTime.Now.ToString(),
-            //    Publisher = "我发布的啊",
-            //    Target = 1,
-            //    Title = "我是标题啊",
-            //    Type = 1
-            //};
-
-            //List<ReturnData> list = new List<ReturnData>();
-            //list.Add(data);
-
-            //webModel.BulletinList = list;
-
             var returnData = new
             {
                 data = webModel.BulletinList,
@@ -116,11 +121,24 @@ namespace Controllers.PSU.Areas.Administrator
             return Json(returnData);
         }
 
-
+        /// <summary>
+        /// 公告编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(BulletinEditViewModel webModel)
+        public async Task<IActionResult> Edit(BulletinEditViewModel webModel)
         {
+            if (string.IsNullOrEmpty(webModel.Id))
+            {
+                //Todo:新增公告
+            }
+            else
+            {
+                //Todo:更新公告信息
+            }
+
             return View();
         }
 

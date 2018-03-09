@@ -105,13 +105,13 @@ namespace PSU.Model.Areas.Administrator.Home
 
                 switch (Target)
                 {
-                    case 0:
+                    case 1:
                         str = "全部用户";
                         break;
-                    case 1:
+                    case 2:
                         str = "教职工用户";
                         break;
-                    case 2:
+                    case 3:
                         str = "学生用户";
                         break;
                     default:
