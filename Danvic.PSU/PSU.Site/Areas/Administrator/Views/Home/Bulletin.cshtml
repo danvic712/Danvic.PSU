@@ -1,4 +1,4 @@
-﻿
+﻿@model PSU.Model.Areas.Administrator.Home.BulletinViewModel
 @{
     ViewData["Title"] = "网站公告";
     ViewData["NavTitle"] = "网站公告管理";
@@ -45,9 +45,9 @@
                 <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">公告类型：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select id="type" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">新闻公告</option>
-                        <option value="">学校政策</option>
+                        <option value="0">请选择</option>
+                        <option value="1">新闻公告</option>
+                        <option value="2">学校政策</option>
                     </select>
                 </div>
             </div>

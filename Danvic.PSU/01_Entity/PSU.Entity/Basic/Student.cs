@@ -39,6 +39,18 @@ namespace PSU.Entity.Basic
         public string Name { get; set; }
 
         /// <summary>
+        /// 准考证号
+        /// </summary>
+        [Required]
+        public long TicketId { get; set; }
+
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        [Required]
+        public long IdNumber { get; set; }
+
+        /// <summary>
         /// 性别
         /// </summary>
         public bool Gender { get; set; }

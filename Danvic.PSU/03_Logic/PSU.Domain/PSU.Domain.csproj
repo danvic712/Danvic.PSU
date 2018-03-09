@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\01_Entity\PSU.Entity\PSU.Entity.csproj" />
     <ProjectReference Include="..\..\04_Rule\PSU.IService\PSU.IService.csproj" />
+    <ProjectReference Include="..\PSU.Repository\PSU.Repository.csproj" />
   </ItemGroup>
 
 </Project>

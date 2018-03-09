@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Basic
 {
-    public class Region
+    public class Region : SysField
     {
         #region Attribute
 

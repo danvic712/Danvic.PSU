@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:44:20
 // Modified by:
-// Description: 新生车辆服务预定表
+// Description: 新生服务预定表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System;

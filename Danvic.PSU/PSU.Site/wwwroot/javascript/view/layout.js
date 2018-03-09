@@ -3,5 +3,7 @@
  *   Author: Danvic712
  */
 $(function () {
-
+    $(document).ajaxStart(function () {
+        Pace.restart();
+    })
 })

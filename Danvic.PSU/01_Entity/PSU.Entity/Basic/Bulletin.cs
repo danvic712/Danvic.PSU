@@ -48,6 +48,13 @@ namespace PSU.Entity.Basic
         [Required]
         public short Type { get; set; }
 
+        /// <summary>
+        /// 针对用户
+        /// 0:全部用户;1:教职工用户;2:学生用户
+        /// </summary>
+        [Required]
+        public short Target { get; set; }
+
         #endregion
     }
 }

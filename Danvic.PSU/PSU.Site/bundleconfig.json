@@ -14,6 +14,7 @@
       "wwwroot/css/template/skins/skin-green.css",
       "wwwroot/css/template/bootstrap-datepicker.css",
       "wwwroot/css/template/dataTables.bootstrap.css",
+      "wwwroot/css/template/pace.css",
       "wwwroot/css/view/layout.css"
     ]
   },
@@ -50,6 +51,7 @@
       "wwwroot/javascript/template/bootstrap-datepicker.zh-CN.min.js",
       "wwwroot/javascript/template/jquery.slimscroll.js",
       "wwwroot/javascript/template/adminlte.js",
+      "wwwroot/javascript/template/pace.js",
       "wwwroot/javascript/view/layout.js"
     ],
     "minify": {

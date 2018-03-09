@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:43:22
 // Modified by:
-// Description: 新生选择卧具信息表
+// Description: 新生选择物品信息表
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System;
