@@ -25,12 +25,9 @@ namespace Controllers.PSU.Areas.Administrator
     {
         #region Initialize
 
-        private readonly IHomeService _service;
-
-        private readonly ILogger _logger;
-
         private readonly ApplicationDbContext _context;
-
+        private readonly ILogger _logger;
+        private readonly IHomeService _service;
         public HomeController(IHomeService service, ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _service = service;
@@ -43,18 +40,7 @@ namespace Controllers.PSU.Areas.Administrator
         #region View
 
         /// <summary>
-        /// 首页
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var webModel = await _service.InitIndexPageAsync();
-            return View();
-        }
-
-        /// <summary>
-        /// 公告编辑页面
+        /// 公告列表页面
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -68,8 +54,15 @@ namespace Controllers.PSU.Areas.Administrator
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Detail()
+        public async Task<IActionResult> DetailAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return View("Bulletin");
+            }
+
+            var model = await _service.GetDetailAsync(Convert.ToInt64(id), _context);
+
             return View();
         }
 
@@ -78,7 +71,7 @@ namespace Controllers.PSU.Areas.Administrator
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> EditAsync(string id)
         {
             BulletinEditViewModel webModel = new BulletinEditViewModel
             {
@@ -90,14 +83,81 @@ namespace Controllers.PSU.Areas.Administrator
             if (!string.IsNullOrEmpty(id))
             {
                 //Todo:编辑页面，加载公告相关信息
-                webModel = _service.GetBulletin(Convert.ToInt64(id), _context);
+                webModel = await _service.GetBulletinAsync(Convert.ToInt64(id), _context);
             }
             return View(webModel);
+        }
+
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var webModel = await _service.InitIndexPageAsync();
+            return View();
         }
 
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 删除公告数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool flag = await _service.DeleteBulletinAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag == true ? "数据删除成功，公告编号：" + id : "数据删除失败，公告编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 公告编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Edit(BulletinEditViewModel webModel)
+        {
+            bool flag = false;
+
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Todo:新增公告
+                    flag = await _service.InsertBulletinAsync(webModel, _context);
+                }
+                else
+                {
+                    //Todo:更新公告信息
+                    flag = await _service.UpdateBulletinAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    sueeess = flag,
+                    msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    sueeess = false,
+                    msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
+                });
+            }
+        }
 
         /// <summary>
         /// 公告页面搜索
@@ -120,50 +180,6 @@ namespace Controllers.PSU.Areas.Administrator
             };
 
             return Json(returnData);
-        }
-
-        /// <summary>
-        /// 公告编辑页面
-        /// </summary>
-        /// <param name="webModel"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> Edit(BulletinEditViewModel webModel)
-        {
-            bool flag = false;
-            if (string.IsNullOrEmpty(webModel.Id))
-            {
-                //Todo:新增公告
-                flag = await _service.InsertBulletinAsync(webModel, _context);
-            }
-            else
-            {
-                //Todo:更新公告信息
-
-            }
-
-            return Json(new
-            {
-                sueeess = flag,
-                msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
-            });
-        }
-
-        /// <summary>
-        /// 删除公告数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
-        {
-            bool flag = await _service.DeleteBulletinAsync(Convert.ToInt64(id), _context);
-
-            return Json(new
-            {
-                sueeess = flag,
-                msg = flag == true ? "公告编号：" + id + "数据删除成功" : "公告编号：" + id + "数据删除失败"
-            });
         }
 
         #endregion

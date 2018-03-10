@@ -33,6 +33,13 @@ namespace PSU.Domain.Areas.Administrator
             _logger = logger;
         }
 
+        public enum OperateCode
+        {
+            Insert = 0,
+            Update = 1,
+            Delete = 2
+        }
+
         #endregion
 
         #region Index Interface Service Implement
@@ -52,6 +59,97 @@ namespace PSU.Domain.Areas.Administrator
         #region Bulletin Interface Service Implement
 
         /// <summary>
+        /// 删除公告数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteBulletinAsync(long id, ApplicationDbContext context)
+        {
+            try
+            {
+                //Delete Bulletin Data
+                await HomeRepository.DeleteBulletinAsync(id, context);
+
+                //Add Operate Information
+                string operate = string.Format("删除公告数据，公告Id:{0}", id);
+                PSURepository.InsertRecordAsync(operate, (short)OperateCode.Delete, id, context);
+
+                int index = await context.SaveChangesAsync();
+                return index == 1 ? true : false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除公告数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取公告数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task<BulletinEditViewModel> GetBulletinAsync(long id, ApplicationDbContext context)
+        {
+            BulletinEditViewModel webModel = new BulletinEditViewModel();
+            try
+            {
+                var model = await HomeRepository.GetBulletinAsync(id, context);
+                webModel.Title = model.Title;
+                webModel.Id = model.Id.ToString();
+                webModel.Content = model.Content;
+                webModel.Target = (BulletinTarget)model.Target;
+                webModel.Type = (BulletinType)model.Type;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取公告数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取公告详情页数据
+        /// </summary>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库连接上下文</param>
+        /// <returns></returns>
+        public async Task<BulletinDetailViewModel> GetDetailAsync(long id, ApplicationDbContext context)
+        {
+            //Get Bulletin Data
+            var bulletin = await HomeRepository.GetBulletinAsync(id, context);
+
+            //Get Operate Data
+            var record = await PSURepository.GetRecordListAsync(id, context);
+            List<Operate> list = new List<Operate>();
+            if (record != null && record.Any())
+            {
+                foreach (var item in record)
+                {
+                    var operate = new Operate
+                    {
+                        Name = item.UserName,
+                        DateTime = item.DateTime.ToString("yyyy-MM-dd HH:mm"),
+                        Operating = item.Operate
+                    };
+                    list.Add(operate);
+                }
+            }
+
+            //Bulid Web Model
+            var webModel = new BulletinDetailViewModel
+            {
+                Title = bulletin.Title,
+                Content = bulletin.Content,
+                CreatedOn = bulletin.CreatedOn.ToString("yyyy-MM-dd"),
+                OperateList = list
+            };
+            return webModel;
+        }
+
+        /// <summary>
         /// 新增公告数据
         /// </summary>
         /// <param name="webModel"></param>
@@ -61,13 +159,9 @@ namespace PSU.Domain.Areas.Administrator
             try
             {
                 //Add the Bulletion Data
-                HomeRepository.InsertBulletinAsync(webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
+                var model = await HomeRepository.InsertBulletinAsync(webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
 
-                //Add the Record Data
-                string operate = string.Format("创建新公告：{0}", webModel.Title);
-                PSURepository.InsertRecordAsync(operate, context);
-
-                //Make the transaction 
+                //Make the transaction union
                 var index = await context.SaveChangesAsync();
 
                 return index == 2 ? true : false;
@@ -130,54 +224,24 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task<bool> UpdateBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// 获取公告数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public BulletinEditViewModel GetBulletin(long id, ApplicationDbContext context)
-        {
-            BulletinEditViewModel webModel = new BulletinEditViewModel();
-            try
-            {
-                var model = HomeRepository.GetBulletin(id, context);
-                webModel.Title = model.Title;
-                webModel.Id = model.Id.ToString();
-                webModel.Content = model.Content;
-                webModel.Target = (BulletinTarget)model.Target;
-                webModel.Type = (BulletinType)model.Type;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("获取公告数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
-            }
-            return webModel;
-        }
-
-        /// <summary>
-        /// 删除公告数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public async Task<bool> DeleteBulletinAsync(long id, ApplicationDbContext context)
+        public async Task<bool> UpdateBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context)
         {
             try
             {
-                HomeRepository.DeleteBulletin(id, context);
+                //Update Bulletin Data
+                HomeRepository.UpdateBulletion(Convert.ToInt64(webModel.Id), webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
+
+                //Add Operate Information
+                string operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync(operate, (short)OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 int index = await context.SaveChangesAsync();
-                return index == 1 ? true : false;
+
+                return index == 2 ? true : false;
             }
             catch (Exception ex)
             {
-                _logger.LogError("删除公告数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                _logger.LogError("更新公告数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
                 return false;
             }
         }

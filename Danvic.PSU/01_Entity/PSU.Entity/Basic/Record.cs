@@ -30,6 +30,12 @@ namespace PSU.Entity.Basic
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
+        /// 操作表编号
+        /// </summary>
+        [Required]
+        public long TableId { get; set; }
+
+        /// <summary>
         /// 操作人主键
         /// </summary>
         [Required]
@@ -46,6 +52,13 @@ namespace PSU.Entity.Basic
         /// 操作时间
         /// </summary>
         public DateTime DateTime { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// 操作类型
+        /// 1：修改；2：删除
+        /// </summary>
+        [Required]
+        public short Type { get; set; }
 
         /// <summary>
         /// 所做操作
