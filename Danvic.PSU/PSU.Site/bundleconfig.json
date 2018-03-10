@@ -52,6 +52,7 @@
       "wwwroot/javascript/template/jquery.slimscroll.js",
       "wwwroot/javascript/template/adminlte.js",
       "wwwroot/javascript/template/pace.js",
+      "wwwroot/javascript/template/bootbox.min.js",
       "wwwroot/javascript/view/layout.js"
     ],
     "minify": {

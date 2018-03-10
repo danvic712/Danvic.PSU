@@ -90,6 +90,7 @@ namespace Controllers.PSU.Areas.Administrator
             if (!string.IsNullOrEmpty(id))
             {
                 //Todo:编辑页面，加载公告相关信息
+                webModel = _service.GetBulletin(Convert.ToInt64(id), _context);
             }
             return View(webModel);
         }
@@ -127,19 +128,42 @@ namespace Controllers.PSU.Areas.Administrator
         /// <param name="webModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BulletinEditViewModel webModel)
         {
+            bool flag = false;
             if (string.IsNullOrEmpty(webModel.Id))
             {
                 //Todo:新增公告
+                flag = await _service.InsertBulletinAsync(webModel, _context);
             }
             else
             {
                 //Todo:更新公告信息
+
             }
 
-            return View();
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
+            });
+        }
+
+        /// <summary>
+        /// 删除公告数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool flag = await _service.DeleteBulletinAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag == true ? "公告编号：" + id + "数据删除成功" : "公告编号：" + id + "数据删除失败"
+            });
         }
 
         #endregion

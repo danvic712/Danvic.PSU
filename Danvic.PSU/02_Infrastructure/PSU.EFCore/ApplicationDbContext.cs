@@ -8,6 +8,7 @@
 // Description: 数据库连接上下文
 //-----------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PSU.Entity.Admission;
 using PSU.Entity.Basic;
 using PSU.Entity.Dormitory;

@@ -37,9 +37,9 @@ $.dataTableSetting = {
             "targets": 7,
             "data": null,
             "render": function (data, type, row) {
-                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '">查看</a>' +
-                    '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '">编辑</a>' +
-                    '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '">删除</a>';
+                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>查看</a>' +
+                    '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
+                    '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '>删除</a>';
                 return html;
             }
         }
@@ -85,7 +85,7 @@ $.dataTableSetting = {
                 callback(returnData);
             },
             error: function (msg) {
-                console.log(msg.responseJSON);
+                console.log(msg.responseText);
             }
         });
     }
@@ -110,16 +110,61 @@ $(function () {
 
     //detail
     $(document).on('click', '#detail', function () {
-        window.location.href = '/Administrator/Home/Detail' + $(this).attr('data-id');
+        window.location.href = '/Administrator/Home/Detail/' + $(this).attr('data-id');
     });
 
     //edit
     $(document).on('click', '#edit', function () {
-        window.location.href = '/Administrator/Home/Edit' + $(this).attr('data-id');
+        window.location.href = '/Administrator/Home/Edit/' + $(this).attr('data-id');
     });
 
     //delete
     $(document).on('click', '#delete', function () {
-        $.ajax({});
+        var id = $(this).attr('data-id');
+        bootbox.confirm({
+            message: '确定删除编号为<b class="text-red">' + id + '</b>的公告信息吗？',
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn btn-success btn-flat'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn btn-default btn-flat'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: '/Administrator/Home/Delete',
+                        type: 'POST',
+                        dataType: 'Json',
+                        data: {
+                            id: id
+                        },
+                        success: function (result) {
+                            bootbox.alert({
+                                message: result.msg,
+                                buttons: {
+                                    ok: {
+                                        label: '确定',
+                                        className: 'btn bg-olive btn-flat margin'
+                                    }
+                                },
+                                callback: function () {
+                                    window.location = "/Administrator/Home/Bulletin";
+                                }
+                            });
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                        }
+                    });
+                }
+            }
+        })
+
+
+
     });
 });

@@ -31,6 +31,7 @@ namespace PSU.IService.Areas.Administrator
         /// 搜索数据
         /// </summary>
         /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         Task<BulletinViewModel> SearchBulletinAsync(BulletinViewModel webModel, ApplicationDbContext context);
 
@@ -38,8 +39,33 @@ namespace PSU.IService.Areas.Administrator
         /// 新增数据
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<BulletinEditViewModel> InsertBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context);
+        Task<bool> InsertBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> UpdateBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        Task<bool> DeleteBulletinAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        BulletinEditViewModel GetBulletin(long id, ApplicationDbContext context);
 
         #endregion
     }

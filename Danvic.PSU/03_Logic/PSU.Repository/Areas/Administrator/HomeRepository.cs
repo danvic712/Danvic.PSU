@@ -13,6 +13,7 @@ using PSU.Entity.Basic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PSU.Repository.Areas.Administrator
@@ -25,6 +26,53 @@ namespace PSU.Repository.Areas.Administrator
         #region Bulletin API
 
         /// <summary>
+        /// 新增公告数据
+        /// </summary>
+        /// <param name="title">标题</param>
+        /// <param name="target">针对用户</param>
+        /// <param name="type">公告类型</param>
+        /// <param name="content">公告内容</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async void InsertBulletinAsync(string title, short target, short type, string content, ApplicationDbContext context)
+        {
+            var model = new Bulletin
+            {
+                Title = title,
+                Content = content,
+                Type = type,
+                Target = target,
+                CreatedBy = "20180202124532",
+                CreatedName = "测试用户姓名"
+            };
+            await context.Bulletin.AddAsync(model);
+        }
+
+        /// <summary>
+        /// 删除公告数据
+        /// </summary>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static void DeleteBulletin(long id, ApplicationDbContext context)
+        {
+            var model = context.Bulletin.FirstOrDefault(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 获取公告信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static Bulletin GetBulletin(long id, ApplicationDbContext context)
+        {
+            var model = context.Bulletin.Where(i => i.Id == id).FirstOrDefault();
+            return model;
+        }
+
+        /// <summary>
         /// 根据搜索条件获取公告列表
         /// </summary>
         /// <param name="context">数据库连接上下文</param>
@@ -34,15 +82,35 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="title">公告标题</param>
         /// <param name="datetime">发布日期</param>
         /// <param name="type">公告类型</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public static async Task<List<Bulletin>> GetBulletinListAsync(int limit, int page, int start, string title, string datetime, short type, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(datetime) && type == 0)
             {
-                return await context.Set<Bulletin>().Skip(start).Take(limit).ToListAsync();
+                return await context.Set<Bulletin>().Skip(start).Take(limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
+                IQueryable<Bulletin> queryableData = context.Bulletin.AsQueryable<Bulletin>();
+
+                ParameterExpression parameter = Expression.Parameter(typeof(Bulletin), "i");
+
+                MemberExpression mTitle = Expression.PropertyOrField(parameter, "Title");
+                MemberExpression mDateTime = Expression.PropertyOrField(parameter, "CreatedOn");
+                MemberExpression mType = Expression.PropertyOrField(parameter, "Type");
+
+
+                // i=> i.Titlle==title && i.CreatedOn.ToString("yyyy-MM-dd").Equels(datetime) && i.type==type
+
+                //Expression left = null;
+                //Expression right = null;
+
+                //if (!string.IsNullOrEmpty(title))
+                //{
+                //    left = Expression.Call(parameter, mTitle);
+                //}
+
                 return null;
             }
         }
