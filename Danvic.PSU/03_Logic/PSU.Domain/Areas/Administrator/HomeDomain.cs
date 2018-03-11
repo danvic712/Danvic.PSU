@@ -61,15 +61,15 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 删除公告数据
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<bool> DeleteBulletinAsync(long id, ApplicationDbContext context)
         {
             try
             {
                 //Delete Bulletin Data
-                await HomeRepository.DeleteBulletinAsync(id, context);
+                await HomeRepository.DeleteAsync(id, context);
 
                 //Add Operate Information
                 string operate = string.Format("删除公告数据，公告Id:{0}", id);
@@ -88,15 +88,15 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 获取公告数据
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<BulletinEditViewModel> GetBulletinAsync(long id, ApplicationDbContext context)
         {
             BulletinEditViewModel webModel = new BulletinEditViewModel();
             try
             {
-                var model = await HomeRepository.GetBulletinAsync(id, context);
+                var model = await HomeRepository.GetEntityAsync(id, context);
                 webModel.Title = model.Title;
                 webModel.Id = model.Id.ToString();
                 webModel.Content = model.Content;
@@ -114,12 +114,12 @@ namespace PSU.Domain.Areas.Administrator
         /// 获取公告详情页数据
         /// </summary>
         /// <param name="id">公告编号</param>
-        /// <param name="context">数据库连接上下文</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<BulletinDetailViewModel> GetDetailAsync(long id, ApplicationDbContext context)
         {
             //Get Bulletin Data
-            var bulletin = await HomeRepository.GetBulletinAsync(id, context);
+            var bulletin = await HomeRepository.GetEntityAsync(id, context);
 
             //Get Operate Data
             var record = await PSURepository.GetRecordListAsync(id, context);
@@ -153,14 +153,15 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 新增公告数据
         /// </summary>
-        /// <param name="webModel"></param>
+        /// <param name="webModel">公告编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<bool> InsertBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context)
         {
             try
             {
                 //Add the Bulletion Data
-                var model = await HomeRepository.InsertBulletinAsync(webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
+                var model = await HomeRepository.InsertAsync(webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
 
                 //Make the transaction union
                 var index = await context.SaveChangesAsync();
@@ -177,15 +178,15 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 搜索公告数据
         /// </summary>
-        /// <param name="webModel"></param>
-        /// <param name="context"></param>
+        /// <param name="webModel">公告列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<BulletinViewModel> SearchBulletinAsync(BulletinViewModel webModel, ApplicationDbContext context)
         {
             try
             {
                 //Source Data List
-                List<Bulletin> list = await HomeRepository.GetBulletinListAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
+                List<Bulletin> list = await HomeRepository.GetListAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
                     webModel.SDateTime, webModel.SType, context);
                 //Return Data List
                 List<ReturnData> dataList = new List<ReturnData>();
@@ -222,15 +223,15 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 更新公告数据
         /// </summary>
-        /// <param name="webModel"></param>
-        /// <param name="context"></param>
+        /// <param name="webModel">公告编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public async Task<bool> UpdateBulletinAsync(BulletinEditViewModel webModel, ApplicationDbContext context)
         {
             try
             {
                 //Update Bulletin Data
-                HomeRepository.UpdateBulletion(Convert.ToInt64(webModel.Id), webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
+                HomeRepository.UpdateAsync(Convert.ToInt64(webModel.Id), webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
 
                 //Add Operate Information
                 string operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);

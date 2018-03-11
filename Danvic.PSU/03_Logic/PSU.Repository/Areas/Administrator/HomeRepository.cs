@@ -14,7 +14,6 @@ using PSU.Entity.Basic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PSU.Repository.Areas.Administrator
@@ -27,37 +26,11 @@ namespace PSU.Repository.Areas.Administrator
         #region Bulletin API
 
         /// <summary>
-        /// 新增公告数据
-        /// </summary>
-        /// <param name="title">标题</param>
-        /// <param name="target">针对用户</param>
-        /// <param name="type">公告类型</param>
-        /// <param name="content">公告内容</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        public static async Task<Bulletin> InsertBulletinAsync(string title, short target, short type, string content, ApplicationDbContext context)
-        {
-            var model = new Bulletin
-            {
-                Title = title,
-                Content = content,
-                Type = type,
-                Target = target,
-                CreatedBy = "20180202124532",
-                CreatedName = "测试用户姓名"
-            };
-
-            await context.Bulletin.AddAsync(model);
-
-            return model;
-        }
-
-        /// <summary>
         /// 删除公告数据
         /// </summary>
         /// <param name="id">公告编号</param>
         /// <param name="context">数据库上下文对象</param>
-        public static async Task DeleteBulletinAsync(long id, ApplicationDbContext context)
+        public static async Task DeleteAsync(long id, ApplicationDbContext context)
         {
             var model = await context.Bulletin.SingleOrDefaultAsync(i => i.Id == id);
 
@@ -65,39 +38,12 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
-        /// 更新公告数据
-        /// </summary>
-        /// <param name="id">公告编号</param>
-        /// <param name="title">标题</param>
-        /// <param name="target">针对用户</param>
-        /// <param name="type">类型</param>
-        /// <param name="content">内容</param>
-        /// <param name="context">数据库上下文对象</param>
-        public static async void UpdateBulletion(long id, string title, short target, short type, string content, ApplicationDbContext context)
-        {
-            var model = await context.Bulletin.SingleOrDefaultAsync(i => i.Id == id);
-
-            if (model == null)
-            {
-                return;
-            }
-
-            model.Title = title;
-            model.Target = target;
-            model.Type = type;
-            model.Content = content;
-            model.ModifiedBy = "20181234567";
-            model.ModifiedName = "我是修改人姓名";
-            model.ModifiedOn = DateTime.Now;
-        }
-
-        /// <summary>
         /// 获取公告信息
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<Bulletin> GetBulletinAsync(long id, ApplicationDbContext context)
+        public static async Task<Bulletin> GetEntityAsync(long id, ApplicationDbContext context)
         {
             var model = await context.Bulletin.Where(i => i.Id == id).SingleOrDefaultAsync();
             return model;
@@ -115,7 +61,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="type">公告类型</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<List<Bulletin>> GetBulletinListAsync(int limit, int page, int start, string title, string datetime, short type, ApplicationDbContext context)
+        public static async Task<List<Bulletin>> GetListAsync(int limit, int page, int start, string title, string datetime, short type, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(datetime) && type == 0)
             {
@@ -146,6 +92,57 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 新增公告数据
+        /// </summary>
+        /// <param name="title">标题</param>
+        /// <param name="target">针对用户</param>
+        /// <param name="type">公告类型</param>
+        /// <param name="content">公告内容</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Bulletin> InsertAsync(string title, short target, short type, string content, ApplicationDbContext context)
+        {
+            var model = new Bulletin
+            {
+                Title = title,
+                Content = content,
+                Type = type,
+                Target = target,
+                CreatedBy = "20180202124532",
+                CreatedName = "测试用户姓名"
+            };
+
+            await context.Bulletin.AddAsync(model);
+
+            return model;
+        }
+        /// <summary>
+        /// 更新公告数据
+        /// </summary>
+        /// <param name="id">公告编号</param>
+        /// <param name="title">标题</param>
+        /// <param name="target">针对用户</param>
+        /// <param name="type">类型</param>
+        /// <param name="content">内容</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(long id, string title, short target, short type, string content, ApplicationDbContext context)
+        {
+            var model = await context.Bulletin.SingleOrDefaultAsync(i => i.Id == id);
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model.Title = title;
+            model.Target = target;
+            model.Type = type;
+            model.Content = content;
+            model.ModifiedBy = "20181234567";
+            model.ModifiedName = "我是修改人姓名";
+            model.ModifiedOn = DateTime.Now;
+        }
         #endregion
     }
 }

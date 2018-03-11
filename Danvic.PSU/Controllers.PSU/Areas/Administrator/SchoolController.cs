@@ -9,9 +9,14 @@
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PSU.EFCore;
+using PSU.IService.Areas.Administrator;
+using PSU.Model.Areas.Administrator.School;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
 {
@@ -20,6 +25,17 @@ namespace Controllers.PSU.Areas.Administrator
     public class SchoolController : Controller
     {
         #region Initialize
+
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
+        private readonly ISchoolService _service;
+        public SchoolController(ISchoolService service, ILogger<SchoolController> logger, ApplicationDbContext context)
+        {
+            _service = service;
+            _logger = logger;
+            _context = context;
+        }
+
         #endregion
 
         #region View
@@ -29,17 +45,7 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
-        public IActionResult Information()
-        {
-            return View();
-        }
-
-        public IActionResult Major()
-        {
-            return View();
-        }
-
-        public IActionResult MajorClass()
+        public IActionResult DepartmentDetail()
         {
             return View();
         }
@@ -59,11 +65,30 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
-        public IActionResult DepartmentDetail()
+        /// <summary>
+        /// 学校信息页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Information(string id)
+        {
+            InformationViewModel webModel = new InformationViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                webModel = await _service.GetInformationAsync(Convert.ToInt64(id), _context);
+            }
+            return View(webModel);
+        }
+
+        public IActionResult Major()
         {
             return View();
         }
 
+        public IActionResult MajorClass()
+        {
+            return View();
+        }
         public IActionResult MajorDetail()
         {
             return View();
@@ -73,7 +98,39 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region Service
 
-        
+        /// <summary>
+        /// 编辑学校信息
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Information(InformationViewModel webModel)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //新增学校信息
+                    flag = await _service.InsertInformationAsync(webModel, _context);
+                }
+                else
+                {
+                    //修改学校信息
+                    flag = await _service.UpdateInformationAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag == true ? "学校信息编辑成功" : "学校信息编辑失败"
+                });
+            }
+            return Json(new
+            {
+                success = false
+            });
+        }
 
         #endregion
     }

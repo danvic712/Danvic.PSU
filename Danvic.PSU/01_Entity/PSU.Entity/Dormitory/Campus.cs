@@ -39,6 +39,27 @@ namespace PSU.Entity.Dormitory
         public string Name { get; set; }
 
         /// <summary>
+        /// 省份编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string ProvinceId { get; set; }
+
+        /// <summary>
+        /// 城市编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string CityId { get; set; }
+
+        /// <summary>
+        /// 县区编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string DistrictId { get; set; }
+
+        /// <summary>
         /// 省份名称
         /// </summary>
         [Required]
@@ -68,6 +89,7 @@ namespace PSU.Entity.Dormitory
         /// <summary>
         /// 详细地址
         /// </summary>
+        [Required]
         [MaxLength(200)]
         public string Address { get; set; }
 

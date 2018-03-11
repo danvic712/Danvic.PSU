@@ -39,6 +39,7 @@ namespace PSU.Entity.School
         /// <summary>
         /// 英文名称
         /// </summary>
+        [Required]
         [MaxLength(200)]
         public string NameEN { get; set; }
 
@@ -69,6 +70,7 @@ namespace PSU.Entity.School
         /// <summary>
         /// 电子邮箱
         /// </summary>
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -91,7 +93,7 @@ namespace PSU.Entity.School
         public long QQ { get; set; }
 
         /// <summary>
-        /// 描述
+        /// 简介
         /// </summary>
         [MaxLength(200)]
         public string Description { get; set; }
@@ -101,17 +103,6 @@ namespace PSU.Entity.School
         /// </summary>
         [MaxLength(500)]
         public string Introduction { get; set; }
-
-        /// <summary>
-        /// 校徽
-        /// </summary>
-        [MaxLength(500)]
-        public string SchoolBadge { get; set; }
-
-        /// <summary>
-        /// 校徽图片二进制流
-        /// </summary>
-        public byte Badge { get; set; }
 
         /// <summary>
         /// 宣传图地址

@@ -30,8 +30,8 @@ namespace PSU.IService.Areas.Administrator
         /// <summary>
         /// 删除数据
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         Task<bool> DeleteBulletinAsync(long id, ApplicationDbContext context);
 

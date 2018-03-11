@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\01_Entity\PSU.Entity\PSU.Entity.csproj" />
     <ProjectReference Include="..\..\02_Infrastructure\PSU.EFCore\PSU.EFCore.csproj" />
+    <ProjectReference Include="..\..\04_Rule\PSU.Model\PSU.Model.csproj" />
   </ItemGroup>
 
 </Project>
