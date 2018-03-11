@@ -16,7 +16,7 @@ namespace PSU.Model.Areas.Administrator.Home
         #region Attribute
 
         /// <summary>
-        /// 公告标题
+        /// 公告编号
         /// 判断是新增还是编辑
         /// </summary>
         public string Id { get; set; }
@@ -24,7 +24,7 @@ namespace PSU.Model.Areas.Administrator.Home
         /// <summary>
         /// 标题
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "公告标题不能为空")]
         [MaxLength(50)]
         public string Title { get; set; }
 
@@ -42,7 +42,7 @@ namespace PSU.Model.Areas.Administrator.Home
         /// 内容
         /// </summary>
         [Required]
-        [MaxLength(1000)]
+        [StringLength(1000, ErrorMessage = "内容最多不能超过1000个字符哦")]
         public string Content { get; set; }
 
         #endregion
@@ -59,7 +59,7 @@ namespace PSU.Model.Areas.Administrator.Home
         NotSelected = 0,
         [Display(Name = "新闻公告")]
         NewsBulletin = 1,
-        [Display(Name = "优惠政策")]
+        [Display(Name = "学校政策")]
         PreferentialPolicy = 2
     }
 

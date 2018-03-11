@@ -1,6 +1,6 @@
-﻿
+﻿@model PSU.Model.Areas.Administrator.Home.BulletinDetailViewModel
 @{
-    ViewData["Title"] = "编辑公告";
+    ViewData["Title"] = "公告详情";
     ViewData["NavTitle"] = "网站公告管理";
     ViewData["CurrName"] = "";
 }
@@ -30,39 +30,16 @@
         <section class="col-lg-7 connectedSortable">
             <div class="box box-solid">
                 <div class="box box-header">
-                    <h4 class="box-title">这是公告的标题~~~</h4>
+                    <h4 class="box-title">@Model.Title</h4>
                 </div>
                 <div class="box-body">
-                    <p style="text-align: justify;">
-                        <a href="https://www.ithome.com/" target="_blank">IT之家</a>
-                        3月1日消息&nbsp;2015年4月小米在印度举行新品发布会，推出针对印度市场的小米4i以及改良后的小米手环Mi Band。雷军在印度小米4i发布会演讲中的一句Are you OK，被来自哔哩哔哩的网友Mr.Lemon重新剪辑成一首MAD神曲，其魔性的旋律引得其他网友在网络上疯传。
-                    </p>
-                    <p style="text-align: justify;">
-                        凭借着一曲“Are you OK”，雷总不仅成为了“小米第一网红”，而且成功从科技跨界娱乐圈，多了一个“歌手”的身份。
-                    </p>
-                    <p style="text-align: justify;">
-                        当然，雷军本人对此并不介意，反而在发布会上还经常对此调侃。今天晚上，小米官方B站分享了雷军最新的鬼畜单曲《只要米粉喜欢，就是我们的正业》，节奏欢快，歌词还顺便回顾了小米的发展历程，视频中也出现了小米4、MIX、小米扫地机器人等产品的身影。
-                    </p>
-                    <p style="text-align: justify;">
-                        有网友对此调侃新曲大有超越“Are you OK”之势、“蜜汁好听”等等，感兴趣的小伙伴可以
-                        <a href="https://www.bilibili.com/video/av20226105/" target="_blank">点此观看</a>
-                        ，组队观光一波。
-                    </p>
-                    <p style="text-align: justify;">
-                        NetMarketShare提供的2月份统计数据表明，尽管谷歌Chrome浏览器市场出现小幅下滑，但它仍然占据着PC浏览器市场的主导地位。谷歌Chrome从1月份的61.41%下降到2月的60.57%，但考虑到其市场份额优势巨大，这种小幅下降完全无需担心。
-                    </p>
-                    <p style="text-align: justify;">
-                        另一方面，更令人担忧的是微软Edge的发展日趋艰难，统计数据显示2月份Edge浏览器的份额仅为4.38%，这使得它位于谷歌浏览器、Internet Explorer和Mozilla Firefox之后排在第四。值得一提的是，Internet Explorer不再提供新功能，而只提供安全补丁。火狐在二月份的市场份额为10.94%。
-                    </p>
-                    <p style="text-align: justify;">
-                        微软虽然不断在改进Edge浏览器，但其更新策略似乎影响了其份额的表现，因为其更新频率太低。目前微软只有每当为Windows 10推送重大更新时，才会顺便为Edge浏览器进行更新，而Google Chrome和Mozilla Firefox的更新频率要高很多，通常每月一次。
-                    </p>
-                    <p style="text-align: justify;">
-                        IT之家获得传言称，微软Edge可能会移动到微软应用商店，以方便更新，但这个计划因为一个尚不知道的原因而被放弃。
-                    </p>
+                    @Html.Raw(Model.Content) 
                 </div>
                 <div class="box-footer text-right">
-                    2017年12月16日 系统管理员
+                    <a class="btn btn-default" asp-area="Administrator" asp-controller="Home" asp-action="Bulletin">
+                        <i class="ace-icon fa fa-undo"></i>
+                        返回
+                    </a>
                 </div>
             </div>
         </section>
@@ -70,29 +47,38 @@
             <ul class="timeline">
                 <li class="time-label">
                     <span class="bg-green">
-                        2017年12月15日
+                        @Model.CreatedOn.ToShortDateString()
                     </span>
                 </li>
                 <li>
                     <i class="fa fa-user bg-aqua"></i>
                     <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i>&nbsp; 2017-12-15 12:05</span>
-                        <h3 class="timeline-header"><a href="javascript:void(0)">创建用户：</a>系统管理员</h3>
+                        <span class="time"><i class="fa fa-clock-o"></i>&nbsp; @Model.CreatedOn.ToString("yyyy-MM-dd HH:mm")</span>
+                        <h3 class="timeline-header"><a href="javascript:void(0)">创建用户：</a>@Model.OperateName</h3>
                         <div class="timeline-body">
                             完成新公告创建
                         </div>
                     </div>
                 </li>
-                <li>
-                    <i class="fa fa-adn"></i>
-                    <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i>&nbsp; 2018-02-15 12:05</span>
-                        <h3 class="timeline-header"><a href="javascript:void(0)">修改用户：</a>系统管理员</h3>
-                        <div class="timeline-body">
-                            修改公告详情信息
-                        </div>
-                    </div>
-                </li>
+
+                @{
+                    if (Model.OperateList != null && Model.OperateList.Any())
+                    {
+                        foreach (var item in Model.OperateList)
+                        {
+                            <li>
+                                <i class="fa fa-adn"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i>&nbsp; @item.DateTime</span>
+                                    <h3 class="timeline-header"><a href="javascript:void(0)">修改用户：</a>@item.Name</h3>
+                                    <div class="timeline-body">
+                                        @item.Operating
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
             </ul>
         </section>
     </div>

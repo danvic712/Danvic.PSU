@@ -54,7 +54,7 @@ namespace Controllers.PSU.Areas.Administrator
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> DetailAsync(string id)
+        public async Task<IActionResult> Detail(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -63,7 +63,7 @@ namespace Controllers.PSU.Areas.Administrator
 
             var model = await _service.GetDetailAsync(Convert.ToInt64(id), _context);
 
-            return View();
+            return View(model);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Controllers.PSU.Areas.Administrator
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> EditAsync(string id)
+        public async Task<IActionResult> Edit(string id)
         {
             BulletinEditViewModel webModel = new BulletinEditViewModel
             {
@@ -145,18 +145,15 @@ namespace Controllers.PSU.Areas.Administrator
 
                 return Json(new
                 {
-                    sueeess = flag,
+                    success = flag,
                     msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
                 });
             }
-            else
+
+            return Json(new
             {
-                return Json(new
-                {
-                    sueeess = false,
-                    msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
-                });
-            }
+                success = false
+            });
         }
 
         /// <summary>

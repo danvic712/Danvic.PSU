@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.15" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\01_Entity\PSU.Entity\PSU.Entity.csproj" />
     <ProjectReference Include="..\..\02_Infrastructure\PSU.EFCore\PSU.EFCore.csproj" />
   </ItemGroup>

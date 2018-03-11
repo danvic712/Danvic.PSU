@@ -38,7 +38,7 @@
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <form class="form-horizontal" role="form" asp-antiforgery="false">
+            <form class="form-horizontal" role="form" id="edit_form">
                 <div class="form-group">
                     <label class="col-md-2 col-xs-3 control-label no-padding-right" for="title"> 公告标题： </label>
                     <div class="col-md-4 col-xs-9">
@@ -46,9 +46,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="target"> 针对目标： </label>
+                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="target"> 针对用户： </label>
                     <div class="col-md-2 col-xs-9">
-                        <select id="target" asp-items="@Html.GetEnumSelectList(typeof(BulletinTarget))" class="form-control" asp-for="Target" ></select>
+                        <select id="target" asp-items="@Html.GetEnumSelectList(typeof(BulletinTarget))" class="form-control" asp-for="Target"></select>
                     </div>
                     <label class="col-md-2 col-xs-3 control-label no-padding-right" for="type"> 公告类型： </label>
                     <div class="col-md-2 col-xs-9">
@@ -85,8 +85,9 @@
         <script src="~/javascript/template/hotkeys.js"></script>
         <script src="~/javascript/template/uploader.js"></script>
         <script src="~/javascript/template/simditor.js"></script>
-        <script src="~/javascript/view/Administrator/edit.js"></script>
+        <script src="~/javascript/view/Administrator/edit.js" asp-append-version="true"></script>
     </environment>
+
     <environment exclude="Development">
         <script src="~/javascript/view/Administrator/edit.min.js" asp-append-version="true"></script>
     </environment>

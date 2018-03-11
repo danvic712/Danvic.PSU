@@ -7,6 +7,7 @@
 // Modified by:
 // Description:Administrator-Home-公告信息详情页面 
 //-----------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 
 namespace PSU.Model.Areas.Administrator.Home
@@ -28,7 +29,12 @@ namespace PSU.Model.Areas.Administrator.Home
         /// <summary>
         /// 创建日期
         /// </summary>
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        /// <summary>
+        /// 操作人
+        /// </summary>
+        public string OperateName { get; set; }
 
         #endregion
 

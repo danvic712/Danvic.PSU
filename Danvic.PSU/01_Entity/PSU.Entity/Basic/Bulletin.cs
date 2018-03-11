@@ -32,12 +32,13 @@ namespace PSU.Entity.Basic
         /// 标题
         /// </summary>
         [Required]
-        [MaxLength(50)]
+        [MaxLength(20)]
         public string Title { get; set; }
 
         /// <summary>
         /// 内容
         /// </summary>
+        [Required]
         [MaxLength(1000)]
         public string Content { get; set; }
 

@@ -76,7 +76,7 @@ namespace PSU.Domain.Areas.Administrator
                 PSURepository.InsertRecordAsync(operate, (short)OperateCode.Delete, id, context);
 
                 int index = await context.SaveChangesAsync();
-                return index == 1 ? true : false;
+                return index == 2 ? true : false;
             }
             catch (Exception ex)
             {
@@ -143,8 +143,9 @@ namespace PSU.Domain.Areas.Administrator
             {
                 Title = bulletin.Title,
                 Content = bulletin.Content,
-                CreatedOn = bulletin.CreatedOn.ToString("yyyy-MM-dd"),
-                OperateList = list
+                CreatedOn = bulletin.CreatedOn,
+                OperateName = bulletin.CreatedName,
+                OperateList = list.OrderBy(i => i.DateTime).ToList()
             };
             return webModel;
         }
@@ -164,7 +165,7 @@ namespace PSU.Domain.Areas.Administrator
                 //Make the transaction union
                 var index = await context.SaveChangesAsync();
 
-                return index == 2 ? true : false;
+                return index == 1 ? true : false;
             }
             catch (Exception ex)
             {

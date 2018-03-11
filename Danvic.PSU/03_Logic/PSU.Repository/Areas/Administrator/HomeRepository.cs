@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-Home-首页功能实现仓储
 //-----------------------------------------------------------------------
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Basic;
@@ -122,26 +123,26 @@ namespace PSU.Repository.Areas.Administrator
             }
             else
             {
-                IQueryable<Bulletin> queryableData = context.Bulletin.AsQueryable<Bulletin>();
+                IQueryable<Bulletin> bulletins = context.Bulletin;
 
-                ParameterExpression parameter = Expression.Parameter(typeof(Bulletin), "i");
+                var predicate = PredicateBuilder.New<Bulletin>();
 
-                MemberExpression mTitle = Expression.PropertyOrField(parameter, "Title");
-                MemberExpression mDateTime = Expression.PropertyOrField(parameter, "CreatedOn");
-                MemberExpression mType = Expression.PropertyOrField(parameter, "Type");
+                if (!string.IsNullOrEmpty(title))
+                {
+                    predicate = predicate.And(i => i.Title.Contains(title.Trim()));
+                }
 
+                if (!string.IsNullOrEmpty(datetime))
+                {
+                    predicate = predicate.And(i => i.CreatedOn.ToString("yyyy-MM-dd").Equals(datetime));
+                }
 
-                // i=> i.Titlle==title && i.CreatedOn.ToString("yyyy-MM-dd").Equels(datetime) && i.type==type
+                if (type != 0)
+                {
+                    predicate = predicate.And(i => i.Type == type);
+                }
 
-                //Expression left = null;
-                //Expression right = null;
-
-                //if (!string.IsNullOrEmpty(title))
-                //{
-                //    left = Expression.Call(parameter, mTitle);
-                //}
-
-                return null;
+                return await bulletins.AsExpandable().Where(predicate).ToListAsync();
             }
         }
 
