@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
+using PSU.Repository.Areas.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace PSU.Domain.Areas.Administrator
 {
-    public class SchoolDomain:ISchoolService
+    public class SchoolDomain : ISchoolService
     {
         #region Initialize
 
@@ -31,7 +32,7 @@ namespace PSU.Domain.Areas.Administrator
 
         #endregion
 
-        #region Information nterface Service Implement
+        #region Information Interface Service Implement
 
         /// <summary>
         /// 获取学校信息
@@ -39,8 +40,13 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="id">学校编号</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public Task<InformationViewModel> GetInformationAsync(long id, ApplicationDbContext context)
+        public async Task<InformationViewModel> GetInformationAsync(long id, ApplicationDbContext context)
         {
+            //College Information
+            var information = await SchoolRepository.GetEntityAsync(id, context);
+
+            //Campus Information
+
             throw new NotImplementedException();
         }
 
@@ -52,6 +58,10 @@ namespace PSU.Domain.Areas.Administrator
         /// <returns></returns>
         public Task<bool> InsertInformationAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
+            //College Information
+
+            //Campus Information
+
             throw new NotImplementedException();
         }
 
@@ -63,7 +73,31 @@ namespace PSU.Domain.Areas.Administrator
         /// <returns></returns>
         public Task<bool> UpdateInformationAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
+            //College Information
+
+            //Campus Information
+
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Department Interface Service Implement
+
+        /// <summary>
+        /// 获取院系信息
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context)
+        {
+            try { }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取院系列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion

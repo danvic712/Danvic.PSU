@@ -45,5 +45,17 @@ namespace PSU.IService.Areas.Administrator
         Task<bool> UpdateInformationAsync(InformationViewModel webModel, ApplicationDbContext context);
 
         #endregion
+
+        #region School-Department
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context);
+
+        #endregion
     }
 }

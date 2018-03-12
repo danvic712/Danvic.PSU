@@ -75,50 +75,10 @@ namespace PSU.Model.Areas.Administrator.School
         #region Campus Information 
 
         /// <summary>
-        /// 校区名称
+        /// 校区信息
+        /// 仅作为数据展示时使用，新增校区信息不在信息页做
         /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string CampusName { get; set; }
-
-        /// <summary>
-        /// 联系方式
-        /// </summary>
-        [MaxLength(20)]
-        public string CampusTel { get; set; }
-
-        /// <summary>
-        /// 邮编
-        /// </summary>
-        public int ZipCode { get; set; }
-
-        /// <summary>
-        /// 省份编号
-        /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string ProvinceId { get; set; }
-
-        /// <summary>
-        /// 城市编号
-        /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string CityId { get; set; }
-
-        /// <summary>
-        /// 县区编号
-        /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string DistrictId { get; set; }
-
-        /// <summary>
-        /// 详细地址
-        /// </summary>
-        [Required]
-        [MaxLength(200)]
-        public string Address { get; set; }
+        public List<CampusInfo> CampusList { get; set; }
 
         #endregion
 
@@ -167,5 +127,59 @@ namespace PSU.Model.Areas.Administrator.School
         public string Introduction { get; set; }
 
         #endregion
+    }
+
+    public class CampusInfo
+    {
+        /// <summary>
+        /// 校区编号
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 校区名称
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string CampusName { get; set; }
+
+        /// <summary>
+        /// 联系方式
+        /// </summary>
+        [MaxLength(20)]
+        public string CampusTel { get; set; }
+
+        /// <summary>
+        /// 邮编
+        /// </summary>
+        public int ZipCode { get; set; }
+
+        /// <summary>
+        /// 省份编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string ProvinceId { get; set; }
+
+        /// <summary>
+        /// 城市编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string CityId { get; set; }
+
+        /// <summary>
+        /// 县区编号
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string DistrictId { get; set; }
+
+        /// <summary>
+        /// 详细地址
+        /// </summary>
+        [Required]
+        [MaxLength(200)]
+        public string Address { get; set; }
     }
 }

@@ -54,6 +54,17 @@ namespace PSU.Repository
             return await context.Record.Where(i => i.TableId == objId).ToListAsync();
         }
 
+        /// <summary>
+        /// 获取地区相关信息
+        /// </summary>
+        /// <param name="id">地区信息编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Region> GetRegionAsync(long id, ApplicationDbContext context)
+        {
+            return await context.Region.SingleOrDefaultAsync(i => i.Id == id);
+        }
+
         #endregion
     }
 }

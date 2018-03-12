@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
+using PSU.Utility.Web;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,6 +41,11 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region View
 
+        /// <summary>
+        /// 院系列表页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Department()
         {
             return View();
@@ -130,6 +136,42 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 success = false
             });
+        }
+
+        /// <summary>
+        /// 上传学校图片
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult UploadImg()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 院系页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchDepartment(string search)
+        {
+            DepartmentViewModel webModel = JsonUtility.ToObject<DepartmentViewModel>(search);
+
+            webModel = await _service.SearchDepartmentAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.Tel);
+
+            var returnData = new
+            {
+                data = webModel.DepartmentList,
+                limit = webModel.Limit,
+                page = flag == true ? webModel.Page : 1,
+                total = webModel.DepartmentList.Count
+            };
+
+            return Json(returnData);
         }
 
         #endregion

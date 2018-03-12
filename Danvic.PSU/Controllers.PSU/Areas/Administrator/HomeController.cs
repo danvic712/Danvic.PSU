@@ -168,11 +168,14 @@ namespace Controllers.PSU.Areas.Administrator
 
             webModel = await _service.SearchBulletinAsync(webModel, _context);
 
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.STitle) && string.IsNullOrEmpty(webModel.SDateTime) && webModel.SType == 0;
+
             var returnData = new
             {
                 data = webModel.BulletinList,
                 limit = webModel.Limit,
-                page = webModel.Page,
+                page = flag == true ? webModel.Page : 1,
                 total = webModel.BulletinList.Count
             };
 

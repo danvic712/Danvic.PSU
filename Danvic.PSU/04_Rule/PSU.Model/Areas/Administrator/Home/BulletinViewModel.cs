@@ -44,7 +44,7 @@ namespace PSU.Model.Areas.Administrator.Home
     }
 
     /// <summary>
-    /// 返回数据对象类
+    /// 数据列表展示类
     /// </summary>
     public class ReturnData
     {

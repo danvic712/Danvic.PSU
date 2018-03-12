@@ -8,6 +8,7 @@
 // Description: 校区信息表
 //-----------------------------------------------------------------------
 using PSU.Entity.Basic;
+using PSU.Entity.School;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -32,6 +33,12 @@ namespace PSU.Entity.Dormitory
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
+        /// 学校编号
+        /// </summary>
+        [Required]
+        public long CollegeId { get; set; }
+
+        /// <summary>
         /// 校区名称
         /// </summary>
         [Required]
@@ -43,21 +50,21 @@ namespace PSU.Entity.Dormitory
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string ProvinceId { get; set; }
+        public long ProvinceId { get; set; }
 
         /// <summary>
         /// 城市编号
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string CityId { get; set; }
+        public long CityId { get; set; }
 
         /// <summary>
         /// 县区编号
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string DistrictId { get; set; }
+        public long DistrictId { get; set; }
 
         /// <summary>
         /// 省份名称
@@ -108,6 +115,11 @@ namespace PSU.Entity.Dormitory
         #region Foreign Key
 
         /// <summary>
+        /// 学校主键
+        /// </summary>
+        public string CollegeFK { get; set; }
+
+        /// <summary>
         /// 省份主键
         /// </summary>
         public string ProvinceFK { get; set; }
@@ -121,6 +133,9 @@ namespace PSU.Entity.Dormitory
         /// 县区主键
         /// </summary>
         public string DistrictFK { get; set; }
+
+        [ForeignKey("CollegeFK")]
+        public virtual College College { get; set; }
 
         [ForeignKey("ProvinceFK")]
         public virtual Region CProvince { get; set; }
