@@ -45,20 +45,27 @@ namespace Controllers.PSU.Areas.Administrator
         /// 院系列表页面
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         public IActionResult Department()
         {
             return View();
         }
 
-        public IActionResult DepartmentDetail()
+        /// <summary>
+        /// 院系编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditDepartment(string id)
         {
-            return View();
-        }
+            DepartmentEditViewModel webModel = new DepartmentEditViewModel { };
 
-        public IActionResult EditDepartment()
-        {
-            return View();
+            if (!string.IsNullOrEmpty(id))
+            {
+                //编辑信息，加载院系相关信息
+            }
+
+            return View(webModel);
         }
 
         public IActionResult EditMajor()
@@ -161,7 +168,7 @@ namespace Controllers.PSU.Areas.Administrator
             webModel = await _service.SearchDepartmentAsync(webModel, _context);
 
             //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.Tel);
+            bool flag = string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.STel);
 
             var returnData = new
             {

@@ -51,7 +51,7 @@ $(function () {
             data: param,
             dataType: "json",
             success: function (result) {
-                if (result.msg != undefined) {
+                if (result.msg !== undefined) {
                     bootbox.dialog({
                         message: result.msg,
                         closeButton: false,  

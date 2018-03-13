@@ -1,34 +1,24 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "Department.cs">
+// <copyright file= "DepartmentEditViewModel.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018-02-19 20:42:35
+// Date Created: 2018/3/13 星期二 14:44:44
 // Modified by:
-// Description: 院系信息表
+// Description: Administrator-School-院系编辑视图模型
 //-----------------------------------------------------------------------
-using PSU.Entity.Dormitory;
-using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PSU.Entity.School
+namespace PSU.Model.Areas.Administrator.School
 {
-    public class Department : SysField
+    public class DepartmentEditViewModel
     {
         #region Attribute
 
         /// <summary>
-        /// 主键
+        /// 院系编号
         /// </summary>
-        [Key]
-        public string DepartmentOID { get; set; }
-
-        /// <summary>
-        /// 编号
-        /// </summary>
-        [Required]
-        public long Id { get; set; } = TimeUtility.GetTimespans();
+        public string Id { get; set; }
 
         /// <summary>
         /// 院系名称
@@ -38,10 +28,9 @@ namespace PSU.Entity.School
         public string Name { get; set; }
 
         /// <summary>
-        /// 所属校区名称
+        /// 所属校区编号
         /// </summary>
-        [MaxLength(20)]
-        public string CampusName { get; set; }
+        public string CampusId { get; set; }
 
         /// <summary>
         /// 办公地址
@@ -50,8 +39,9 @@ namespace PSU.Entity.School
         public string Address { get; set; }
 
         /// <summary>
-        /// 联系方式
+        /// 联系电话
         /// </summary>
+        [Required]
         [MaxLength(20)]
         public string Tel { get; set; }
 
@@ -90,31 +80,16 @@ namespace PSU.Entity.School
         /// </summary>
         public bool IsEnabled { get; set; }
 
-        /// <summary>
-        /// 是否为部门
-        /// </summary>
-        public bool IsBranch { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 学校主键
-        /// </summary>
-        public string CollageFK { get; set; }
-
-        /// <summary>
-        /// 校区主键
-        /// </summary>
-        public string CampusFK { get; set; }
-
-        [ForeignKey("CollageFK")]
-        public virtual College Collage { get; set; }
-
-        [ForeignKey("CampusFK")]
-        public virtual Campus Campus { get; set; }
-
         #endregion
     }
+
+    #region Enum
+    public enum IsEnable
+    {
+        [Display(Name = "不启用")]
+        NotSelected = 0,
+        [Display(Name = "启用")]
+        NewsBulletin = 1,
+    }
+    #endregion
 }

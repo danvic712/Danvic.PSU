@@ -9,12 +9,13 @@
 //-----------------------------------------------------------------------
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
+using PSU.Entity.School;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
 using PSU.Repository.Areas.Administrator;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSU.Domain.Areas.Administrator
@@ -85,14 +86,41 @@ namespace PSU.Domain.Areas.Administrator
         #region Department Interface Service Implement
 
         /// <summary>
-        /// 获取院系信息
+        /// 搜索院系信息
         /// </summary>
         /// <param name="webModel"></param>
         /// <param name="context"></param>
         /// <returns></returns>
         public async Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context)
         {
-            try { }
+            try
+            {
+                //Source Data List
+                List<Department> list = await SchoolRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                List<ReturnData> dataList = new List<ReturnData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var model = new ReturnData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            Campus = item.CampusName,
+                            Email = item.Email,
+                            Tel = item.Tel,
+                            Wechat = item.Wechat
+                        };
+                        dataList.Add(model);
+                    }
+                }
+
+                webModel.DepartmentList = dataList;
+
+            }
             catch (Exception ex)
             {
                 _logger.LogError("获取院系列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);

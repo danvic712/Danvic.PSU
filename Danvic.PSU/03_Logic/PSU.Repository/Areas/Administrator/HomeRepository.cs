@@ -69,7 +69,7 @@ namespace PSU.Repository.Areas.Administrator
             }
             else
             {
-                IQueryable<Bulletin> bulletins = context.Bulletin;
+                IQueryable<Bulletin> bulletins = context.Bulletin.AsQueryable();
 
                 var predicate = PredicateBuilder.New<Bulletin>();
 

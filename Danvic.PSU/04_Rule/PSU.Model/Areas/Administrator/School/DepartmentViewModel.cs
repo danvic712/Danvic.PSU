@@ -28,7 +28,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 联系方式
         /// </summary>
-        public string Tel { get; set; }
+        public string STel { get; set; }
 
         #endregion
 

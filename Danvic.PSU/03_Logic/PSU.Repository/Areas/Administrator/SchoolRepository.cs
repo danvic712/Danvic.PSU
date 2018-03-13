@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-School-首页功能实现仓储
 //-----------------------------------------------------------------------
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Dormitory;
@@ -62,6 +63,7 @@ namespace PSU.Repository.Areas.Administrator
 
         /// <summary>
         /// 新增校区信息
+        /// Todo：校区从信息页剥离出来，单独弹窗添加
         /// </summary>
         /// <param name="webModel">学校信息页面视图模型</param>
         /// <param name="context">数据库上下文对象</param>
@@ -117,22 +119,112 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateCampusAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
-            var list = await context.Campus.Where(i => i.CollegeId == Convert.ToInt64(webModel.Id)).ToListAsync();
 
-            if (list != null && list.Any())
-            {
-                foreach (var item in list)
-                {
-                    var model = webModel.CampusList.SingleOrDefault(i => i.Id == item.Id.ToString());
-                }
-            }
         }
 
         #endregion
 
         #region Department API
 
+        /// <summary>
+        /// 根据搜索条件获取院系信息
+        /// </summary>
+        /// <param name="webModel">院系列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Department>> GetListAsync(DepartmentViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.STel))
+            {
+                return await context.Set<Department>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+            }
+            else
+            {
+                IQueryable<Department> departments = context.Department.AsQueryable();
 
+                var predicate = PredicateBuilder.New<Department>();
+
+                //院系编号
+                if (!string.IsNullOrEmpty(webModel.SId))
+                {
+                    predicate = predicate.And(i => i.Id == Convert.ToInt64(webModel.SId));
+                }
+
+                //院系名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //院系联系方式
+                if (!string.IsNullOrEmpty(webModel.STel))
+                {
+                    predicate = predicate.And(i => i.Tel == webModel.STel);
+                }
+
+                return await departments.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 删除院系信息
+        /// </summary>
+        /// <param name="id">院系编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task DeleteAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 获取院系信息
+        /// </summary>
+        /// <param name="id">院系编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Department> GetDepartmentAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Department.Where(i => i.Id == id).SingleOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 新增院系信息
+        /// </summary>
+        /// <param name="webModel">院系编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Department> InsertDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = ConvertToDepartmentEntity(webModel);
+            await context.Department.AddAsync(model);
+
+            return model;
+        }
+
+        /// <summary>
+        /// 更新院系信息
+        /// </summary>
+        /// <param name="webModel">院系编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model = ConvertToDepartmentEntity(webModel, false);
+        }
+
+        #endregion
+
+        #region Major API
 
         #endregion
 
@@ -199,6 +291,43 @@ namespace PSU.Repository.Areas.Administrator
                 Tel = campus.CampusTel,
                 Name = campus.CampusName,
                 IsEnabled = true
+            };
+
+            if (isInsert)
+            {
+                model.CreatedBy = "20171111111";
+                model.CreatedName = "我是测试创建人";
+            }
+            else
+            {
+                model.ModifiedOn = DateTime.Now;
+                model.ModifiedBy = "201712121212121";
+                model.ModifiedName = "我是修改测试人";
+            }
+
+            return model;
+        }
+
+        /// <summary>
+        /// View Model => Department Entity
+        /// </summary>
+        /// <param name="webModel">院系编辑页视图模型</param>
+        /// <param name="isInsert">是否新增数据</param>
+        /// <returns></returns>
+        private static Department ConvertToDepartmentEntity(DepartmentEditViewModel webModel, bool isInsert = true)
+        {
+            var model = new Department
+            {
+                Address = webModel.Address,
+                Weibo = webModel.Weibo,
+                Wechat = webModel.Wechat,
+                Tel = webModel.Tel,
+                QQ = webModel.QQ,
+                Name = webModel.Name,
+                IsBranch = false,
+                Email = webModel.Email,
+                Introduction = webModel.Introduction,
+                IsEnabled = webModel.IsEnabled
             };
 
             if (isInsert)

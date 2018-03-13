@@ -22,11 +22,6 @@ namespace PSU.Entity
         public string CreatedBy { get; set; }
 
         /// <summary>
-        /// 创建人IP地址
-        /// </summary>
-        public string CreatedIp { get; set; }
-
-        /// <summary>
         /// 创建人姓名
         /// </summary>
         [MaxLength(50)]
@@ -41,11 +36,6 @@ namespace PSU.Entity
         /// 修改人主键
         /// </summary>
         public string ModifiedBy { get; set; }
-
-        /// <summary>
-        /// 修改人IP地址
-        /// </summary>
-        public string ModifiedIp { get; set; }
 
         /// <summary>
         /// 修改人姓名
