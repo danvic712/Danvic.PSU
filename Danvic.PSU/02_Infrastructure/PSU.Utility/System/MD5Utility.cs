@@ -7,6 +7,8 @@
 // Modified by:
 // Description: MD5
 //-----------------------------------------------------------------------
+
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -24,23 +26,15 @@ namespace PSU.Utility.System
         /// <returns></returns>
         public static string Sign(string item, string salt = "")
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            var md5 = new MD5CryptoServiceProvider();
 
             if (!string.IsNullOrEmpty(salt))
-            {
                 item = item + "{" + salt.Trim() + "}";
-            }
 
-            byte[] bt = Encoding.Default.GetBytes(item);
-            byte[] b = md5.ComputeHash(bt);
+            var bt = Encoding.Default.GetBytes(item);
+            var b = md5.ComputeHash(bt);
 
-            string ret = "";
-            for (int i = 0; i < b.Length; i++)
-            {
-                ret += b[i].ToString("X").PadLeft(2, '0');
-            }
-
-            return ret;
+            return b.Aggregate("", (current, t) => current + t.ToString("X").PadLeft(2, '0'));
         }
 
         /// <summary>
@@ -52,8 +46,8 @@ namespace PSU.Utility.System
         /// <returns>验证结果</returns>
         public static bool Verify(string prestr, string sign, string key)
         {
-            string mysign = Sign(prestr, key);
-            return (mysign == sign) ? true : false;
+            var mysign = Sign(prestr, key);
+            return mysign == sign ? true : false;
         }
 
         #endregion

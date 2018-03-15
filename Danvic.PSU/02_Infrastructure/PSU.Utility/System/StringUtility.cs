@@ -8,6 +8,7 @@
 // Description: String帮助类
 //-----------------------------------------------------------------------
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -24,14 +25,12 @@ namespace PSU.Utility.System
         /// <returns></returns>
         public static string SeparateOIDs(string[] oIds)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            for (int i = 0; i < oIds.Length; i++)
+            for (var i = 0; i < oIds.Length; i++)
             {
                 if (i > 0)
-                {
                     builder.Append(",");
-                }
                 builder.Append("'").Append(oIds[i]).Append("'");
             }
 
@@ -47,20 +46,16 @@ namespace PSU.Utility.System
         /// <returns></returns>
         public static List<string> GetStrArray(string str, char speater, bool toLower)
         {
-            List<string> list = new List<string>();
-            string[] ss = str.Split(speater);
-            foreach (string s in ss)
-            {
+            var list = new List<string>();
+            var ss = str.Split(speater);
+            foreach (var s in ss)
                 if (!string.IsNullOrEmpty(s) && s != speater.ToString())
                 {
-                    string strVal = s;
+                    var strVal = s;
                     if (toLower)
-                    {
                         strVal = s.ToLower();
-                    }
                     list.Add(strVal);
                 }
-            }
             return list;
         }
 
@@ -75,18 +70,12 @@ namespace PSU.Utility.System
                 @"([\r\n])[\s]+","&(quot|#34);",@"&(amp|#38);",@"&(lt|#60);",@"&(gt|#62);",@"&(nbsp|#160);", @"&(iexcl|#161);",@"&(cent|#162);",@"&(pound|#163);",@"&(copy|#169);",@"&#(\d+);",@"-->",@"<!--.*\n"
             };
 
-            string newReg = aryReg[0];
-            string strOutput = strHtml;
-            for (int i = 0; i < aryReg.Length; i++)
-            {
-                Regex regex = new Regex(aryReg[i], RegexOptions.IgnoreCase);
-                strOutput = regex.Replace(strOutput, string.Empty);
-            }
+            var newReg = aryReg[0];
+            var strOutput = aryReg.Select(t => new Regex(t, RegexOptions.IgnoreCase)).Aggregate(strHtml, (current, regex) => regex.Replace(current, string.Empty));
 
             strOutput.Replace("<", "");
             strOutput.Replace(">", "");
             strOutput.Replace("\r\n", "");
-
 
             return strOutput;
         }

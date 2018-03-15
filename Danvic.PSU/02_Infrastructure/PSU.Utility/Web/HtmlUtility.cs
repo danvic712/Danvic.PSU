@@ -36,7 +36,12 @@ namespace PSU.Utility.Web
         /// <returns></returns>
         public static string OutputText(string str)
         {
-            string returnVal = HttpUtility.HtmlDecode(str);
+            var returnVal = HttpUtility.HtmlDecode(str);
+            if (returnVal == null)
+            {
+                return "";
+            }
+
             returnVal = returnVal.Replace("<br>", "");
             returnVal = returnVal.Replace("&amp", "&;");
             returnVal = returnVal.Replace("&quot;", "\"");

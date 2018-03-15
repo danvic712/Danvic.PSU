@@ -96,26 +96,22 @@ namespace PSU.Domain.Areas.Administrator
             try
             {
                 //Source Data List
-                List<Department> list = await SchoolRepository.GetListAsync(webModel, context);
+                var list = await SchoolRepository.GetListAsync(webModel, context);
 
                 //Return Data List
-                List<ReturnData> dataList = new List<ReturnData>();
+                var dataList = new List<ReturnData>();
 
                 if (list != null && list.Any())
                 {
-                    foreach (var item in list)
+                    dataList.AddRange(list.Select(item => new ReturnData
                     {
-                        var model = new ReturnData
-                        {
-                            Id = item.Id.ToString(),
-                            Name = item.Name,
-                            Campus = item.CampusName,
-                            Email = item.Email,
-                            Tel = item.Tel,
-                            Wechat = item.Wechat
-                        };
-                        dataList.Add(model);
-                    }
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        Campus = item.CampusName,
+                        Email = item.Email,
+                        Tel = item.Tel,
+                        Wechat = item.Wechat
+                    }));
                 }
 
                 webModel.DepartmentList = dataList;

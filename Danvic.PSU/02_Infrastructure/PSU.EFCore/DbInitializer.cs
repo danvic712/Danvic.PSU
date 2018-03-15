@@ -24,9 +24,7 @@ namespace PSU.EFCore
             context.Database.EnsureCreated();
 
             if (context.IdentityUser.Any())
-            {
                 return;
-            }
 
             //UserManager<AppUser> userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
 

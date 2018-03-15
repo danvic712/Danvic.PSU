@@ -58,6 +58,7 @@ namespace PSU.Domain.Areas.Administrator
 
         #region Bulletin Interface Service Implement
 
+        /// <inheritdoc />
         /// <summary>
         /// 删除公告数据
         /// </summary>
@@ -72,10 +73,10 @@ namespace PSU.Domain.Areas.Administrator
                 await HomeRepository.DeleteAsync(id, context);
 
                 //Add Operate Information
-                string operate = string.Format("删除公告数据，公告Id:{0}", id);
+                var operate = string.Format("删除公告数据，公告Id:{0}", id);
                 PSURepository.InsertRecordAsync(operate, (short)OperateCode.Delete, id, context);
 
-                int index = await context.SaveChangesAsync();
+                var index = await context.SaveChangesAsync();
                 return index == 2 ? true : false;
             }
             catch (Exception ex)
@@ -93,7 +94,7 @@ namespace PSU.Domain.Areas.Administrator
         /// <returns></returns>
         public async Task<BulletinEditViewModel> GetBulletinAsync(long id, ApplicationDbContext context)
         {
-            BulletinEditViewModel webModel = new BulletinEditViewModel();
+            var webModel = new BulletinEditViewModel();
             try
             {
                 var model = await HomeRepository.GetEntityAsync(id, context);
@@ -123,20 +124,14 @@ namespace PSU.Domain.Areas.Administrator
 
             //Get Operate Data
             var record = await PSURepository.GetRecordListAsync(id, context);
-            List<Operate> list = new List<Operate>();
+            var list = new List<Operate>();
             if (record != null && record.Any())
-            {
-                foreach (var item in record)
+                list.AddRange(record.Select(item => new Operate
                 {
-                    var operate = new Operate
-                    {
-                        Name = item.UserName,
-                        DateTime = item.DateTime.ToString("yyyy-MM-dd HH:mm"),
-                        Operating = item.Operate
-                    };
-                    list.Add(operate);
-                }
-            }
+                    Name = item.UserName,
+                    DateTime = item.DateTime.ToString("yyyy-MM-dd HH:mm"),
+                    Operating = item.Operate
+                }));
 
             //Bulid Web Model
             var webModel = new BulletinDetailViewModel
@@ -175,6 +170,7 @@ namespace PSU.Domain.Areas.Administrator
             }
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// 搜索公告数据
         /// </summary>
@@ -186,18 +182,16 @@ namespace PSU.Domain.Areas.Administrator
             try
             {
                 //Source Data List
-                List<Bulletin> list = await HomeRepository.GetListAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
+                var list = await HomeRepository.GetListAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
                     webModel.SDateTime, webModel.SType, context);
                 //Return Data List
-                List<ReturnData> dataList = new List<ReturnData>();
+                var dataList = new List<ReturnData>();
 
                 if (list != null && list.Any())
                 {
-                    foreach (var item in list)
-                    {
-                        string content = StringUtility.HtmlToText(item.Content).Length <= 10 ? StringUtility.HtmlToText(item.Content) : StringUtility.HtmlToText(item.Content).Substring(0, 10) + "...";
-
-                        var model = new ReturnData
+                    dataList.AddRange(from item in list
+                        let content = StringUtility.HtmlToText(item.Content).Length <= 10 ? StringUtility.HtmlToText(item.Content) : StringUtility.HtmlToText(item.Content).Substring(0, 10) + "..."
+                        select new ReturnData
                         {
                             Id = item.Id.ToString(),
                             Content = content,
@@ -206,9 +200,7 @@ namespace PSU.Domain.Areas.Administrator
                             Target = item.Target,
                             Title = item.Title,
                             Type = item.Type
-                        };
-                        dataList.Add(model);
-                    }
+                        });
                 }
 
                 webModel.BulletinList = dataList;
@@ -234,10 +226,10 @@ namespace PSU.Domain.Areas.Administrator
                 HomeRepository.UpdateAsync(Convert.ToInt64(webModel.Id), webModel.Title, (short)webModel.Target, (short)webModel.Type, webModel.Content, context);
 
                 //Add Operate Information
-                string operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);
+                var operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);
                 PSURepository.InsertRecordAsync(operate, (short)OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
-                int index = await context.SaveChangesAsync();
+                var index = await context.SaveChangesAsync();
 
                 return index == 2 ? true : false;
             }
