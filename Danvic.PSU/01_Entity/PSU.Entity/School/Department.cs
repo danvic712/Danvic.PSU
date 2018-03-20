@@ -7,10 +7,8 @@
 // Modified by:
 // Description: 院系信息表
 //-----------------------------------------------------------------------
-using PSU.Entity.Dormitory;
 using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.School
 {
@@ -31,17 +29,11 @@ namespace PSU.Entity.School
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 院系名称
+        /// 院系/部门名称
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
-
-        /// <summary>
-        /// 所属校区名称
-        /// </summary>
-        [MaxLength(20)]
-        public string CampusName { get; set; }
 
         /// <summary>
         /// 办公地址
@@ -64,7 +56,7 @@ namespace PSU.Entity.School
         /// <summary>
         /// 官方微博
         /// </summary>
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Weibo { get; set; }
 
         /// <summary>
@@ -94,26 +86,6 @@ namespace PSU.Entity.School
         /// 是否为部门
         /// </summary>
         public bool IsBranch { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 学校主键
-        /// </summary>
-        public string CollageFK { get; set; }
-
-        /// <summary>
-        /// 校区主键
-        /// </summary>
-        public string CampusFK { get; set; }
-
-        [ForeignKey("CollageFK")]
-        public virtual College Collage { get; set; }
-
-        [ForeignKey("CampusFK")]
-        public virtual Campus Campus { get; set; }
 
         #endregion
     }

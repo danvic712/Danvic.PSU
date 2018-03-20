@@ -61,7 +61,7 @@ namespace Controllers.PSU.Areas.Administrator
                 return View("Bulletin");
             }
 
-            var model = await _service.GetDetailAsync(Convert.ToInt64(id), _context);
+            var model = await _service.GetBulletinDetailAsync(Convert.ToInt64(id), _context);
 
             return View(model);
         }

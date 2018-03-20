@@ -33,13 +33,6 @@ namespace PSU.Domain.Areas.Administrator
             _logger = logger;
         }
 
-        public enum OperateCode
-        {
-            Insert = 0,
-            Update = 1,
-            Delete = 2
-        }
-
         #endregion
 
         #region Index Interface Service Implement
@@ -74,7 +67,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除公告数据，公告Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2 ? true : false;
@@ -117,7 +110,7 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="id">公告编号</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public async Task<BulletinDetailViewModel> GetDetailAsync(long id, ApplicationDbContext context)
+        public async Task<BulletinDetailViewModel> GetBulletinDetailAsync(long id, ApplicationDbContext context)
         {
             //Get Bulletin Data
             var bulletin = await HomeRepository.GetEntityAsync(id, context);
@@ -227,7 +220,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 

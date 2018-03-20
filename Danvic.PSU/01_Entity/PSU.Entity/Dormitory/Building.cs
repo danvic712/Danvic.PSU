@@ -9,7 +9,6 @@
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Dormitory
 {
@@ -28,13 +27,6 @@ namespace PSU.Entity.Dormitory
         /// </summary>
         [Required]
         public long Id { get; set; } = TimeUtility.GetTimespans();
-
-        /// <summary>
-        /// 所属校区名称
-        /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string CampusName { get; set; }
 
         /// <summary>
         /// 寝室楼名称
@@ -60,18 +52,6 @@ namespace PSU.Entity.Dormitory
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }
-
-        #endregion
-
-        #region Foreign Key
-
-        /// <summary>
-        /// 所属校区主键
-        /// </summary>
-        public string CampusFK { get; set; }
-
-        [ForeignKey("CampusFK")]
-        public virtual Campus Campus { get; set; }
 
         #endregion
     }

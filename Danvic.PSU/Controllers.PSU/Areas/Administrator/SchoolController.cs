@@ -16,6 +16,7 @@ using PSU.Model.Areas.Administrator.School;
 using PSU.Utility.Web;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,67 +43,59 @@ namespace Controllers.PSU.Areas.Administrator
         #region View
 
         /// <summary>
-        /// 院系列表页面
+        /// 部门/院系列表页面
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public IActionResult Department()
         {
             return View();
         }
 
         /// <summary>
-        /// 院系编辑页面
+        /// 部门/院系编辑页面
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> EditDepartment(string id)
         {
-            DepartmentEditViewModel webModel = new DepartmentEditViewModel { };
+            DepartmentEditViewModel webModel = new DepartmentEditViewModel();
 
             if (!string.IsNullOrEmpty(id))
             {
-                //编辑信息，加载院系相关信息
+                //编辑信息，加载部门/院系相关信息
+                webModel = await _service.GetDepartmentAsync(Convert.ToInt64(id), _context);
             }
 
             return View(webModel);
-        }
-
-        public IActionResult EditMajor()
-        {
-            return View();
-        }
-
-        public IActionResult EditMajorClass()
-        {
-            return View();
         }
 
         /// <summary>
-        /// 学校信息页
+        /// 专业班级编辑页面
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Information(string id)
+        public async Task<IActionResult> EditMajorClass(string id)
         {
-            InformationViewModel webModel = new InformationViewModel();
+            MajorClassEditViewModel webModel = new MajorClassEditViewModel();
+
             if (!string.IsNullOrEmpty(id))
             {
-                webModel = await _service.GetInformationAsync(Convert.ToInt64(id), _context);
+                //编辑信息，加载部门/院系相关信息
+                webModel = await _service.GetMajorClassAsync(Convert.ToInt64(id), _context);
             }
+
             return View(webModel);
         }
 
-        public IActionResult Major()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// 专业班级列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult MajorClass()
-        {
-            return View();
-        }
-        public IActionResult MajorDetail()
         {
             return View();
         }
@@ -112,51 +105,7 @@ namespace Controllers.PSU.Areas.Administrator
         #region Service
 
         /// <summary>
-        /// 编辑学校信息
-        /// </summary>
-        /// <param name="webModel"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> Information(InformationViewModel webModel)
-        {
-            bool flag = false;
-            if (ModelState.IsValid)
-            {
-                if (string.IsNullOrEmpty(webModel.Id))
-                {
-                    //新增学校信息
-                    flag = await _service.InsertInformationAsync(webModel, _context);
-                }
-                else
-                {
-                    //修改学校信息
-                    flag = await _service.UpdateInformationAsync(webModel, _context);
-                }
-
-                return Json(new
-                {
-                    success = flag,
-                    msg = flag == true ? "学校信息编辑成功" : "学校信息编辑失败"
-                });
-            }
-            return Json(new
-            {
-                success = false
-            });
-        }
-
-        /// <summary>
-        /// 上传学校图片
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult UploadImg()
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// 院系页面搜索
+        /// 部门/院系页面搜索
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
@@ -174,8 +123,34 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 data = webModel.DepartmentList,
                 limit = webModel.Limit,
-                page = flag == true ? webModel.Page : 1,
+                page = flag ? webModel.Page : 1,
                 total = webModel.DepartmentList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 专业班级页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchMajorClass(string search)
+        {
+            MajorClassViewModel webModel = JsonUtility.ToObject<MajorClassViewModel>(search);
+
+            webModel = await _service.SearchMajorClassAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SClassName) && string.IsNullOrEmpty(webModel.SMajorName) && string.IsNullOrEmpty(webModel.SInstructorName);
+
+            var returnData = new
+            {
+                data = webModel.MajorClassList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.MajorClassList.Count
             };
 
             return Json(returnData);

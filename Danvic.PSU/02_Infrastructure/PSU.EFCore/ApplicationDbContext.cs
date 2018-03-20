@@ -40,11 +40,6 @@ namespace PSU.EFCore
         /// </summary>
         public virtual DbSet<Service> Service { get; set; }
 
-        /// <summary>
-        /// 金额信息表
-        /// </summary>
-        public virtual DbSet<Tuition> Tuition { get; set; }
-
         #endregion
 
         #region Basic
@@ -94,11 +89,6 @@ namespace PSU.EFCore
         public virtual DbSet<Bunk> Bunk { get; set; }
 
         /// <summary>
-        /// 校区信息表
-        /// </summary>
-        public virtual DbSet<Campus> Campus { get; set; }
-
-        /// <summary>
         /// 寝室信息表
         /// </summary>
         public virtual DbSet<Dorm> Dorm { get; set; }
@@ -116,19 +106,9 @@ namespace PSU.EFCore
         #region School
 
         /// <summary>
-        /// 学校信息表
-        /// </summary>
-        public virtual DbSet<College> Collage { get; set; }
-
-        /// <summary>
         /// 院系信息表
         /// </summary>
         public virtual DbSet<Department> Department { get; set; }
-
-        /// <summary>
-        /// 专业信息表
-        /// </summary>
-        public virtual DbSet<Major> Major { get; set; }
 
         /// <summary>
         /// 专业班级表
@@ -159,11 +139,6 @@ namespace PSU.EFCore
         /// </summary>
         public virtual DbSet<ServiceInfo> ServiceInfo { get; set; }
 
-        /// <summary>
-        /// 新生缴费金额信息表
-        /// </summary>
-        public virtual DbSet<TuitionInfo> TuitionInfo { get; set; }
-
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -174,7 +149,6 @@ namespace PSU.EFCore
 
             modelBuilder.Entity<Goods>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Service>().Property(p => p.ModifiedOn).IsConcurrencyToken();
-            modelBuilder.Entity<Tuition>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Bulletin>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 
             modelBuilder.Entity<Region>().Property(p => p.ModifiedOn).IsConcurrencyToken();
@@ -183,12 +157,9 @@ namespace PSU.EFCore
 
             modelBuilder.Entity<Building>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Bunk>().Property(p => p.ModifiedOn).IsConcurrencyToken();
-            modelBuilder.Entity<Campus>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Dorm>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 
-            modelBuilder.Entity<College>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Department>().Property(p => p.ModifiedOn).IsConcurrencyToken();
-            modelBuilder.Entity<Major>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<MajorClass>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 
             #endregion

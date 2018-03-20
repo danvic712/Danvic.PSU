@@ -21,75 +21,92 @@ namespace PSU.Model.Areas.Administrator.School
         public string Id { get; set; }
 
         /// <summary>
-        /// 院系名称
+        /// 部门/院系名称
         /// </summary>
-        [Required]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "部门/院系名称不能为空")]
+        [StringLength(20, ErrorMessage = "部门/院系名称不能超过20个字符长度")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// 所属校区编号
-        /// </summary>
-        public string CampusId { get; set; }
 
         /// <summary>
         /// 办公地址
         /// </summary>
-        [MaxLength(200)]
+        [StringLength(200, ErrorMessage = "办公地址不能超过200个字符长度")]
         public string Address { get; set; }
 
         /// <summary>
         /// 联系电话
         /// </summary>
         [Required]
-        [MaxLength(20)]
+        [Phone(ErrorMessage = "输入内容不符合格式要求")]
+        [StringLength(20, ErrorMessage = "联系电话不能超过20个字符长度")]
         public string Tel { get; set; }
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "输入内容不符合电子邮箱格式")]
         public string Email { get; set; }
 
         /// <summary>
         /// 官方微博
         /// </summary>
-        [MaxLength(20)]
+        [StringLength(50, ErrorMessage = "联系电话不能超过50个字符长度")]
         public string Weibo { get; set; }
 
         /// <summary>
         /// 官方微信公众号
         /// </summary>
-        [MaxLength(50)]
+        [StringLength(50, ErrorMessage = "官方微信公众号不能超过50个字符长度")]
         public string Wechat { get; set; }
 
         /// <summary>
         /// 官方QQ
         /// </summary>
-        [MaxLength(20)]
+        [StringLength(20, ErrorMessage = "官方QQ不能超过20个字符长度")]
         public long QQ { get; set; }
 
         /// <summary>
         /// 介绍
         /// </summary>
-        [MaxLength(200)]
+        [StringLength(200, ErrorMessage = "介绍信息不能超过200个字符长度")]
         public string Introduction { get; set; }
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool IsEnabled { get; set; }
+        public Enable IsEnabled { get; set; }
+
+        /// <summary>
+        /// 是否为部门
+        /// </summary>
+        public Branch IsBranch { get; set; }
 
         #endregion
     }
 
     #region Enum
-    public enum IsEnable
+
+    /// <summary>
+    /// 是否启用枚举
+    /// </summary>
+    public enum Enable
     {
         [Display(Name = "不启用")]
-        NotSelected = 0,
+        NotUse = 0,
         [Display(Name = "启用")]
-        NewsBulletin = 1,
+        Use = 1,
     }
+
+    /// <summary>
+    /// 是否为部门
+    /// </summary>
+    public enum Branch
+    {
+        [Display(Name = "否")]
+        False = 0,
+        [Display(Name = "是")]
+        True = 1,
+    }
+
     #endregion
 }

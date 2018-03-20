@@ -8,9 +8,7 @@
 // Description: 专业班级表
 //-----------------------------------------------------------------------
 using PSU.Entity.Basic;
-using PSU.Entity.Identity;
 using PSU.Utility.System;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -57,12 +55,6 @@ namespace PSU.Entity.School
         public string DepartmentName { get; set; }
 
         /// <summary>
-        /// 所在校区名称
-        /// </summary>
-        [MaxLength(20)]
-        public string CampusName { get; set; }
-
-        /// <summary>
         /// 班级微信号
         /// </summary>
         [MaxLength(20)]
@@ -101,17 +93,9 @@ namespace PSU.Entity.School
         #region Foreign Key
 
         /// <summary>
-        /// 专业主键
-        /// </summary>
-        public string MajorFK { get; set; }
-
-        /// <summary>
         /// 辅导员主键
         /// </summary>
         public string InstructorFK { get; set; }
-
-        [ForeignKey("MajorFK")]
-        public virtual Major Major { get; set; }
 
         [ForeignKey("InstructorFK")]
         public virtual Staff Instructor { get; set; }

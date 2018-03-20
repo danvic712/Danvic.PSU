@@ -54,7 +54,7 @@ namespace PSU.Entity.Admission
         /// 提问内容
         /// </summary>
         [Required]
-        [MaxLength(200)]
+        [MaxLength(500)]
         public string Content { get; set; }
 
         /// <summary>

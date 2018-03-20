@@ -9,52 +9,97 @@
 //-----------------------------------------------------------------------
 using PSU.EFCore;
 using PSU.Model.Areas.Administrator.School;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PSU.IService.Areas.Administrator
 {
     public interface ISchoolService
     {
-        #region School-Information
-
-        /// <summary>
-        /// 查看数据
-        /// </summary>
-        /// <param name="id">学校编号</param>
-        /// <param name="context">数据库上下文连接对象</param>
-        /// <returns></returns>
-        Task<InformationViewModel> GetInformationAsync(long id, ApplicationDbContext context);
-
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="webModel">信息页视图模型</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        Task<bool> InsertInformationAsync(InformationViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 更新数据
-        /// </summary>
-        /// <param name="webModel">信息页视图模型</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        Task<bool> UpdateInformationAsync(InformationViewModel webModel, ApplicationDbContext context);
-
-        #endregion
-
         #region School-Department
 
         /// <summary>
         /// 搜索数据
         /// </summary>
-        /// <param name="webModel"></param>
-        /// <param name="context"></param>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> InsertDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">部门/院系编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<DepartmentEditViewModel> GetDepartmentAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="id">部门/院系编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> DeleteDepartmentAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> UpdateDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context);
+
+        #endregion
+
+        #region School-Major Class
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<MajorClassViewModel> SearchMajorClassAsync(MajorClassViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> InsertMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">专业班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<MajorClassEditViewModel> GetMajorClassAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="id">专业班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> DeleteMajorClassAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> UpdateMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context);
 
         #endregion
     }

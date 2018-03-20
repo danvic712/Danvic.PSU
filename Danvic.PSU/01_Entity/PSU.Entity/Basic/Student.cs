@@ -66,7 +66,7 @@ namespace PSU.Entity.Basic
         public DateTime Birthday { get; set; }
 
         /// <summary>
-        /// 详细地址
+        /// 家庭地址
         /// </summary>
         [MaxLength(100)]
         public string Address { get; set; }
@@ -102,18 +102,11 @@ namespace PSU.Entity.Basic
         public string District { get; set; }
 
         /// <summary>
-        /// 系部名称
+        /// 院系名称
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string Department { get; set; }
-
-        /// <summary>
-        /// 专业名称
-        /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string Major { get; set; }
 
         /// <summary>
         /// 专业班级

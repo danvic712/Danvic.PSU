@@ -108,21 +108,11 @@
                             </span>
                         </a>
                         <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "学校信息管理"?"display: block;":"")">
-                            @*<li class="@(ViewData["CurrName"].ToString() == "基础信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="School" asp-action="Information">
-                                    <i class="fa fa-list-ul"></i><span> 基础信息维护 </span>
-                                </a>
-                            </li>*@
-                            <li class="@(ViewData["CurrName"].ToString() == "院系信息维护"?"active":"")">
+                            <li class="@(ViewData["CurrName"].ToString() == "部门信息维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="School" asp-action="Department">
-                                    <i class="fa fa-list-ul"></i><span> 院系信息维护 </span>
+                                    <i class="fa fa-list-ul"></i><span> 部门信息维护 </span>
                                 </a>
                             </li>
-                            @*<li class="@(ViewData["CurrName"].ToString() == "专业信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="School" asp-action="Major">
-                                    <i class="fa fa-list-ul"></i><span> 专业信息维护 </span>
-                                </a>
-                            </li>*@
                             <li class="@(ViewData["CurrName"].ToString() == "专业班级维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="School" asp-action="MajorClass">
                                     <i class="fa fa-list-ul"></i><span> 专业班级维护 </span>

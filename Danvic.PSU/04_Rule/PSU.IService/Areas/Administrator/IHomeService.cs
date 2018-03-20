@@ -49,7 +49,7 @@ namespace PSU.IService.Areas.Administrator
         /// <param name="id">公告编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<BulletinDetailViewModel> GetDetailAsync(long id, ApplicationDbContext context);
+        Task<BulletinDetailViewModel> GetBulletinDetailAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 新增数据

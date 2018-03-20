@@ -61,12 +61,6 @@ namespace PSU.Entity.Basic
         public string Department { get; set; }
 
         /// <summary>
-        /// 所属专业
-        /// </summary>
-        [MaxLength(50)]
-        public string Major { get; set; }
-
-        /// <summary>
         /// 是否为学校负责人
         /// </summary>
         public bool IsSupervisor { get; set; }
@@ -95,19 +89,11 @@ namespace PSU.Entity.Basic
         /// </summary>
         public string DepartmentFK { get; set; }
 
-        /// <summary>
-        /// 专业主键
-        /// </summary>
-        public string MajorFK { get; set; }
-
         [ForeignKey("IdentityUserFK")]
         public virtual AppUser IdentityUser { get; set; }
 
         [ForeignKey("DepartmentFK")]
         public virtual Department UDepartment { get; set; }
-
-        [ForeignKey("MajorFK")]
-        public virtual Major UMajor { get; set; }
 
         #endregion
     }

@@ -36,7 +36,7 @@ namespace PSU.Entity.Basic
         public long TableId { get; set; }
 
         /// <summary>
-        /// 操作人主键
+        /// 操作人编号
         /// </summary>
         [Required]
         public string UserId { get; set; }

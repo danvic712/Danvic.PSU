@@ -41,8 +41,8 @@ namespace PSU.Model.Areas.Administrator.Home
         /// <summary>
         /// 内容
         /// </summary>
-        [Required]
-        [StringLength(1000, ErrorMessage = "内容最多不能超过1000个字符哦")]
+        [Required(ErrorMessage = "内容不能为空")]
+        [StringLength(1000, ErrorMessage = "内容最多不能超过1000个字符")]
         public string Content { get; set; }
 
         #endregion

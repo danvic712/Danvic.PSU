@@ -30,16 +30,16 @@ namespace PSU.Entity.Basic
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 用户主键
+        /// 用户编号
         /// </summary>
         [Required]
-        public string UserOID { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 用户姓名
         /// </summary>
         [MaxLength(50)]
-        public string Account { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 用户Ip地址
@@ -59,7 +59,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 操作系统版本
         /// </summary>
-        public string SystemOS { get; set; }
+        public string System { get; set; }
 
         /// <summary>
         /// 屏幕分辨率

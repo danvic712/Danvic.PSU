@@ -1,9 +1,9 @@
 ﻿@model PSU.Model.Areas.Administrator.School.DepartmentEditViewModel
 @using PSU.Model.Areas.Administrator.School
 @{
-    ViewData["Title"] = "院系信息";
+    ViewData["Title"] = "部门信息";
     ViewData["NavTitle"] = "学校信息管理";
-    ViewData["CurrName"] = "院系信息维护";
+    ViewData["CurrName"] = "部门信息维护";
 }
 
 @section styles{
@@ -17,7 +17,7 @@
 
 <section class="content-header">
     <h1>
-        院系信息
+        部门信息
         <small>Department Information</small>
     </h1>
     <ol class="breadcrumb">
@@ -29,7 +29,7 @@
         <li>学校信息</li>
         <li class="active">
             <a asp-area="Administrator" asp-controller="School" asp-action="Department">
-                院系信息
+                部门信息
             </a>
         </li>
         <li class="active">编辑</li>
@@ -112,7 +112,7 @@
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
                                     <div class="col-md-3">
-                                        <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(IsEnable))" class="form-control" asp-for="IsEnabled"></select>
+                                        <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(Enable))" class="form-control" asp-for="IsEnabled"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">

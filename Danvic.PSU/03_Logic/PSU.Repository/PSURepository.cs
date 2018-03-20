@@ -20,6 +20,17 @@ namespace PSU.Repository
 {
     public class PSURepository
     {
+        #region Initialize
+
+        public enum OperateCode
+        {
+            Insert = 0,
+            Update = 1,
+            Delete = 2
+        }
+
+        #endregion
+
         #region Service
 
         /// <summary>

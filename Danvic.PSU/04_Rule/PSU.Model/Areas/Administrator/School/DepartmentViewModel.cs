@@ -37,7 +37,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 院系列表
         /// </summary>
-        public List<ReturnData> DepartmentList { get; set; }
+        public List<DepartmentData> DepartmentList { get; set; }
 
         #endregion
     }
@@ -45,7 +45,7 @@ namespace PSU.Model.Areas.Administrator.School
     /// <summary>
     /// 数据列表展示类
     /// </summary>
-    public class ReturnData
+    public class DepartmentData
     {
         #region Table
 
@@ -74,11 +74,6 @@ namespace PSU.Model.Areas.Administrator.School
         /// 微信公众号
         /// </summary>
         public string Wechat { get; set; }
-
-        /// <summary>
-        /// 所在校区
-        /// </summary>
-        public string Campus { get; set; }
 
         #endregion
     };

@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:37:00
 // Modified by:
-// Description: 迎新车辆服务表 
+// Description: 迎新服务表 
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System;
@@ -37,7 +37,7 @@ namespace PSU.Entity.Admission
         public string Name { get; set; }
 
         /// <summary>
-        /// 项目描述
+        /// 迎新项目描述
         /// </summary>
         [MaxLength(200)]
         public string Description { get; set; }

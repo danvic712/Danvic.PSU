@@ -17,13 +17,13 @@ namespace PSU.Entity.Identity
         #region Attribute
 
         /// <summary>
-        /// 图片地址
+        /// 头像地址
         /// </summary>
         [MaxLength(500)]
         public string ImageSrc { get; set; }
 
         /// <summary>
-        /// 图片二进制流
+        /// 头像二进制流
         /// </summary>
         public byte Image { get; set; }
 

@@ -43,23 +43,23 @@ namespace PSU.Entity.SignUp
         public long StudentId { get; set; }
 
         /// <summary>
-        /// 选择卧具Id
+        /// 选择物品Id
         /// </summary>
         [Required]
         public long BeddingId { get; set; }
 
         /// <summary>
-        /// 卧具类型名称
+        /// 卧具物品名称
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string BeddingName { get; set; }
 
         /// <summary>
-        /// 卧具信息描述
+        /// 物品尺寸
         /// </summary>
-        [MaxLength(200)]
-        public string Description { get; set; }
+        [MaxLength(100)]
+        public string Size { get; set; }
 
         /// <summary>
         /// 选择时间
