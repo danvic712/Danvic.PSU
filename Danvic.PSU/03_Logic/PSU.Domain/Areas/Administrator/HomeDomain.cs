@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PSU.Model.Areas;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -94,8 +95,8 @@ namespace PSU.Domain.Areas.Administrator
                 webModel.Title = model.Title;
                 webModel.Id = model.Id.ToString();
                 webModel.Content = model.Content;
-                webModel.Target = (BulletinTarget)model.Target;
-                webModel.Type = (BulletinType)model.Type;
+                webModel.Target = (EnumType.BulletinTarget)model.Target;
+                webModel.Type = (EnumType.BulletinType)model.Type;
             }
             catch (Exception ex)
             {

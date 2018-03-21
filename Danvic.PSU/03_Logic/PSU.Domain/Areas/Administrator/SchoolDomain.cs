@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PSU.Model.Areas;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -111,11 +112,11 @@ namespace PSU.Domain.Areas.Administrator
             {
                 var model = await SchoolRepository.GetAsync(id, context);
                 webModel.Id = model.Id.ToString();
-                webModel.IsBranch = (Branch)(model.IsBranch ? 1 : 0);
+                webModel.IsBranch = (EnumType.Branch)(model.IsBranch ? 1 : 0);
                 webModel.Address = model.Address;
                 webModel.Email = model.Email;
                 webModel.Introduction = model.Introduction;
-                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
+                webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
                 webModel.Name = model.Name;
                 webModel.QQ = model.QQ;
                 webModel.Tel = model.Tel;
@@ -194,9 +195,37 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<MajorClassViewModel> SearchMajorClassAsync(MajorClassViewModel webModel, ApplicationDbContext context)
+        public async Task<MajorClassViewModel> SearchMajorClassAsync(MajorClassViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await SchoolRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<MajorClassData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new MajorClassData
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        SessionNum = item.SessionNum,
+                        IsEnabled = item.IsEnabled,
+                        MajorName = item.MajorName,
+                        MajorCode = item.MajorCode,
+                        InstructorName = item.InstructorName
+                    }));
+                }
+
+                webModel.MajorClassList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取专业班级列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -205,9 +234,23 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> InsertMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> InsertMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Add the MajorClass Data
+                var model = await SchoolRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建新专业班级失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -216,9 +259,24 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="id">专业班级编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<MajorClassEditViewModel> GetMajorClassAsync(long id, ApplicationDbContext context)
+        public async Task<MajorClassEditViewModel> GetMajorClassAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new MajorClassEditViewModel();
+            try
+            {
+                var model = await SchoolRepository.GetMajorClassAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.QQ = model.QQ;
+                webModel.Wechat = model.Wechat;
+                //Todo:Not Add All Attribute
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取专业班级数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -227,9 +285,25 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="id">专业班级编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> DeleteMajorClassAsync(long id, ApplicationDbContext context)
+        public async Task<bool> DeleteMajorClassAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Delete Major Class Data
+                await SchoolRepository.DeleteMajorClassAsync(id, context);
+
+                //Add Operate Information
+                var operate = string.Format("删除专业班级数据，专业班级Id:{0}", id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+
+                var index = await context.SaveChangesAsync();
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除专业班级失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -238,9 +312,26 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> UpdateMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Major Class Data
+                SchoolRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改专业班级信息，专业班级编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新专业班级失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion

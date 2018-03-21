@@ -35,7 +35,7 @@ namespace PSU.Model.Areas.Administrator.School
         #region Result
 
         /// <summary>
-        /// 院系列表
+        /// 专业列表
         /// </summary>
         public List<MajorClassData> MajorClassList { get; set; }
 
@@ -47,5 +47,42 @@ namespace PSU.Model.Areas.Administrator.School
     /// </summary>
     public class MajorClassData
     {
+        /// <summary>
+        /// 专业班级编号
+        /// 此处使用string传递防止进制转换
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 专业班级名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 专业代码
+        /// </summary>
+        public int MajorCode { get; set; }
+
+        /// <summary>
+        /// 专业名称
+        /// </summary>
+        public string MajorName { get; set; }
+
+        /// <summary>
+        /// 级数
+        /// </summary>
+        public string SessionNum { get; set; }
+
+        /// <summary>
+        /// 辅导员姓名
+        /// </summary>
+        public string InstructorName { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool IsEnabled { get; set; }
+
+        public string IsEnabledStr => IsEnabled ? "启用" : "未启用";
     }
 }

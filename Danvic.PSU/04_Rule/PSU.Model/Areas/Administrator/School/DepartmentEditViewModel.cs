@@ -74,39 +74,13 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 是否启用
         /// </summary>
-        public Enable IsEnabled { get; set; }
+        public EnumType.Enable IsEnabled { get; set; }
 
         /// <summary>
         /// 是否为部门
         /// </summary>
-        public Branch IsBranch { get; set; }
+        public EnumType.Branch IsBranch { get; set; }
 
         #endregion
     }
-
-    #region Enum
-
-    /// <summary>
-    /// 是否启用枚举
-    /// </summary>
-    public enum Enable
-    {
-        [Display(Name = "不启用")]
-        NotUse = 0,
-        [Display(Name = "启用")]
-        Use = 1,
-    }
-
-    /// <summary>
-    /// 是否为部门
-    /// </summary>
-    public enum Branch
-    {
-        [Display(Name = "否")]
-        False = 0,
-        [Display(Name = "是")]
-        True = 1,
-    }
-
-    #endregion
 }

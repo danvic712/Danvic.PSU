@@ -49,9 +49,15 @@ namespace PSU.Entity.School
         public string MajorName { get; set; }
 
         /// <summary>
+        /// 所属院系编号
+        /// </summary>
+        [Required]
+        public long DepartmentId { get; set; }
+
+        /// <summary>
         /// 所属院系名称
         /// </summary>
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string DepartmentName { get; set; }
 
         /// <summary>
@@ -81,7 +87,8 @@ namespace PSU.Entity.School
         /// <summary>
         /// 级数
         /// </summary>
-        public int SessionNum { get; set; }
+        [MaxLength(20)]
+        public string SessionNum { get; set; }
 
         /// <summary>
         /// 是否启用
@@ -97,8 +104,16 @@ namespace PSU.Entity.School
         /// </summary>
         public string InstructorFK { get; set; }
 
+        /// <summary>
+        /// 院系主键
+        /// </summary>
+        public string DepartmentFK { get; set; }
+
         [ForeignKey("InstructorFK")]
         public virtual Staff Instructor { get; set; }
+
+        [ForeignKey("DepartmentFK")]
+        public virtual Department Department { get; set; }
 
         #endregion
     }

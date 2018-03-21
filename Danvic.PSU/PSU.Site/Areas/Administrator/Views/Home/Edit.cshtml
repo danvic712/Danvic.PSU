@@ -1,4 +1,5 @@
 ﻿@model PSU.Model.Areas.Administrator.Home.BulletinEditViewModel
+@using PSU.Model.Areas
 @using PSU.Model.Areas.Administrator.Home
 @{
     ViewData["Title"] = "编辑公告";
@@ -48,11 +49,11 @@
                 <div class="form-group">
                     <label class="col-md-2 col-xs-3 control-label no-padding-right" for="target"> 针对用户： </label>
                     <div class="col-md-2 col-xs-9">
-                        <select id="target" asp-items="@Html.GetEnumSelectList(typeof(BulletinTarget))" class="form-control" asp-for="Target"></select>
+                        <select id="target" asp-items="@Html.GetEnumSelectList(typeof(EnumType.BulletinTarget))" class="form-control" asp-for="Target"></select>
                     </div>
                     <label class="col-md-2 col-xs-3 control-label no-padding-right" for="type"> 公告类型： </label>
                     <div class="col-md-2 col-xs-9">
-                        <select id="type" asp-items="@Html.GetEnumSelectList(typeof(BulletinType))" class="form-control" asp-for="Type"></select>
+                        <select id="type" asp-items="@Html.GetEnumSelectList(typeof(EnumType.BulletinType))" class="form-control" asp-for="Type"></select>
                     </div>
                 </div>
                 <div class="form-group">
