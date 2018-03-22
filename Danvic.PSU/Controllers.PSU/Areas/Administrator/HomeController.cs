@@ -15,6 +15,7 @@ using PSU.Model.Areas.Administrator.Home;
 using PSU.Utility.Web;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
@@ -82,7 +83,7 @@ namespace Controllers.PSU.Areas.Administrator
             };
             if (!string.IsNullOrEmpty(id))
             {
-                //Todo:编辑页面，加载公告相关信息
+                //编辑页面，加载公告相关信息
                 webModel = await _service.GetBulletinAsync(Convert.ToInt64(id), _context);
             }
             return View(webModel);
@@ -95,8 +96,8 @@ namespace Controllers.PSU.Areas.Administrator
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var webModel = await _service.InitIndexPageAsync();
-            return View();
+            var webModel = await _service.InitIndexPageAsync(_context);
+            return View(webModel);
         }
 
         #endregion
@@ -116,7 +117,7 @@ namespace Controllers.PSU.Areas.Administrator
             return Json(new
             {
                 sueeess = flag,
-                msg = flag == true ? "数据删除成功，公告编号：" + id : "数据删除失败，公告编号：" + id
+                msg = flag ? "数据删除成功，公告编号：" + id : "数据删除失败，公告编号：" + id
             });
         }
 
@@ -128,27 +129,30 @@ namespace Controllers.PSU.Areas.Administrator
         [HttpPost]
         public async Task<IActionResult> Edit(BulletinEditViewModel webModel)
         {
-            bool flag = false;
-
             if (ModelState.IsValid)
             {
+                bool flag;
                 if (string.IsNullOrEmpty(webModel.Id))
                 {
-                    //Todo:新增公告
+                    //Add Bulletin
                     flag = await _service.InsertBulletinAsync(webModel, _context);
                 }
                 else
                 {
-                    //Todo:更新公告信息
+                    //Update Bulletin
                     flag = await _service.UpdateBulletinAsync(webModel, _context);
                 }
 
                 return Json(new
                 {
                     success = flag,
-                    msg = flag == true ? "公告信息编辑成功" : "公告信息编辑失败"
+                    msg = flag ? "公告信息编辑成功" : "公告信息编辑失败"
                 });
             }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
 
             return Json(new
             {
@@ -159,7 +163,7 @@ namespace Controllers.PSU.Areas.Administrator
         /// <summary>
         /// 公告页面搜索
         /// </summary>
-        /// <param name="webModel"></param>
+        /// <param name="search"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Search(string search)

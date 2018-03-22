@@ -7,7 +7,6 @@
 // Modified by:
 // Description: Administrator-School控制器
 //-----------------------------------------------------------------------
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
@@ -15,9 +14,6 @@ using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
 using PSU.Utility.Web;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
@@ -154,6 +150,118 @@ namespace Controllers.PSU.Areas.Administrator
             };
 
             return Json(returnData);
+        }
+
+        /// <summary>
+        /// 删除部门/院系数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteDepartment(string id)
+        {
+            bool flag = await _service.DeleteDepartmentAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，部门/院系编号：" + id : "数据删除失败，部门/院系编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 删除专业班级数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteMajorClass(string id)
+        {
+            bool flag = await _service.DeleteMajorClassAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，专业班级编号：" + id : "数据删除失败，专业班级编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 部门/院系编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditDepartment(DepartmentEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Department
+                    flag = await _service.InsertDepartmentAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Department
+                    flag = await _service.UpdateDepartmentAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "部门/院系信息编辑成功" : "部门/院系信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false
+            });
+        }
+
+        /// <summary>
+        /// 专业班级编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditMajorClass(MajorClassEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Major Class
+                    flag = await _service.InsertMajorClassAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Major Class
+                    flag = await _service.UpdateMajorClassAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "专业班级信息编辑成功" : "专业班级信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false
+            });
         }
 
         #endregion

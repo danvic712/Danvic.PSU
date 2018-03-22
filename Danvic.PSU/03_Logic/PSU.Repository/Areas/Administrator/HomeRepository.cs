@@ -15,12 +15,94 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PSU.Entity.Admission;
 
 namespace PSU.Repository.Areas.Administrator
 {
     public class HomeRepository
     {
         #region Index API
+
+        /// <summary>
+        /// 获取折线图Json字符串数据
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<string> GetChartInfo(ApplicationDbContext context)
+        {
+            return "";
+        }
+
+        /// <summary>
+        /// 获取饼图Json字符串数据
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<string> GetPieInfo(ApplicationDbContext context)
+        {
+            return "";
+        }
+
+        /// <summary>
+        /// 获取今日报名人数
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<int> GetTodayEnrollmentCount(ApplicationDbContext context)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取昨日报名人数
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<int> GetYesterdayEnrollmentCount(ApplicationDbContext context)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取问题总数
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<int> GetQuestionCount(ApplicationDbContext context)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取已完成报名比例
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<double> GetProportion(ApplicationDbContext context)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取公告列表
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<List<Bulletin>> GetBulletinList(ApplicationDbContext context)
+        {
+            return await context.Bulletin.Take(5).OrderByDescending(i => i.CreatedOn).ToListAsync();
+        }
+
+        /// <summary>
+        /// 获取问题列表
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static async Task<List<Question>> GetQuestionList(ApplicationDbContext context)
+        {
+            return await context.Question.Take(5).OrderByDescending(i => i.AskTime).ToListAsync();
+        }
+
         #endregion
 
         #region Bulletin API

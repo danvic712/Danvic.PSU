@@ -21,7 +21,7 @@ namespace PSU.IService.Areas.Administrator
         /// 页面加载初始化
         /// </summary>
         /// <returns></returns>
-        Task<IndexViewModel> InitIndexPageAsync();
+        Task<IndexViewModel> InitIndexPageAsync(ApplicationDbContext context);
 
         #endregion
 

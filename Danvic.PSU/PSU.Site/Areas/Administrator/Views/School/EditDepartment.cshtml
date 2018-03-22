@@ -1,4 +1,5 @@
 ﻿@model PSU.Model.Areas.Administrator.School.DepartmentEditViewModel
+@using PSU.Model.Areas
 @using PSU.Model.Areas.Administrator.School
 @{
     ViewData["Title"] = "部门信息";
@@ -112,7 +113,7 @@
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
                                     <div class="col-md-3">
-                                        <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(Enable))" class="form-control" asp-for="IsEnabled"></select>
+                                        <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">

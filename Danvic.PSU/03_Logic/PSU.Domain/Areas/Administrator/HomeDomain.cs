@@ -9,8 +9,8 @@
 //-----------------------------------------------------------------------
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
-using PSU.Entity.Basic;
 using PSU.IService.Areas.Administrator;
+using PSU.Model.Areas;
 using PSU.Model.Areas.Administrator.Home;
 using PSU.Repository;
 using PSU.Repository.Areas.Administrator;
@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PSU.Model.Areas;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -41,11 +40,39 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 初始化加载
         /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<IndexViewModel> InitIndexPageAsync()
+        public async Task<IndexViewModel> InitIndexPageAsync(ApplicationDbContext context)
         {
             IndexViewModel webModel = new IndexViewModel();
-            return Task.FromResult(webModel);
+            try
+            {
+                webModel.TodayEnrollmentCount = await HomeRepository.GetTodayEnrollmentCount(context);
+                webModel.YesterdayEnrollmentCount = await HomeRepository.GetYesterdayEnrollmentCount(context);
+                webModel.QuestionCount = await HomeRepository.GetQuestionCount(context);
+                webModel.Proportion = await HomeRepository.GetProportion(context);
+                webModel.Chart = await HomeRepository.GetChartInfo(context);
+                webModel.Pie = await HomeRepository.GetPieInfo(context);
+                webModel.BulletinList = (from item in await HomeRepository.GetBulletinList(context)
+                    select new BulletinData
+                    {
+                        Id = item.Id.ToString(),
+                        Title = item.Title
+                    }).ToList();
+                webModel.QuestionList = (from item in await HomeRepository.GetQuestionList(context)
+                    select new QuestionData()
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.StuName,
+                        Content = item.Content,
+                        DateTime = item.AskTime
+                    }).ToList();  
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("首页初始化失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion
@@ -184,17 +211,17 @@ namespace PSU.Domain.Areas.Administrator
                 if (list != null && list.Any())
                 {
                     dataList.AddRange(from item in list
-                        let content = StringUtility.HtmlToText(item.Content).Length <= 10 ? StringUtility.HtmlToText(item.Content) : StringUtility.HtmlToText(item.Content).Substring(0, 10) + "..."
-                        select new ReturnData
-                        {
-                            Id = item.Id.ToString(),
-                            Content = content,
-                            DateTime = item.CreatedOn.ToString("yyyy-MM-dd HH:mm:ss"),
-                            Publisher = item.CreatedName,
-                            Target = item.Target,
-                            Title = item.Title,
-                            Type = item.Type
-                        });
+                                      let content = StringUtility.HtmlToText(item.Content).Length <= 10 ? StringUtility.HtmlToText(item.Content) : StringUtility.HtmlToText(item.Content).Substring(0, 10) + "..."
+                                      select new ReturnData
+                                      {
+                                          Id = item.Id.ToString(),
+                                          Content = content,
+                                          DateTime = item.CreatedOn.ToString("yyyy-MM-dd HH:mm:ss"),
+                                          Publisher = item.CreatedName,
+                                          Target = item.Target,
+                                          Title = item.Title,
+                                          Type = item.Type
+                                      });
                 }
 
                 webModel.BulletinList = dataList;
