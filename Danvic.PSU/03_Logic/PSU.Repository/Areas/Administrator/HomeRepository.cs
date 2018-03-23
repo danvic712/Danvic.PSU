@@ -50,7 +50,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<int> GetTodayEnrollmentCount(ApplicationDbContext context)
         {
-            return 0;
+            return await context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).CountAsync();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<int> GetYesterdayEnrollmentCount(ApplicationDbContext context)
         {
-            return 0;
+            return await context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).CountAsync();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<int> GetQuestionCount(ApplicationDbContext context)
         {
-            return 0;
+            return await context.Question.CountAsync();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<double> GetProportion(ApplicationDbContext context)
         {
-            return 0;
+            return Convert.ToDouble(await context.Register.CountAsync() / await context.Student.CountAsync());
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Bulletin>> GetBulletinList(ApplicationDbContext context)
         {
-            return await context.Bulletin.Take(5).OrderByDescending(i => i.CreatedOn).ToListAsync();
+            return await context.Bulletin.OrderByDescending(i => i.CreatedOn).Take(5).ToListAsync();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Question>> GetQuestionList(ApplicationDbContext context)
         {
-            return await context.Question.Take(5).OrderByDescending(i => i.AskTime).ToListAsync();
+            return await context.Question.OrderByDescending(i => i.AskTime).Take(5).ToListAsync();
         }
 
         #endregion

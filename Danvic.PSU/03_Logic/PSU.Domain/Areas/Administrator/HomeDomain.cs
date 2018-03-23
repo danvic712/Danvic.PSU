@@ -54,19 +54,19 @@ namespace PSU.Domain.Areas.Administrator
                 webModel.Chart = await HomeRepository.GetChartInfo(context);
                 webModel.Pie = await HomeRepository.GetPieInfo(context);
                 webModel.BulletinList = (from item in await HomeRepository.GetBulletinList(context)
-                    select new BulletinData
-                    {
-                        Id = item.Id.ToString(),
-                        Title = item.Title
-                    }).ToList();
+                                         select new BulletinData
+                                         {
+                                             Id = item.Id.ToString(),
+                                             Title = item.Title
+                                         }).ToList();
                 webModel.QuestionList = (from item in await HomeRepository.GetQuestionList(context)
-                    select new QuestionData()
-                    {
-                        Id = item.Id.ToString(),
-                        Name = item.StuName,
-                        Content = item.Content,
-                        DateTime = item.AskTime
-                    }).ToList();  
+                                         select new QuestionData()
+                                         {
+                                             Id = item.Id.ToString(),
+                                             Name = item.StuName,
+                                             Content = item.Content,
+                                             DateTime = item.AskTime
+                                         }).ToList();
             }
             catch (Exception ex)
             {
