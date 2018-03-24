@@ -47,10 +47,10 @@ namespace PSU.Domain.Areas.Administrator
             IndexViewModel webModel = new IndexViewModel();
             try
             {
-                webModel.TodayEnrollmentCount = await HomeRepository.GetTodayEnrollmentCount(context);
-                webModel.YesterdayEnrollmentCount = await HomeRepository.GetYesterdayEnrollmentCount(context);
-                webModel.QuestionCount = await HomeRepository.GetQuestionCount(context);
-                webModel.Proportion = await HomeRepository.GetProportion(context);
+                webModel.TodayEnrollmentCount =HomeRepository.GetTodayEnrollmentCount(context);
+                webModel.YesterdayEnrollmentCount = HomeRepository.GetYesterdayEnrollmentCount(context);
+                webModel.QuestionCount = HomeRepository.GetQuestionCount(context);
+                webModel.Proportion = HomeRepository.GetProportion(context);
                 webModel.Chart = await HomeRepository.GetChartInfo(context);
                 webModel.Pie = await HomeRepository.GetPieInfo(context);
                 webModel.BulletinList = (from item in await HomeRepository.GetBulletinList(context)

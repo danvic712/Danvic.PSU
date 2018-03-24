@@ -48,9 +48,9 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<int> GetTodayEnrollmentCount(ApplicationDbContext context)
+        public static int GetTodayEnrollmentCount(ApplicationDbContext context)
         {
-            return await context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).CountAsync();
+            return context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<int> GetYesterdayEnrollmentCount(ApplicationDbContext context)
+        public static int GetYesterdayEnrollmentCount(ApplicationDbContext context)
         {
-            return await context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).CountAsync();
+            return context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<int> GetQuestionCount(ApplicationDbContext context)
+        public static int GetQuestionCount(ApplicationDbContext context)
         {
-            return await context.Question.CountAsync();
+            return context.Question.ToList().Count();
         }
 
         /// <summary>
@@ -78,9 +78,13 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<double> GetProportion(ApplicationDbContext context)
+        public static double GetProportion(ApplicationDbContext context)
         {
-            return Convert.ToDouble(await context.Register.CountAsync() / await context.Student.CountAsync());
+            if (context.Student.ToList().Count() != 0)
+            {
+                return Convert.ToDouble((context.Register.ToList().Count() / context.Student.ToList().Count()) * 100);
+            }
+            return 0;
         }
 
         /// <summary>

@@ -3,7 +3,7 @@
  *   Author: Danvic712
  */
 body {
-    font-family:'Microsoft YaHei';
+    font-family: 'Microsoft YaHei';
 }
 
 .space {
@@ -212,3 +212,16 @@ a:hover {
     vertical-align: middle;
     color: red
 }
+
+.message-not-iamge {
+    margin: 0px;
+}
+
+    .message-not-iamge > .name {
+        display: block;
+        font-weight: 600;
+    }
+
+    .message-not-iamge > .message-content {
+        margin-left: 15px;
+    }

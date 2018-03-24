@@ -3,6 +3,70 @@
  *   Author: Danvic712
  */
 $(function () {
+    //Add New Bulletin
+    $(document).on('click', '#add', function () {
+        window.location.href = '/Administrator/Home/Edit';
+    });
+
+    //Delete Bulletin Inormation
+    $(document).on('click', '#delete', function () {
+        var id = $(this).attr('data-id');
+        bootbox.confirm({
+            message: '公告名称：<b class="text-red">' + $(this).attr('data-title') + '</b>，确定删除该条公告吗？',
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn btn-success btn-flat'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn btn-default btn-flat'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: '/Administrator/Home/Delete',
+                        type: 'POST',
+                        dataType: 'Json',
+                        data: {
+                            id: id
+                        },
+                        success: function (result) {
+                            bootbox.alert({
+                                message: result.msg,
+                                buttons: {
+                                    ok: {
+                                        label: '确定',
+                                        className: 'btn bg-olive btn-flat margin'
+                                    }
+                                },
+                                callback: function () {
+                                    window.location = "/Administrator/Home/Index";
+                                }
+                            });
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                        }
+                    });
+                }
+            }
+        })
+    });
+
+    //See More Bulletin Information
+    $(document).on('click', '#more_bulletin', function () {
+        window.location.href = '/Administrator/Home/Bulletin';
+    });
+
+    //See More Question Information
+    $(document).on('click', '#more_question', function () {
+        window.location.href = '/Administrator/Admission/Question';
+    });
+
+    //Line Chart
+    //
     var lineChart = echarts.init(document.getElementById('register-line-chart'), 'macarons');
     var line_option = {
         tooltip: {
@@ -53,11 +117,13 @@ $(function () {
     };
     lineChart.setOption(line_option);
 
-
+    //Set Question List Height 
     $('#chat-box').slimScroll({
         height: '303px'
     });
 
+    //Pie Chart
+    //
     var pie = echarts.init(document.getElementById('map-pie'), 'macarons');
     var pie_option = {
         title: {

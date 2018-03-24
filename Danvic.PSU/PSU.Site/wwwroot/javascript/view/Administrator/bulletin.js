@@ -122,7 +122,7 @@ $(function () {
     $(document).on('click', '#delete', function () {
         var id = $(this).attr('data-id');
         bootbox.confirm({
-            message: '确定删除编号为<b class="text-red">' + id + '</b>的公告信息吗？',
+            message: '公告编号：<b class="text-red">' + id + '</b>，确定删除该条公告吗？',
             buttons: {
                 confirm: {
                     label: '确定',
