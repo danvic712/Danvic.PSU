@@ -2,6 +2,7 @@
  *   Administrator Home Bulletin Page JavaScript v1.0.0
  *   Author: Danvic712
  */
+
 //table
 $.dataTableSetting = {
     "bSort": false,//关闭排序
@@ -163,8 +164,5 @@ $(function () {
                 }
             }
         })
-
-
-
     });
 });

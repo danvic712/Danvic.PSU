@@ -47,12 +47,10 @@ namespace PSU.Domain.Areas.Administrator
             IndexViewModel webModel = new IndexViewModel();
             try
             {
-                webModel.TodayEnrollmentCount =HomeRepository.GetTodayEnrollmentCount(context);
+                webModel.TodayEnrollmentCount = HomeRepository.GetTodayEnrollmentCount(context);
                 webModel.YesterdayEnrollmentCount = HomeRepository.GetYesterdayEnrollmentCount(context);
                 webModel.QuestionCount = HomeRepository.GetQuestionCount(context);
                 webModel.Proportion = HomeRepository.GetProportion(context);
-                webModel.Chart = await HomeRepository.GetChartInfo(context);
-                webModel.Pie = await HomeRepository.GetPieInfo(context);
                 webModel.BulletinList = (from item in await HomeRepository.GetBulletinList(context)
                                          select new BulletinData
                                          {
@@ -73,6 +71,26 @@ namespace PSU.Domain.Areas.Administrator
                 _logger.LogError("首页初始化失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
             }
             return webModel;
+        }
+
+        /// <summary>
+        /// 初始化加载折线图数据
+        /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<string> InitLineChartAsync(ApplicationDbContext context)
+        {
+            return await HomeRepository.GetChartInfo(context);
+        }
+
+        /// <summary>
+        /// 初始化加载折线图数据
+        /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<string> InitPieChartAsync(ApplicationDbContext context)
+        {
+            return await HomeRepository.GetPieInfo(context);
         }
 
         #endregion

@@ -60,6 +60,10 @@ $(function () {
                         setTimeout(function () {
                             window.location.href = "/Administrator/Home/Bulletin";
                         }, 2000);
+                    } else {
+                        setTimeout(function () {
+                            window.location.href = window.location.href;
+                        }, 2000);
                     }
                 }
                 $('#save').removeAttr('disabled');

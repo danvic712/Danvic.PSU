@@ -35,21 +35,11 @@ namespace PSU.Model.Areas.Administrator.Home
         /// 已完成报名比例
         /// </summary>
         public double Proportion { get; set; }
-
-        /// <summary>
-        /// 报名人数走势曲线图
-        /// </summary>
-        public string Chart { get; set; }
         
         /// <summary>
         /// 公告列表
         /// </summary>
         public List<BulletinData> BulletinList { get; set; }
-
-        /// <summary>
-        /// 生源地分布饼图
-        /// </summary>
-        public string Pie { get; set; }
 
         /// <summary>
         /// 问题列表

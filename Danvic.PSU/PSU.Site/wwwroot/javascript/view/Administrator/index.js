@@ -117,10 +117,10 @@ $(function () {
     };
     lineChart.setOption(line_option);
 
-    //Set Question List Height 
-    $('#chat-box').slimScroll({
-        height: '303px'
-    });
+    ////Set Question List Height 
+    //$('#chat-box').slimScroll({
+    //    height: '303px'
+    //});
 
     //Pie Chart
     //

@@ -75,6 +75,19 @@ namespace PSU.Model.Areas.Administrator.School
         /// </summary>
         public string Wechat { get; set; }
 
+        /// <summary>
+        /// 是否为部门
+        /// </summary>
+        public bool IsBranch { get; set; }
+
+        public string IsBranchStr
+        {
+            get
+            {
+                return IsBranch ? "是" : "否";
+            }
+        }
+
         #endregion
     };
 }

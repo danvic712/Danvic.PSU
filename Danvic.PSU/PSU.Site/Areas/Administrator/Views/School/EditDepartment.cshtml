@@ -1,6 +1,5 @@
 ﻿@model PSU.Model.Areas.Administrator.School.DepartmentEditViewModel
 @using PSU.Model.Areas
-@using PSU.Model.Areas.Administrator.School
 @{
     ViewData["Title"] = "部门信息";
     ViewData["NavTitle"] = "学校信息管理";
@@ -18,7 +17,7 @@
 
 <section class="content-header">
     <h1>
-        部门信息
+        院系/部门信息
         <small>Department Information</small>
     </h1>
     <ol class="breadcrumb">
@@ -30,7 +29,7 @@
         <li>学校信息</li>
         <li class="active">
             <a asp-area="Administrator" asp-controller="School" asp-action="Department">
-                部门信息
+                院系/部门信息
             </a>
         </li>
         <li class="active">编辑</li>
@@ -40,26 +39,18 @@
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <form asp-area="Administrator" asp-controller="School" asp-action="EditDepartment" method="post" class="form-horizontal" role="form">
+            <form method="post" class="form-horizontal" role="form" id="department_form">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box box-default">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="name">
-                                        <span class="required-label">*</span> 院系名称
+                                        <span class="required-label">*</span> 部门/院系名称
                                     </label>
                                     <div class="col-md-3">
                                         <input class="form-control" id="name" type="text" placeholder="" asp-for="Name">
                                     </div>
-                                    <label class="col-md-2 control-label no-padding-right" for="campus">所属校区</label>
-                                    <div class="col-md-3">
-                                        <select id="campus" class="form-control">
-                                            <option value="0">请选择</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="tel">
                                         <span class="required-label">*</span> 联系电话
                                     </label>
@@ -71,6 +62,8 @@
                                             </span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="weibo"> 官方微博 </label>
                                     <div class="col-md-3">
                                         <div class="input-group">
@@ -80,8 +73,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="email">电子邮箱</label>
                                     <div class="col-md-3">
                                         <div class="input-group">
@@ -91,6 +82,8 @@
                                             </span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="wechat"> 公众号 </label>
                                     <div class="col-md-3">
                                         <div class="input-group">
@@ -100,8 +93,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="qq">官方QQ</label>
                                     <div class="col-md-3">
                                         <div class="input-group">
@@ -110,6 +101,12 @@
                                                 <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
                                             </span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="enable"> 是否为部门 </label>
+                                    <div class="col-md-3">
+                                        <select id="branch" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Branch))" class="form-control" asp-for="IsBranch"></select>
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
                                     <div class="col-md-3">
@@ -122,7 +119,7 @@
                                         <div class="input-group">
                                             <input type="text" id="address" class="form-control" asp-for="Address" />
                                             <span class="input-group-addon">
-                                                <i class="fa fa-location-arrow"></i>
+                                                <i class="fa fa-map-marker"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -171,9 +168,23 @@
         <script src="~/javascript/template/hotkeys.js"></script>
         <script src="~/javascript/template/uploader.js"></script>
         <script src="~/javascript/template/simditor.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script src="~/javascript/view/Administrator/editdepartment.js"></script>
     </environment>
     <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"
+                crossorigin="anonymous"
+                integrity="sha384-Fnqn3nxp3506LP/7Y3j/25BlWeA3PXTyT1l78LjECcPaKCV12TsZP7yyMxOe/G/k">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+                crossorigin="anonymous"
+                integrity="sha384-JrXK+k53HACyavUKOsL+NkmSesD2P+73eDMrbTtTk0h4RmOF8hF8apPlkp26JlyH">
+        </script>
         <script src="~/javascript/view/Administrator/editdepartment.min.js" asp-append-version="true"></script>
     </environment>
 }

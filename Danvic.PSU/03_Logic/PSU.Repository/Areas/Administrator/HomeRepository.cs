@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PSU.Entity.Admission;
+using PSU.Utility.Web;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -30,7 +31,35 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<string> GetChartInfo(ApplicationDbContext context)
         {
-            return "";
+            //Data Source
+            var list = await context.Register.ToListAsync();
+
+            //Get Last 7 Day Date
+            var now = DateTime.Now;
+            var week = Enumerable.Range(-6, 7)
+                .Select(x => new
+                {
+                    day = now.AddDays(x)
+                });
+
+            //Get Result Data
+            var result = week.GroupJoin(list,
+                w => new
+                {
+                    day = w.day.ToString("yyyy-MM-dd")
+                },
+                data => new
+                {
+                    day = data.DateTime.ToString("yyyy-MM-dd")
+                },
+                (p, g) => new
+                {
+                    day = p.day.ToString("yyyy-MM-dd"),
+                    count = g.Count()
+                }
+                );
+
+            return JsonUtility.ToJson(result);
         }
 
         /// <summary>
@@ -40,7 +69,11 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<string> GetPieInfo(ApplicationDbContext context)
         {
-            return "";
+            //Data Source
+            var list = await context.Student.ToListAsync();
+            //Get Result Data
+            var result = "";
+            return JsonUtility.ToJson(result);
         }
 
         /// <summary>

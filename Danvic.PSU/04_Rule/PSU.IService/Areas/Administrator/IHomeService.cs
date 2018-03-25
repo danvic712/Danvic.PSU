@@ -20,8 +20,23 @@ namespace PSU.IService.Areas.Administrator
         /// <summary>
         /// 页面加载初始化
         /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         Task<IndexViewModel> InitIndexPageAsync(ApplicationDbContext context);
+
+        /// <summary>
+        /// 获取折线图数据
+        /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<string> InitLineChartAsync(ApplicationDbContext context);
+
+        /// <summary>
+        /// 获取折线图数据
+        /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<string> InitPieChartAsync(ApplicationDbContext context);
 
         #endregion
 

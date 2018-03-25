@@ -14,6 +14,7 @@ using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
 using PSU.Utility.Web;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
@@ -221,7 +222,8 @@ namespace Controllers.PSU.Areas.Administrator
 
             return Json(new
             {
-                success = false
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
             });
         }
 
@@ -260,7 +262,8 @@ namespace Controllers.PSU.Areas.Administrator
 
             return Json(new
             {
-                success = false
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
             });
         }
 

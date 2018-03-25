@@ -23,7 +23,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 部门/院系名称
         /// </summary>
-        [Required(ErrorMessage = "部门/院系名称不能为空")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "部门/院系名称不能为空")]
         [StringLength(20, ErrorMessage = "部门/院系名称不能超过20个字符长度")]
         public string Name { get; set; }
 
@@ -36,7 +36,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 联系电话
         /// </summary>
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "联系电话不能为空")]
         [Phone(ErrorMessage = "输入内容不符合格式要求")]
         [StringLength(20, ErrorMessage = "联系电话不能超过20个字符长度")]
         public string Tel { get; set; }
@@ -63,7 +63,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 官方QQ
         /// </summary>
         [StringLength(20, ErrorMessage = "官方QQ不能超过20个字符长度")]
-        public long QQ { get; set; }
+        public string QQ { get; set; }
 
         /// <summary>
         /// 介绍

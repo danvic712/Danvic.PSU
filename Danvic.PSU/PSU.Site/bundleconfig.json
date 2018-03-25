@@ -153,13 +153,9 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/javascript/view/Administrator/editmajor.min.js",
+    "outputFileName": "wwwroot/javascript/view/Administrator/majorclass.min.js",
     "inputFiles": [
-      "wwwroot/javascript/template/module.js",
-      "wwwroot/javascript/template/hotkeys.js",
-      "wwwroot/javascript/template/uploader.js",
-      "wwwroot/javascript/template/simditor.js",
-      "wwwroot/javascript/view/Administrator/editmajor.js"
+      "wwwroot/javascript/view/Administrator/majorclass.js"
     ],
     "minify": {
       "enabled": true,
@@ -168,9 +164,9 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/javascript/view/Administrator/majorclass.min.js",
+    "outputFileName": "wwwroot/javascript/view/Administrator/editmajorclass.min.js",
     "inputFiles": [
-      "wwwroot/javascript/view/Administrator/majorclass.js"
+      "wwwroot/javascript/view/Administrator/editmajorclass.js"
     ],
     "minify": {
       "enabled": true,

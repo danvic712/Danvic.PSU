@@ -1,5 +1,5 @@
-﻿
-
+﻿@model PSU.Model.Areas.Administrator.School.MajorClassEditViewModel
+@using PSU.Model.Areas
 @{
     ViewData["Title"] = "专业班级";
     ViewData["NavTitle"] = "学校信息管理";
@@ -29,19 +29,13 @@
 
 <section class="content">
     <div class="row">
-        <section class="col-lg-8 connectedSortable">
-            <div class="alert alert-default alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check text-green"></i> 温馨提示</h4>
-                当你选择不同的专业以及选择不同的班级辅导员时，页面右侧的信息会自动更新哦~~~
-                （#￣▽￣#）
-            </div>
-            <form asp-area="Administrator" asp-controller="School" asp-action="EditMajorClass" method="post" class="form-horizontal" role="form">
+        <div class="col-md-12">
+            <form method="post" class="form-horizontal" role="form">
                 <div class="box">
                     <div class="box box-body">
                         <div class="form-group">
                             <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name"> 班级名称： </label>
-                            <div class="col-md-5 col-xs-9">
+                            <div class="col-md-4 col-xs-9">
                                 <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
                             </div>
                         </div>
@@ -51,7 +45,7 @@
                                 <div class="input-group">
                                     <input type="text" id="form-field-facebook" class="form-control" />
                                     <span class="input-group-addon">
-                                        <i class="ace-icon fa fa-weixin text-green"></i>
+                                        <i class="fa fa-weixin text-green"></i>
                                     </span>
                                 </div>
                             </div>
@@ -60,7 +54,7 @@
                                 <div class="input-group">
                                     <input type="email" id="form-field-email" class="form-control" />
                                     <span class="input-group-addon">
-                                        <i class="ace-icon fa fa-qq fa-flip-horizontal text-light-blue"></i>
+                                        <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
                                     </span>
                                 </div>
                             </div>
@@ -68,14 +62,17 @@
                         <div class="form-group">
                             <label class="col-md-2 col-xs-3 control-label no-padding-right" for="major"> 所属专业： </label>
                             <div class="col-md-4 col-xs-9">
-                                <select id="major" class="form-control">
-                                    <option value="">请选择</option>
-                                </select>
+                                <div class="input-group">
+                                    <input type="email" id="form-field-email" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-graduation-cap fa-flip-horizontal"></i>
+                                    </span>
+                                </div>
                             </div>
                             <label class="col-md-2 control-label no-padding-right" for="department">专业代码：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="department" class="form-control" readonly />
+                                    <input type="text" id="department" class="form-control" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-code fa-flip-horizontal"></i>
                                     </span>
@@ -85,19 +82,16 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label no-padding-right" for="department">所属院系：</label>
                             <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="text" id="department" class="form-control" readonly />
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-graduation-cap fa-flip-horizontal"></i>
-                                    </span>
-                                </div>
+                                <select id="department" class="form-control">
+                                    <option value="">请选择</option>
+                                </select>
                             </div>
-                            <label class="col-md-2 control-label no-padding-right" for="address">所在校区：</label>
+                            <label class="col-md-2 control-label no-padding-right" for="number">院系编号：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="address" class="form-control" readonly />
+                                    <input type="text" id="number" class="form-control" readonly />
                                     <span class="input-group-addon">
-                                        <i class="fa fa-home fa-flip-horizontal"></i>
+                                        <i class="fa fa-id-card-o fa-flip-horizontal"></i>
                                     </span>
                                 </div>
                             </div>
@@ -126,80 +120,37 @@
                                     <option value="">@DateTime.Now.Year 级</option>
                                 </select>
                             </div>
-                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="state"> 是否启用： </label>
-                            <div class="col-md-4 col-xs-9">
-                                <select id="state" class="form-control">
-                                    <option value="">启用</option>
-                                    <option value="">不启用</option>
-                                </select>
+                            <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
+                            <div class="col-md-4">
+                                <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                             </div>
                         </div>
 
                     </div>
                     <div class="box-footer">
                         <div class="text-right">
-                            <button class="btn btn-success col-md-offset-2" type="submit">
+                            <button id="submit" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
                                 <i class="ace-icon fa fa-check"></i>
                                 保存
                             </button>
                             &nbsp; &nbsp;
-                            <button class="btn" type="reset">
-                                <i class="ace-icon fa fa-undo"></i>
-                                重置
-                            </button>
+                            <a class="btn btn-default" asp-area="Administrator" asp-controller="School" asp-action="MajorClass">
+                                <i class="fa fa-undo"></i>
+                                返回
+                            </a>
                         </div>
                     </div>
                 </div>
             </form>
-        </section>
-        <section class="col-md-4 connectedSortable">
-            <div class="box box-default">
-                <div class="box-body box-profile">
-
-                    <p class="text-muted text-center">网络工程</p>
-
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>专业代码</b> <a class="pull-right">CS0001</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>学制</b> <a class="pull-right">四年</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>培养方向</b> <a class="pull-right">全日制本科</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>所在校区</b> <a class="pull-right">我是新校区名称</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>所属系部</b> <a class="pull-right">计算机与软件工程系</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="box box-default">
-                <div class="box-body box-profile">
-                    <img src="~/images/template/user1-128x128.jpg" class="profile-user-img img-responsive img-circle" alt="辅导员图片" />
-
-                    <h3 class="profile-username text-center">我是辅导员啊</h3>
-
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>工号</b> <a class="pull-right">201712270911</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>所属系部</b> <a class="pull-right">计算机与软件工程系</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 </section>
 
 @section scripts{
     <environment include="Development">
+        <script src="~/javascript/view/Administrator/editmajorclass.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/editmajorclass.min.js" asp-append-version="true"></script>
     </environment>
 }

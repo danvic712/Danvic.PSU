@@ -186,6 +186,28 @@ namespace Controllers.PSU.Areas.Administrator
             return Json(returnData);
         }
 
+        /// <summary>
+        /// 获取折线图数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetLineChart()
+        {
+            string chart = await _service.InitLineChartAsync(_context);
+            return Json(chart);
+        }
+
+        /// <summary>
+        /// 获取饼图数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetPieChart()
+        {
+            string chart = await _service.InitPieChartAsync(_context);
+            return Json(chart);
+        }
+
         #endregion
     }
 }
