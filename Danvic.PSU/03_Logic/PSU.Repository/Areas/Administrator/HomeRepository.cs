@@ -57,7 +57,7 @@ namespace PSU.Repository.Areas.Administrator
                     day = p.day.ToString("yyyy-MM-dd"),
                     count = g.Count()
                 }
-                );
+                ).ToList();
 
             return JsonUtility.ToJson(result);
         }
