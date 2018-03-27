@@ -7,7 +7,9 @@
 // Modified by:
 // Description: Administrator-School-专业班级编辑信息页面 View Model
 //-----------------------------------------------------------------------
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Model.Areas.Administrator.School
 {
@@ -86,8 +88,50 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 是否启用
         /// </summary>
-        public EnumType.Enable IsEnabled { get; set; }
+        public Enable IsEnabled { get; set; }
+
+        /// <summary>
+        /// 部门下拉
+        /// </summary>
+        public List<DepartmentDropDown> DepartmentList { get; set; }
+
+        /// <summary>
+        /// 职工下拉
+        /// </summary>
+        public List<StaffDropDown> StaffList { get; set; }
 
         #endregion
+    }
+
+    /// <summary>
+    /// 编辑页面部门下拉
+    /// </summary>
+    public class DepartmentDropDown
+    {
+        /// <summary>
+        /// 部门编号
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// 编辑页面职工下拉
+    /// </summary>
+    public class StaffDropDown
+    {
+        /// <summary>
+        /// 职工工号
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 职工名称
+        /// </summary>
+        public string Name { get; set; }
     }
 }

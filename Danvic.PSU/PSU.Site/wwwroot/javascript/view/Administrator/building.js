@@ -66,7 +66,7 @@ $.dataTableSetting = {
         //ajax请求数据
         $.ajax({
             type: "POST",
-            url: "/Administrator/School/SearchBuilding",
+            url: "/Administrator/Dormitory/SearchBuilding",
             cache: false,  //禁用缓存
             data: {
                 search: JSON.stringify(param)

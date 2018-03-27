@@ -18,20 +18,12 @@ namespace PSU.IService.Areas.Administrator
         #region School-Department
 
         /// <summary>
-        /// 搜索数据
+        /// 删除数据
         /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="id">部门/院系编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> InsertDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context);
+        Task<bool> DeleteDepartmentAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据
@@ -42,12 +34,20 @@ namespace PSU.IService.Areas.Administrator
         Task<DepartmentEditViewModel> GetDepartmentAsync(long id, ApplicationDbContext context);
 
         /// <summary>
-        /// 删除数据
+        /// 新增数据
         /// </summary>
-        /// <param name="id">部门/院系编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> DeleteDepartmentAsync(long id, ApplicationDbContext context);
+        Task<bool> InsertDepartmentAsync(DepartmentEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<DepartmentViewModel> SearchDepartmentAsync(DepartmentViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
         /// 更新数据
@@ -62,20 +62,19 @@ namespace PSU.IService.Areas.Administrator
         #region School-Major Class
 
         /// <summary>
-        /// 搜索数据
+        /// 删除数据
         /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="id">专业班级编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<MajorClassViewModel> SearchMajorClassAsync(MajorClassViewModel webModel, ApplicationDbContext context);
+        Task<bool> DeleteMajorClassAsync(long id, ApplicationDbContext context);
 
         /// <summary>
-        /// 新增数据
+        /// 获取下拉列表
         /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> InsertMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context);
+        Task<MajorClassEditViewModel> GetDropDownListAsync(ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据
@@ -86,12 +85,20 @@ namespace PSU.IService.Areas.Administrator
         Task<MajorClassEditViewModel> GetMajorClassAsync(long id, ApplicationDbContext context);
 
         /// <summary>
-        /// 删除数据
+        /// 新增数据
         /// </summary>
-        /// <param name="id">专业班级编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> DeleteMajorClassAsync(long id, ApplicationDbContext context);
+        Task<bool> InsertMajorClassAsync(MajorClassEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<MajorClassViewModel> SearchMajorClassAsync(MajorClassViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
         /// 更新数据

@@ -18,12 +18,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PSU.Utility;
+using PSU.Entity.Basic;
 
 namespace PSU.Repository.Areas.Administrator
 {
     public class SchoolRepository
     {
         #region Department API
+
+        /// <summary>
+        /// 删除院系信息
+        /// </summary>
+        /// <param name="id">院系编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task DeleteAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 获取院系信息
+        /// </summary>
+        /// <param name="id">院系编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Department> GetAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Department.Where(i => i.Id == id).SingleOrDefaultAsync();
+            return model;
+        }
 
         /// <summary>
         /// 根据搜索条件获取院系信息
@@ -64,32 +90,7 @@ namespace PSU.Repository.Areas.Administrator
                 return await departments.AsExpandable().Where(predicate).ToListAsync();
             }
         }
-
-        /// <summary>
-        /// 删除院系信息
-        /// </summary>
-        /// <param name="id">院系编号</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        public static async Task DeleteAsync(long id, ApplicationDbContext context)
-        {
-            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == id);
-
-            context.Remove(model);
-        }
-
-        /// <summary>
-        /// 获取院系信息
-        /// </summary>
-        /// <param name="id">院系编号</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        public static async Task<Department> GetAsync(long id, ApplicationDbContext context)
-        {
-            var model = await context.Department.Where(i => i.Id == id).SingleOrDefaultAsync();
-            return model;
-        }
-
+        
         /// <summary>
         /// 新增院系信息
         /// </summary>
@@ -98,7 +99,8 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Department> InsertAsync(DepartmentEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = ConvertToDepartmentEntity(webModel);
+            Department model = InsertModel(webModel);
+
             await context.Department.AddAsync(model);
 
             return model;
@@ -118,12 +120,35 @@ namespace PSU.Repository.Areas.Administrator
                 return;
             }
 
-            model = ConvertToDepartmentEntity(webModel, false);
+            model = UpdateModel(webModel, model);
         }
 
         #endregion
 
         #region MajorClass API
+
+        /// <summary>
+        /// 删除专业班级信息
+        /// </summary>
+        /// <param name="id">专业班级编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task DeleteMajorClassAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.MajorClass.SingleOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 获取部门下拉
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Department>> GetDepartmentList(ApplicationDbContext context)
+        {
+            return await context.Department.Where(i => i.IsEnabled == true).ToListAsync();
+        }
 
         /// <summary>
         /// 根据搜索条件获取专业班级信息
@@ -164,20 +189,7 @@ namespace PSU.Repository.Areas.Administrator
                 return await majorClasses.AsExpandable().Where(predicate).ToListAsync();
             }
         }
-
-        /// <summary>
-        /// 删除专业班级信息
-        /// </summary>
-        /// <param name="id">专业班级编号</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        public static async Task DeleteMajorClassAsync(long id, ApplicationDbContext context)
-        {
-            var model = await context.MajorClass.SingleOrDefaultAsync(i => i.Id == id);
-
-            context.Remove(model);
-        }
-
+        
         /// <summary>
         /// 获取专业班级信息
         /// </summary>
@@ -191,6 +203,16 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
+        /// 获取职工下拉
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Staff>> GetStaffList(ApplicationDbContext context)
+        {
+            return await context.Staff.Where(i => i.IsEnabled == true).ToListAsync();
+        }
+
+        /// <summary>
         /// 新增专业班级信息
         /// </summary>
         /// <param name="webModel">专业班级编辑页视图模型</param>
@@ -198,7 +220,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<MajorClass> InsertAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = ConvertToMajorClassEntity(webModel);
+            var model = InsertModel(webModel);
 
             //Get Foreign Key Association Table Information
             //
@@ -230,7 +252,7 @@ namespace PSU.Repository.Areas.Administrator
                 return;
             }
 
-            model = ConvertToMajorClassEntity(webModel, false);
+            model = UpdateModel(webModel, model);
 
             //Get Foreign Key Association Table Information
             //
@@ -243,57 +265,42 @@ namespace PSU.Repository.Areas.Administrator
             model.DepartmentFK = department.DepartmentOID;
             model.DepartmentName = department.Name;
         }
-
         #endregion
 
         #region Method
 
         /// <summary>
-        /// View Model => Department Entity
+        /// Insert Department Entity
         /// </summary>
-        /// <param name="webModel">院系编辑页视图模型</param>
-        /// <param name="isInsert">是否新增数据</param>
+        /// <param name="webModel"></param>
         /// <returns></returns>
-        private static Department ConvertToDepartmentEntity(DepartmentEditViewModel webModel, bool isInsert = true)
+        private static Department InsertModel(DepartmentEditViewModel webModel)
         {
-            var model = new Department
+            return new Department
             {
-                Address = webModel.Address,
-                Weibo = webModel.Weibo,
-                Wechat = webModel.Wechat,
-                Tel = webModel.Tel,
-                QQ = webModel.QQ,
-                Name = webModel.Name,
+                Address = string.IsNullOrEmpty(webModel.Address) ? "" : webModel.Address,
+                Weibo = string.IsNullOrEmpty(webModel.Weibo) ? "" : webModel.Weibo,
+                Wechat = string.IsNullOrEmpty(webModel.Wechat) ? "" : webModel.Wechat,
+                Tel = string.IsNullOrEmpty(webModel.Tel) ? "" : webModel.Tel,
+                QQ = string.IsNullOrEmpty(webModel.QQ) ? "" : webModel.QQ,
+                Name = string.IsNullOrEmpty(webModel.Name) ? "" : webModel.Name,
                 IsBranch = (int)webModel.IsBranch == 1,
-                Email = webModel.Email,
-                Introduction = webModel.Introduction,
-                IsEnabled = (int)webModel.IsEnabled == 1
+                Email = string.IsNullOrEmpty(webModel.Email) ? "" : webModel.Email,
+                Introduction = string.IsNullOrEmpty(webModel.Introduction) ? "" : webModel.Introduction,
+                IsEnabled = (int)webModel.IsEnabled == 1,
+                CreatedBy = string.IsNullOrEmpty(CurrentUser.UserId) ? "" : CurrentUser.UserId,
+                CreatedName = string.IsNullOrEmpty(CurrentUser.UserName) ? "" : CurrentUser.UserName
             };
-
-            if (isInsert)
-            {
-                model.CreatedBy = "20171111111";
-                model.CreatedName = "我是测试创建人";
-            }
-            else
-            {
-                model.ModifiedOn = DateTime.Now;
-                model.ModifiedBy = "201712121212121";
-                model.ModifiedName = "我是修改测试人";
-            }
-
-            return model;
         }
 
         /// <summary>
-        /// View Model => MajorClass Entity
+        /// Insert Major Class Entity
         /// </summary>
         /// <param name="webModel"></param>
-        /// <param name="isInsert"></param>
         /// <returns></returns>
-        private static MajorClass ConvertToMajorClassEntity(MajorClassEditViewModel webModel, bool isInsert = true)
+        private static MajorClass InsertModel(MajorClassEditViewModel webModel)
         {
-            var model = new MajorClass
+            return new MajorClass
             {
                 MajorCode = webModel.MajorCode,
                 IsEnabled = (int)webModel.IsEnabled == 1,
@@ -302,20 +309,54 @@ namespace PSU.Repository.Areas.Administrator
                 Wechat = webModel.Wechat,
                 QQ = webModel.QQ,
                 InstructorId = webModel.InstructorId,
-                DepartmentId = webModel.DepartmentId
+                DepartmentId = webModel.DepartmentId,
+                CreatedBy = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName
             };
+        }
 
-            if (isInsert)
-            {
-                model.CreatedBy = CurrentUser.UserId;
-                model.CreatedName = CurrentUser.UserName;
-            }
-            else
-            {
-                model.ModifiedOn = DateTime.Now;
-                model.ModifiedBy = CurrentUser.UserId;
-                model.ModifiedName = CurrentUser.UserName;
-            }
+        /// <summary>
+        /// Update Department Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="model"></param>
+        private static Department UpdateModel(DepartmentEditViewModel webModel, Department model)
+        {
+            model.Address = webModel.Address;
+            model.Weibo = webModel.Weibo;
+            model.Wechat = webModel.Wechat;
+            model.Tel = webModel.Tel;
+            model.QQ = webModel.QQ;
+            model.Name = webModel.Name;
+            model.IsBranch = (int)webModel.IsBranch == 1;
+            model.Email = webModel.Email;
+            model.Introduction = webModel.Introduction;
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
+
+            return model;
+        }
+        
+        /// <summary>
+        /// Update Major Class Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="model"></param>
+        private static MajorClass UpdateModel(MajorClassEditViewModel webModel, MajorClass model)
+        {
+            model.MajorCode = webModel.MajorCode;
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.MajorName = webModel.MajorName;
+            model.SessionNum = webModel.SessionNum;
+            model.Wechat = webModel.Wechat;
+            model.QQ = webModel.QQ;
+            model.InstructorId = webModel.InstructorId;
+            model.DepartmentId = webModel.DepartmentId;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
 
             return model;
         }
