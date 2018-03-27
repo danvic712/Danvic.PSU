@@ -158,7 +158,7 @@ namespace PSU.Domain.Areas.Administrator
         }
 
         /// <summary>
-        /// 更新取部门/院系信息
+        /// 更新部门/院系信息
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>

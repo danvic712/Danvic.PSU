@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/28 星期三 16:29:25
 // Modified by:
-// Description: Administrator-Home-公告列表视图模型
+// Description: Administrator-Home-公告信息页面 View Model
 //-----------------------------------------------------------------------
 
 using System.Collections.Generic;

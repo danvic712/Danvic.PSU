@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/3/13 星期二 14:44:44
 // Modified by:
-// Description: Administrator-School-院系编辑视图模型
+// Description: Administrator-School-院系编辑信息页面 View Model
 //-----------------------------------------------------------------------
 using System.ComponentModel.DataAnnotations;
 

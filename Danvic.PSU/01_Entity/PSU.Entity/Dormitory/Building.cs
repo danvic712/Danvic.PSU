@@ -39,7 +39,7 @@ namespace PSU.Entity.Dormitory
         /// 总楼层
         /// </summary>
         [Required]
-        public int Floor { get; set; }
+        public short Floor { get; set; }
 
         /// <summary>
         /// 寝室楼类型

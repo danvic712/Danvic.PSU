@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/27 星期二 15:06:02
 // Modified by:
-// Description: Administrator-Home-首页视图模型
+// Description: Administrator-Home-首页 View Model
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;

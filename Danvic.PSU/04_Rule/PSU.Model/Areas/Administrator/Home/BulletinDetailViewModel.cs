@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018-03-10 21:07:31
 // Modified by:
-// Description:Administrator-Home-公告信息详情页面 
+// Description:Administrator-Home-公告信息详情页面 View Model
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;

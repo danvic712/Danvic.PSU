@@ -2,12 +2,12 @@
 @{
     ViewData["Title"] = "宿舍楼信息";
     ViewData["NavTitle"] = "宿舍信息管理";
-    ViewData["CurrName"] = "宿舍楼信息维护";
+    ViewData["CurrName"] = "建筑信息维护";
 }
 
 <section class="content-header">
     <h1>
-        宿舍楼信息
+        建筑信息维护
         <small>Building Information</small>
     </h1>
     <ol class="breadcrumb">
@@ -17,7 +17,7 @@
             </a>
         </li>
         <li>宿舍信息</li>
-        <li class="active">宿舍楼信息</li>
+        <li class="active">建筑信息维护</li>
     </ol>
 </section>
 
@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="code">宿舍楼：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="code">宿舍楼号：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="code" type="text" class="form-control">
                     <div class="input-group-addon">
@@ -34,22 +34,23 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">类型：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">建筑类型：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select id="type" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">男生寝室</option>
-                        <option value="">女生寝室</option>
-                        <option value="">混合寝室</option>
+                        <option value="0">请选择</option>
+                        <option value="1">男生寝室</option>
+                        <option value="2">女生寝室</option>
+                        <option value="3">混合寝室</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="campus">所属校区：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="enable">是否启用：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="campus" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">我是新校区名称</option>
+                    <select id="enable" name="" class="form-control">
+                        <option value="9">请选择</option>
+                        <option value="1">启用</option>
+                        <option value="0">未启用</option>
                     </select>
                 </div>
             </div>
@@ -57,9 +58,9 @@
                 <button id="search" class="btn btn-dropbox btn-flat col-md-4">
                     <i class="fa fa-search"></i>&nbsp;搜索
                 </button>
-                <button id="add" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
+                <a asp-area="Administrator" asp-controller="Dormitory" asp-action="EditBuliding" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
                     <i class="fa fa-plus"></i>&nbsp;新建
-                </button>
+                </a>
             </div>
         </div>
     </div>

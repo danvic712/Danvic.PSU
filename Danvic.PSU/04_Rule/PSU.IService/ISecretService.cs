@@ -23,6 +23,11 @@ namespace PSU.IService
         /// <returns></returns>
         Task AddLogSync(string userOID, string userName);
 
+        /// <summary>
+        /// 设置当前登录用户
+        /// </summary>
+        void SetCurrentUser();
+
         #endregion
     }
 }

@@ -9,7 +9,6 @@
 //-----------------------------------------------------------------------
 using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Dormitory
 {

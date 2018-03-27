@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/3/12 星期一 16:45:00
 // Modified by:
-// Description: Administrator-School-院系列表视图模型
+// Description: Administrator-School-院系列表信息页面 View Model
 //-----------------------------------------------------------------------
 using System.Collections.Generic;
 
@@ -80,13 +80,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// </summary>
         public bool IsBranch { get; set; }
 
-        public string IsBranchStr
-        {
-            get
-            {
-                return IsBranch ? "是" : "否";
-            }
-        }
+        public string IsBranchStr => IsBranch ? "是" : "否";
 
         #endregion
     };

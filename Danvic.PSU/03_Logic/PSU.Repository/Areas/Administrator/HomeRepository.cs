@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PSU.Entity.Admission;
+using PSU.Utility;
 using PSU.Utility.Web;
 
 namespace PSU.Repository.Areas.Administrator
@@ -222,8 +223,8 @@ namespace PSU.Repository.Areas.Administrator
                 Content = content,
                 Type = type,
                 Target = target,
-                CreatedBy = "20180202124532",
-                CreatedName = "测试用户姓名"
+                CreatedBy = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName
             };
 
             await context.Bulletin.AddAsync(model);
@@ -252,8 +253,8 @@ namespace PSU.Repository.Areas.Administrator
             model.Target = target;
             model.Type = type;
             model.Content = content;
-            model.ModifiedBy = "20181234567";
-            model.ModifiedName = "我是修改人姓名";
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
             model.ModifiedOn = DateTime.Now;
         }
         #endregion

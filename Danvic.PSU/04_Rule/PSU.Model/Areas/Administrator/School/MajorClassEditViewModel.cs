@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/3/20 星期二 16:50:20
 // Modified by:
-// Description: Administrator-School-专业班级编辑视图模型
+// Description: Administrator-School-专业班级编辑信息页面 View Model
 //-----------------------------------------------------------------------
 using System.ComponentModel.DataAnnotations;
 

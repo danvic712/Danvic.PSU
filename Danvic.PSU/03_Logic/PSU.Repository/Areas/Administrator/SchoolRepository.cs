@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PSU.Utility;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -306,14 +307,14 @@ namespace PSU.Repository.Areas.Administrator
 
             if (isInsert)
             {
-                model.CreatedBy = "20171111111";
-                model.CreatedName = "我是测试创建人";
+                model.CreatedBy = CurrentUser.UserId;
+                model.CreatedName = CurrentUser.UserName;
             }
             else
             {
                 model.ModifiedOn = DateTime.Now;
-                model.ModifiedBy = "201712121212121";
-                model.ModifiedName = "我是修改测试人";
+                model.ModifiedBy = CurrentUser.UserId;
+                model.ModifiedName = CurrentUser.UserName;
             }
 
             return model;

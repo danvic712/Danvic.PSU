@@ -188,7 +188,7 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 部门/院系编辑页面
+        /// 宿舍楼编辑页面
         /// </summary>
         /// <param name="webModel"></param>
         /// <returns></returns>

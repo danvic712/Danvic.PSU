@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/3/20 星期二 16:49:11
 // Modified by:
-// Description: Administrator-School-专业班级列表视图模型
+// Description: Administrator-School-专业班级列表信息页面 View Model
 //-----------------------------------------------------------------------
 using System.Collections.Generic;
 

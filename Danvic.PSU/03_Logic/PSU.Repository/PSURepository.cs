@@ -10,10 +10,9 @@
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Basic;
-using System;
+using PSU.Utility;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PSU.Repository
@@ -47,8 +46,8 @@ namespace PSU.Repository
                 Operate = operate,
                 Type = type,
                 TableId = tableId,
-                UserId = "20180202124532",
-                UserName = "测试用户姓名"
+                UserId = CurrentUser.UserId,
+                UserName = CurrentUser.UserName
             };
 
             await context.Record.AddAsync(model);

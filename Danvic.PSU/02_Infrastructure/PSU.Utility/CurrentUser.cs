@@ -13,79 +13,58 @@ using System;
 
 namespace PSU.Utility
 {
-    public class CurrentUser
+    public static class CurrentUser
     {
         #region Initialize
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private static IHttpContextAccessor _httpContextAccessor;
 
-        private ISession _session => _httpContextAccessor.HttpContext.Session;
+        private static ISession _session => _httpContextAccessor.HttpContext.Session;
 
-        public CurrentUser(IHttpContextAccessor httpContextAccessor)
+        static void Configure(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
         #endregion
 
-        //Todo:Let Attribute Stored in Session
         #region Attribute
-
-        //Set Session _session.SetString("code","123456");
-        //Get Session _session.GetString("code");
-
-        //Stored Info in ASP.NET MVC
-        //public static string UserCode
-        //{
-        //    get
-        //    {
-        //        if (HttpContext.Current == null)
-        //        {
-        //            return "";
-        //        }
-        //        if (HttpContext.Current.Session == null)
-        //        {
-        //            return "";
-        //        }
-        //        return Utils.ToString(HttpContext.Current.Session["FlyerUser_UserCode"]);
-        //    }
-        //    set
-        //    {
-        //        HttpContext.Current.Session["FlyerUser_UserCode"] = value;
-        //    }
-        //}
 
         /// <summary>
         ///用户编号 
         /// </summary>
-        public long UserId
+        public static string UserId
         {
-            get
-            {
-                if (_session == null)
-                {
-                    return 0;
-                }
-                
-                //return Convert.ToInt64(_session.GetString(""));
-                return 0;
-            }
+            get => _session == null ? "" : _session.GetString("CurrentUser_UserId");
+            set => _session.SetString("CurrentUser_UserId", value);
         }
 
         /// <summary>
         /// 用户姓名
         /// </summary>
-        public static string UserName { get; set; }
+        public static string UserName
+        {
+            get => _session == null ? "" : _session.GetString("CurrentUser_UserName");
+            set => _session.SetString("CurrentUser_UserName", value);
+        }
 
         /// <summary>
-        /// 用户头像
+        /// 用户头像地址
         /// </summary>
-        public static string UserImage { get; set; }
+        public static string UserImage
+        {
+            get => _session == null ? "" : _session.GetString("CurrentUser_UserImage");
+            set => _session.SetString("CurrentUser_UserImage", value);
+        }
 
         /// <summary>
         /// 用户角色
         /// </summary>
-        public static string UserRole { get; set; }
+        public static string UserRole
+        {
+            get => _session == null ? "" : _session.GetString("CurrentUser_UserRole");
+            set => _session.SetString("CurrentUser_UserRole", value);
+        }
 
         #endregion
     }

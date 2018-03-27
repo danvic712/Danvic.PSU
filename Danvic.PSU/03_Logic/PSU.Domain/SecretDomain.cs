@@ -32,6 +32,14 @@ namespace PSU.Domain
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 设置当前登录用户
+        /// </summary>
+        public void SetCurrentUser()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
