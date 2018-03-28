@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PSU.Model.Areas;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -68,9 +69,23 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="id">宿舍楼编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<BuildingEditViewModel> GetBuildingAsync(long id, ApplicationDbContext context)
+        public async Task<BuildingEditViewModel> GetBuildingAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new BuildingEditViewModel();
+            try
+            {
+                var model = await DormitoryRepository.GetBuildingAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.Floor = model.Floor;
+                webModel.Type = (EnumType.BuildingType)model.Type;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍楼数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -79,9 +94,23 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> InsertBuildingAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> InsertBuildingAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Add the Building Data
+                var model = await DormitoryRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建宿舍楼失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -130,9 +159,173 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateBuildingAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> UpdateBuildingAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Building Data
+                DormitoryRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改宿舍楼信息，宿舍楼编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新宿舍楼失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Information Interface Service Implement
+
+        /// <summary>
+        ///删除宿舍信息
+        /// </summary>
+        /// <param name="id">宿舍编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteInformationAsync(long id, ApplicationDbContext context)
+        {
+            try
+            {
+                //Delete Dorm Information Data
+                await DormitoryRepository.DeleteDormAsync(id, context);
+
+                //Add Operate Information
+                var operate = string.Format("删除宿舍数据，宿舍Id:{0}", id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+
+                var index = await context.SaveChangesAsync();
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除宿舍失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取宿舍信息
+        /// </summary>
+        /// <param name="id">宿舍编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<InformationEditViewModel> GetInformationAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new InformationEditViewModel();
+            try
+            {
+                var model = await DormitoryRepository.GetDormAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                //Todo:Add All Data
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 新增宿舍信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> InsertInformationAsync(InformationEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Add the Dorm Information Data
+                var model = await DormitoryRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建宿舍楼失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 搜索宿舍信息
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<InformationViewModel> SearchInformationAsync(InformationViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Source Data List
+                var list = await DormitoryRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<InformationData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new InformationData
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        BuildingName = item.BuildingName,
+                        Floor = item.Floor,
+                        Type = item.Type,
+                        Count = item.Count,
+                        SelectedCount = item.SelectedCount,
+                        IsEnabled = item.IsEnabled
+                    }));
+                }
+
+                webModel.InformationList = dataList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 更新宿舍信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateInformationAsync(InformationEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Update Building Data
+                DormitoryRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改宿舍信息，宿舍编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新宿舍失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion

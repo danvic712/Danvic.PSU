@@ -9,7 +9,9 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Model.Areas.Administrator.Dormitory
 {
@@ -21,6 +23,29 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         /// 宿舍楼编号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 寝室楼名称
+        /// </summary>
+        [Required(ErrorMessage = "寝室楼名称不能为空")]
+        [StringLength(20, ErrorMessage = "寝室楼名称不能超过20个字符长度")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 总楼层
+        /// </summary>
+        public short Floor { get; set; }
+
+        /// <summary>
+        /// 寝室楼类型
+        /// 1:male;2:female;3:remix
+        /// </summary>
+        public BuildingType Type { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public Enable IsEnabled { get; set; }
 
         #endregion
     }

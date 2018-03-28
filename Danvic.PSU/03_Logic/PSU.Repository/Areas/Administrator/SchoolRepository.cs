@@ -265,6 +265,7 @@ namespace PSU.Repository.Areas.Administrator
             model.DepartmentFK = department.DepartmentOID;
             model.DepartmentName = department.Name;
         }
+
         #endregion
 
         #region Method

@@ -65,6 +65,21 @@ namespace PSU.Model.Areas
             True = 1,
         }
 
+        /// <summary>
+        /// 寝室楼类型
+        /// </summary>
+        public enum BuildingType
+        {
+            [Display(Name = "请选择")]
+            NotSelected = 0,
+            [Display(Name = "男生寝室")]
+            Male = 1,
+            [Display(Name = "女生寝室")]
+            Female = 2,
+            [Display(Name = "混合寝室")]
+            Remix = 3
+        }
+
         #endregion
     }
 }

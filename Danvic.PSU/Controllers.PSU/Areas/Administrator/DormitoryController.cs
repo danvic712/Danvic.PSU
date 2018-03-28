@@ -51,11 +51,21 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        /// <summary>
+        /// 宿舍类型列表页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Bunk()
         {
             return View();
         }
 
+        /// <summary>
+        /// 宿舍信息列表页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Information()
         {
             return View();
@@ -80,9 +90,22 @@ namespace Controllers.PSU.Areas.Administrator
             return View(webModel);
         }
 
-        public IActionResult EditInformation()
+        /// <summary>
+        /// 宿舍编辑页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditInformation(string id)
         {
-            return View();
+            InformationEditViewModel webModel = new InformationEditViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                //编辑信息，加载宿舍相关信息
+                webModel = await _service.GetInformationAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
         }
 
         #endregion
@@ -156,7 +179,7 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 删除部门/院系数据
+        /// 删除宿舍楼数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -169,6 +192,89 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 sueeess = flag,
                 msg = flag ? "数据删除成功，宿舍楼编号：" + id : "数据删除失败，宿舍楼编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 宿舍搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchInformation(string search)
+        {
+            InformationViewModel webModel = JsonUtility.ToObject<InformationViewModel>(search);
+
+            webModel = await _service.SearchInformationAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1;
+
+            var returnData = new
+            {
+                data = webModel.InformationList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.InformationList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 宿舍编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditInformation(InformationEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Dorm Information
+                    flag = await _service.InsertInformationAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Dorm Information
+                    flag = await _service.UpdateInformationAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "宿舍信息编辑成功" : "宿舍信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+            });
+        }
+
+        /// <summary>
+        /// 删除宿舍数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteInformation(string id)
+        {
+            bool flag = await _service.DeleteInformationAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，宿舍编号：" + id : "数据删除失败，宿舍编号：" + id
             });
         }
 

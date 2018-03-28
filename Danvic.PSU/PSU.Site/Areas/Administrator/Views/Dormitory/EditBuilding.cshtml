@@ -1,13 +1,13 @@
-﻿
+﻿@model PSU.Model.Areas.Administrator.Dormitory.BuildingEditViewModel
 @{
     ViewData["Title"] = "宿舍楼信息";
     ViewData["NavTitle"] = "宿舍信息管理";
-    ViewData["CurrName"] = "建筑信息维护";
+    ViewData["CurrName"] = "基础信息维护";
 }
 
 <section class="content-header">
     <h1>
-        建筑信息维护
+        基础信息维护
         <small>Building Information</small>
     </h1>
     <ol class="breadcrumb">
@@ -19,7 +19,7 @@
         <li>宿舍信息</li>
         <li class="active">
             <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Building">
-                建筑信息
+                基础信息
             </a>
         </li>
         <li class="active">编辑</li>
@@ -28,23 +28,14 @@
 
 <section class="content">
     <div class="row">
-        <section class="col-lg-7 connectedSortable">
-            <form asp-area="Administrator" asp-controller="School" asp-action="EditMajorClass" method="post" class="form-horizontal" role="form">
+        <div class="col-md-12">
+            <form method="post" class="form-horizontal" role="form">
                 <div class="box">
                     <div class="box box-body">
                         <div class="form-group">
                             <label class="col-md-3 col-xs-3 control-label no-padding-right" for="name"> 宿舍楼名称： </label>
                             <div class="col-md-5 col-xs-9">
-                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="campus"> 所属校区： </label>
-                            <div class="col-md-5 col-xs-9">
-                                <select id="campus" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option value="">我是新校区名称啊</option>
-                                </select>
+                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="" asp-for="Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,43 +70,20 @@
                     </div>
                     <div class="box-footer">
                         <div class="text-right">
-                            <button class="btn btn-success col-md-offset-2" type="submit">
-                                <i class="ace-icon fa fa-check"></i>
+                            <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                                <i class="fa fa-check"></i>
                                 保存
-                            </button>
+                            </a>
                             &nbsp; &nbsp;
-                            <button class="btn" type="reset">
-                                <i class="ace-icon fa fa-undo"></i>
-                                重置
-                            </button>
+                            <a class="btn btn-default" asp-area="Administrator" asp-controller="Dormitory" asp-action="Building">
+                                <i class="fa fa-undo"></i>
+                                返回
+                            </a>
                         </div>
                     </div>
                 </div>
             </form>
-        </section>
-        <section class="col-md-5 connectedSortable">
-            <div class="box box-default">
-                <div class="box-body box-profile">
-
-                    <p class="text-muted text-center">我是新校区名称啊</p>
-
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>联系电话</b> <a class="pull-right">13912345678</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>邮编</b> <a class="pull-right">224400</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>所在地</b> <a class="pull-right">安徽省芜湖市弋江区</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>详细地址</b> <a class="pull-right">我是新校区的详细地址啊我是新校区的详细地址啊我是新校区的详细地址啊我是新校区的详细地址啊</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 </section>
 

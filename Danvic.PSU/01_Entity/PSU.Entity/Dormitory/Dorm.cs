@@ -45,7 +45,7 @@ namespace PSU.Entity.Dormitory
         /// 楼层
         /// </summary>
         [Required]
-        public int Floor { get; set; }
+        public short Floor { get; set; }
 
         /// <summary>
         /// 寝室类型
@@ -57,12 +57,12 @@ namespace PSU.Entity.Dormitory
         /// 可容纳人数
         /// </summary>
         [Required]
-        public int Count { get; set; }
+        public short Count { get; set; }
 
         /// <summary>
         /// 已选择人数
         /// </summary>
-        public int SelectedCount { get; set; }
+        public short SelectedCount { get; set; }
 
         /// <summary>
         /// 是否启用

@@ -129,9 +129,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "宿舍信息管理"?"display: block;":"")">
-                            <li class="@(ViewData["CurrName"].ToString() == "建筑信息维护" ? "active":"")">
+                            <li class="@(ViewData["CurrName"].ToString() == "基础信息维护" ? "active":"")">
                                 <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Building">
-                                    <i class="fa fa-list-ul"></i><span> 建筑信息维护 </span>
+                                    <i class="fa fa-list-ul"></i><span> 基础信息维护 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "寝室信息维护"?"active":"")">

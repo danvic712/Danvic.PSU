@@ -7,18 +7,16 @@
 // Modified by:
 // Description: Administrator-Dormitory-首页功能实现仓储
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
-using PSU.Entity.Basic;
 using PSU.Entity.Dormitory;
-using PSU.Entity.School;
 using PSU.Model.Areas.Administrator.Dormitory;
+using PSU.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -36,18 +34,6 @@ namespace PSU.Repository.Areas.Administrator
             var model = await context.Building.SingleOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
-        }
-
-        /// <summary>
-        /// 获取宿舍楼信息
-        /// </summary>
-        /// <param name="id">宿舍楼编号</param>
-        /// <param name="context">数据库上下文对象</param>
-        /// <returns></returns>
-        public static async Task<Building> GetEntityAsync(long id, ApplicationDbContext context)
-        {
-            var model = await context.Building.Where(i => i.Id == id).SingleOrDefaultAsync();
-            return model;
         }
 
         /// <summary>
@@ -91,11 +77,167 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 新增寝室楼信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Building> InsertAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = new Building
+            {
+                Name = webModel.Name,
+                Floor = webModel.Floor,
+                Type = Convert.ToInt16(webModel.Type),
+                IsEnabled = (int)webModel.IsEnabled == 1,
+                CreatedBy = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName
+            };
+            await context.Building.AddAsync(model);
 
+            return model;
+        }
+
+        /// <summary>
+        /// 更新寝室楼信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Building.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model.Name = webModel.Name;
+            model.Floor = webModel.Floor;
+            model.Type = Convert.ToInt16(webModel.Type);
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
+        }
+
+        /// <summary>
+        /// 获取寝室楼信息
+        /// </summary>
+        /// <param name="id">寝室楼编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Building> GetBuildingAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Building.Where(i => i.Id == id).SingleOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 删除宿舍数据
+        /// </summary>
+        /// <param name="id">宿舍编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async Task DeleteDormAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Dorm.SingleOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取寝室列表
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Dorm>> GetListAsync(InformationViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1)
+            {
+                return await context.Set<Dorm>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+            }
+            else
+            {
+                IQueryable<Dorm> dorms = context.Dorm.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Dorm>();
+
+                //宿舍楼编号
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //宿舍楼类型
+                if (webModel.SType != 0)
+                {
+                    predicate = predicate.And(i => i.Type == webModel.SType);
+                }
+
+                //宿舍楼是否启用
+                if (webModel.SFloor != -1)
+                {
+                    predicate = predicate.And(i => i.Floor == webModel.SFloor);
+                }
+
+                return await dorms.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 新增寝室信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Dorm> InsertAsync(InformationEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = new Dorm
+            {
+                CreatedBy = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName
+            };
+            await context.Dorm.AddAsync(model);
+
+            return model;
+        }
+
+        /// <summary>
+        /// 更新寝室信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(InformationEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Dorm.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
+        }
+
+        /// <summary>
+        /// 获取寝室信息
+        /// </summary>
+        /// <param name="id">寝室编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Dorm> GetDormAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Dorm.Where(i => i.Id == id).SingleOrDefaultAsync();
+            return model;
+        }
 
         #endregion
 
-        #region Convert
+        #region Method
         #endregion
     }
 }
