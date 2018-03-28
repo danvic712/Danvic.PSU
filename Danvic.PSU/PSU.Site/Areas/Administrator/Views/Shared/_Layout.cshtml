@@ -134,14 +134,14 @@
                                     <i class="fa fa-list-ul"></i><span> 基础信息维护 </span>
                                 </a>
                             </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "寝室信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
-                                    <i class="fa fa-list-ul"></i><span> 寝室信息维护 </span>
-                                </a>
-                            </li>
                             <li class="@(ViewData["CurrName"].ToString() == "宿舍类型维护"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Bunk">
                                     <i class="fa fa-list-ul"></i><span> 宿舍类型维护 </span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "寝室信息维护"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
+                                    <i class="fa fa-list-ul"></i><span> 寝室信息维护 </span>
                                 </a>
                             </li>
                         </ul>
@@ -190,9 +190,19 @@
                                     <i class="fa fa-list-ul"></i><span> 新生数据分析 </span>
                                 </a>
                             </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "报名数据分析"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Register">
+                                    <i class="fa fa-list-ul"></i><span> 报名数据分析 </span>
+                                </a>
+                            </li>
                             <li class="@(ViewData["CurrName"].ToString() == "宿舍数据统计"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Statistics" asp-action="Dormitory">
                                     <i class="fa fa-list-ul"></i><span> 宿舍数据统计 </span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "服务预定分析"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Register">
+                                    <i class="fa fa-list-ul"></i><span> 服务预定分析 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "用户登录统计"?"active":"")">

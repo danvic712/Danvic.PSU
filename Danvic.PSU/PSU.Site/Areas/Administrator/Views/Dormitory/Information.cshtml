@@ -37,12 +37,12 @@
                 <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">宿舍类型：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select id="type" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">四人间</option>
-                        <option value="">六人间</option>
-                        <option value="">八人间</option>
-                        <option value="">套房</option>
-                        <option value="">其它</option>
+                        <option value="0">请选择</option>
+                        <option value="1">四人间</option>
+                        <option value="2">六人间</option>
+                        <option value="3">八人间</option>
+                        <option value="4">套房</option>
+                        <option value="5">其它</option>
                     </select>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <label class="control-label no-padding-right col-md-5 col-xs-4" for="floor">所在楼层：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select id="floor" name="" class="form-control">
-                        <option value="">请选择</option>
+                        <option value="-1">请选择</option>
                         @for (int i = 1; i < 6; i++)
                         {
                             <option value="@i">@i 层</option>

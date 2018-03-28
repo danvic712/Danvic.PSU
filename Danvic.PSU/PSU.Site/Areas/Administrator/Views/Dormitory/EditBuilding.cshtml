@@ -1,4 +1,5 @@
 ﻿@model PSU.Model.Areas.Administrator.Dormitory.BuildingEditViewModel
+@using PSU.Model.Areas
 @{
     ViewData["Title"] = "宿舍楼信息";
     ViewData["NavTitle"] = "宿舍信息管理";
@@ -42,29 +43,25 @@
                             <label class="col-md-3 control-label no-padding-right" for="floor">总楼层：</label>
                             <div class="col-md-5">
                                 <select id="floor" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option value="">6层</option>
+                                    <option value="-1">请选择</option>
+                                    @for (int i = 1; i < 8; i++)
+                                    {
+                                        string str = i + "层";
+                                        <option value="@i">@str</option>
+                                    }
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label no-padding-right" for="type">宿舍楼类型：</label>
                             <div class="col-md-5">
-                                <select id="type" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option value="">男生寝室</option>
-                                    <option value="">女生寝室</option>
-                                    <option value="">混合寝室</option>
-                                </select>
+                                <select id="type" asp-items="@Html.GetEnumSelectList(typeof(EnumType.BuildingType))" class="form-control" asp-for="Type"></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="state"> 是否启用： </label>
+                            <label class="col-md-3 col-xs-3 control-label no-padding-right" for="enable"> 是否启用： </label>
                             <div class="col-md-5 col-xs-9">
-                                <select id="state" class="form-control">
-                                    <option value="">启用</option>
-                                    <option value="">不启用</option>
-                                </select>
+                                <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                             </div>
                         </div>
                     </div>

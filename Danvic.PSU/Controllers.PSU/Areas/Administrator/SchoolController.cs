@@ -263,11 +263,12 @@ namespace Controllers.PSU.Areas.Administrator
             //Return First Error Information
             //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
 
-            return Json(new
-            {
-                success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
-            });
+            //return Json(new
+            //{
+            //    success = false,
+            //    msg = "数据格式错误"
+            //});
+            return View(webModel);
         }
 
         #endregion

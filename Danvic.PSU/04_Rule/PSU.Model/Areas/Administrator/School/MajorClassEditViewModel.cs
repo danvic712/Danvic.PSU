@@ -33,7 +33,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 专业代码
         /// </summary>
         [Required(ErrorMessage = "专业代码不能为空")]
-        public int MajorCode { get; set; }
+        public string MajorCode { get; set; }
 
         /// <summary>
         /// 专业名称
@@ -46,7 +46,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 所属院系编号
         /// </summary>
         [Required(ErrorMessage = "所属院系编号不能为空")]
-        public long DepartmentId { get; set; }
+        public string DepartmentId { get; set; }
 
         /// <summary>
         /// 所属院系名称
@@ -71,7 +71,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 辅导员工号
         /// </summary>
         [Required(ErrorMessage = "辅导员工号不能为空")]
-        public long InstructorId { get; set; }
+        public string InstructorId { get; set; }
 
         /// <summary>
         /// 辅导员姓名

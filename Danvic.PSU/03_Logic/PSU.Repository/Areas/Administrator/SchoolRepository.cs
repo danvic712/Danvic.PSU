@@ -90,7 +90,7 @@ namespace PSU.Repository.Areas.Administrator
                 return await departments.AsExpandable().Where(predicate).ToListAsync();
             }
         }
-        
+
         /// <summary>
         /// 新增院系信息
         /// </summary>
@@ -189,7 +189,7 @@ namespace PSU.Repository.Areas.Administrator
                 return await majorClasses.AsExpandable().Where(predicate).ToListAsync();
             }
         }
-        
+
         /// <summary>
         /// 获取专业班级信息
         /// </summary>
@@ -224,8 +224,8 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == webModel.InstructorId).SingleOrDefaultAsync();
-            var department = await context.Department.Where(i => i.Id == webModel.DepartmentId).SingleOrDefaultAsync();
+            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).SingleOrDefaultAsync();
+            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).SingleOrDefaultAsync();
 
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;
@@ -256,8 +256,8 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == webModel.InstructorId).SingleOrDefaultAsync();
-            var department = await context.Department.Where(i => i.Id == webModel.DepartmentId).SingleOrDefaultAsync();
+            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).SingleOrDefaultAsync();
+            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).SingleOrDefaultAsync();
 
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;
@@ -303,14 +303,14 @@ namespace PSU.Repository.Areas.Administrator
         {
             return new MajorClass
             {
-                MajorCode = webModel.MajorCode,
+                MajorCode = Convert.ToInt32(webModel.MajorCode),
                 IsEnabled = (int)webModel.IsEnabled == 1,
                 MajorName = webModel.MajorName,
                 SessionNum = webModel.SessionNum,
                 Wechat = webModel.Wechat,
                 QQ = webModel.QQ,
-                InstructorId = webModel.InstructorId,
-                DepartmentId = webModel.DepartmentId,
+                InstructorId = Convert.ToInt64(webModel.InstructorId),
+                DepartmentId = Convert.ToInt64(webModel.DepartmentId),
                 CreatedBy = CurrentUser.UserId,
                 CreatedName = CurrentUser.UserName
             };
@@ -339,7 +339,7 @@ namespace PSU.Repository.Areas.Administrator
 
             return model;
         }
-        
+
         /// <summary>
         /// Update Major Class Entity
         /// </summary>
@@ -347,14 +347,14 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="model"></param>
         private static MajorClass UpdateModel(MajorClassEditViewModel webModel, MajorClass model)
         {
-            model.MajorCode = webModel.MajorCode;
+            model.MajorCode = Convert.ToInt32((webModel.MajorCode));
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.MajorName = webModel.MajorName;
             model.SessionNum = webModel.SessionNum;
             model.Wechat = webModel.Wechat;
             model.QQ = webModel.QQ;
-            model.InstructorId = webModel.InstructorId;
-            model.DepartmentId = webModel.DepartmentId;
+            model.InstructorId = Convert.ToInt64(webModel.InstructorId);
+            model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.ModifiedOn = DateTime.Now;
             model.ModifiedBy = CurrentUser.UserId;
             model.ModifiedName = CurrentUser.UserName;

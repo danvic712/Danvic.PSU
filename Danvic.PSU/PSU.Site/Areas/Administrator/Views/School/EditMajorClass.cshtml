@@ -30,29 +30,29 @@
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <form method="post" class="form-horizontal" role="form">
+            <form action="" method="post" class="form-horizontal" role="form" id="majorclass_form">
                 <div class="box">
                     <div class="box box-body">
                         <div class="form-group">
                             <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name"> 班级名称： </label>
                             <div class="col-md-4 col-xs-9">
-                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
+                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="" asp-for="Name">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label no-padding-right" for="form-field-facebook"> 班级微信： </label>
+                            <label class="col-md-2 control-label no-padding-right" for="wechat"> 班级微信： </label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="form-field-facebook" class="form-control" />
+                                    <input type="text" id="wechat" class="form-control" asp-for="Wechat" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-weixin text-green"></i>
                                     </span>
                                 </div>
                             </div>
-                            <label class="col-md-2 control-label no-padding-right" for="form-field-phone">班级QQ：</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label no-padding-right" for="qq">班级QQ：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="email" id="form-field-email" class="form-control" />
+                                    <input type="text" id="qq" class="form-control" asp-for="QQ" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
                                     </span>
@@ -63,16 +63,16 @@
                             <label class="col-md-2 col-xs-3 control-label no-padding-right" for="major"> 所属专业： </label>
                             <div class="col-md-4 col-xs-9">
                                 <div class="input-group">
-                                    <input type="email" id="form-field-email" class="form-control" />
+                                    <input type="text" id="major" class="form-control" asp-for="MajorName" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-graduation-cap fa-flip-horizontal"></i>
                                     </span>
                                 </div>
                             </div>
-                            <label class="col-md-2 control-label no-padding-right" for="department">专业代码：</label>
+                            <label class="col-md-2 control-label no-padding-right" for="code">专业代码：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="department" class="form-control" />
+                                    <input type="text" id="code" class="form-control" asp-for="MajorCode" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-code fa-flip-horizontal"></i>
                                     </span>
@@ -82,31 +82,64 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label no-padding-right" for="department">所属院系：</label>
                             <div class="col-md-4">
-                                <select id="department" class="form-control">
-                                    <option value="">请选择</option>
+                                <select id="department" class="form-control" asp-for="DepartmentName">
+                                    <option value="-1">请选择</option>
+                                    @{
+                                        if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                        {
+                                            foreach (var item in Model.DepartmentList)
+                                            {
+                                                if (item.Name.Equals(Model.DepartmentName))
+                                                {
+                                                    <option value="@item.Id" selected="selected">@item.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
-                            <label class="col-md-2 control-label no-padding-right" for="number">院系编号：</label>
+                            <label class="col-md-2 control-label no-padding-right" for="deptnumber">院系编号：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="number" class="form-control" readonly />
+                                    <input type="text" id="deptnumber" class="form-control" readonly asp-for="DepartmentId" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-id-card-o fa-flip-horizontal"></i>
                                     </span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="major"> 班级辅导员： </label>
+                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="instructor"> 班级辅导员： </label>
                             <div class="col-md-4 col-xs-9">
-                                <select id="major" class="form-control">
-                                    <option value="">请选择</option>
+                                <select id="instructor" class="form-control" asp-for="InstructorName">
+                                    <option value="-1">请选择</option>
+                                    @{
+                                        if (Model != null && Model.StaffList != null && Model.StaffList.Any())
+                                        {
+                                            foreach (var item in Model.StaffList)
+                                            {
+                                                if (item.Name.Equals(Model.InstructorName))
+                                                {
+                                                    <option value="@item.Id" selected="selected">@item.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
-                            <label class="col-md-2 control-label no-padding-right" for="number">辅导员工号：</label>
+                            <label class="col-md-2 control-label no-padding-right" for="insnumber">辅导员工号：</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" id="number" class="form-control" readonly />
+                                    <input type="text" id="insnumber" class="form-control" readonly asp-for="InstructorId" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-id-card fa-flip-horizontal"></i>
                                     </span>
@@ -116,16 +149,20 @@
                         <div class="form-group">
                             <label class="col-md-2 col-xs-3 control-label no-padding-right" for="session"> 班级级数： </label>
                             <div class="col-md-4 col-xs-9">
-                                <select id="session" class="form-control">
-                                    <option value="">@DateTime.Now.Year 级</option>
+                                <select id="session" class="form-control" asp-for="SessionNum">
+                                    @for (int i = DateTime.Now.Year; i < DateTime.Now.AddYears(5).Year; i++)
+                                    {
+                                        <option value="@i">@i 级</option>
+                                    }
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
                             <div class="col-md-4">
                                 <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                             </div>
                         </div>
-
                     </div>
                     <div class="box-footer">
                         <div class="text-right">
@@ -148,9 +185,23 @@
 
 @section scripts{
     <environment include="Development">
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script src="~/javascript/view/Administrator/editmajorclass.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"
+                crossorigin="anonymous"
+                integrity="sha384-Fnqn3nxp3506LP/7Y3j/25BlWeA3PXTyT1l78LjECcPaKCV12TsZP7yyMxOe/G/k">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+                crossorigin="anonymous"
+                integrity="sha384-JrXK+k53HACyavUKOsL+NkmSesD2P+73eDMrbTtTk0h4RmOF8hF8apPlkp26JlyH">
+        </script>
         <script src="~/javascript/view/Administrator/editmajorclass.min.js" asp-append-version="true"></script>
     </environment>
 }
