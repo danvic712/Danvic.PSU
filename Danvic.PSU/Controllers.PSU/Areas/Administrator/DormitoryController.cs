@@ -62,29 +62,19 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 宿舍信息列表页
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult Information()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 宿舍楼编辑页面
+        /// 宿舍类型编辑页面
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> EditBuilding(string id)
+        public async Task<IActionResult> EditBunk(string id)
         {
-            BuildingEditViewModel webModel = new BuildingEditViewModel();
+            BunkEditViewModel webModel = new BunkEditViewModel();
 
             if (!string.IsNullOrEmpty(id))
             {
                 //编辑信息，加载宿舍楼相关信息
-                webModel = await _service.GetBuildingAsync(Convert.ToInt64(id), _context);
+                webModel = await _service.GetBunkAsync(Convert.ToInt64(id), _context);
             }
 
             return View(webModel);
@@ -108,34 +98,68 @@ namespace Controllers.PSU.Areas.Administrator
             return View(webModel);
         }
 
+        /// <summary>
+        /// 宿舍信息列表页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Information()
+        {
+            return View();
+        }
         #endregion
 
         #region Service
 
         /// <summary>
-        /// 宿舍楼搜索
+        /// 删除宿舍楼数据
         /// </summary>
-        /// <param name="search"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> SearchBuilding(string search)
+        public async Task<IActionResult> DeleteBuilding(string id)
         {
-            BuildingViewModel webModel = JsonUtility.ToObject<BuildingViewModel>(search);
+            bool flag = await _service.DeleteBuildingAsync(Convert.ToInt64(id), _context);
 
-            webModel = await _service.SearchBuildingAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SId) && webModel.SType == 0 && webModel.SEnable == 9;
-
-            var returnData = new
+            return Json(new
             {
-                data = webModel.BuildingList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.BuildingList.Count
-            };
+                sueeess = flag,
+                msg = flag ? "数据删除成功，宿舍楼编号：" + id : "数据删除失败，宿舍楼编号：" + id
+            });
+        }
 
-            return Json(returnData);
+        /// <summary>
+        /// 删除宿舍类型数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteBunk(string id)
+        {
+            bool flag = await _service.DeleteBunkAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，宿舍类型编号：" + id : "数据删除失败，宿舍类型编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 删除宿舍数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteInformation(string id)
+        {
+            bool flag = await _service.DeleteInformationAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，宿舍编号：" + id : "数据删除失败，宿舍编号：" + id
+            });
         }
 
         /// <summary>
@@ -144,7 +168,7 @@ namespace Controllers.PSU.Areas.Administrator
         /// <param name="webModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> EditDepartment(BuildingEditViewModel webModel)
+        public async Task<IActionResult> EditBuilding(BuildingEditViewModel webModel)
         {
             if (ModelState.IsValid)
             {
@@ -179,46 +203,43 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 删除宿舍楼数据
+        /// 宿舍类型编辑页面
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="webModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> DeleteBuilding(string id)
+        public async Task<IActionResult> EditBunk(BunkEditViewModel webModel)
         {
-            bool flag = await _service.DeleteBuildingAsync(Convert.ToInt64(id), _context);
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Building
+                    flag = await _service.InsertBunkAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Building
+                    flag = await _service.UpdateBunkAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "宿舍类型信息编辑成功" : "宿舍类型信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
 
             return Json(new
             {
-                sueeess = flag,
-                msg = flag ? "数据删除成功，宿舍楼编号：" + id : "数据删除失败，宿舍楼编号：" + id
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
             });
-        }
-
-        /// <summary>
-        /// 宿舍搜索
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> SearchInformation(string search)
-        {
-            InformationViewModel webModel = JsonUtility.ToObject<InformationViewModel>(search);
-
-            webModel = await _service.SearchInformationAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1;
-
-            var returnData = new
-            {
-                data = webModel.InformationList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.InformationList.Count
-            };
-
-            return Json(returnData);
         }
 
         /// <summary>
@@ -262,20 +283,81 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 删除宿舍数据
+        /// 宿舍楼搜索
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="search"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> DeleteInformation(string id)
+        public async Task<IActionResult> SearchBuilding(string search)
         {
-            bool flag = await _service.DeleteInformationAsync(Convert.ToInt64(id), _context);
+            BuildingViewModel webModel = JsonUtility.ToObject<BuildingViewModel>(search);
 
-            return Json(new
+            webModel = await _service.SearchBuildingAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SId) && webModel.SType == 0 && webModel.SEnable == 9;
+
+            var returnData = new
             {
-                sueeess = flag,
-                msg = flag ? "数据删除成功，宿舍编号：" + id : "数据删除失败，宿舍编号：" + id
-            });
+                data = webModel.BuildingList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.BuildingList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 宿舍楼搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchBunk(string search)
+        {
+            BunkViewModel webModel = JsonUtility.ToObject<BunkViewModel>(search);
+
+            webModel = await _service.SearchBunkAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDirection) && webModel.SEnable == -1;
+
+            var returnData = new
+            {
+                data = webModel.BunkList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.BunkList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 宿舍搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchInformation(string search)
+        {
+            InformationViewModel webModel = JsonUtility.ToObject<InformationViewModel>(search);
+
+            webModel = await _service.SearchInformationAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1;
+
+            var returnData = new
+            {
+                data = webModel.InformationList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.InformationList.Count
+            };
+
+            return Json(returnData);
         }
 
         #endregion

@@ -34,24 +34,24 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">大门朝向：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="direction">寝室朝向：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="type" name="" class="form-control">
+                    <select id="direction" name="" class="form-control">
                         <option value="">请选择</option>
-                        <option value="">东</option>
-                        <option value="">西</option>
-                        <option value="">南</option>
-                        <option value="">北</option>
+                        <option value="East">面朝东</option>
+                        <option value="West">面朝西</option>
+                        <option value="South">面朝南</option>
+                        <option value="North">面朝北</option>
                     </select>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="campus">是否启用：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="enable">是否启用：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <select id="campus" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">启用</option>
-                        <option value="">未启用</option>
+                        <option value="-1">请选择</option>
+                        <option value="1">启用</option>
+                        <option value="0">未启用</option>
                     </select>
                 </div>
             </div>
@@ -59,9 +59,9 @@
                 <button id="search" class="btn btn-dropbox btn-flat col-md-4">
                     <i class="fa fa-search"></i>&nbsp;搜索
                 </button>
-                <button id="add" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
+                <a asp-area="Administrator" asp-controller="Dormitory" asp-action="EditBunk" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
                     <i class="fa fa-plus"></i>&nbsp;新建
-                </button>
+                </a>
             </div>
         </div>
     </div>

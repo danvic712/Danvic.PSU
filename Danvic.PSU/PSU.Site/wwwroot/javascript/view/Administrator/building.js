@@ -38,7 +38,9 @@ $.dataTableSetting = {
             "targets": 7,
             "data": null,
             "render": function (data, type, row) {
-                var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
+                var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + ' data-name='
+                    + data.name + ' data-floor=' + data.floor + ' data-type=' + data.typeStr
+                    + ' data-enable=' + data.isEnabledStr + '>编辑</a>' +
                     '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '>删除</a>';
                 return html;
             }
@@ -93,6 +95,39 @@ $.dataTableSetting = {
 $(function () {
     var dataTable = $("#building-table").dataTable($.dataTableSetting);
 
+    //add
+    $(document).on("click", "#add", function () {
+        var param = {};
+        param.Id = $('#edit_id').val();
+        param.Name = $('#edit_name').val();
+        param.Floor = $('#edit_floor').val();
+        param.Type = $('#edit_type').val();
+        param.IsEnabled = $('#edit_enable').val();
+
+        $.ajax({
+            url: '/Administrator/Dormitory/EditBuilding',
+            type: 'POST',
+            dataType: 'Json',
+            data: param,
+            success: function (result) {
+                if (result.msg !== undefined) {
+                    bootbox.dialog({
+                        message: result.msg,
+                        closeButton: false,
+                    });
+                    if (result.success) {
+                        setTimeout(function () {
+                            window.location.href = "/Administrator/Dormitory/Building";
+                        }, 2000);
+                    }
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+            }
+        });
+    });
+
     //search
     $(document).on("click", "#search", function () {
         dataTable.fnDestroy(false);
@@ -101,7 +136,13 @@ $(function () {
 
     //edit
     $(document).on("click", "#edit", function () {
-        window.location.href = "/Administrator/Dormitory/EditBuilding/" + $(this).attr("data-id");
+        $('#edit_id').val($(this).attr("data-id"));
+        $('#edit_name').val($(this).attr("data-name"));
+        $('#edit_floor').val($(this).attr("data-floor"));
+        $("#edit_type option:contains(" + $(this).attr('data-type') + ")").prop('selected', true);
+        $("#edit_enable option:contains(" + $(this).attr('data-enable') + ")").prop('selected', true);
+
+        $('#myModal').modal();
     });
 
     //delete

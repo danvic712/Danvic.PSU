@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "床铺信息";
+    ViewData["NavTitle"] = "宿舍信息管理";
+    ViewData["CurrName"] = "宿舍类型维护";
+}
+
+<section class="content-header">
+    <h1>
+        宿舍类型
+        <small>Dormitory Type</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li>宿舍信息</li>
+        <li class="active">
+            <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Bunk">
+                宿舍类型
+            </a>
+        </li>
+        <li class="active">编辑</li>
+    </ol>
+</section>
+

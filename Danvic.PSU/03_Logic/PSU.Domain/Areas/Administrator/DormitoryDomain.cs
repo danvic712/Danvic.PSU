@@ -183,6 +183,154 @@ namespace PSU.Domain.Areas.Administrator
 
         #endregion
 
+        #region Bunk Interface Service Implement
+
+        /// <summary>
+        ///删除宿舍类型信息
+        /// </summary>
+        /// <param name="id">宿舍类型编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteBunkAsync(long id, ApplicationDbContext context)
+        {
+            try
+            {
+                //Delete Bunk Data
+                await DormitoryRepository.DeleteBunkAsync(id, context);
+
+                //Add Operate Information
+                var operate = string.Format("删除宿舍类型数据，宿舍类型Id:{0}", id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+
+                var index = await context.SaveChangesAsync();
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除宿舍类型失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取宿舍类型信息
+        /// </summary>
+        /// <param name="id">宿舍类型编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<BunkEditViewModel> GetBunkAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new BunkEditViewModel();
+            try
+            {
+                var model = await DormitoryRepository.GetBunkAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                //webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
+                //webModel.Name = model.Name;
+                //webModel.Floor = model.Floor;
+                //webModel.Type = (EnumType.BuildingType)model.Type;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍类型数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 新增宿舍类型信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> InsertBunkAsync(BunkEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Add the Bunk Data
+                var model = await DormitoryRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建宿舍类型失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 搜索宿舍类型信息
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<BunkViewModel> SearchBunkAsync(BunkViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Source Data List
+                var list = await DormitoryRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<BunkData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new BunkData
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        ImageSrc = item.ImageSrc,
+                        Number = item.Number,
+                        Toward = item.Toward,
+                        IsEnabled = item.IsEnabled
+                    }));
+                }
+
+                webModel.BunkList = dataList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍类型列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 更新宿舍类型信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateBunkAsync(BunkEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Update Bunk Data
+                DormitoryRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改宿舍类型信息，宿舍类型编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新宿舍类型失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
         #region Information Interface Service Implement
 
         /// <summary>

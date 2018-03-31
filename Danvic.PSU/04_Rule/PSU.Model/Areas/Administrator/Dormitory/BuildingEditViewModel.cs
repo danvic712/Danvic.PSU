@@ -27,8 +27,6 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         /// <summary>
         /// 寝室楼名称
         /// </summary>
-        [Required(ErrorMessage = "寝室楼名称不能为空")]
-        [StringLength(20, ErrorMessage = "寝室楼名称不能超过20个字符长度")]
         public string Name { get; set; }
 
         /// <summary>

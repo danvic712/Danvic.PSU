@@ -147,7 +147,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Department>> GetDepartmentList(ApplicationDbContext context)
         {
-            return await context.Department.Where(i => i.IsEnabled == true).ToListAsync();
+            return await context.Department.Where(i => i.IsEnabled == true && i.IsBranch == false).ToListAsync();
         }
 
         /// <summary>

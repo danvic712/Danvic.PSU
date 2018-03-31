@@ -59,6 +59,50 @@ namespace PSU.IService.Areas.Administrator
 
         #endregion
 
+        #region Dormitory-Bunk
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BunkViewModel> SearchBunkAsync(BunkViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> InsertBunkAsync(BunkEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">专业班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BunkEditViewModel> GetBunkAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="id">专业班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> DeleteBunkAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> UpdateBunkAsync(BunkEditViewModel webModel, ApplicationDbContext context);
+
+        #endregion
+
         #region Dormitory-Information
 
         /// <summary>

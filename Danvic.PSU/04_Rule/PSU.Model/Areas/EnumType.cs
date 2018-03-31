@@ -48,7 +48,7 @@ namespace PSU.Model.Areas
         /// </summary>
         public enum Enable
         {
-            [Display(Name = "不启用")]
+            [Display(Name = "未启用")]
             NotUse = 0,
             [Display(Name = "启用")]
             Use = 1,

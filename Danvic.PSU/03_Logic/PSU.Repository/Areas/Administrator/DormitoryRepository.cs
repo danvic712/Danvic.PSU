@@ -37,7 +37,7 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
-        /// 根据搜索条件获取公告列表
+        /// 根据搜索条件获取宿舍楼列表
         /// </summary>
         /// <param name="webModel">宿舍楼列表页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
@@ -133,6 +133,116 @@ namespace PSU.Repository.Areas.Administrator
             var model = await context.Building.Where(i => i.Id == id).SingleOrDefaultAsync();
             return model;
         }
+
+        #endregion
+
+        #region Bunk
+
+        /// <summary>
+        /// 删除宿舍类型数据
+        /// </summary>
+        /// <param name="id">宿舍类型编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async Task DeleteBunkAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Bunk.SingleOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取宿舍类型列表
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Bunk>> GetListAsync(BunkViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDirection) && webModel.SEnable == -1)
+            {
+                return await context.Set<Bunk>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+            }
+            else
+            {
+                IQueryable<Bunk> bunks = context.Bunk.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Bunk>();
+
+                //宿舍类型名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //宿舍朝向
+                if (!string.IsNullOrEmpty(webModel.SDirection))
+                {
+                    predicate = predicate.And(i => i.Toward == webModel.SDirection);
+                }
+
+                //宿舍类型是否启用
+                if (webModel.SEnable != -1)
+                {
+                    bool flag = webModel.SEnable == 1;
+                    predicate = predicate.And(i => i.IsEnabled == flag);
+                }
+
+                return await bunks.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 新增宿舍类型信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Bunk> InsertAsync(BunkEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = new Bunk
+            {
+                CreatedBy = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName
+            };
+            await context.Bunk.AddAsync(model);
+
+            return model;
+        }
+
+        /// <summary>
+        /// 更新宿舍类型信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(BunkEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Bunk.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedName = CurrentUser.UserName;
+        }
+
+        /// <summary>
+        /// 获取宿舍类型信息
+        /// </summary>
+        /// <param name="id">宿舍类型编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Bunk> GetBunkAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Bunk.Where(i => i.Id == id).SingleOrDefaultAsync();
+            return model;
+        }
+
+        #endregion
+
+        #region Information API
 
         /// <summary>
         /// 删除宿舍数据
