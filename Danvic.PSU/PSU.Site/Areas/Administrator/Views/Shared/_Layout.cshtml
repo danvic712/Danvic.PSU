@@ -164,11 +164,6 @@
                                     <i class="fa fa-list-ul"></i><span> 物品信息维护 </span>
                                 </a>
                             </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "金额信息维护"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Admission" asp-action="Tuition">
-                                    <i class="fa fa-list-ul"></i><span> 金额信息维护 </span>
-                                </a>
-                            </li>
                             <li class="@(ViewData["CurrName"].ToString() == "学生疑问管理"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Admission" asp-action="Question">
                                     <i class="fa fa-list-ul"></i><span> 学生疑问管理 </span>
@@ -201,13 +196,8 @@
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "服务预定分析"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Register">
+                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Book">
                                     <i class="fa fa-list-ul"></i><span> 服务预定分析 </span>
-                                </a>
-                            </li>
-                            <li class="@(ViewData["CurrName"].ToString() == "用户登录统计"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Login">
-                                    <i class="fa fa-list-ul"></i><span> 用户登录统计 </span>
                                 </a>
                             </li>
                         </ul>

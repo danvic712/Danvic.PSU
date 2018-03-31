@@ -24,22 +24,7 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region View
 
-        public IActionResult Behavior()
-        {
-            return View();
-        }
-
-        public IActionResult BehaviorByChart()
-        {
-            return View();
-        }
-
         public IActionResult Dormitory()
-        {
-            return View();
-        }
-
-        public IActionResult DormitoryByChart()
         {
             return View();
         }
@@ -49,12 +34,12 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
-        public IActionResult StudentByChart()
+        public IActionResult Register()
         {
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Book()
         {
             return View();
         }
