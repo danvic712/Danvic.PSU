@@ -252,6 +252,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/register.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/register.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/dormitory.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/dormitory.js"
