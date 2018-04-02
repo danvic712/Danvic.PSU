@@ -29,7 +29,7 @@ namespace PSU.Model.Areas.Administrator.Admission
         /// <summary>
         /// 服务时间
         /// </summary>
-        public DateTime SDate { get; set; }
+        public string SDate { get; set; }
 
         #endregion
 

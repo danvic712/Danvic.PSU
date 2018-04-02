@@ -7,18 +7,15 @@
 // Modified by:
 // Description: Administrator-Admission-功能实现仓储
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Admission;
-using PSU.Entity.School;
 using PSU.Model.Areas.Administrator.Admission;
-using PSU.Model.Areas.Administrator.School;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -34,7 +31,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Service>> GetListAsync(ServiceViewModel webModel, ApplicationDbContext context)
         {
-            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && webModel.SDate == DateTime.MinValue)
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && string.IsNullOrEmpty(webModel.SDate))
             {
                 return await context.Set<Service>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
@@ -57,9 +54,9 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 //迎新服务时间
-                if (webModel.SDate != DateTime.MinValue)
+                if (!string.IsNullOrEmpty(webModel.SDate))
                 {
-                    predicate = predicate.And(i => i.StartTime <= webModel.SDate || i.EndTime >= webModel.SDate);
+                    predicate = predicate.And(i => i.StartTime <= Convert.ToDateTime(webModel.SDate) && i.EndTime >= Convert.ToDateTime(webModel.SDate));
                 }
 
                 return await services.AsExpandable().Where(predicate).ToListAsync();

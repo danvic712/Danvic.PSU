@@ -46,14 +46,14 @@ namespace PSU.Entity.SignUp
         /// 选择物品Id
         /// </summary>
         [Required]
-        public long BeddingId { get; set; }
+        public long GoodsId { get; set; }
 
         /// <summary>
-        /// 卧具物品名称
+        /// 物品名称
         /// </summary>
         [Required]
         [MaxLength(20)]
-        public string BeddingName { get; set; }
+        public string GoodsName { get; set; }
 
         /// <summary>
         /// 物品尺寸

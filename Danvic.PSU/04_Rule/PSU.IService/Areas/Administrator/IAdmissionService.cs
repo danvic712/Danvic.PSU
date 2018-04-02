@@ -18,20 +18,12 @@ namespace PSU.IService.Areas.Administrator
         #region Admission-Service
 
         /// <summary>
-        /// 搜索数据
+        /// 删除数据
         /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="id">专业班级编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<ServiceViewModel> SearchServiceAsync(ServiceViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> InsertServiceAsync(ServiceEditViewModel webModel, ApplicationDbContext context);
+        Task<bool> DeleteServiceAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据
@@ -42,13 +34,21 @@ namespace PSU.IService.Areas.Administrator
         Task<ServiceEditViewModel> GetServiceAsync(long id, ApplicationDbContext context);
 
         /// <summary>
-        /// 删除数据
+        /// 新增数据
         /// </summary>
-        /// <param name="id">专业班级编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> DeleteServiceAsync(long id, ApplicationDbContext context);
+        Task<bool> InsertServiceAsync(ServiceEditViewModel webModel, ApplicationDbContext context);
 
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ServiceViewModel> SearchServiceAsync(ServiceViewModel webModel, ApplicationDbContext context);
+        
         /// <summary>
         /// 更新数据
         /// </summary>
@@ -62,20 +62,12 @@ namespace PSU.IService.Areas.Administrator
         #region Admission-Goods
 
         /// <summary>
-        /// 搜索数据
+        /// 删除数据
         /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="id">专业班级编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<GoodsViewModel> SearchGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> InsertGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context);
+        Task<bool> DeleteGoodsAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据
@@ -86,13 +78,21 @@ namespace PSU.IService.Areas.Administrator
         Task<GoodsEditViewModel> GetGoodsAsync(long id, ApplicationDbContext context);
 
         /// <summary>
-        /// 删除数据
+        /// 新增数据
         /// </summary>
-        /// <param name="id">专业班级编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> DeleteGoodsAsync(long id, ApplicationDbContext context);
+        Task<bool> InsertGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context);
 
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<GoodsViewModel> SearchGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context);
+        
         /// <summary>
         /// 更新数据
         /// </summary>
@@ -104,14 +104,6 @@ namespace PSU.IService.Areas.Administrator
         #endregion
 
         #region Admission-Question
-
-        /// <summary>
-        /// 搜索数据
-        /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<QuestionViewModel> SearchQuestionAsync(QuestionViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据
@@ -129,6 +121,13 @@ namespace PSU.IService.Areas.Administrator
         /// <returns></returns>
         Task<QuestionReplyViewModel> ReplyQuestionAsync(long id, ApplicationDbContext context);
 
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<QuestionViewModel> SearchQuestionAsync(QuestionViewModel webModel, ApplicationDbContext context);
         #endregion
     }
 }

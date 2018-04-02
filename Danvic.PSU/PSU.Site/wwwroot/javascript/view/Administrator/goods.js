@@ -35,7 +35,7 @@ $.dataTableSetting = {
     "processing": true,
     "columnDefs": [
         {
-            "targets": 7,
+            "targets": 6,
             "data": null,
             "render": function (data, type, row) {
                 var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +

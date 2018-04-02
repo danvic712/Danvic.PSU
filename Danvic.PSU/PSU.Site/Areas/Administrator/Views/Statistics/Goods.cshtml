@@ -1,14 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "报名数据";
+    ViewData["Title"] = "物品选择";
     ViewData["NavTitle"] = "数据统计分析";
-    ViewData["CurrName"] = "报名数据分析";
+    ViewData["CurrName"] = "物品选择数据";
 }
 
 <section class="content-header">
     <h1>
-        报名数据
-        <small>Register Data</small>
+        物品选择
+        <small>Goods Chose Data</small>
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -17,7 +17,7 @@
             </a>
         </li>
         <li>数据统计</li>
-        <li class="active">报名数据</li>
+        <li class="active">物品选择</li>
     </ol>
 </section>
 
@@ -34,22 +34,21 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">专业班级：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">物品名称：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="name" type="text" class="form-control">
                     <div class="input-group-addon">
-                        <i class="fa fa-institution"></i>
+                        <i class="fa fa-cart-arrow-down"></i>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">报名状态：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">选择时间：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select name="" class="form-control">
-                        <option value="-1">请选择</option>
-                        <option value="1">已完成预报名</option>
-                        <option value="0">未完成预报名</option>
-                    </select>
+                    <input id="datetime" class="form-control date-picker" type="text" readonly />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar bigger-110"></i>
+                    </span>
                 </div>
             </div>
             <div class="form-group col-md-3">
@@ -60,15 +59,6 @@
         </div>
     </div>
     <div class="row">
-        @await Html.PartialAsync("_RegisterTablePartial")
+        @await Html.PartialAsync("_GoodsTablePartial")
     </div>
 </section>
-
-@section scripts{
-    <environment include="Development">
-        <script src="~/javascript/view/Administrator/register.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/javascript/view/Administrator/register.min.js" asp-append-version="true"></script>
-    </environment>
-}

@@ -180,14 +180,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu" style="@(ViewData["NavTitle"].ToString() == "数据统计分析"?"display: block;":"")">
-                            <li class="@(ViewData["CurrName"].ToString() == "新生数据分析"?"active":"")">
-                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Student">
-                                    <i class="fa fa-list-ul"></i><span> 新生数据分析 </span>
-                                </a>
-                            </li>
                             <li class="@(ViewData["CurrName"].ToString() == "报名数据分析"?"active":"")">
                                 <a asp-area="Administrator" asp-controller="Statistics" asp-action="Register">
                                     <i class="fa fa-list-ul"></i><span> 报名数据分析 </span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["CurrName"].ToString() == "物品选择数据"?"active":"")">
+                                <a asp-area="Administrator" asp-controller="Statistics" asp-action="Goods">
+                                    <i class="fa fa-list-ul"></i><span> 物品选择数据 </span>
                                 </a>
                             </li>
                             <li class="@(ViewData["CurrName"].ToString() == "宿舍数据统计"?"active":"")">

@@ -138,17 +138,6 @@ namespace PSU.Entity.Basic
         public string Files { get; set; }
 
         /// <summary>
-        /// 档案是否快递
-        /// </summary>
-        public bool IsExpress { get; set; }
-
-        /// <summary>
-        /// 快递单号
-        /// </summary>
-        [MaxLength(50)]
-        public string ExpressId { get; set; }
-
-        /// <summary>
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }

@@ -42,16 +42,6 @@ namespace Controllers.PSU.Areas.Administrator
         #region View
 
         /// <summary>
-        /// 物品信息
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult Goods()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// 物品信息编辑页面
         /// </summary>
         /// <param name="id"></param>
@@ -68,6 +58,35 @@ namespace Controllers.PSU.Areas.Administrator
             }
 
             return View(webModel);
+        }
+
+        /// <summary>
+        /// 迎新服务编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditService(string id)
+        {
+            ServiceEditViewModel webModel = new ServiceEditViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                //编辑信息，加载迎新服务信息
+                webModel = await _service.GetServiceAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
+        }
+
+        /// <summary>
+        /// 物品信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Goods()
+        {
+            return View();
         }
 
         /// <summary>
@@ -105,106 +124,25 @@ namespace Controllers.PSU.Areas.Administrator
         {
             return View();
         }
-
-        /// <summary>
-        /// 迎新服务编辑页面
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> EditService(string id)
-        {
-            ServiceEditViewModel webModel = new ServiceEditViewModel();
-
-            if (!string.IsNullOrEmpty(id))
-            {
-                //编辑信息，加载迎新服务信息
-                webModel = await _service.GetServiceAsync(Convert.ToInt64(id), _context);
-            }
-
-            return View(webModel);
-        }
-
         #endregion
 
         #region Service
 
         /// <summary>
-        /// 迎新服务页面搜索
+        /// 删除物品信息数据
         /// </summary>
-        /// <param name="search"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> SearchService(string search)
+        public async Task<IActionResult> DeleteGoods(string id)
         {
-            ServiceViewModel webModel = JsonUtility.ToObject<ServiceViewModel>(search);
+            bool flag = await _service.DeleteGoodsAsync(Convert.ToInt64(id), _context);
 
-            webModel = await _service.SearchServiceAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && webModel.SDate == DateTime.MinValue;
-
-            var returnData = new
+            return Json(new
             {
-                data = webModel.ServiceList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.ServiceList.Count
-            };
-
-            return Json(returnData);
-        }
-
-        /// <summary>
-        /// 物品信息页面搜索
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> SearchGoods(string search)
-        {
-            GoodsViewModel webModel = JsonUtility.ToObject<GoodsViewModel>(search);
-
-            webModel = await _service.SearchGoodsAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SId) && webModel.SEnable == -1;
-
-            var returnData = new
-            {
-                data = webModel.GoodsList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.GoodsList.Count
-            };
-
-            return Json(returnData);
-        }
-
-        /// <summary>
-        /// 物品信息页面搜索
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> SearchQuestion(string search)
-        {
-            QuestionViewModel webModel = JsonUtility.ToObject<QuestionViewModel>(search);
-
-            webModel = await _service.SearchQuestionAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SAskFor) && string.IsNullOrEmpty(webModel.SDateTime) && webModel.IsReply == -1;
-
-            var returnData = new
-            {
-                data = webModel.QuestionList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.QuestionList.Count
-            };
-
-            return Json(returnData);
+                sueeess = flag,
+                msg = flag ? "数据删除成功，物品编号：" + id : "数据删除失败，物品编号：" + id
+            });
         }
 
         /// <summary>
@@ -225,19 +163,42 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 删除物品信息数据
+        /// 物品信息编辑页面
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="webModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> DeleteGoods(string id)
+        public async Task<IActionResult> EditGoods(GoodsEditViewModel webModel)
         {
-            bool flag = await _service.DeleteGoodsAsync(Convert.ToInt64(id), _context);
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Data
+                    flag = await _service.InsertGoodsAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Data
+                    flag = await _service.UpdateGoodsAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "物品信息编辑成功" : "物品信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
 
             return Json(new
             {
-                sueeess = flag,
-                msg = flag ? "数据删除成功，物品编号：" + id : "数据删除失败，物品编号：" + id
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
             });
         }
 
@@ -282,43 +243,81 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 物品信息编辑页面
+        /// 物品信息页面搜索
         /// </summary>
-        /// <param name="webModel"></param>
+        /// <param name="search"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> EditGoods(GoodsEditViewModel webModel)
+        public async Task<IActionResult> SearchGoods(string search)
         {
-            if (ModelState.IsValid)
+            GoodsViewModel webModel = JsonUtility.ToObject<GoodsViewModel>(search);
+
+            webModel = await _service.SearchGoodsAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SId) && webModel.SEnable == -1;
+
+            var returnData = new
             {
-                bool flag;
-                if (string.IsNullOrEmpty(webModel.Id))
-                {
-                    //Add Data
-                    flag = await _service.InsertGoodsAsync(webModel, _context);
-                }
-                else
-                {
-                    //Update Data
-                    flag = await _service.UpdateGoodsAsync(webModel, _context);
-                }
+                data = webModel.GoodsList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.GoodsList.Count
+            };
 
-                return Json(new
-                {
-                    success = flag,
-                    msg = flag ? "物品信息编辑成功" : "物品信息编辑失败"
-                });
-            }
+            return Json(returnData);
+        }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+        /// <summary>
+        /// 学生疑问页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchQuestion(string search)
+        {
+            QuestionViewModel webModel = JsonUtility.ToObject<QuestionViewModel>(search);
 
-            return Json(new
+            webModel = await _service.SearchQuestionAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SAskFor) && string.IsNullOrEmpty(webModel.SDateTime) && webModel.IsReply == -1;
+
+            var returnData = new
             {
-                success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
-            });
+                data = webModel.QuestionList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.QuestionList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 迎新服务页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchService(string search)
+        {
+            ServiceViewModel webModel = JsonUtility.ToObject<ServiceViewModel>(search);
+
+            webModel = await _service.SearchServiceAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && string.IsNullOrEmpty(webModel.SDate);
+
+            var returnData = new
+            {
+                data = webModel.ServiceList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.ServiceList.Count
+            };
+
+            return Json(returnData);
         }
 
         #endregion
