@@ -93,60 +93,66 @@ $(function () {
     var dataTable = $('#department-table').dataTable($.dataTableSetting);
 
     //search
-    $(document).on('click', '#search', function () {
-        dataTable.fnDestroy(false);
-        dataTable = $('#department-table').dataTable($.dataTableSetting);
-    });
+    $(document).on('click',
+        '#search',
+        function () {
+            dataTable.fnDestroy(false);
+            dataTable = $('#department-table').dataTable($.dataTableSetting);
+        });
 
     //edit
-    $(document).on('click', '#edit', function () {
-        window.location.href = '/Administrator/School/EditDepartment/' + $(this).attr('data-id');
-    });
+    $(document).on('click',
+        '#edit',
+        function () {
+            window.location.href = '/Administrator/School/EditDepartment/' + $(this).attr('data-id');
+        });
 
     //delete
-    $(document).on('click', '#delete', function () {
-        var id = $(this).attr('data-id');
-        bootbox.confirm({
-            message: '院系/部门编号：<b class="text-red">' + id + '</b>，确定删除该条院系/部门数据吗？',
-            buttons: {
-                confirm: {
-                    label: '确定',
-                    className: 'btn btn-success btn-flat'
+    $(document).on('click',
+        '#delete',
+        function () {
+            var id = $(this).attr('data-id');
+            bootbox.confirm({
+                message: '院系/部门编号：<b class="text-red">' + id + '</b>，确定删除该条院系/部门数据吗？',
+                buttons: {
+                    confirm: {
+                        label: '确定',
+                        className: 'btn btn-success btn-flat'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn btn-default btn-flat'
+                    }
                 },
-                cancel: {
-                    label: '取消',
-                    className: 'btn btn-default btn-flat'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        url: '/Administrator/School/DeleteDepartment',
-                        type: 'POST',
-                        dataType: 'Json',
-                        data: {
-                            id: id
-                        },
-                        success: function (result) {
-                            bootbox.alert({
-                                message: result.msg,
-                                buttons: {
-                                    ok: {
-                                        label: '确定',
-                                        className: 'btn bg-olive btn-flat margin'
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: '/Administrator/School/DeleteDepartment',
+                            type: 'POST',
+                            dataType: 'Json',
+                            data: {
+                                id: id
+                            },
+                            success: function (result) {
+                                bootbox.alert({
+                                    message: result.msg,
+                                    buttons: {
+                                        ok: {
+                                            label: '确定',
+                                            className: 'btn bg-olive btn-flat margin'
+                                        }
+                                    },
+                                    callback: function () {
+                                        window.location = "/Administrator/School/Department";
                                     }
-                                },
-                                callback: function () {
-                                    window.location = "/Administrator/School/Department";
-                                }
-                            });
-                        },
-                        error: function (msg) {
-                            console.log(msg);
-                        }
-                    });
+                                });
+                            },
+                            error: function (msg) {
+                                console.log(msg);
+                            }
+                        });
+                    }
                 }
-            }
-        })
-    });
-})
+            });
+        });
+});

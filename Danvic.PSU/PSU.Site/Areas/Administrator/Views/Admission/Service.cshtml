@@ -34,9 +34,9 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="type">服务地点：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="address">服务地点：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <input id="name" type="text" class="form-control">
+                    <input id="address" type="text" class="form-control">
                     <div class="input-group-addon">
                         <i class="fa fa-university"></i>
                     </div>
@@ -55,9 +55,9 @@
                 <button id="search" class="btn btn-dropbox btn-flat col-md-4">
                     <i class="fa fa-search"></i>&nbsp;搜索
                 </button>
-                <button id="add" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
+                <a asp-area="Administrator" asp-controller="Admission" asp-action="EditService" class="btn btn-success btn-flat col-md-4 col-xs-offset-1 col-md-offset-1">
                     <i class="fa fa-plus"></i>&nbsp;新建
-                </button>
+                </a>
             </div>
         </div>
     </div>

@@ -68,12 +68,12 @@ namespace PSU.Model.Areas.Administrator.Admission
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime StartDateTime { get; set; }
+        public string StartDateTime { get; set; }
 
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime EndDateTime { get; set; }
+        public string EndDateTime { get; set; }
 
         /// <summary>
         /// 服务描述

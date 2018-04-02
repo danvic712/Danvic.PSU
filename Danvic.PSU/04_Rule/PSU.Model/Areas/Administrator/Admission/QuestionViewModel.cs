@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Administrator-Admission-学生疑问列表页面 View Model
 //-----------------------------------------------------------------------
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Admission
 {
@@ -28,9 +26,9 @@ namespace PSU.Model.Areas.Administrator.Admission
         public string SDateTime { get; set; }
 
         /// <summary>
-        /// 问题状态
+        /// 是否回复
         /// </summary>
-        public short SStatus { get; set; }
+        public short IsReply { get; set; }
 
         #endregion
 
