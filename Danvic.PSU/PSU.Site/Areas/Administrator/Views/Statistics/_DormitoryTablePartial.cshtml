@@ -1,45 +1,18 @@
 ﻿<div class="col-xs-12">
     <div class="box">
         <div class="box-body">
-            <table id="bulletin-table" class="table table-bordered table-striped">
+            <table id="dorm-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">编号</th>
-                        <th class="text-center">宿舍号</th>
-                        <th class="text-center">楼层</th>
-                        <th class="text-center">宿舍楼</th>
-                        <th class="text-center">所属校区</th>
+                        <th class="text-center">宿舍名称</th>
+                        <th class="text-center">所在楼层</th>
+                        <th class="text-center">所属宿舍楼</th>
                         <th class="text-center">宿舍人数</th>
                         <th class="text-center">已选人数</th>
-                        <th class="text-center">床铺号</th>
-                        <th class="text-center">床铺是否已选</th>
-                        <th class="text-center">学生学号</th>
                         <th class="text-center">学生姓名</th>
-                        <th class="text-center">选择时间</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < 15; i++)
-                    {
-                        <tr class="text-center">
-                            @{
-                                int num = 20171011 + i;
-                            }
-                            <td>@num</td>
-                            <td>110</td>
-                            <td>四层</td>
-                            <td>4#</td>
-                            <td>文津校区</td>
-                            <td>4人</td>
-                            <td>2人</td>
-                            <td>110-1</td>
-                            <td>已选</td>
-                            <td>3111111111</td>
-                            <td>张三</td>
-                            <td>@DateTime.Now.ToString()</td>
-                        </tr>
-                    }
-                </tbody>
+                <tbody class="text-center"></tbody>
             </table>
         </div>
     </div>

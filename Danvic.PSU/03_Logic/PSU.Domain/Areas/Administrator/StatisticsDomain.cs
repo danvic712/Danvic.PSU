@@ -11,9 +11,10 @@ using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Statistics;
+using PSU.Repository.Areas.Administrator;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSU.Domain.Areas.Administrator
@@ -39,14 +40,43 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<RegisterViewModel> SearchRegisterAsync(RegisterViewModel webModel, ApplicationDbContext context)
+        public async Task<RegisterViewModel> SearchRegisterAsync(RegisterViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await StatisticsRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<RegisterData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new RegisterData
+                    {
+                        Id = item.StudentId.ToString(),
+                        Name = item.Name,
+                        Address = item.Place,
+                        Department = item.Department,
+                        MajorClass = item.MajorClass,
+                        Way = item.Way,
+                        DateTime = item.ArriveTime,
+                        Express = item.ExpressId
+                    }));
+                }
+
+                webModel.RegisterList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取新生注册列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion
 
-        #region Student Interface Service Implement
+        #region Goods Interface Service Implement
 
         /// <summary>
         /// 搜索物品选择数据信息
@@ -54,9 +84,37 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<GoodsViewModel> SearchStudentAsync(GoodsViewModel webModel, ApplicationDbContext context)
+        public async Task<GoodsViewModel> SearchGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await StatisticsRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<GoodsData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new GoodsData
+                    {
+                        Id = item.StudentId.ToString(),
+                        Name = item.StudentName,
+                        GoodsId = item.GoodsId.ToString(),
+                        GoodsName = item.GoodsName,
+                        Size = item.Size,
+                        DateTime = item.ChosenTime,
+                        Remark = item.Remark.Length > 20 ? item.Remark.Substring(0, 20) : item.Remark
+                    }));
+                }
+
+                webModel.GoodsList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品选择列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion
@@ -69,9 +127,36 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<DormitoryViewModel> SearchDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        public async Task<DormitoryViewModel> SearchDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await StatisticsRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<DormitoryData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new DormitoryData
+                    {
+                        Dorm = item.DormName,
+                        Floor = item.Floor,
+                        Building = item.BuildingName,
+                        Count = item.Count,
+                        Chosen = item.Chosen,
+                        StudentName = item.StudentName
+                    }));
+                }
+
+                webModel.DormitoryList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取宿舍预定列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion

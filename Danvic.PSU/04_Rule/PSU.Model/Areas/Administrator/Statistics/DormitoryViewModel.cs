@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Administrator-Statistics-宿舍数据列表页面 View Model
 //-----------------------------------------------------------------------
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Statistics
 {
@@ -52,11 +50,40 @@ namespace PSU.Model.Areas.Administrator.Statistics
         #region Table
 
         /// <summary>
-        /// 编号
+        /// 宿舍名称
         /// </summary>
-        public string Id { get; set; }
+        public string Dorm { get; set; }
 
+        /// <summary>
+        /// 所在楼层
+        /// </summary>
+        public int Floor { get; set; }
 
+        public string FloorStr => Floor + "层";
+
+        /// <summary>
+        /// 所属寝室楼
+        /// </summary>
+        public string Building { get; set; }
+
+        /// <summary>
+        /// 可容纳人数
+        /// </summary>
+        public int Count { get; set; }
+
+        public string CountStr => Count + "人";
+
+        /// <summary>
+        /// 已选择人数
+        /// </summary>
+        public int Chosen { get; set; }
+
+        public string ChosenStr => Chosen + "人";
+
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
+        public string StudentName { get; set; }
 
         #endregion
     }

@@ -1,5 +1,5 @@
 ﻿/*!
- *   Administrator Dormitory Page JavaScript v1.0.0
+ *   Administrator Statistics Book Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 
@@ -35,7 +35,7 @@ $.dataTableSetting = {
     "processing": true,
     //"columnDefs": [
     //    {
-    //        "targets": 8,
+    //        "targets": 6,
     //        "data": null,
     //        "render": function (data, type, row) {
     //            var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
@@ -45,27 +45,28 @@ $.dataTableSetting = {
     //    }
     //],
     "columns": [
-        { "data": "dorm" },
-        { "data": "floorStr" },
-        { "data": "building" },
-        { "data": "countStr" },
-        { "data": "chosenStr" },
-        { "data": "studentName" }
+        { "data": "id" },
+        { "data": "name" },
+        { "data": "goodsId" },
+        { "data": "goodsName" },
+        { "data": "size" },
+        { "data": "dateTime" },
+        { "data": "remark" }
     ],
 
     ajax: function (data, callback, settings) {
         var param = {};
         param.Limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
         param.Start = data.start;//开始的记录序号
-        param.Page = data.start / data.length + 1;//当前页码
-        param.SStudent = $("#student").val();//院系编号
-        param.SName = $("#name").val();//院系名称
-        param.SBuilding = $("#building").val();//院系联系方式
+        param.Page = (data.start / data.length) + 1;//当前页码
+        param.SName = $('#name').val();//迎新服务名称
+        param.SGoodsName = $('#goodsname').val();//迎新服务地点
+        param.SDate = $('#datetime').val();//服务时间
 
         //ajax请求数据
         $.ajax({
             type: "POST",
-            url: "/Administrator/Statistics/SearchDormitory",
+            url: "/Administrator/Statistics/SearchService",
             cache: false,  //禁用缓存
             data: {
                 search: JSON.stringify(param)
@@ -90,13 +91,19 @@ $.dataTableSetting = {
     }
 };
 $(function () {
-    var dataTable = $("#dorm-table").dataTable($.dataTableSetting);
+    //datetime
+    $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd'
+    });
+
+    var dataTable = $('#book-table').dataTable($.dataTableSetting);
 
     //search
-    $(document).on("click",
-        "#search",
-        function () {
-            dataTable.fnDestroy(false);
-            dataTable = $("#dorm-table").dataTable($.dataTableSetting);
-        });
+    $(document).on('click', '#search', function () {
+        dataTable.fnDestroy(false);
+        dataTable = $('#book-table').dataTable($.dataTableSetting);
+    });
 });

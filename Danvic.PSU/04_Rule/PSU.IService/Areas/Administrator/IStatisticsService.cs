@@ -35,7 +35,7 @@ namespace PSU.IService.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<GoodsViewModel> SearchStudentAsync(GoodsViewModel webModel, ApplicationDbContext context);
+        Task<GoodsViewModel> SearchGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context);
 
         #endregion
 

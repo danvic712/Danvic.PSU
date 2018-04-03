@@ -91,64 +91,70 @@ $.dataTableSetting = {
         });
     }
 };
-$(function () {
+$(function() {
     var dataTable = $("#information-table").dataTable($.dataTableSetting);
 
     //search
-    $(document).on("click", "#search", function () {
-        dataTable.fnDestroy(false);
-        dataTable = $("#information-table").dataTable($.dataTableSetting);
-    });
+    $(document).on("click",
+        "#search",
+        function() {
+            dataTable.fnDestroy(false);
+            dataTable = $("#information-table").dataTable($.dataTableSetting);
+        });
 
     //edit
-    $(document).on("click", "#edit", function () {
-        window.location.href = "/Administrator/Dormitory/EditInformation/" + $(this).attr("data-id");
-    });
+    $(document).on("click",
+        "#edit",
+        function() {
+            window.location.href = "/Administrator/Dormitory/EditInformation/" + $(this).attr("data-id");
+        });
 
     //delete
-    $(document).on("click", "#delete", function () {
-        var id = $(this).attr("data-id");
-        window.bootbox.confirm({
-            message: '宿舍楼编号：<b class="text-red">' + id + '</b>，确定删除该宿舍楼数据吗？',
-            buttons: {
-                confirm: {
-                    label: '确定',
-                    className: 'btn btn-success btn-flat'
+    $(document).on("click",
+        "#delete",
+        function() {
+            var id = $(this).attr("data-id");
+            window.bootbox.confirm({
+                message: '宿舍楼编号：<b class="text-red">' + id + '</b>，确定删除该宿舍楼数据吗？',
+                buttons: {
+                    confirm: {
+                        label: '确定',
+                        className: 'btn btn-success btn-flat'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn btn-default btn-flat'
+                    }
                 },
-                cancel: {
-                    label: '取消',
-                    className: 'btn btn-default btn-flat'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        url: '/Administrator/Dormitory/DeleteInformation',
-                        type: 'POST',
-                        dataType: 'Json',
-                        data: {
-                            id: id
-                        },
-                        success: function (result) {
-                            window.bootbox.alert({
-                                message: result.msg,
-                                buttons: {
-                                    ok: {
-                                        label: '确定',
-                                        className: 'btn bg-olive btn-flat margin'
+                callback: function(result) {
+                    if (result) {
+                        $.ajax({
+                            url: '/Administrator/Dormitory/DeleteInformation',
+                            type: 'POST',
+                            dataType: 'Json',
+                            data: {
+                                id: id
+                            },
+                            success: function(result) {
+                                window.bootbox.alert({
+                                    message: result.msg,
+                                    buttons: {
+                                        ok: {
+                                            label: '确定',
+                                            className: 'btn bg-olive btn-flat margin'
+                                        }
+                                    },
+                                    callback: function() {
+                                        window.location = "/Administrator/Dormitory/Information";
                                     }
-                                },
-                                callback: function () {
-                                    window.location = "/Administrator/Dormitory/Information";
-                                }
-                            });
-                        },
-                        error: function (msg) {
-                            console.log(msg);
-                        }
-                    });
+                                });
+                            },
+                            error: function(msg) {
+                                console.log(msg);
+                            }
+                        });
+                    }
                 }
-            }
+            });
         });
-    });
-})
+});

@@ -9,7 +9,6 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Statistics
 {
@@ -28,9 +27,9 @@ namespace PSU.Model.Areas.Administrator.Statistics
         public string SMajorClass { get; set; }
 
         /// <summary>
-        /// 报名状态
+        /// 到校时间
         /// </summary>
-        public short SStatus { get; set; }
+        public string SDate { get; set; }
 
         #endregion
 
@@ -52,14 +51,9 @@ namespace PSU.Model.Areas.Administrator.Statistics
         #region Table
 
         /// <summary>
-        /// 编号
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// 学号
         /// </summary>
-        public string StudentId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 学生姓名
@@ -82,17 +76,46 @@ namespace PSU.Model.Areas.Administrator.Statistics
         /// </summary>
         public short Way { get; set; }
 
+        public string WayStr
+        {
+            get
+            {
+                string str = "";
+                if (Way == 1)
+                    str = "火车";
+                else if (Way == 2)
+                {
+                    str = "客车";
+                }
+                else if (Way == 3)
+                {
+                    str = "飞机";
+                }
+                else if (Way == 4)
+                {
+                    str = "自驾";
+                }
+                else if (Way == 5)
+                {
+                    str = "客船";
+                }
+                else if (Way == 6)
+                {
+                    str = "其它";
+                }
+                return str;
+            }
+        }
+
         /// <summary>
         /// 预计到达时间
         /// </summary>
-        public DateTime ArriveTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         /// <summary>
-        /// 档案是否快递
+        /// 到达地点
         /// </summary>
-        public bool IsExpress { get; set; }
-
-        public string IsExpressStr => IsExpress ? "快递" : "未快递";
+        public string Address { get; set; }
 
         /// <summary>
         /// 快递单号

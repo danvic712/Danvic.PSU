@@ -21,3 +21,53 @@
     </ol>
 </section>
 
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label col-md-5 col-xs-4" for="name">学生姓名：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="name" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label col-md-5 col-xs-4" for="servicename">服务名称：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="servicename" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-server"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label col-md-5 col-xs-4" for="datetime">选择时间：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="datetime" class="form-control date-picker" type="text" readonly />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <button id="search" class="btn btn-dropbox btn-flat col-md-4">
+                    <i class="fa fa-search"></i>&nbsp;搜索
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @await Html.PartialAsync("_BookTablePartial")
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/servicechose.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/servicechose.min.js" asp-append-version="true"></script>
+    </environment>
+}

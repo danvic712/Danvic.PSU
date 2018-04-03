@@ -33,26 +33,27 @@ $.dataTableSetting = {
     },
     "paging": true,
     "processing": true,
-    "columnDefs": [
-        {
-            "targets": 7,
-            "data": null,
-            "render": function (data, type, row) {
-                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>查看</a>' +
-                    '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
-                    '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '>删除</a>';
-                return html;
-            }
-        }
-    ],
+    //"columnDefs": [
+    //    {
+    //        "targets": 7,
+    //        "data": null,
+    //        "render": function (data, type, row) {
+    //            var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>查看</a>' +
+    //                '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
+    //                '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '>删除</a>';
+    //            return html;
+    //        }
+    //    }
+    //],
     "columns": [
         { "data": "id" },
-        { "data": "title" },
-        { "data": "content" },
-        { "data": "typeStr" },
-        { "data": "targetStr" },
+        { "data": "name" },
+        { "data": "department" },
+        { "data": "majorClass" },
+        { "data": "wayStr" },
         { "data": "dateTime" },
-        { "data": "publisher" }
+        { "data": "address" },
+        { "data": "express" }
     ],
 
     ajax: function (data, callback, settings) {
@@ -60,14 +61,14 @@ $.dataTableSetting = {
         param.Limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
         param.Start = data.start;//开始的记录序号
         param.Page = (data.start / data.length) + 1;//当前页码
-        param.STitle = $('#title').val();//公告标题
-        param.SDateTime = $('#datetime').val();//发布时间
-        param.SType = $('#type').val();//公告类型
+        param.SName = $('#name').val();//公告标题
+        param.SMajorClass = $('#majorclass').val();//发布时间
+        param.SDate = $('#datetime').val();//公告类型
 
         //ajax请求数据
         $.ajax({
             type: "POST",
-            url: "/Administrator/Home/Search",
+            url: "/Administrator/Statistics/SearchRegister",
             cache: false,  //禁用缓存
             data: {
                 search: JSON.stringify(param)

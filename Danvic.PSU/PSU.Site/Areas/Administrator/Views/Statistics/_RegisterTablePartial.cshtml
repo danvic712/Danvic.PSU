@@ -6,41 +6,15 @@
                     <tr>
                         <th class="text-center">学号</th>
                         <th class="text-center">姓名</th>
-                        <th class="text-center">性别</th>
                         <th class="text-center">所属院系</th>
-                        <th class="text-center">专业方向</th>
                         <th class="text-center">专业班级</th>
-                        <th class="text-center">报名状态</th>
-                        <th class="text-center">档案是否快递</th>
+                        <th class="text-center">来校方式</th>
+                        <th class="text-center">预计到校时间</th>
+                        <th class="text-center">到达地点</th>
                         <th class="text-center">档案快递单号</th>
-                        <th class="text-center">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < 15; i++)
-                    {
-                        <tr class="text-center">
-                            @{
-                                int num = 20171011 + i;
-                            }
-                            <td>@num</td>
-                            <td>张三</td>
-                            <td>男</td>
-                            <td>计算机与软件工程系</td>
-                            <td>网络工程</td>
-                            <td>网络 1701</td>
-                            <td>已完成</td>
-                            <td>否</td>
-                            <td></td>
-                            <td>
-                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
-                                    <i class="fa fa-info"></i>
-                                    查看
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                <tbody class="text-center"></tbody>
             </table>
         </div>
     </div>

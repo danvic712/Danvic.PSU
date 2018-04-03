@@ -5,10 +5,11 @@
 // Author: Danvic712
 // Date Created: 2018-02-19 20:43:40
 // Modified by:
-// Description: 新生选择床铺信息表
+// Description: 新生寝室选择信息表
 //-----------------------------------------------------------------------
-using PSU.Utility.System;
+
 using System;
+using PSU.Utility.System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Entity.SignUp
@@ -31,29 +32,31 @@ namespace PSU.Entity.SignUp
 
         /// <summary>
         /// 学生姓名
+        /// 张三|李四...
         /// </summary>
         [Required]
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string StudentName { get; set; }
 
         /// <summary>
         /// 学生学号
+        /// 20171222104569|20180214053521
         /// </summary>
         [Required]
-        public long StudentId { get; set; }
+        [MaxLength(100)]
+        public string StudentId { get; set; }
 
         /// <summary>
-        /// 所属班级
+        /// 可容纳人数
         /// </summary>
         [Required]
-        [MaxLength(20)]
-        public string ClassName { get; set; }
+        public int Count { get; set; }
 
         /// <summary>
-        /// 所属班级Id
+        /// 已选择人数
         /// </summary>
         [Required]
-        public long ClassId { get; set; }
+        public int Chosen { get; set; }
 
         /// <summary>
         /// 寝室楼Id
@@ -86,19 +89,11 @@ namespace PSU.Entity.SignUp
         [Required]
         [MaxLength(20)]
         public string DormName { get; set; }
-
+        
         /// <summary>
-        /// 床铺号
+        /// 完成选择时间
         /// </summary>
-        [Required]
-        [MaxLength(20)]
-        public string BunkNumber { get; set; }
-
-        /// <summary>
-        /// 选择时间
-        /// </summary>
-        [Required]
-        public DateTime ChosenTime { get; set; } = DateTime.Now;
+        public DateTime DateTime { get; set; }
 
         #endregion
     }

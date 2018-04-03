@@ -241,17 +241,6 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/javascript/view/Administrator/student.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/student.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
     "outputFileName": "wwwroot/javascript/view/Administrator/register.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/register.js"
@@ -263,9 +252,31 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/goodschose.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/goodschose.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/dormitory.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/dormitory.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/servicechose.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/servicechose.js"
     ],
     "minify": {
       "enabled": true,

@@ -15,6 +15,9 @@ using PSU.IService.Areas.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using PSU.Model.Areas.Administrator.Statistics;
+using PSU.Utility.Web;
 
 namespace Controllers.PSU.Areas.Administrator
 {
@@ -81,6 +84,85 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 新生报名信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchRegister(string search)
+        {
+            RegisterViewModel webModel = JsonUtility.ToObject<RegisterViewModel>(search);
+
+            webModel = await _service.SearchRegisterAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SDate);
+
+            var returnData = new
+            {
+                data = webModel.RegisterList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.RegisterList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 新生报名信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchGoods(string search)
+        {
+            GoodsViewModel webModel = JsonUtility.ToObject<GoodsViewModel>(search);
+
+            webModel = await _service.SearchGoodsAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SGoodsName) && string.IsNullOrEmpty(webModel.SDate);
+
+            var returnData = new
+            {
+                data = webModel.GoodsList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.GoodsList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 新生预定寝室信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchDormitory(string search)
+        {
+            DormitoryViewModel webModel = JsonUtility.ToObject<DormitoryViewModel>(search);
+
+            webModel = await _service.SearchDormitoryAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SBuilding);
+
+            var returnData = new
+            {
+                data = webModel.DormitoryList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.DormitoryList.Count
+            };
+
+            return Json(returnData);
+        }
+
         #endregion
     }
 }
