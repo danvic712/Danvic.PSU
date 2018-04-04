@@ -33,24 +33,24 @@ $.dataTableSetting = {
     },
     "paging": true,
     "processing": true,
-    //"columnDefs": [
-    //    {
-    //        "targets": 6,
-    //        "data": null,
-    //        "render": function (data, type, row) {
-    //            var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
-    //                '<a id="delete" class="btn btn-xs btn-link" data-id=' + data.id + '>删除</a>';
-    //            return html;
-    //        }
-    //    }
-    //],
+    "columnDefs": [
+        {
+            "targets": 8,
+            "data": null,
+            "render": function (data, type, row) {
+                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>查看</a>';
+                return html;
+            }
+        }
+    ],
     "columns": [
-        { "data": "id" },
         { "data": "name" },
-        { "data": "goodsId" },
-        { "data": "goodsName" },
-        { "data": "size" },
-        { "data": "dateTime" },
+        { "data": "tel" },
+        { "data": "countStr" },
+        { "data": "scheduledTime" },
+        { "data": "serviceName" },
+        { "data": "departureTime" },
+        { "data": "place" },
         { "data": "remark" }
     ],
 
@@ -105,5 +105,23 @@ $(function () {
     $(document).on('click', '#search', function () {
         dataTable.fnDestroy(false);
         dataTable = $('#book-table').dataTable($.dataTableSetting);
+    });
+
+    //detail
+    $(document).on('click', '#detail', function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: '',
+            data: {
+                id: id
+            },
+            success: function (html) {
+                window.bootbox.dialog({
+                    message: html
+                });
+            }
+        });
     });
 });

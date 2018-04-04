@@ -153,6 +153,47 @@ namespace PSU.Repository.Areas.Administrator
         #endregion
 
         #region Book API
+
+        /// <summary>
+        /// 根据搜索条件获取服务预定信息
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<ServiceInfo>> GetListAsync(BookViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                return await context.Set<ServiceInfo>().Where(i => i.IsCancel == false).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.ScheduledTime).ToListAsync();
+            }
+            else
+            {
+                IQueryable<ServiceInfo> serviceInfos = context.ServiceInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<ServiceInfo>();
+
+                //迎新服务名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.ServiceName == webModel.SName);
+                }
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.Name.Contains(webModel.SStudent));
+                }
+
+                //预定日期
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.ScheduledTime.ToString("yyyy-MM-dd") == webModel.SDate);
+                }
+
+                return await serviceInfos.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
         #endregion
     }
 }

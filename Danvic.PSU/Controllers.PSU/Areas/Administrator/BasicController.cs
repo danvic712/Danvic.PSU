@@ -12,26 +12,56 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using PSU.EFCore;
+using PSU.IService.Areas.Administrator;
+using PSU.Model.Areas.Administrator.Basic;
+using PSU.Utility.Web;
 
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
     //[Authorize(Roles = "Administrator")]
-    public class BasicController:Controller
+    public class BasicController : Controller
     {
         #region Initialize
+
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
+        private readonly IBasicService _service;
+        public BasicController(IBasicService service, ILogger<BasicController> logger, ApplicationDbContext context)
+        {
+            _service = service;
+            _logger = logger;
+            _context = context;
+        }
+
         #endregion
 
         #region View
 
-        public IActionResult Branch()
+        public IActionResult Staff()
         {
             return View();
         }
 
-        public IActionResult Staff()
+        /// <summary>
+        /// 职工编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditStaff(string id)
         {
-            return View();
+            StaffEditViewModel webModel = new StaffEditViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                webModel = await _service.GetStaffAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
         }
 
         public IActionResult Region()
@@ -39,9 +69,45 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        /// <summary>
+        /// 地区编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditRegion(string id)
+        {
+            RegionEditViewModel webModel = new RegionEditViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                webModel = await _service.GetRegionAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
+        }
+
         public IActionResult Student()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 学生编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditStudent(string id)
+        {
+            StudentEditViewModel webModel = new StudentEditViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                webModel = await _service.GetStudentAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
         }
 
         public IActionResult Profile()
@@ -52,6 +118,256 @@ namespace Controllers.PSU.Areas.Administrator
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 教职工信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchStaff(string search)
+        {
+            StaffViewModel webModel = JsonUtility.ToObject<StaffViewModel>(search);
+
+            webModel = await _service.SearchStaffAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDepartment) && string.IsNullOrEmpty(webModel.SId);
+
+            var returnData = new
+            {
+                data = webModel.StaffList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.StaffList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 学生信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchStudent(string search)
+        {
+            StudentViewModel webModel = JsonUtility.ToObject<StudentViewModel>(search);
+
+            webModel = await _service.SearchStudentAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDepartment) && string.IsNullOrEmpty(webModel.SId);
+
+            var returnData = new
+            {
+                data = webModel.StudentList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.StudentList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 教职工信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchRegion(string search)
+        {
+            RegionViewModel webModel = JsonUtility.ToObject<RegionViewModel>(search);
+
+            webModel = await _service.SearchRegionAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SLevel == -1 && string.IsNullOrEmpty(webModel.SId);
+
+            var returnData = new
+            {
+                data = webModel.RegionList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.RegionList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 删除教职工数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteStaff(string id)
+        {
+            bool flag = await _service.DeleteStaffAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，教职工工号：" + id : "数据删除失败，教职工工号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 删除学生数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteStudent(string id)
+        {
+            bool flag = await _service.DeleteStudentAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，学生学号：" + id : "数据删除失败，学生学号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 删除地区数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteRegion(string id)
+        {
+            bool flag = await _service.DeleteRegionAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，地区编号：" + id : "数据删除失败，地区编号：" + id
+            });
+        }
+
+        /// <summary>
+        /// 教职工编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditStaff(StaffEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Staff
+                    flag = await _service.InsertStaffAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Staff
+                    flag = await _service.UpdateStaffAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "教职工信息编辑成功" : "教职工信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+            });
+        }
+
+        /// <summary>
+        /// 学生编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditStudent(StudentEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Student
+                    flag = await _service.InsertStudentAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Student
+                    flag = await _service.UpdateStudentAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "学生信息编辑成功" : "学生信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+            });
+        }
+
+        /// <summary>
+        /// 地区编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditRegion(RegionEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Region
+                    flag = await _service.InsertRegionAsync(webModel, _context);
+                }
+                else
+                {
+                    //Update Region
+                    flag = await _service.UpdateRegionAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "地区信息编辑成功" : "地区信息编辑失败"
+                });
+            }
+
+            //Todo:return ModelState Error Info
+            //Return First Error Information
+            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
+
+            return Json(new
+            {
+                success = false,
+                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+            });
+        }
+
         #endregion
     }
 }

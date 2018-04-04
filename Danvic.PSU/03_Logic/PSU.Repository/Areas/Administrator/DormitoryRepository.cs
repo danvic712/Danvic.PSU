@@ -31,7 +31,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async Task DeleteAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Building.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Building.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -106,7 +106,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(BuildingEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = await context.Building.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+            var model = await context.Building.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
 
             if (model == null)
             {
@@ -130,7 +130,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Building> GetBuildingAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Building.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.Building.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -145,7 +145,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async Task DeleteBunkAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bunk.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Bunk.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -216,7 +216,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(BunkEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = await context.Bunk.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+            var model = await context.Bunk.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
 
             if (model == null)
             {
@@ -236,7 +236,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Bunk> GetBunkAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bunk.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.Bunk.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -251,7 +251,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async Task DeleteDormAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Dorm.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Dorm.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -321,7 +321,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(InformationEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = await context.Dorm.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+            var model = await context.Dorm.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
 
             if (model == null)
             {
@@ -341,7 +341,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Dorm> GetDormAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Dorm.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.Dorm.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 

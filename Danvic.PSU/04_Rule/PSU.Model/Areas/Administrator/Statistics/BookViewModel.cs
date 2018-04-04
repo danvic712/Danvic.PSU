@@ -9,7 +9,6 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Statistics
 {
@@ -27,6 +26,10 @@ namespace PSU.Model.Areas.Administrator.Statistics
         /// </summary>
         public string SName { get; set; }
 
+        /// <summary>
+        /// 预定时间
+        /// </summary>
+        public string SDate { get; set; }
 
         #endregion
 
@@ -52,7 +55,47 @@ namespace PSU.Model.Areas.Administrator.Statistics
         /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
+        public string Name { get; set; }
 
+        /// <summary>
+        /// 联系方式
+        /// </summary>
+        public string Tel { get; set; }
+
+        /// <summary>
+        /// 人数
+        /// </summary>
+        public int Count { get; set; }
+
+        public string CountStr => Count + "人";
+
+        /// <summary>
+        /// 预定时间
+        /// </summary>
+        public string ScheduledTime { get; set; }
+
+        /// <summary>
+        /// 服务名称
+        /// </summary>
+        public string ServiceName { get; set; }
+
+        /// <summary>
+        /// 服务时间
+        /// </summary>
+        public string DepartureTime { get; set; }
+
+        /// <summary>
+        /// 服务地点
+        /// </summary>
+        public string Place { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark { get; set; }
 
         #endregion
     }

@@ -72,7 +72,7 @@ namespace PSU.Repository
         /// <returns></returns>
         public static async Task<Region> GetRegionAsync(long id, ApplicationDbContext context)
         {
-            return await context.Region.SingleOrDefaultAsync(i => i.Id == id);
+            return await context.Region.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         #endregion

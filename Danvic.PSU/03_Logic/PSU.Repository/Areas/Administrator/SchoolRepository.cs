@@ -10,15 +10,14 @@
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
+using PSU.Entity.Basic;
 using PSU.Entity.School;
 using PSU.Model.Areas.Administrator.School;
+using PSU.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using PSU.Utility;
-using PSU.Entity.Basic;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -34,7 +33,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task DeleteAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Department.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -47,7 +46,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Department> GetAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Department.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.Department.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -113,7 +112,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(DepartmentEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = await context.Department.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+            var model = await context.Department.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
 
             if (model == null)
             {
@@ -135,7 +134,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task DeleteMajorClassAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.MajorClass.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.MajorClass.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -198,7 +197,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<MajorClass> GetMajorClassAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.MajorClass.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.MajorClass.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -209,7 +208,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Staff>> GetStaffList(ApplicationDbContext context)
         {
-            return await context.Staff.Where(i => i.IsEnabled == true).ToListAsync();
+            return await context.Staff.Where(i => i.IsEnabled).ToListAsync();
         }
 
         /// <summary>
@@ -224,8 +223,8 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).SingleOrDefaultAsync();
-            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).SingleOrDefaultAsync();
+            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
+            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;
@@ -245,7 +244,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = await context.MajorClass.SingleOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+            var model = await context.MajorClass.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
 
             if (model == null)
             {
@@ -256,8 +255,8 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).SingleOrDefaultAsync();
-            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).SingleOrDefaultAsync();
+            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
+            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;

@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Administrator-Basic-职工账户列表页面 View Model
 //-----------------------------------------------------------------------
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Basic
 {
@@ -52,9 +50,36 @@ namespace PSU.Model.Areas.Administrator.Basic
         #region Table
 
         /// <summary>
-        /// 编号
+        /// 工号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 用户姓名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public bool Gender { get; set; }
+
+        public string GenderStr => Gender ? "男" : "女";
+
+        /// <summary>
+        /// 登录账户名
+        /// </summary>
+        public string Account { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 所属部门
+        /// </summary>
+        public string Department { get; set; }
 
         #endregion
     }

@@ -152,7 +152,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async Task DeleteAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bulletin.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Bulletin.FirstOrDefaultAsync(i => i.Id == id);
 
             context.Remove(model);
         }
@@ -165,7 +165,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Bulletin> GetEntityAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bulletin.Where(i => i.Id == id).SingleOrDefaultAsync();
+            var model = await context.Bulletin.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -242,7 +242,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="context">数据库上下文对象</param>
         public static async void UpdateAsync(long id, string title, short target, short type, string content, ApplicationDbContext context)
         {
-            var model = await context.Bulletin.SingleOrDefaultAsync(i => i.Id == id);
+            var model = await context.Bulletin.FirstOrDefaultAsync(i => i.Id == id);
 
             if (model == null)
             {

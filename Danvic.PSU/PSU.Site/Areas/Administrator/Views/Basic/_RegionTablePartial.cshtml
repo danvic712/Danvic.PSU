@@ -1,7 +1,7 @@
 ﻿<div class="col-xs-12">
     <div class="box">
         <div class="box-body">
-            <table id="bulletin-table" class="table table-bordered table-striped">
+            <table id="region-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th class="text-center">编号</th>
@@ -11,30 +11,7 @@
                         <th class="text-center">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < 15; i++)
-                    {
-                        <tr class="text-center">
-                            @{
-                                int num = 20171011 + i;
-                            }
-                            <td>@num</td>
-                            <td>芜湖市</td>
-                            <td>安徽省</td>
-                            <td>地级行政区</td>
-                            <td>
-                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
-                                    <i class="fa fa-pencil"></i>
-                                    编辑
-                                </a>
-                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link" id="delete">
-                                    <i class="fa fa-trash-o"></i>
-                                    删除
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                <tbody class="text-center"></tbody>
             </table>
         </div>
     </div>

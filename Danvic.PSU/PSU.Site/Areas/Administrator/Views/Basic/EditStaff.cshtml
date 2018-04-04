@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "教师账户";
+    ViewData["NavTitle"] = "基础信息管理";
+    ViewData["CurrName"] = "职工账户管理";
+}
+
+<section class="content-header">
+    <h1>
+        职工账户
+        <small>Staff Data</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li>基础信息</li>
+        <li>
+            <a asp-area="Administrator" asp-controller="Basic" asp-action="Staff">
+                职工账户
+            </a>
+        </li>
+        <li class="active">编辑</li>
+    </ol>
+</section>
+

@@ -23,7 +23,7 @@ namespace PSU.Site
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Initialize(context);
                 }
-                logger.Debug("开始捕获全局错误信息：");
+                logger.Info("开始记录程序执行信息：");
                 host.Run();
             }
             catch (Exception exception)

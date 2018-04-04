@@ -81,6 +81,17 @@ namespace Controllers.PSU.Areas.Administrator
             return View();
         }
 
+        /// <summary>
+        /// 服务预定信息详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> BookInfo(string id)
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service
@@ -158,6 +169,32 @@ namespace Controllers.PSU.Areas.Administrator
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
                 total = webModel.DormitoryList.Count
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 新生服务预定信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchService(string search)
+        {
+            BookViewModel webModel = JsonUtility.ToObject<BookViewModel>(search);
+
+            webModel = await _service.SearchBookAsync(webModel, _context);
+          
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SDate);
+
+            var returnData = new
+            {
+                data = webModel.BookList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.BookList.Count
             };
 
             return Json(returnData);

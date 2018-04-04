@@ -169,9 +169,39 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<BookViewModel> SearchBookAsync(BookViewModel webModel, ApplicationDbContext context)
+        public async Task<BookViewModel> SearchBookAsync(BookViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await StatisticsRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<BookData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new BookData
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        Count = item.Count,
+                        ScheduledTime = item.ScheduledTime.ToString("yyyy-MM-dd HH:mm"),
+                        ServiceName = item.ServiceName,
+                        DepartureTime = item.DepartureTime.ToString("yyyy-MM-dd HH:mm"),
+                        Place = item.Place,
+                        Remark = item.Remark.Length > 20 ? item.Remark.Substring(0, 20) : item.Remark
+                    }));
+                }
+
+                webModel.BookList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取迎新服务预定列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion

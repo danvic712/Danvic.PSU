@@ -30,15 +30,24 @@ namespace PSU.Entity.SignUp
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 预订人姓名
+        /// 学生学号
         /// </summary>
+        [Required]
+        public string StudentId { get; set; }
+
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
+        [Required]
         [MaxLength(20)]
         public string Name { get; set; }
 
         /// <summary>
         /// 联系方式
         /// </summary>
-        public int Tel { get; set; }
+        [Required]
+        [MaxLength(20)]
+        public string Tel { get; set; }
 
         /// <summary>
         /// 人数
@@ -51,12 +60,25 @@ namespace PSU.Entity.SignUp
         public DateTime ScheduledTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 预计出发时间
+        /// 服务编号
+        /// </summary>
+        [Required]
+        public long ServiceId { get; set; }
+
+        /// <summary>
+        /// 服务名称
+        /// </summary>
+        [Required]
+        [MaxLength(30)]
+        public string ServiceName { get; set; }
+
+        /// <summary>
+        /// 服务时间
         /// </summary>
         public DateTime DepartureTime { get; set; }
 
         /// <summary>
-        /// 出发地点
+        /// 服务地点
         /// </summary>
         [MaxLength(20)]
         public string Place { get; set; }

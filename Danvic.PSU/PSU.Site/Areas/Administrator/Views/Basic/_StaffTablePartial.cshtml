@@ -1,46 +1,19 @@
 ﻿<div class="col-xs-12">
     <div class="box">
         <div class="box-body">
-            <table id="bulletin-table" class="table table-bordered table-striped">
+            <table id="staff-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th class="text-center">工号</th>
                         <th class="text-center">姓名</th>
+                        <th class="text-center">性别</th>
                         <th class="text-center">登录账户</th>
                         <th class="text-center">手机号</th>
                         <th class="text-center">所属部门</th>
-                        <th class="text-center">部门负责人</th>
-                        <th class="text-center">学校负责人</th>
                         <th class="text-center">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < 15; i++)
-                    {
-                        <tr class="text-center">
-                            @{
-                                int num = 20171011 + i;
-                            }
-                            <td>@num</td>
-                            <td>张三</td>
-                            <td>zhangsan@example.com</td>
-                            <td>13912345678</td>
-                            <td>计算机与软件工程系</td>
-                            <td>否</td>
-                            <td>否</td>
-                            <td>
-                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link">
-                                    <i class="fa fa-pencil"></i>
-                                    编辑
-                                </a>
-                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-xs btn-link" id="delete">
-                                    <i class="fa fa-trash-o"></i>
-                                    删除
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                <tbody class="text-center"></tbody>
             </table>
         </div>
     </div>
