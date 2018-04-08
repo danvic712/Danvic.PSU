@@ -7,13 +7,10 @@
 // Modified by:
 // Description: 数据库创建数据初始化
 //-----------------------------------------------------------------------
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using PSU.Entity.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace PSU.EFCore
 {
@@ -26,8 +23,6 @@ namespace PSU.EFCore
             if (context.IdentityUser.Any())
                 return;
 
-            //UserManager<AppUser> userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
-
             //AppUser user = new AppUser
             //{
             //    UserName = "Admin",
@@ -37,15 +32,41 @@ namespace PSU.EFCore
             //context.IdentityUser.Add(user);
             //context.SaveChanges();
 
-            //AppRole role = new AppRole
-            //{
-
-            //};
-            //context.IdentityRole.Add(role);
-            //context.SaveChanges();
 
 
 
+            InitializerRole(context);
+
+        }
+
+        /// <summary>
+        /// 初始化角色信息
+        /// </summary>
+        /// <param name="context"></param>
+        private static void InitializerRole(ApplicationDbContext context)
+        {
+            var admin = new AppRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Administrator"
+            };
+
+            var instructor = new AppRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Instructor"
+            };
+
+            var student = new AppRole
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Student"
+            };
+
+            var list = new List<AppRole> { admin, instructor, student };
+
+            context.IdentityRole.AddRange(list);
+            context.SaveChanges();
         }
     }
 }
