@@ -35,7 +35,7 @@ $.dataTableSetting = {
     "processing": true,
     "columnDefs": [
         {
-            "targets": 6,
+            "targets": 7,
             "data": null,
             "render": function (data, type, row) {
                 var html = '<a id="edit" class="btn btn-xs btn-link" data-id=' + data.id + '>编辑</a>' +
@@ -50,7 +50,8 @@ $.dataTableSetting = {
         { "data": "genderStr" },
         { "data": "account" },
         { "data": "phone" },
-        { "data": "department" }
+        { "data": "department" },
+        { "data": "majorClass" }
     ],
 
     ajax: function (data, callback, settings) {
@@ -60,7 +61,7 @@ $.dataTableSetting = {
         param.Page = (data.start / data.length) + 1;//当前页码
         param.SId = $('#code').val();//迎新服务名称
         param.SName = $('#name').val();//迎新服务地点
-        param.SDepartment = $('#department').val();//服务时间
+        param.SMajorClass = $('#majorclass').val();//服务时间
 
         //ajax请求数据
         $.ajax({

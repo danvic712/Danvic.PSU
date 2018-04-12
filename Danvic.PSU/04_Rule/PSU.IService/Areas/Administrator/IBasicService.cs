@@ -122,49 +122,5 @@ namespace PSU.IService.Areas.Administrator
         Task<bool> UpdateStudentAsync(StudentEditViewModel webModel, ApplicationDbContext context);
 
         #endregion
-
-        #region Basic-Region
-
-        /// <summary>
-        /// 删除数据
-        /// </summary>
-        /// <param name="id">地区编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> DeleteRegionAsync(long id, ApplicationDbContext context);
-
-        /// <summary>
-        /// 查找数据
-        /// </summary>
-        /// <param name="id">地区编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<RegionEditViewModel> GetRegionAsync(long id, ApplicationDbContext context);
-
-        /// <summary>
-        /// 新增数据
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> InsertRegionAsync(RegionEditViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 搜索数据
-        /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<RegionViewModel> SearchRegionAsync(RegionViewModel webModel, ApplicationDbContext context);
-
-        /// <summary>
-        /// 更新数据
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        Task<bool> UpdateRegionAsync(RegionEditViewModel webModel, ApplicationDbContext context);
-
-        #endregion
     }
 }

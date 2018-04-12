@@ -7,11 +7,9 @@
 // Modified by:
 // Description: 学生信息表
 //-----------------------------------------------------------------------
-using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Basic
 {
@@ -84,10 +82,20 @@ namespace PSU.Entity.Basic
         public string Winning { get; set; }
 
         /// <summary>
+        /// 省份代码
+        /// </summary>
+        public int ProvinceId { get; set; }
+
+        /// <summary>
         /// 省份名称
         /// </summary>
         [MaxLength(50)]
         public string Province { get; set; }
+
+        /// <summary>
+        /// 城市代码
+        /// </summary>
+        public int CityId { get; set; }
 
         /// <summary>
         /// 城市名称
@@ -96,10 +104,20 @@ namespace PSU.Entity.Basic
         public string City { get; set; }
 
         /// <summary>
+        /// 县区Id
+        /// </summary>
+        public int DistrictId { get; set; }
+
+        /// <summary>
         /// 县区名称
         /// </summary>
         [MaxLength(50)]
         public string District { get; set; }
+
+        /// <summary>
+        /// 院系编号
+        /// </summary>
+        public long DepartmentId { get; set; }
 
         /// <summary>
         /// 院系名称
@@ -107,6 +125,11 @@ namespace PSU.Entity.Basic
         [Required]
         [MaxLength(20)]
         public string Department { get; set; }
+
+        /// <summary>
+        /// 专业班级编号
+        /// </summary>
+        public long MajorClassId { get; set; }
 
         /// <summary>
         /// 专业班级
@@ -150,33 +173,6 @@ namespace PSU.Entity.Basic
         /// 账号主键
         /// </summary>
         public string IdentityUserFK { get; set; }
-
-        /// <summary>
-        /// 省份主键
-        /// </summary>
-        public string ProvinceFK { get; set; }
-
-        /// <summary>
-        /// 城市主键
-        /// </summary>
-        public string CityFK { get; set; }
-
-        /// <summary>
-        /// 县区主键
-        /// </summary>
-        public string DistrictFK { get; set; }
-
-        [ForeignKey("IdentityUserFK")]
-        public virtual AppUser IdentityUser { get; set; }
-
-        [ForeignKey("ProvinceFK")]
-        public virtual Region SProvince { get; set; }
-
-        [ForeignKey("CityFK")]
-        public virtual Region SCity { get; set; }
-
-        [ForeignKey("DistrictFK")]
-        public virtual Region SDistrict { get; set; }
 
         #endregion
     }

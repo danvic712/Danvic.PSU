@@ -64,29 +64,6 @@ namespace Controllers.PSU.Areas.Administrator
             return View(webModel);
         }
 
-        public IActionResult Region()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 地区编辑页面
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> EditRegion(string id)
-        {
-            RegionEditViewModel webModel = new RegionEditViewModel();
-
-            if (!string.IsNullOrEmpty(id))
-            {
-                webModel = await _service.GetRegionAsync(Convert.ToInt64(id), _context);
-            }
-
-            return View(webModel);
-        }
-
         public IActionResult Student()
         {
             return View();
@@ -158,7 +135,7 @@ namespace Controllers.PSU.Areas.Administrator
             webModel = await _service.SearchStudentAsync(webModel, _context);
 
             //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDepartment) && string.IsNullOrEmpty(webModel.SId);
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId);
 
             var returnData = new
             {
@@ -166,32 +143,6 @@ namespace Controllers.PSU.Areas.Administrator
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
                 total = webModel.StudentList.Count
-            };
-
-            return Json(returnData);
-        }
-
-        /// <summary>
-        /// 教职工信息页面搜索
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> SearchRegion(string search)
-        {
-            RegionViewModel webModel = JsonUtility.ToObject<RegionViewModel>(search);
-
-            webModel = await _service.SearchRegionAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SLevel == -1 && string.IsNullOrEmpty(webModel.SId);
-
-            var returnData = new
-            {
-                data = webModel.RegionList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.RegionList.Count
             };
 
             return Json(returnData);
@@ -228,23 +179,6 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 sueeess = flag,
                 msg = flag ? "数据删除成功，学生学号：" + id : "数据删除失败，学生学号：" + id
-            });
-        }
-
-        /// <summary>
-        /// 删除地区数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> DeleteRegion(string id)
-        {
-            bool flag = await _service.DeleteRegionAsync(Convert.ToInt64(id), _context);
-
-            return Json(new
-            {
-                sueeess = flag,
-                msg = flag ? "数据删除成功，地区编号：" + id : "数据删除失败，地区编号：" + id
             });
         }
 
@@ -314,46 +248,6 @@ namespace Controllers.PSU.Areas.Administrator
                 {
                     success = flag,
                     msg = flag ? "学生信息编辑成功" : "学生信息编辑失败"
-                });
-            }
-
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
-            return Json(new
-            {
-                success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
-            });
-        }
-
-        /// <summary>
-        /// 地区编辑页面
-        /// </summary>
-        /// <param name="webModel"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> EditRegion(RegionEditViewModel webModel)
-        {
-            if (ModelState.IsValid)
-            {
-                bool flag;
-                if (string.IsNullOrEmpty(webModel.Id))
-                {
-                    //Add Region
-                    flag = await _service.InsertRegionAsync(webModel, _context);
-                }
-                else
-                {
-                    //Update Region
-                    flag = await _service.UpdateRegionAsync(webModel, _context);
-                }
-
-                return Json(new
-                {
-                    success = flag,
-                    msg = flag ? "地区信息编辑成功" : "地区信息编辑失败"
                 });
             }
 

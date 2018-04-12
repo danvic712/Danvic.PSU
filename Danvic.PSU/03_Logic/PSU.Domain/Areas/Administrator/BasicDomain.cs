@@ -11,7 +11,11 @@ using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Basic;
+using PSU.Repository;
+using PSU.Repository.Areas.Administrator;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PSU.Domain.Areas.Administrator
@@ -96,9 +100,44 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<StaffViewModel> SearchStaffAsync(StaffViewModel webModel, ApplicationDbContext context)
+        public async Task<StaffViewModel> SearchStaffAsync(StaffViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await BasicRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<StaffData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var appUser = await PSURepository.GetUserAsync(item.IdentityUserFK, context);
+
+                        var staff = new StaffData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            Gender = item.Gender,
+                            Account = appUser.UserName,
+                            Phone = appUser.PhoneNumber,
+                            Department = item.Department
+                        };
+
+                        dataList.Add(staff);
+                    }
+                }
+
+                webModel.StaffList = dataList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取教职工信息列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -155,9 +194,45 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<StudentViewModel> SearchStudentAsync(StudentViewModel webModel, ApplicationDbContext context)
+        public async Task<StudentViewModel> SearchStudentAsync(StudentViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await BasicRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<StudentData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var appUser = await PSURepository.GetUserAsync(item.IdentityUserFK, context);
+
+                        var student = new StudentData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            Gender = item.Gender,
+                            Account = appUser.UserName,
+                            Phone = appUser.PhoneNumber,
+                            Department = item.Department,
+                            MajorClass = item.MajorClass
+                        };
+
+                        dataList.Add(student);
+                    }
+                }
+
+                webModel.StudentList = dataList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取学生信息列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -167,65 +242,6 @@ namespace PSU.Domain.Areas.Administrator
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         public Task<bool> UpdateStudentAsync(StudentEditViewModel webModel, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Region Interface Service Implement
-
-        /// <summary>
-        ///删除地区信息
-        /// </summary>
-        /// <param name="id">地区编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<bool> DeleteRegionAsync(long id, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 获取地区信息
-        /// </summary>
-        /// <param name="id">地区编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<RegionEditViewModel> GetRegionAsync(long id, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 新增地区信息
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<bool> InsertRegionAsync(RegionEditViewModel webModel, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 搜索地区信息
-        /// </summary>
-        /// <param name="webModel">列表页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<RegionViewModel> SearchRegionAsync(RegionViewModel webModel, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 更新地区信息
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<bool> UpdateRegionAsync(RegionEditViewModel webModel, ApplicationDbContext context)
         {
             throw new NotImplementedException();
         }

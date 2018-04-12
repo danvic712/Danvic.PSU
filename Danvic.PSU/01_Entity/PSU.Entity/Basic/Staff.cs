@@ -55,6 +55,11 @@ namespace PSU.Entity.Basic
         public string Address { get; set; }
 
         /// <summary>
+        /// 所属院系、部门编号
+        /// </summary>
+        public long DepartmentId { get; set; }
+        
+        /// <summary>
         /// 所属院系、部门
         /// </summary>
         [MaxLength(50)]

@@ -60,11 +60,6 @@ namespace PSU.EFCore
         public virtual DbSet<Record> Record { get; set; }
 
         /// <summary>
-        /// 地区信息表
-        /// </summary>
-        public virtual DbSet<Region> Region { get; set; }
-
-        /// <summary>
         /// 教职工信息表
         /// </summary>
         public virtual DbSet<Staff> Staff { get; set; }
@@ -151,7 +146,6 @@ namespace PSU.EFCore
             modelBuilder.Entity<Service>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Bulletin>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 
-            modelBuilder.Entity<Region>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Staff>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Student>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 

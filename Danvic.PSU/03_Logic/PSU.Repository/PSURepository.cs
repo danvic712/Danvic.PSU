@@ -14,6 +14,7 @@ using PSU.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PSU.Entity.Identity;
 
 namespace PSU.Repository
 {
@@ -30,7 +31,7 @@ namespace PSU.Repository
 
         #endregion
 
-        #region Service
+        #region Service-Record
 
         /// <summary>
         /// 插入操作信息
@@ -61,18 +62,22 @@ namespace PSU.Repository
         /// <returns></returns>
         public static async Task<List<Record>> GetRecordListAsync(long objId, ApplicationDbContext context)
         {
-            return await context.Record.Where(i => i.TableId == objId).ToListAsync();
+            return await context.Record.AsNoTracking().Where(i => i.TableId == objId).ToListAsync();
         }
 
+        #endregion
+
+        #region Service-IdentityUser
+
         /// <summary>
-        /// 获取地区相关信息
+        /// 获取用户账号表相关信息
         /// </summary>
-        /// <param name="id">地区信息编号</param>
+        /// <param name="oid">教职工/学生用户关联的账号表主键</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<Region> GetRegionAsync(long id, ApplicationDbContext context)
+        public static async Task<AppUser> GetUserAsync(string oid, ApplicationDbContext context)
         {
-            return await context.Region.FirstOrDefaultAsync(i => i.Id == id);
+            return await context.IdentityUser.AsNoTracking().FirstOrDefaultAsync(i => i.Id == oid);
         }
 
         #endregion

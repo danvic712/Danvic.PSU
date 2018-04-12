@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Administrator-Basic-学生账户列表页面 View Model
 //-----------------------------------------------------------------------
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PSU.Model.Areas.Administrator.Basic
 {
@@ -28,9 +26,9 @@ namespace PSU.Model.Areas.Administrator.Basic
         public string SName { get; set; }
 
         /// <summary>
-        /// 所属院系
+        /// 所属班级
         /// </summary>
-        public string SDepartment { get; set; }
+        public string SMajorClass { get; set; }
 
         #endregion
 
@@ -49,9 +47,41 @@ namespace PSU.Model.Areas.Administrator.Basic
         #region Table
 
         /// <summary>
-        /// 编号
+        /// 学号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public bool Gender { get; set; }
+
+        public string GenderStr => Gender ? "男" : "女";
+
+        /// <summary>
+        /// 登录账号
+        /// </summary>
+        public string Account { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 所属院系
+        /// </summary>
+        public string Department { get; set; }
+
+        /// <summary>
+        /// 专业班级名称
+        /// </summary>
+        public string MajorClass { get; set; }
 
         #endregion
     }
