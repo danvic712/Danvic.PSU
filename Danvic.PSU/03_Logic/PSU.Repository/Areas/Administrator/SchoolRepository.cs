@@ -288,7 +288,7 @@ namespace PSU.Repository.Areas.Administrator
                 Email = string.IsNullOrEmpty(webModel.Email) ? "" : webModel.Email,
                 Introduction = string.IsNullOrEmpty(webModel.Introduction) ? "" : webModel.Introduction,
                 IsEnabled = (int)webModel.IsEnabled == 1,
-                CreatedBy = string.IsNullOrEmpty(CurrentUser.UserId) ? "" : CurrentUser.UserId,
+                CreatedBy = string.IsNullOrEmpty(CurrentUser.UserOID) ? "" : CurrentUser.UserOID,
                 CreatedName = string.IsNullOrEmpty(CurrentUser.UserName) ? "" : CurrentUser.UserName
             };
         }
@@ -310,7 +310,7 @@ namespace PSU.Repository.Areas.Administrator
                 QQ = webModel.QQ,
                 InstructorId = Convert.ToInt64(webModel.InstructorId),
                 DepartmentId = Convert.ToInt64(webModel.DepartmentId),
-                CreatedBy = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
         }
@@ -333,7 +333,7 @@ namespace PSU.Repository.Areas.Administrator
             model.Introduction = webModel.Introduction;
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
 
             return model;
@@ -355,7 +355,7 @@ namespace PSU.Repository.Areas.Administrator
             model.InstructorId = Convert.ToInt64(webModel.InstructorId);
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
 
             return model;

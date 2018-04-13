@@ -99,10 +99,12 @@ $(function () {
     var dataTable = $('#question-table').dataTable($.dataTableSetting);
 
     //search
-    $(document).on('click', '#search', function () {
-        dataTable.fnDestroy(false);
-        dataTable = $('#question-table').dataTable($.dataTableSetting);
-    });
+    $(document).on('click',
+        '#search',
+        function () {
+            dataTable.fnDestroy(false);
+            dataTable = $('#question-table').dataTable($.dataTableSetting);
+        });
 
     //reply
     $(document).on('click',

@@ -30,16 +30,43 @@ namespace PSU.Entity.Basic
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 操作表编号
+        /// 操作修改表
         /// </summary>
         [Required]
-        public long TableId { get; set; }
+        [MaxLength(50)]
+        public string TableName { get; set; }
+
+        /// <summary>
+        /// 操作方法所在类
+        /// </summary>
+        [Required]
+        [MaxLength(50)]
+        public string ClassName { get; set; }
+
+        /// <summary>
+        /// 操作方法名称
+        /// </summary>
+        [Required]
+        [MaxLength(50)]
+        public string MethodName { get; set; }
+
+        /// <summary>
+        /// 数据项对应编号
+        /// </summary>
+        [Required]
+        public long DataId { get; set; }
+
+        /// <summary>
+        /// 操作人主键
+        /// </summary>
+        [Required]
+        public string UserOID { get; set; }
 
         /// <summary>
         /// 操作人编号
         /// </summary>
         [Required]
-        public string UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 操作人姓名

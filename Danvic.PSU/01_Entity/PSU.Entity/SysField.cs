@@ -17,6 +17,11 @@ namespace PSU.Entity
         #region Attribute
 
         /// <summary>
+        /// 创建人Id
+        /// </summary>
+        public long CreatedId { get; set; }
+
+        /// <summary>
         /// 创建人主键
         /// </summary>
         public string CreatedBy { get; set; }
@@ -31,6 +36,11 @@ namespace PSU.Entity
         /// 创建时间
         /// </summary>
         public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// 修改人Id
+        /// </summary>
+        public long ModifiedId { get; set; }
 
         /// <summary>
         /// 修改人主键

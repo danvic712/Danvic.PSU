@@ -223,7 +223,7 @@ namespace PSU.Repository.Areas.Administrator
                 Content = content,
                 Type = type,
                 Target = target,
-                CreatedBy = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
 
@@ -253,7 +253,7 @@ namespace PSU.Repository.Areas.Administrator
             model.Target = target;
             model.Type = type;
             model.Content = content;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
             model.ModifiedOn = DateTime.Now;
         }

@@ -46,7 +46,7 @@ namespace PSU.Repository
             {
                 Operate = operate,
                 Type = type,
-                TableId = tableId,
+                DataId = tableId,
                 UserId = CurrentUser.UserId,
                 UserName = CurrentUser.UserName
             };
@@ -62,7 +62,7 @@ namespace PSU.Repository
         /// <returns></returns>
         public static async Task<List<Record>> GetRecordListAsync(long objId, ApplicationDbContext context)
         {
-            return await context.Record.AsNoTracking().Where(i => i.TableId == objId).ToListAsync();
+            return await context.Record.AsNoTracking().Where(i => i.DataId == objId).ToListAsync();
         }
 
         #endregion

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace PSU.Model.Areas.Instructor.Question
 {
-    public class QuestionViewModel
+    public class QuestionViewModel : PagingViewModel
     {
         #region Search
 

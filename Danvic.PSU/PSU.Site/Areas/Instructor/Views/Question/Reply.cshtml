@@ -1,25 +1,24 @@
 ﻿
 @{
-    ViewData["Title"] = "学生疑问";
-    ViewData["NavTitle"] = "入学信息管理";
-    ViewData["CurrName"] = "学生疑问管理";
+    ViewData["Title"] = "新生疑问";
+    ViewData["NavTitle"] = "新生疑问管理";
+    ViewData["CurrName"] = "";
 }
 
 <section class="content-header">
     <h1>
-        学生疑问
+        新生疑问
         <small>Student's Question</small>
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
+            <a asp-area="Instructor" asp-controller="Home" asp-action="Index">
                 <i class="fa fa-dashboard"></i> 首页
             </a>
         </li>
-        <li>入学信息</li>
         <li>
             <a asp-area="Administrator" asp-controller="Admission" asp-action="Question">
-                <i class="fa fa-dashboard"></i> 学生疑问
+                <i class="fa fa-dashboard"></i> 新生疑问
             </a>
         </li>
         <li class="active">回复</li>

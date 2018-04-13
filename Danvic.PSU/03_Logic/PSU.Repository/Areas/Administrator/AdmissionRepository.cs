@@ -33,7 +33,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && string.IsNullOrEmpty(webModel.SDate))
             {
-                return await context.Set<Service>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Service>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -77,7 +77,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SId) && webModel.SEnable == -1)
             {
-                return await context.Set<Goods>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Goods>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -113,7 +113,7 @@ namespace PSU.Repository.Areas.Administrator
         #region Question API
 
         /// <summary>
-        /// 根据学生疑问信息
+        /// 根据学生疑问信息搜索数据
         /// </summary>
         /// <param name="webModel">列表页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
@@ -122,7 +122,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SAskFor) && string.IsNullOrEmpty(webModel.SDateTime) && webModel.IsReply == -1)
             {
-                return await context.Set<Question>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.AskTime).ToListAsync();
+                return await context.Set<Question>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.AskTime).ToListAsync();
             }
             else
             {

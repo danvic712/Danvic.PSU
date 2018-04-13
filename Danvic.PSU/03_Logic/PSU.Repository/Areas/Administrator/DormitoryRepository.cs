@@ -91,7 +91,7 @@ namespace PSU.Repository.Areas.Administrator
                 Floor = webModel.Floor,
                 Type = Convert.ToInt16(webModel.Type),
                 IsEnabled = (int)webModel.IsEnabled == 1,
-                CreatedBy = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
             await context.Building.AddAsync(model);
@@ -118,7 +118,7 @@ namespace PSU.Repository.Areas.Administrator
             model.Type = Convert.ToInt16(webModel.Type);
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
         }
 
@@ -201,7 +201,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             var model = new Bunk
             {
-                CreatedBy = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
             await context.Bunk.AddAsync(model);
@@ -224,7 +224,7 @@ namespace PSU.Repository.Areas.Administrator
             }
 
             model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
         }
 
@@ -306,7 +306,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             var model = new Dorm
             {
-                CreatedBy = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
             await context.Dorm.AddAsync(model);
@@ -329,7 +329,7 @@ namespace PSU.Repository.Areas.Administrator
             }
 
             model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
         }
 

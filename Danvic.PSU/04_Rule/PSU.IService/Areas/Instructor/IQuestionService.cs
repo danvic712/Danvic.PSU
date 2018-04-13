@@ -7,13 +7,40 @@
 // Modified by:
 // Description: Instructor-Question控制器邻域功能接口
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PSU.EFCore;
+using PSU.Model.Areas.Instructor.Question;
+using System.Threading.Tasks;
 
 namespace PSU.IService.Areas.Instructor
 {
     public interface IQuestionService
     {
+        #region Question 
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">问题编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<QuestionReplyViewModel> GetQuestionAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="id">问题编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<QuestionReplyViewModel> ReplyQuestionAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<QuestionViewModel> SearchQuestionAsync(QuestionViewModel webModel, ApplicationDbContext context);
+
+        #endregion
     }
 }

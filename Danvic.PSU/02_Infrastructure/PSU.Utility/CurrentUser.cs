@@ -31,14 +31,24 @@ namespace PSU.Utility
         #region Attribute
 
         /// <summary>
+        /// 用户主键
+        /// </summary>
+        public static string UserOID
+        {
+            //get => _session == null ? "" : _session.GetString("CurrentUser_UserOID");
+            //set => _session.SetString("CurrentUser_UserOID", value);
+            get; set;
+        } = "";
+
+        /// <summary>
         ///用户编号 
         /// </summary>
-        public static string UserId
+        public static long UserId
         {
             //get => _session == null ? "" : _session.GetString("CurrentUser_UserId");
             //set => _session.SetString("CurrentUser_UserId", value);
             get; set;
-        } = "";
+        } = 0;
 
         /// <summary>
         /// 用户姓名
@@ -47,6 +57,16 @@ namespace PSU.Utility
         {
             //get => _session == null ? "" : _session.GetString("CurrentUser_UserName");
             //set => _session.SetString("CurrentUser_UserName", value);
+            get; set;
+        } = "";
+
+        /// <summary>
+        /// 用户登录账户
+        /// </summary>
+        public static string UserAccount
+        {
+            //get => _session == null ? "" : _session.GetString("CurrentUser_UserAccount");
+            //set => _session.SetString("CurrentUser_UserAccount", value);
             get; set;
         } = "";
 
