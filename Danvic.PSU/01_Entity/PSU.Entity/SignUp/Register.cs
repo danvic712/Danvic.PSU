@@ -42,6 +42,12 @@ namespace PSU.Entity.SignUp
         public long StudentId { get; set; }
 
         /// <summary>
+        /// 院系Id
+        /// </summary>
+        [Required]
+        public long DepartmentId { get; set; }
+
+        /// <summary>
         /// 院系名称
         /// </summary>
         [Required]
@@ -49,11 +55,30 @@ namespace PSU.Entity.SignUp
         public string Department { get; set; }
 
         /// <summary>
+        /// 专业班级Id
+        /// </summary>
+        [Required]
+        public long MajorClassId { get; set; }
+
+        /// <summary>
         /// 专业班级
         /// </summary>
         [Required]
         [MaxLength(20)]
         public string MajorClass { get; set; }
+
+        /// <summary>
+        /// 辅导员Id
+        /// </summary>
+        [Required]
+        public long InstructorId { get; set; }
+
+        /// <summary>
+        /// 辅导员姓名
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string Instructor { get; set; }
 
         /// <summary>
         /// 来校方式

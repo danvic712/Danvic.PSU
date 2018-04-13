@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">学生姓名：</label>
+                <label class="control-label col-md-5 col-xs-4" for="name">学生姓名：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="name" type="text" class="form-control">
                     <div class="input-group-addon">
@@ -33,25 +33,21 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">报名日期：</label>
+                <label class="control-label col-md-5 col-xs-4" for="majorclass">专业班级：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="majorclass" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-institution"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label col-md-5 col-xs-4" for="datetime">到校时间：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="datetime" class="form-control date-picker" type="text" readonly />
                     <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </span>
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">到达地点：</label>
-                <div class="input-group col-md-7 col-xs-8">
-                    <select name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">火车站</option>
-                        <option value="">汽车站</option>
-                        <option value="">飞机场</option>
-                        <option value="">港口</option>
-                        <option value="">学校</option>
-                    </select>
                 </div>
             </div>
             <div class="form-group col-md-3">
@@ -68,7 +64,7 @@
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/view/Instructor/register.js"></script>
+        <script src="~/javascript/view/Instructor/register.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/javascript/view/Instructor/register.min.js" asp-append-version="true"></script>

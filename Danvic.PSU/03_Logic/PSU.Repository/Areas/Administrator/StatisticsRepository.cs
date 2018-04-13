@@ -32,7 +32,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SDate))
             {
-                return await context.Set<Register>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+                return await context.Set<Register>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
             }
             else
             {
@@ -76,7 +76,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SGoodsName) && string.IsNullOrEmpty(webModel.SDate))
             {
-                return await context.Set<GoodsInfo>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.ChosenTime).ToListAsync();
+                return await context.Set<GoodsInfo>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.ChosenTime).ToListAsync();
             }
             else
             {
@@ -120,7 +120,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SBuilding) && string.IsNullOrEmpty(webModel.SStudent))
             {
-                return await context.Set<BunkInfo>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+                return await context.Set<BunkInfo>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
             }
             else
             {
@@ -164,7 +164,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SDate))
             {
-                return await context.Set<ServiceInfo>().Where(i => i.IsCancel == false).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.ScheduledTime).ToListAsync();
+                return await context.Set<ServiceInfo>().AsNoTracking().Where(i => i.IsCancel == false).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.ScheduledTime).ToListAsync();
             }
             else
             {

@@ -123,7 +123,7 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 新生报名信息页面搜索
+        /// 新生预定物品信息页面搜索
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>

@@ -7,13 +7,36 @@
 // Modified by:
 // Description: Instructor-Newborn控制器邻域功能接口
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PSU.EFCore;
+using PSU.Model.Areas.Instructor.Newborn;
+using System.Threading.Tasks;
 
 namespace PSU.IService.Areas.Instructor
 {
     public interface INewbornService
     {
+        #region Newborn-Register
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<RegisterViewModel> SearchRegisterAsync(RegisterViewModel webModel, ApplicationDbContext context);
+
+        #endregion
+
+        #region Newborn-Dormitory
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<DormitoryViewModel> SearchDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context);
+
+        #endregion
     }
 }
