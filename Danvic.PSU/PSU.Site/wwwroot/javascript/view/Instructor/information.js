@@ -2,99 +2,108 @@
  *   Instructor Information Page JavaScript v1.0.0
  *   Author: Danvic712
  */
+
+//table
+$.dataTableSetting = {
+    "bSort": false,//关闭排序
+    "serverSide": true,//服务器端加载数据
+    "sServerMethod": "POST",//数据获取方式 
+    "bDeferRender": true,//是否启用延迟加载
+    "sScrollXInner": "100%",//表格宽度 
+    "bLengthChange": false,//是否允许用户自定义分页大小
+    "bFilter": false,//是否启用内置搜索功能
+    "bStateSave": true,//cookies保存当前状态
+    "bProcessing": true,//是否显示加载进度条
+    "iDisplayLength": 15,//默认每页显示多少条记录
+    "deferRender": true,
+    "oLanguage": {
+        "sLengthMenu": "每页显示 _MENU_ 条记录",
+        "sZeroRecords": "对不起，没有匹配的数据",
+        "sInfo": "第 _START_ - _END_ 条 / 共 _TOTAL_ 条数据",
+        "sInfoEmpty": "没有匹配的数据",
+        "sInfoFiltered": "(数据表中共 _MAX_ 条记录)",
+        "sProcessing": "正在加载中...",
+        "sSearch": "全文搜索：",
+        "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+        }
+    },
+    "paging": true,
+    "processing": true,
+    "columnDefs": [
+        {
+            "targets": 7,
+            "data": null,
+            "render": function (data, type, row) {
+                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>详情</a>';
+                return html;
+            }
+        }
+    ],
+    "columns": [
+        { "data": "id" },
+        { "data": "name" },
+        { "data": "genderStr" },
+        { "data": "age" },
+        { "data": "address" },
+        { "data": "department" },
+        { "data": "majorClass" }
+    ],
+
+    ajax: function (data, callback, settings) {
+        var param = {};
+        param.Limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+        param.Start = data.start;//开始的记录序号
+        param.Page = (data.start / data.length) + 1;//当前页码
+        param.SId = $('#id').val();//学生学号
+        param.SName = $('#name').val();//学生姓名
+        param.SMajorClass = $('#majorclass').val();//专业班级
+
+        //ajax请求数据
+        $.ajax({
+            type: "POST",
+            url: "/Instructor/Newborn/SearchInformation",
+            cache: false,  //禁用缓存
+            data: {
+                search: JSON.stringify(param)
+            },  //传入组装的参数
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                var returnData = {};
+                returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
+                returnData.recordsTotal = result.total;//返回数据全部记录
+                returnData.recordsFiltered = result.total;//后台不实现过滤功能，每次查询均视作全部结果
+                returnData.data = result.data;//返回的数据列表
+                //console.log(returnData);
+                //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                callback(returnData);
+            },
+            error: function (msg) {
+                console.log(msg.responseText);
+            }
+        });
+    }
+};
 $(function () {
-    var lineChart = echarts.init(document.getElementById('register-line-chart'), 'macarons');
-    var line_option = {
-        tooltip: {
-            trigger: 'axis'
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                mark: { show: true },
-                saveAsImage: { show: true },
-                magicType: { show: true, type: ['line', 'bar'] },
-                restore: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: ['2018-02-26', '2018-02-27', '2018-02-28', '2018-03-01', '2018-03-02', '2018-03-03', '2018-03-04']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                axisLabel: {
-                    formatter: '{value} 人'
-                }
-            }
-        ],
-        series: [
-            {
-                type: 'line',
-                data: [11, 10, 15, 13, 17, 13, 12],
-                markPoint: {
-                    data: [
-                        { type: 'max', name: '最大值' },
-                        { type: 'min', name: '最小值' }
-                    ]
-                },
-                markLine: {
-                    data: [
-                        { type: 'average', name: '平均值' }
-                    ]
-                }
-            }
-        ]
-    };
-    lineChart.setOption(line_option);
+    var dataTable = $('#information-table').dataTable($.dataTableSetting);
 
+    //search
+    $(document).on('click',
+        '#search',
+        function () {
+            dataTable.fnDestroy(false);
+            dataTable = $('#information-table').dataTable($.dataTableSetting);
+        });
 
-    $('#chat-box').slimScroll({
-        height: '303px'
-    });
-
-    var pie = echarts.init(document.getElementById('map-pie'), 'macarons');
-    var pie_option = {
-        title: {
-            text: '2014级新生生源地分布',
-            x: 'center'
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['安徽', '江苏', '浙江', '山东', '湖南']
-        },
-        series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
-                data: [
-                    { value: 335, name: '山东' },
-                    { value: 310, name: '江苏' },
-                    { value: 234, name: '浙江' },
-                    { value: 135, name: '湖南' },
-                    { value: 1548, name: '安徽' }
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-    pie.setOption(pie_option);
+    //detail
+    $(document).on('click',
+        '#detail',
+        function () {
+            window.location.href = '/Instructor/Newborn/Detail/' + $(this).attr('data-id');
+        });
 })

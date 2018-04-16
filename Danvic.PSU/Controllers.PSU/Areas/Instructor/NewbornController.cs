@@ -110,6 +110,32 @@ namespace Controllers.PSU.Areas.Instructor
             return Json(returnData);
         }
 
+        /// <summary>
+        /// 新生信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchInformation(string search)
+        {
+            InformationViewModel webModel = JsonUtility.ToObject<InformationViewModel>(search);
+
+            webModel = await _service.SearchStudentAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SMajorClass);
+
+            var returnData = new
+            {
+                data = webModel.StudentList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.StudentList.Count
+            };
+
+            return Json(returnData);
+        }
+
         #endregion
     }
 }

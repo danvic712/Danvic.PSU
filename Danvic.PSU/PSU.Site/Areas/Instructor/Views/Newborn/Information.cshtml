@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "新生疑问";
+    ViewData["Title"] = "新生数据";
     ViewData["NavTitle"] = "新生数据管理";
     ViewData["CurrName"] = "";
 }
@@ -24,6 +24,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group col-md-3">
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="id">学生学号：</label>
+                <div class="input-group col-md-7 col-xs-8">
+                    <input id="id" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-id-badge"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
                 <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">学生姓名：</label>
                 <div class="input-group col-md-7 col-xs-8">
                     <input id="name" type="text" class="form-control">
@@ -33,25 +42,12 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="datetime">专业方向：</label>
+                <label class="control-label no-padding-right col-md-5 col-xs-4" for="majorclass">专业班级：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="" name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">网络工程</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                <label class="control-label no-padding-right col-md-5 col-xs-4" for="name">到达地点：</label>
-                <div class="input-group col-md-7 col-xs-8">
-                    <select name="" class="form-control">
-                        <option value="">请选择</option>
-                        <option value="">火车站</option>
-                        <option value="">汽车站</option>
-                        <option value="">飞机场</option>
-                        <option value="">港口</option>
-                        <option value="">学校</option>
-                    </select>
+                    <input id="majorclass" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <i class="fa fa-edit"></i>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-md-3">

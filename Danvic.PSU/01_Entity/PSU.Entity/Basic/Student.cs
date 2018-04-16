@@ -139,6 +139,12 @@ namespace PSU.Entity.Basic
         public string MajorClass { get; set; }
 
         /// <summary>
+        /// 辅导员Id
+        /// </summary>
+        [Required]
+        public long InstructorId { get; set; }
+
+        /// <summary>
         /// 高中名称
         /// </summary>
         [MaxLength(50)]
