@@ -90,4 +90,36 @@ namespace PSU.Model.Areas.Instructor.Home
         /// </summary>
         public DateTime DateTime { get; set; }
     }
+
+    /// <summary>
+    /// 折线图数据
+    /// </summary>
+    public class LineChartData
+    {
+        /// <summary>
+        /// 日期
+        /// </summary>
+        public string Day { get; set; }
+
+        /// <summary>
+        /// 报名人数
+        /// </summary>
+        public int Count { get; set; }
+    }
+
+    /// <summary>
+    /// 饼图数据
+    /// </summary>
+    public class PieData
+    {
+        /// <summary>
+        /// 生源地
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
+        /// 新生人数
+        /// </summary>
+        public int Count { get; set; }
+    }
 }

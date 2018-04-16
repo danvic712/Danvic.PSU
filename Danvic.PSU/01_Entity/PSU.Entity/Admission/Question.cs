@@ -61,7 +61,7 @@ namespace PSU.Entity.Admission
         /// 提问对象编号
         /// </summary>
         [Required]
-        public int AskForNumber { get; set; }
+        public long AskForId { get; set; }
 
         /// <summary>
         /// 提问对象姓名
@@ -78,7 +78,7 @@ namespace PSU.Entity.Admission
         /// <summary>
         /// 回复人编号
         /// </summary>
-        public int ReplyNumer { get; set; }
+        public long ReplyId { get; set; }
 
         /// <summary>
         /// 回复人姓名

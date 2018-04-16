@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------------
 using PSU.EFCore;
 using PSU.Model.Areas.Administrator.Home;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PSU.IService.Areas.Administrator
@@ -29,14 +30,14 @@ namespace PSU.IService.Areas.Administrator
         /// </summary>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<string> InitLineChartAsync(ApplicationDbContext context);
+        Task<List<LineChartData>> InitLineChartAsync(ApplicationDbContext context);
 
         /// <summary>
         /// 获取折线图数据
         /// </summary>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<string> InitPieChartAsync(ApplicationDbContext context);
+        Task<List<PieData>> InitPieChartAsync(ApplicationDbContext context);
 
         #endregion
 

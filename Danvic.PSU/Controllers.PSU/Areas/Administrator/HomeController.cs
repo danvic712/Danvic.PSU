@@ -193,7 +193,7 @@ namespace Controllers.PSU.Areas.Administrator
         [HttpPost]
         public async Task<IActionResult> GetLineChart()
         {
-            string chart = await _service.InitLineChartAsync(_context);
+            var chart = await _service.InitLineChartAsync(_context);
             return Json(chart);
         }
 
@@ -204,7 +204,7 @@ namespace Controllers.PSU.Areas.Administrator
         [HttpPost]
         public async Task<IActionResult> GetPieChart()
         {
-            string chart = await _service.InitPieChartAsync(_context);
+            var chart = await _service.InitPieChartAsync(_context);
             return Json(chart);
         }
 

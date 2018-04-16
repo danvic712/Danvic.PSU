@@ -78,7 +78,7 @@ namespace PSU.Domain.Areas.Administrator
         /// </summary>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public async Task<string> InitLineChartAsync(ApplicationDbContext context)
+        public async Task<List<LineChartData>> InitLineChartAsync(ApplicationDbContext context)
         {
             return await HomeRepository.GetChartInfo(context);
         }
@@ -88,7 +88,7 @@ namespace PSU.Domain.Areas.Administrator
         /// </summary>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public async Task<string> InitPieChartAsync(ApplicationDbContext context)
+        public async Task<List<PieData>> InitPieChartAsync(ApplicationDbContext context)
         {
             return await HomeRepository.GetPieInfo(context);
         }

@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using PSU.Entity.Admission;
 using PSU.Utility;
 using PSU.Utility.Web;
+using PSU.Model.Areas.Administrator.Home;
 
 namespace PSU.Repository.Areas.Administrator
 {
@@ -30,10 +31,10 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<string> GetChartInfo(ApplicationDbContext context)
+        public static async Task<List<LineChartData>> GetChartInfo(ApplicationDbContext context)
         {
             //Data Source
-            var list = await context.Register.ToListAsync();
+            var list = await context.Register.AsNoTracking().ToListAsync();
 
             //Get Last 7 Day Date
             var now = DateTime.Now;
@@ -53,14 +54,14 @@ namespace PSU.Repository.Areas.Administrator
                 {
                     day = data.DateTime.ToString("yyyy-MM-dd")
                 },
-                (p, g) => new
+                (p, g) => new LineChartData
                 {
-                    day = p.day.ToString("yyyy-MM-dd"),
-                    count = g.Count()
+                    Day = p.day.ToString("yyyy-MM-dd"),
+                    Count = g.Count()
                 }
                 ).ToList();
 
-            return JsonUtility.ToJson(result);
+            return result;
         }
 
         /// <summary>
@@ -68,13 +69,13 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static async Task<string> GetPieInfo(ApplicationDbContext context)
+        public static async Task<List<PieData>> GetPieInfo(ApplicationDbContext context)
         {
             //Data Source
-            var list = await context.Student.ToListAsync();
+            var list = await context.Student.AsNoTracking().ToListAsync();
             //Get Result Data
-            var result = "";
-            return JsonUtility.ToJson(result);
+            var result = new List<PieData>();
+            return result;
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static int GetTodayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static int GetYesterdayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static int GetQuestionCount(ApplicationDbContext context)
         {
-            return context.Question.ToList().Count();
+            return context.Question.AsNoTracking().ToList().Count();
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (context.Student.ToList().Count() != 0)
             {
-                return Convert.ToDouble((context.Register.ToList().Count() / context.Student.ToList().Count()) * 100);
+                return Convert.ToDouble((context.Register.AsNoTracking().ToList().Count() / context.Student.AsNoTracking().ToList().Count()) * 100);
             }
             return 0;
         }

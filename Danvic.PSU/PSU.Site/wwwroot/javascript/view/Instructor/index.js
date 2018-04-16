@@ -53,11 +53,6 @@ $(function () {
     };
     lineChart.setOption(line_option);
 
-
-    $('#chat-box').slimScroll({
-        height: '303px'
-    });
-
     var pie = echarts.init(document.getElementById('map-pie'), 'macarons');
     var pie_option = {
         title: {

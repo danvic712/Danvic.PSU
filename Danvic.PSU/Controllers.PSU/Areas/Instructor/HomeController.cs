@@ -14,6 +14,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Instructor
 {
@@ -36,14 +37,43 @@ namespace Controllers.PSU.Areas.Instructor
 
         #region View
 
-        public IActionResult Index()
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var webModel = await _service.InitIndexPageAsync(_context);
+            return View(webModel);
         }
 
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 获取折线图数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetLineChart()
+        {
+            var chart = await _service.InitLineChartAsync(_context);
+            return Json(chart);
+        }
+
+        /// <summary>
+        /// 获取饼图数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetPieChart()
+        {
+            var chart = await _service.InitPieChartAsync(_context);
+            return Json(chart);
+        }
+
         #endregion
     }
 }
