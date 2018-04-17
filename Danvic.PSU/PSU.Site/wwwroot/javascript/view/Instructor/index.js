@@ -3,6 +3,12 @@
  *   Author: Danvic712
  */
 $(function () {
+    InitLineChart();
+    InitPieChart();
+});
+
+//Line Chart
+function InitLineChart() {
     var lineChart = echarts.init(document.getElementById('register-line-chart'), 'macarons');
     var line_option = {
         tooltip: {
@@ -22,7 +28,7 @@ $(function () {
             {
                 type: 'category',
                 boundaryGap: false,
-                data: ['2018-02-26', '2018-02-27', '2018-02-28', '2018-03-01', '2018-03-02', '2018-03-03', '2018-03-04']
+                data: ['暂无数据']
             }
         ],
         yAxis: [
@@ -32,31 +38,67 @@ $(function () {
                     formatter: '{value} 人'
                 }
             }
-        ],
-        series: [
-            {
-                type: 'line',
-                data: [11, 10, 15, 13, 17, 13, 12],
-                markPoint: {
-                    data: [
-                        { type: 'max', name: '最大值' },
-                        { type: 'min', name: '最小值' }
-                    ]
-                },
-                markLine: {
-                    data: [
-                        { type: 'average', name: '平均值' }
-                    ]
-                }
-            }
         ]
     };
     lineChart.setOption(line_option);
 
+    var xdatas = [];//x轴
+    var ydatas = [];//y轴
+
+    $.ajax({
+        type: 'post',
+        url: '/Instructor/Home/GetLineChart',
+        dataType: 'json',
+        success: function (data) {
+            if (data.length !== 0) {
+                //push data
+                for (var i = 0; i < data.length; i++) {
+                    xdatas.push(data[i].day);
+                    ydatas.push(data[i].count);
+                }
+
+                JSON.stringify(xdatas);
+                JSON.stringify(ydatas);
+
+                var line_option = {
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: xdatas
+                        }
+                    ],
+                    series: [
+                        {
+                            type: 'line',
+                            data: ydatas,
+                            markPoint: {
+                                data: [
+                                    { type: 'max', name: '最大值' },
+                                    { type: 'min', name: '最小值' }
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        }
+                    ]
+                };
+                lineChart.setOption(line_option);
+            }
+        }
+    });
+    window.onresize = lineChart.resize;
+}
+
+//Pie Chart
+function InitPieChart() {
     var pie = echarts.init(document.getElementById('map-pie'), 'macarons');
     var pie_option = {
         title: {
-            text: '2014级新生生源地分布',
+            text: '新生生源地分布',
             x: 'center'
         },
         tooltip: {
@@ -66,7 +108,7 @@ $(function () {
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['安徽', '江苏', '浙江', '山东', '湖南']
+            data: ['暂无数据']
         },
         series: [
             {
@@ -75,11 +117,7 @@ $(function () {
                 radius: '55%',
                 center: ['50%', '60%'],
                 data: [
-                    { value: 335, name: '山东' },
-                    { value: 310, name: '江苏' },
-                    { value: 234, name: '浙江' },
-                    { value: 135, name: '湖南' },
-                    { value: 1548, name: '安徽' }
+                    { value: 0, name: '暂无数据' }
                 ],
                 itemStyle: {
                     emphasis: {
@@ -92,4 +130,66 @@ $(function () {
         ]
     };
     pie.setOption(pie_option);
-})
+
+    var datas = [];//数据
+
+    $.ajax({
+        type: 'post',
+        url: '/Instructor/Home/GetPieChart',
+        dataType: 'json',
+        success: function (data) {
+            if (data.length !== 0) {
+                //push data
+                for (var i = 0; i < data.length; i++) {
+                    datas.push(data[i]);
+                }
+
+                JSON.stringify(datas);
+
+                var pie_option = {
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: (function () {
+                            var res = [];
+                            var len = datas.length;
+                            for (var i = 0, size = len; i < size; i++) {
+                                res.push(datas[i].province);
+                            }
+                            return res;
+                        })()
+                    },
+                    series: [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '60%'],
+                            data: (function () {
+                                var res = [];
+                                var len = datas.length;
+                                for (var i = 0, size = len; i < size; i++) {
+                                    res.push({
+                                        name: datas[i].province,
+                                        value: datas[i].count
+                                    });
+                                }
+                                console.log(res);
+                                return res;
+                            })(),
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                pie.setOption(pie_option);
+            }
+        }
+    });
+    window.onresize = pie.resize;
+}

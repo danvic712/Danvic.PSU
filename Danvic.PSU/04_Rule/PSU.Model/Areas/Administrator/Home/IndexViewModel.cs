@@ -115,7 +115,7 @@ namespace PSU.Model.Areas.Administrator.Home
         /// <summary>
         /// 生源地
         /// </summary>
-        public string Address { get; set; }
+        public string Province { get; set; }
 
         /// <summary>
         /// 新生人数

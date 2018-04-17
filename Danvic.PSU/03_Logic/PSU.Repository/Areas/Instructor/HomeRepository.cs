@@ -72,8 +72,14 @@ namespace PSU.Repository.Areas.Instructor
         {
             //Data Source
             var list = await context.Student.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToListAsync();
+
             //Get Result Data
-            var result = new List<PieData>();
+            var result = list.GroupBy(i => new { i.ProvinceId, i.Province })
+                .Select(i => new PieData
+                {
+                    Province = i.Key.Province,
+                    Count = i.Count()
+                }).ToList();
             return result;
         }
 
