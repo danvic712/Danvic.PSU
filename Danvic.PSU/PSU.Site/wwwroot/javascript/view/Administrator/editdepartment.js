@@ -8,24 +8,19 @@ $(function () {
         textarea: $('#editor')
     });
 
-    $("#department_form").validate();
-
     //Submit button
     $(document).on('click', '#save', function () {
         if ($('#name').val().length === 0) {
-            bootbox.alert('部门/院系名称不能为空');
-            return;
-        } else if ($('#name').val().length > 20) {
-            bootbox.alert('部门/院系名称不能超过20个字符');
-            return;
+            bootbox.dialog({
+                message: "部门/院系名称不能为空"
+            });
+            return false;
         }
-
         if ($('#tel').val().length === 0) {
-            bootbox.alert('联系电话不能为空');
-            return;
-        } else if ($('#tel').val().length > 20) {
-            bootbox.alert('联系电话不能超过20个字符');
-            return;
+            bootbox.dialog({
+                message: "联系电话不能为空"
+            });
+            return false;
         }
 
         //build ajax request param
@@ -52,16 +47,11 @@ $(function () {
             success: function (result) {
                 if (result.msg !== undefined) {
                     bootbox.dialog({
-                        message: result.msg,
-                        closeButton: false,
+                        message: result.msg
                     });
                     if (result.success) {
                         setTimeout(function () {
                             window.location.href = "/Administrator/School/Department";
-                        }, 2000);
-                    } else {
-                        setTimeout(function () {
-                            window.location.href = window.location.href;
                         }, 2000);
                     }
                 }
@@ -74,4 +64,4 @@ $(function () {
         });
     });
 
-})
+});

@@ -38,21 +38,20 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 专业名称
         /// </summary>
-        [Required(ErrorMessage = "专业名称不能为空")]
-        [StringLength(50, ErrorMessage = "班级名称不能超过50个字符长度")]
+        [Required(ErrorMessage = "所属专业不能为空")]
+        [StringLength(50, ErrorMessage = "专业名称不能超过50个字符长度")]
         public string MajorName { get; set; }
 
         /// <summary>
         /// 所属院系编号
         /// </summary>
-        [Required(ErrorMessage = "所属院系编号不能为空")]
+        [Required(ErrorMessage = "院系编号不能为空")]
         public string DepartmentId { get; set; }
 
         /// <summary>
         /// 所属院系名称
         /// </summary>
-        [Required(ErrorMessage = "所属院系名称不能为空")]
-        [StringLength(50, ErrorMessage = "所属院系名称不能超过50个字符长度")]
+        [Required(ErrorMessage = "请选择所属院系信息")]
         public string DepartmentName { get; set; }
 
         /// <summary>
@@ -76,13 +75,12 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 辅导员姓名
         /// </summary>
-        [StringLength(20, ErrorMessage = "辅导员姓名不能超过20个字符长度")]
+        [Required(ErrorMessage = "请选择班级辅导员信息")]
         public string InstructorName { get; set; }
 
         /// <summary>
         /// 级数
         /// </summary>
-        [StringLength(20, ErrorMessage = "级数不能超过20个字符长度")]
         public string SessionNum { get; set; }
 
         /// <summary>

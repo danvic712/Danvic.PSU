@@ -46,7 +46,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Department> GetAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Department.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Department.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -60,7 +60,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.STel))
             {
-                return await context.Set<Department>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Department>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -87,6 +87,48 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await departments.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取院系信息列表数目
+        /// </summary>
+        /// <param name="webModel">院系列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(DepartmentViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.STel))
+            {
+                var list = await context.Set<Department>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Department> departments = context.Department.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Department>();
+
+                //院系编号
+                if (!string.IsNullOrEmpty(webModel.SId))
+                {
+                    predicate = predicate.And(i => i.Id == Convert.ToInt64(webModel.SId));
+                }
+
+                //院系名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //院系联系方式
+                if (!string.IsNullOrEmpty(webModel.STel))
+                {
+                    predicate = predicate.And(i => i.Tel == webModel.STel);
+                }
+
+                var list = await departments.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 
@@ -146,7 +188,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Department>> GetDepartmentList(ApplicationDbContext context)
         {
-            return await context.Department.Where(i => i.IsEnabled == true && i.IsBranch == false).ToListAsync();
+            return await context.Department.AsNoTracking().Where(i => i.IsEnabled == true && i.IsBranch == false).ToListAsync();
         }
 
         /// <summary>
@@ -159,7 +201,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SClassName) && string.IsNullOrEmpty(webModel.SInstructorName) && string.IsNullOrEmpty(webModel.SMajorName))
             {
-                return await context.Set<MajorClass>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<MajorClass>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -190,6 +232,48 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
+        /// 根据搜索条件获取专业班级信息列表个数
+        /// </summary>
+        /// <param name="webModel">专业班级列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(MajorClassViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SClassName) && string.IsNullOrEmpty(webModel.SInstructorName) && string.IsNullOrEmpty(webModel.SMajorName))
+            {
+                var list = await context.Set<MajorClass>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<MajorClass> majorClasses = context.MajorClass.AsQueryable();
+
+                var predicate = PredicateBuilder.New<MajorClass>();
+
+                //班级名称
+                if (!string.IsNullOrEmpty(webModel.SClassName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SClassName);
+                }
+
+                //导员名称
+                if (!string.IsNullOrEmpty(webModel.SInstructorName))
+                {
+                    predicate = predicate.And(i => i.InstructorName == webModel.SInstructorName);
+                }
+
+                //专业名称
+                if (!string.IsNullOrEmpty(webModel.SMajorName))
+                {
+                    predicate = predicate.And(i => i.MajorName == webModel.SMajorName);
+                }
+
+                var list = await majorClasses.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
+        /// <summary>
         /// 获取专业班级信息
         /// </summary>
         /// <param name="id">专业班级编号</param>
@@ -197,7 +281,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<MajorClass> GetMajorClassAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.MajorClass.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.MajorClass.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -208,7 +292,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Staff>> GetStaffList(ApplicationDbContext context)
         {
-            return await context.Staff.Where(i => i.IsEnabled).ToListAsync();
+            return await context.Staff.AsNoTracking().Where(i => i.IsEnabled).ToListAsync();
         }
 
         /// <summary>

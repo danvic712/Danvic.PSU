@@ -25,13 +25,8 @@ namespace PSU.Model.Areas.Administrator.Home
         /// 标题
         /// </summary>
         [Required(ErrorMessage = "公告标题不能为空")]
-        [MaxLength(50)]
+        [StringLength(50)]
         public string Title { get; set; }
-
-        /// <summary>
-        /// 公告类型
-        /// </summary>
-        public EnumType.BulletinType Type { get; set; }
 
         /// <summary>
         /// 针对目标
@@ -39,9 +34,14 @@ namespace PSU.Model.Areas.Administrator.Home
         public EnumType.BulletinTarget Target { get; set; }
 
         /// <summary>
+        /// 公告类型
+        /// </summary>
+        public EnumType.BulletinType Type { get; set; }
+
+        /// <summary>
         /// 内容
         /// </summary>
-        [Required(ErrorMessage = "内容不能为空")]
+        [Required(ErrorMessage = "公告内容不能为空")]
         [StringLength(1000, ErrorMessage = "内容最多不能超过1000个字符")]
         public string Content { get; set; }
 

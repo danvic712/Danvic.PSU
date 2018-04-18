@@ -49,14 +49,14 @@
                                         <span class="required-label">*</span> 部门/院系名称
                                     </label>
                                     <div class="col-md-3">
-                                        <input class="form-control" id="name" type="text" placeholder="" asp-for="Name">
+                                        <input class="form-control" id="name" type="text" placeholder="" asp-for="Name" maxlength="20">
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="tel">
                                         <span class="required-label">*</span> 联系电话
                                     </label>
                                     <div class="col-md-3">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="tel" asp-for="Tel" />
+                                            <input type="text" class="form-control" id="tel" asp-for="Tel" maxlength="20"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-phone fa-flip-horizontal grey"></i>
                                             </span>
@@ -67,7 +67,7 @@
                                     <label class="col-md-2 control-label no-padding-right" for="weibo"> 官方微博 </label>
                                     <div class="col-md-3">
                                         <div class="input-group">
-                                            <input id="weibo" class="form-control" type="text" asp-for="Weibo" />
+                                            <input id="weibo" class="form-control" type="text" asp-for="Weibo" maxlength="50"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-weibo text-red"></i>
                                             </span>
@@ -87,7 +87,7 @@
                                     <label class="col-md-2 control-label no-padding-right" for="wechat"> 公众号 </label>
                                     <div class="col-md-3">
                                         <div class="input-group">
-                                            <input type="text" id="wechat" class="form-control" asp-for="Wechat" />
+                                            <input type="text" id="wechat" class="form-control" asp-for="Wechat" maxlength="50"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-weixin text-green"></i>
                                             </span>
@@ -96,7 +96,7 @@
                                     <label class="col-md-2 control-label no-padding-right" for="qq">官方QQ</label>
                                     <div class="col-md-3">
                                         <div class="input-group">
-                                            <input type="text" id="qq" class="form-control" asp-for="QQ" />
+                                            <input type="text" id="qq" class="form-control" asp-for="QQ" maxlength="20"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
                                             </span>
@@ -117,7 +117,7 @@
                                     <label class="col-md-2 control-label no-padding-right" for="address">办公地址</label>
                                     <div class="col-md-5">
                                         <div class="input-group">
-                                            <input type="text" id="address" class="form-control" asp-for="Address" />
+                                            <input type="text" id="address" class="form-control" asp-for="Address" maxlength="100"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-map-marker"></i>
                                             </span>
@@ -136,7 +136,7 @@
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-12 col-xs-12">
-                                            <textarea id="editor" class="form-control" asp-for="Introduction"></textarea>
+                                            <textarea id="editor" class="form-control" asp-for="Introduction" maxlength="500"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -168,23 +168,9 @@
         <script src="~/javascript/template/hotkeys.js"></script>
         <script src="~/javascript/template/uploader.js"></script>
         <script src="~/javascript/template/simditor.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-        <script src="~/javascript/view/Administrator/editdepartment.js"></script>
+        <script src="~/javascript/view/Administrator/editdepartment.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
-                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.validator"
-                crossorigin="anonymous"
-                integrity="sha384-Fnqn3nxp3506LP/7Y3j/25BlWeA3PXTyT1l78LjECcPaKCV12TsZP7yyMxOe/G/k">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
-                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
-                crossorigin="anonymous"
-                integrity="sha384-JrXK+k53HACyavUKOsL+NkmSesD2P+73eDMrbTtTk0h4RmOF8hF8apPlkp26JlyH">
-        </script>
         <script src="~/javascript/view/Administrator/editdepartment.min.js" asp-append-version="true"></script>
     </environment>
 }

@@ -124,7 +124,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.DepartmentList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.DepartmentList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -150,7 +150,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.MajorClassList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.MajorClassList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -219,14 +219,10 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
             return Json(new
             {
                 success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
             });
         }
 
@@ -259,16 +255,11 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
-            //return Json(new
-            //{
-            //    success = false,
-            //    msg = "数据格式错误"
-            //});
-            return View(webModel);
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
         }
 
         #endregion

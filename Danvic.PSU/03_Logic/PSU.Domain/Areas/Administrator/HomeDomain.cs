@@ -243,6 +243,8 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.BulletinList = dataList;
+                webModel.Total= await HomeRepository.GetListCountAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
+                    webModel.SDateTime, webModel.SType, context);
             }
             catch (Exception ex)
             {

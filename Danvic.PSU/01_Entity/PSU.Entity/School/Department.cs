@@ -74,7 +74,7 @@ namespace PSU.Entity.School
         /// <summary>
         /// 介绍
         /// </summary>
-        [MaxLength(200)]
+        [MaxLength(500)]
         public string Introduction { get; set; }
 
         /// <summary>

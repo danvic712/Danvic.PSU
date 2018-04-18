@@ -172,7 +172,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Bulletin> GetEntityAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bulletin.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Bulletin.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -190,27 +190,78 @@ namespace PSU.Repository.Areas.Administrator
         public static async Task<List<Bulletin>> GetListAsync(int limit, int page, int start, string title, string datetime, short type, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(datetime) && type == 0)
-                return await context.Set<Bulletin>().Skip(start).Take(limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
-            var bulletins = context.Bulletin.AsQueryable();
-
-            var predicate = PredicateBuilder.New<Bulletin>();
-
-            if (!string.IsNullOrEmpty(title))
             {
-                predicate = predicate.And(i => i.Title.Contains(title.Trim()));
+                return await context.Set<Bulletin>().AsNoTracking().Skip(start).Take(limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+            }
+            else
+            {
+                var bulletins = context.Bulletin.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Bulletin>();
+
+                if (!string.IsNullOrEmpty(title))
+                {
+                    predicate = predicate.And(i => i.Title.Contains(title.Trim()));
+                }
+
+                if (!string.IsNullOrEmpty(datetime))
+                {
+                    predicate = predicate.And(i => i.CreatedOn.ToString("yyyy-MM-dd").Equals(datetime));
+                }
+
+                if (type != 0)
+                {
+                    predicate = predicate.And(i => i.Type == type);
+                }
+
+                return await bulletins.AsExpandable().Where(predicate).ToListAsync();
+            }
+            
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取公告列表数目
+        /// </summary>
+        /// <param name="limit">每页显示条数</param>
+        /// <param name="page">当前页</param>
+        /// <param name="start">每页开始记录条数</param>
+        /// <param name="title">公告标题</param>
+        /// <param name="datetime">发布日期</param>
+        /// <param name="type">公告类型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(int limit, int page, int start, string title, string datetime, short type, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(datetime) && type == 0)
+            {
+                var list = await context.Set<Bulletin>().AsNoTracking().Skip(start).Take(limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                var bulletins = context.Bulletin.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Bulletin>();
+
+                if (!string.IsNullOrEmpty(title))
+                {
+                    predicate = predicate.And(i => i.Title.Contains(title.Trim()));
+                }
+
+                if (!string.IsNullOrEmpty(datetime))
+                {
+                    predicate = predicate.And(i => i.CreatedOn.ToString("yyyy-MM-dd").Equals(datetime));
+                }
+
+                if (type != 0)
+                {
+                    predicate = predicate.And(i => i.Type == type);
+                }
+
+                var list = await bulletins.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
 
-            if (!string.IsNullOrEmpty(datetime))
-            {
-                predicate = predicate.And(i => i.CreatedOn.ToString("yyyy-MM-dd").Equals(datetime));
-            }
-
-            if (type != 0)
-            {
-                predicate = predicate.And(i => i.Type == type);
-            }
-
-            return await bulletins.AsExpandable().Where(predicate).ToListAsync();
         }
 
         /// <summary>

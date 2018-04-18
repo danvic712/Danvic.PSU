@@ -32,6 +32,11 @@ namespace PSU.Model
         /// </summary>
         public int Page { get; set; }
 
+        /// <summary>
+        /// 总数据个数
+        /// </summary>
+        public int Total { get; set; }
+
         #endregion
     }
 }

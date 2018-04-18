@@ -30,7 +30,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 办公地址
         /// </summary>
-        [StringLength(200, ErrorMessage = "办公地址不能超过200个字符长度")]
+        [StringLength(100, ErrorMessage = "办公地址不能超过200个字符长度")]
         public string Address { get; set; }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 官方微博
         /// </summary>
-        [StringLength(50, ErrorMessage = "联系电话不能超过50个字符长度")]
+        [StringLength(50, ErrorMessage = "官方微博不能超过50个字符长度")]
         public string Weibo { get; set; }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 介绍
         /// </summary>
-        [StringLength(200, ErrorMessage = "介绍信息不能超过200个字符长度")]
+        [StringLength(500, ErrorMessage = "介绍信息不能超过200个字符长度")]
         public string Introduction { get; set; }
 
         /// <summary>

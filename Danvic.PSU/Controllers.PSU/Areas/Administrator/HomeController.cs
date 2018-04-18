@@ -150,13 +150,10 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
             return Json(new
             {
-                success = false
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
             });
         }
 
@@ -180,7 +177,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.BulletinList,
                 limit = webModel.Limit,
                 page = flag == true ? webModel.Page : 1,
-                total = webModel.BulletinList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);

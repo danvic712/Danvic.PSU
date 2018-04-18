@@ -149,7 +149,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.DepartmentList = dataList;
-
+                webModel.Total = await SchoolRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -333,6 +333,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.MajorClassList = dataList;
+                webModel.Total = await SchoolRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
