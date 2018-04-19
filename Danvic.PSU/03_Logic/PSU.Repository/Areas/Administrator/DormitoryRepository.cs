@@ -46,7 +46,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SId) && webModel.SType == 0 && webModel.SEnable == 9)
             {
-                return await context.Set<Building>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Building>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -74,6 +74,49 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await buildings.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取宿舍楼列表数目
+        /// </summary>
+        /// <param name="webModel">宿舍楼列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(BuildingViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SId) && webModel.SType == 0 && webModel.SEnable == 9)
+            {
+                var list = await context.Set<Building>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Building> buildings = context.Building.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Building>();
+
+                //宿舍楼编号
+                if (!string.IsNullOrEmpty(webModel.SId))
+                {
+                    predicate = predicate.And(i => i.Id == Convert.ToInt64(webModel.SId));
+                }
+
+                //宿舍楼类型
+                if (webModel.SType != 0)
+                {
+                    predicate = predicate.And(i => i.Type == webModel.SType);
+                }
+
+                //宿舍楼是否启用
+                if (webModel.SEnable != 9)
+                {
+                    bool flag = webModel.SEnable == 1;
+                    predicate = predicate.And(i => i.IsEnabled == flag);
+                }
+
+                var list = await buildings.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 
@@ -130,7 +173,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Building> GetBuildingAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Building.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Building.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -160,7 +203,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDirection) && webModel.SEnable == -1)
             {
-                return await context.Set<Bunk>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Bunk>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -188,6 +231,49 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await bunks.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取宿舍类型列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(BunkViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDirection) && webModel.SEnable == -1)
+            {
+                var list = await context.Set<Bunk>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Bunk> bunks = context.Bunk.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Bunk>();
+
+                //宿舍类型名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //宿舍朝向
+                if (!string.IsNullOrEmpty(webModel.SDirection))
+                {
+                    predicate = predicate.And(i => i.Toward == webModel.SDirection);
+                }
+
+                //宿舍类型是否启用
+                if (webModel.SEnable != -1)
+                {
+                    bool flag = webModel.SEnable == 1;
+                    predicate = predicate.And(i => i.IsEnabled == flag);
+                }
+
+                var list = await bunks.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 
@@ -236,7 +322,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Bunk> GetBunkAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Bunk.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Bunk.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 
@@ -266,7 +352,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1)
             {
-                return await context.Set<Dorm>().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<Dorm>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
@@ -293,6 +379,48 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await dorms.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取寝室列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(InformationViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1)
+            {
+                var list = await context.Set<Dorm>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Dorm> dorms = context.Dorm.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Dorm>();
+
+                //宿舍楼编号
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //宿舍楼类型
+                if (webModel.SType != 0)
+                {
+                    predicate = predicate.And(i => i.Type == webModel.SType);
+                }
+
+                //宿舍楼是否启用
+                if (webModel.SFloor != -1)
+                {
+                    predicate = predicate.And(i => i.Floor == webModel.SFloor);
+                }
+
+                var list = await dorms.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 
@@ -341,7 +469,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Dorm> GetDormAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Dorm.Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Dorm.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 

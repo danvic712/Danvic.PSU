@@ -66,6 +66,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.RegisterList = dataList;
+                webModel.Total = await StatisticsRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -109,6 +110,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.GoodsList = dataList;
+                webModel.Total = await StatisticsRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -151,6 +153,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.DormitoryList = dataList;
+                webModel.Total = await StatisticsRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -196,6 +199,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.BookList = dataList;
+                webModel.Total = await StatisticsRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {

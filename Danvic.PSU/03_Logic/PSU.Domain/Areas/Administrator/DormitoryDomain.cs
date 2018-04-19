@@ -51,7 +51,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除宿舍楼数据，宿舍楼Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("Building", "DormitoryDomain", "DeleteBuildingAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -144,6 +144,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.BuildingList = dataList;
+                webModel.Total = await DormitoryRepository.GetListCountAsync(webModel, context);
 
             }
             catch (Exception ex)
@@ -168,7 +169,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改宿舍楼信息，宿舍楼编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("Building", "DormitoryDomain", "UpdateBuildingAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 
@@ -200,7 +201,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除宿舍类型数据，宿舍类型Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("Bunk", "DormitoryDomain", "DeleteBunkAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -292,6 +293,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.BunkList = dataList;
+                webModel.Total = await DormitoryRepository.GetListCountAsync(webModel, context);
 
             }
             catch (Exception ex)
@@ -316,7 +318,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改宿舍类型信息，宿舍类型编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("Bunk", "DormitoryDomain", "UpdateBunkAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 
@@ -348,7 +350,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除宿舍数据，宿舍Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("Dorm", "DormitoryDomain", "DeleteInformationAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -439,6 +441,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.InformationList = dataList;
+                webModel.Total = await DormitoryRepository.GetListCountAsync(webModel, context);
 
             }
             catch (Exception ex)
@@ -463,7 +466,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改宿舍信息，宿舍编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("Dorm", "DormitoryDomain", "UpdateInformationAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 

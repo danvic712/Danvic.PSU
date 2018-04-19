@@ -36,17 +36,24 @@ namespace PSU.Repository
         /// <summary>
         /// 插入操作信息
         /// </summary>
+        /// <param name="tableName">操作修改的表</param>
+        /// <param name="className">操作所在类</param>
+        /// <param name="methodName">操作方法</param>
         /// <param name="operate">操作内容</param>
         /// <param name="type">操作类型</param>
-        /// <param name="tableId">操作表Id</param>
+        /// <param name="dataId">操作表Id</param>
         /// <param name="context">数据库上下文对象</param>
-        public static async void InsertRecordAsync(string operate, short type, long tableId, ApplicationDbContext context)
+        public static async void InsertRecordAsync(string tableName, string className, string methodName, string operate, short type, long dataId, ApplicationDbContext context)
         {
             var model = new Record
             {
+                TableName = tableName,
+                ClassName = className,
+                MethodName = methodName,
                 Operate = operate,
                 Type = type,
-                DataId = tableId,
+                DataId = dataId,
+                UserOID = CurrentUser.UserOID,
                 UserId = CurrentUser.UserId,
                 UserName = CurrentUser.UserName
             };

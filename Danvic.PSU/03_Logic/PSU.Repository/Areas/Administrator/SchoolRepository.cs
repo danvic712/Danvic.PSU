@@ -307,12 +307,23 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
-            var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
+            var staff = await context.Staff.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
+            var department = await context.Department.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
+            //return error 
+            if (staff == null || department == null)
+            {
+                return new MajorClass
+                {
+                    Id = -1
+                };
+            }
+
+            model.InstructorId = Convert.ToInt64(webModel.InstructorId);
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;
 
+            model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.DepartmentFK = department.DepartmentOID;
             model.DepartmentName = department.Name;
 
@@ -342,9 +353,11 @@ namespace PSU.Repository.Areas.Administrator
             var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
             var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
+            model.InstructorId = Convert.ToInt64(webModel.InstructorId);
             model.InstructorFK = staff.StaffOID;
             model.InstructorName = staff.Name;
 
+            model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.DepartmentFK = department.DepartmentOID;
             model.DepartmentName = department.Name;
         }

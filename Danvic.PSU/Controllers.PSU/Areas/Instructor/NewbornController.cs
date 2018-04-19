@@ -78,7 +78,7 @@ namespace Controllers.PSU.Areas.Instructor
                 data = webModel.RegisterList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.RegisterList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -104,7 +104,7 @@ namespace Controllers.PSU.Areas.Instructor
                 data = webModel.DormitoryList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.DormitoryList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -130,7 +130,7 @@ namespace Controllers.PSU.Areas.Instructor
                 data = webModel.StudentList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.StudentList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);

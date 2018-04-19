@@ -135,7 +135,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Bulletin>> GetBulletinList(ApplicationDbContext context)
         {
-            return await context.Bulletin.OrderByDescending(i => i.CreatedOn).Take(5).ToListAsync();
+            return await context.Bulletin.AsNoTracking().OrderByDescending(i => i.CreatedOn).Take(5).ToListAsync();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Question>> GetQuestionList(ApplicationDbContext context)
         {
-            return await context.Question.OrderByDescending(i => i.AskTime).Take(5).ToListAsync();
+            return await context.Question.AsNoTracking().OrderByDescending(i => i.AskTime).Take(5).ToListAsync();
         }
 
         #endregion
@@ -234,7 +234,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(datetime) && type == 0)
             {
-                var list = await context.Set<Bulletin>().AsNoTracking().Skip(start).Take(limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                var list = await context.Set<Bulletin>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
                 return list.Count();
             }
             else
@@ -261,7 +261,6 @@ namespace PSU.Repository.Areas.Administrator
                 var list = await bulletins.AsExpandable().Where(predicate).ToListAsync();
                 return list.Count();
             }
-
         }
 
         /// <summary>
@@ -289,6 +288,7 @@ namespace PSU.Repository.Areas.Administrator
 
             return model;
         }
+
         /// <summary>
         /// 更新公告数据
         /// </summary>

@@ -89,7 +89,7 @@ namespace Controllers.PSU.Areas.Instructor
                 data = webModel.QuestionList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.QuestionList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);

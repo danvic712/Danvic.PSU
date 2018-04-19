@@ -51,7 +51,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除部门/院系数据，部门/院系Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("Department", "SchoolDomain", "DeleteDepartmentAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -173,7 +173,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改部门/院系信息，部门/院系编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("Department", "SchoolDomain", "UpdateDepartmentAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 
@@ -205,7 +205,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除专业班级数据，专业班级Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("MajorClass", "SchoolDomain", "DeleteMajorClassAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -290,6 +290,11 @@ namespace PSU.Domain.Areas.Administrator
                 //Add the MajorClass Data
                 var model = await SchoolRepository.InsertAsync(webModel, context);
 
+                if (model.Id == -1)
+                {
+                    return false;
+                }
+
                 //Make the transaction commit
                 var index = await context.SaveChangesAsync();
 
@@ -357,7 +362,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改专业班级信息，专业班级编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("MajorClass", "SchoolDomain", "UpdateMajorClassAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 
@@ -369,7 +374,7 @@ namespace PSU.Domain.Areas.Administrator
                 return false;
             }
         }
-        
+
         #endregion
     }
 }

@@ -63,6 +63,48 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 根据搜索条件获取迎新服务信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(ServiceViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SAddress) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                var list = await context.Set<Service>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Service> services = context.Service.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Service>();
+
+                //迎新服务名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //迎新服务地点
+                if (!string.IsNullOrEmpty(webModel.SAddress))
+                {
+                    predicate = predicate.And(i => i.Place == webModel.SAddress);
+                }
+
+                //迎新服务时间
+                if (!string.IsNullOrEmpty(webModel.SDate))
+                {
+                    predicate = predicate.And(i => i.StartTime <= Convert.ToDateTime(webModel.SDate) && i.EndTime >= Convert.ToDateTime(webModel.SDate));
+                }
+
+                var list = await services.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Goods API
@@ -108,6 +150,49 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 根据搜索条件获取物品信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(GoodsViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SId) && webModel.SEnable == -1)
+            {
+                var list = await context.Set<Goods>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Goods> goods = context.Goods.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Goods>();
+
+                //物品名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //物品编号
+                if (!string.IsNullOrEmpty(webModel.SId))
+                {
+                    predicate = predicate.And(i => i.Id == Convert.ToInt64(webModel.SId));
+                }
+
+                //是否启用
+                if (webModel.SEnable != -1)
+                {
+                    bool flag = webModel.SEnable == 1;
+                    predicate = predicate.And(i => i.IsEnabled == flag);
+                }
+
+                var list = await goods.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Question API
@@ -150,6 +235,49 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await questions.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据学生疑问信息搜索数据列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(QuestionViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SAskFor) && string.IsNullOrEmpty(webModel.SDateTime) && webModel.IsReply == -1)
+            {
+                var list = await context.Set<Question>().AsNoTracking().OrderByDescending(i => i.AskTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Question> questions = context.Question.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Question>();
+
+                //提问对象姓名
+                if (!string.IsNullOrEmpty(webModel.SAskFor))
+                {
+                    predicate = predicate.And(i => i.AskForName.Contains(webModel.SAskFor));
+                }
+
+                //提问时间
+                if (!string.IsNullOrEmpty(webModel.SDateTime))
+                {
+                    predicate = predicate.And(i => i.AskTime.ToString("yyyy-MM-dd") == webModel.SDateTime);
+                }
+
+                //是否回复
+                if (webModel.IsReply != -1)
+                {
+                    bool flag = webModel.IsReply == 1;
+                    predicate = predicate.And(i => i.IsReply == flag);
+                }
+
+                var list = await questions.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 

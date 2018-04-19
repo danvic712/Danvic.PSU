@@ -18,6 +18,7 @@ using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Dormitory;
 using PSU.Utility.Web;
+using System.Linq;
 
 namespace Controllers.PSU.Areas.Administrator
 {
@@ -191,14 +192,10 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
             return Json(new
             {
                 success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
             });
         }
 
@@ -231,14 +228,10 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
             return Json(new
             {
                 success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
             });
         }
 
@@ -271,14 +264,10 @@ namespace Controllers.PSU.Areas.Administrator
                 });
             }
 
-            //Todo:return ModelState Error Info
-            //Return First Error Information
-            //var msg = ModelState.Values.First().Errors[0].ErrorMessage;
-
             return Json(new
             {
                 success = false,
-                //msg = ModelState.Values.First().Errors[0].ErrorMessage
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
             });
         }
 
@@ -302,7 +291,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.BuildingList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.BuildingList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -328,7 +317,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.BunkList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.BunkList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -354,7 +343,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.InformationList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.InformationList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);

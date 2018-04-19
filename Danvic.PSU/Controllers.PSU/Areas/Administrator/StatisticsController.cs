@@ -116,7 +116,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.RegisterList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.RegisterList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -142,7 +142,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.GoodsList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.GoodsList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -168,7 +168,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.DormitoryList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.DormitoryList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);
@@ -194,7 +194,7 @@ namespace Controllers.PSU.Areas.Administrator
                 data = webModel.BookList,
                 limit = webModel.Limit,
                 page = flag ? webModel.Page : 1,
-                total = webModel.BookList.Count
+                total = webModel.Total
             };
 
             return Json(returnData);

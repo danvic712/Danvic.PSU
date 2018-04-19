@@ -113,7 +113,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除公告数据，公告Id:{0}", id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("Bulletin", "HomeDomain", "DeleteBulletinAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2 ? true : false;
@@ -243,7 +243,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.BulletinList = dataList;
-                webModel.Total= await HomeRepository.GetListCountAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
+                webModel.Total = await HomeRepository.GetListCountAsync(webModel.Limit, webModel.Page, webModel.Start, webModel.STitle,
                     webModel.SDateTime, webModel.SType, context);
             }
             catch (Exception ex)
@@ -268,7 +268,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改公告信息，公告编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync(operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("Bulletin", "HomeDomain", "UpdateBulletinAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 

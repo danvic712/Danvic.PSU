@@ -131,6 +131,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.StaffList = dataList;
+                webModel.Total = await BasicRepository.GetListCountAsync(webModel, context);
 
             }
             catch (Exception ex)
@@ -226,6 +227,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.StudentList = dataList;
+                webModel.Total = await BasicRepository.GetListCountAsync(webModel, context);
 
             }
             catch (Exception ex)

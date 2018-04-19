@@ -62,6 +62,48 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 根据搜索条件获取新生报名信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(RegisterViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                var list = await context.Set<Register>().AsNoTracking().OrderByDescending(i => i.DateTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Register> registers = context.Register.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Register>();
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //专业班级名称
+                if (!string.IsNullOrEmpty(webModel.SMajorClass))
+                {
+                    predicate = predicate.And(i => i.MajorClass.Contains(webModel.SMajorClass));
+                }
+
+                //预计到校时间
+                if (!string.IsNullOrEmpty(webModel.SDate))
+                {
+                    predicate = predicate.And(i => i.ArriveTime.ToString("yyyy-MM-dd") == webModel.SDate);
+                }
+
+                var list = await registers.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Goods API
@@ -103,6 +145,48 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await goodsInfos.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取物品预定信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(GoodsViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SGoodsName) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                var list = await context.Set<GoodsInfo>().AsNoTracking().OrderByDescending(i => i.ChosenTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<GoodsInfo> goodsInfos = context.GoodsInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<GoodsInfo>();
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.StudentName == webModel.SName);
+                }
+
+                //物品名称
+                if (!string.IsNullOrEmpty(webModel.SGoodsName))
+                {
+                    predicate = predicate.And(i => i.GoodsName.Contains(webModel.SGoodsName));
+                }
+
+                //物品选择时间
+                if (!string.IsNullOrEmpty(webModel.SDate))
+                {
+                    predicate = predicate.And(i => i.ChosenTime.ToString("yyyy-MM-dd") == webModel.SDate);
+                }
+
+                var list = await goodsInfos.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 
@@ -150,6 +234,48 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 根据搜索条件获取物品预定信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SBuilding) && string.IsNullOrEmpty(webModel.SStudent))
+            {
+                var list = await context.Set<BunkInfo>().AsNoTracking().OrderByDescending(i => i.DateTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<BunkInfo> bunkInfos = context.BunkInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<BunkInfo>();
+
+                //宿舍名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.DormName == webModel.SName);
+                }
+
+                //宿舍楼名称
+                if (!string.IsNullOrEmpty(webModel.SBuilding))
+                {
+                    predicate = predicate.And(i => i.BuildingName.Contains(webModel.SBuilding));
+                }
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.StudentName.Contains(webModel.SStudent));
+                }
+
+                var list = await bunkInfos.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Book API
@@ -191,6 +317,48 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 return await serviceInfos.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取服务预定信息列表数目
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(BookViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                var list = await context.Set<ServiceInfo>().AsNoTracking().Where(i => i.IsCancel == false).OrderByDescending(i => i.ScheduledTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<ServiceInfo> serviceInfos = context.ServiceInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<ServiceInfo>();
+
+                //迎新服务名称
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.ServiceName == webModel.SName);
+                }
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.Name.Contains(webModel.SStudent));
+                }
+
+                //预定日期
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.ScheduledTime.ToString("yyyy-MM-dd") == webModel.SDate);
+                }
+
+                var list = await serviceInfos.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 

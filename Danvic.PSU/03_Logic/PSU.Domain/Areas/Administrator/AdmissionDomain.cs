@@ -67,6 +67,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.ServiceList = dataList;
+                webModel.Total= await AdmissionRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -153,6 +154,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.GoodsList = dataList;
+                webModel.Total = await AdmissionRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -261,6 +263,7 @@ namespace PSU.Domain.Areas.Administrator
                 }
 
                 webModel.QuestionList = dataList;
+                webModel.Total = await AdmissionRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
