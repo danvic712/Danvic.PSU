@@ -85,7 +85,7 @@ namespace Controllers.PSU.Areas.Administrator
             }
 
             //加载下拉列表信息
-            webModel = await _service.GetDropDownListAsync(_context);
+            webModel = await _service.GetDropDownListAsync(webModel,_context);
 
             return View(webModel);
         }

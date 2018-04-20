@@ -87,8 +87,7 @@ namespace PSU.Entity.School
         /// <summary>
         /// 级数
         /// </summary>
-        [MaxLength(20)]
-        public string SessionNum { get; set; }
+        public int SessionNum { get; set; }
 
         /// <summary>
         /// 是否启用

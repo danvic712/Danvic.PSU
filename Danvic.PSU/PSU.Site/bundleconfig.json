@@ -307,6 +307,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editbunk.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editbunk.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/staff.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/staff.js"

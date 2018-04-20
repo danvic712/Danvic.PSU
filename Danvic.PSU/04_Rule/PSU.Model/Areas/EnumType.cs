@@ -80,6 +80,21 @@ namespace PSU.Model.Areas
             Remix = 3
         }
 
+        /// <summary>
+        /// 寝室朝向
+        /// </summary>
+        public enum BunkToward
+        {
+            [Display(Name = "面朝东")]
+            East = 1,
+            [Display(Name = "面朝南")]
+            South = 2,
+            [Display(Name = "面朝西")]
+            West = 3,
+            [Display(Name = "面朝北")]
+            North
+        }
+
         #endregion
     }
 }

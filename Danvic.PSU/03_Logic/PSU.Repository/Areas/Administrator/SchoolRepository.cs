@@ -364,7 +364,7 @@ namespace PSU.Repository.Areas.Administrator
 
         #endregion
 
-        #region Method
+        #region Method-Insert
 
         /// <summary>
         /// Insert Department Entity
@@ -375,18 +375,19 @@ namespace PSU.Repository.Areas.Administrator
         {
             return new Department
             {
-                Address = string.IsNullOrEmpty(webModel.Address) ? "" : webModel.Address,
-                Weibo = string.IsNullOrEmpty(webModel.Weibo) ? "" : webModel.Weibo,
-                Wechat = string.IsNullOrEmpty(webModel.Wechat) ? "" : webModel.Wechat,
-                Tel = string.IsNullOrEmpty(webModel.Tel) ? "" : webModel.Tel,
-                QQ = string.IsNullOrEmpty(webModel.QQ) ? "" : webModel.QQ,
-                Name = string.IsNullOrEmpty(webModel.Name) ? "" : webModel.Name,
+                Address = webModel.Address,
+                Weibo = webModel.Weibo,
+                Wechat = webModel.Wechat,
+                Tel = webModel.Tel,
+                QQ = webModel.QQ,
+                Name = webModel.Name,
                 IsBranch = (int)webModel.IsBranch == 1,
-                Email = string.IsNullOrEmpty(webModel.Email) ? "" : webModel.Email,
-                Introduction = string.IsNullOrEmpty(webModel.Introduction) ? "" : webModel.Introduction,
+                Email = webModel.Email,
+                Introduction = webModel.Introduction,
                 IsEnabled = (int)webModel.IsEnabled == 1,
-                CreatedBy = string.IsNullOrEmpty(CurrentUser.UserOID) ? "" : CurrentUser.UserOID,
-                CreatedName = string.IsNullOrEmpty(CurrentUser.UserName) ? "" : CurrentUser.UserName
+                CreatedId = CurrentUser.UserId,
+                CreatedBy = CurrentUser.UserOID,
+                CreatedName = CurrentUser.UserName
             };
         }
 
@@ -399,18 +400,22 @@ namespace PSU.Repository.Areas.Administrator
         {
             return new MajorClass
             {
+                Name = webModel.Name,
                 MajorCode = Convert.ToInt32(webModel.MajorCode),
                 IsEnabled = (int)webModel.IsEnabled == 1,
                 MajorName = webModel.MajorName,
                 SessionNum = webModel.SessionNum,
                 Wechat = webModel.Wechat,
                 QQ = webModel.QQ,
-                InstructorId = Convert.ToInt64(webModel.InstructorId),
-                DepartmentId = Convert.ToInt64(webModel.DepartmentId),
+                CreatedId = CurrentUser.UserId,
                 CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
         }
+
+        #endregion
+
+        #region Method-Update
 
         /// <summary>
         /// Update Department Entity
@@ -430,6 +435,7 @@ namespace PSU.Repository.Areas.Administrator
             model.Introduction = webModel.Introduction;
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
             model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
 
@@ -443,6 +449,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="model"></param>
         private static MajorClass UpdateModel(MajorClassEditViewModel webModel, MajorClass model)
         {
+            model.Name = webModel.Name;
             model.MajorCode = Convert.ToInt32((webModel.MajorCode));
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.MajorName = webModel.MajorName;
@@ -452,6 +459,7 @@ namespace PSU.Repository.Areas.Administrator
             model.InstructorId = Convert.ToInt64(webModel.InstructorId);
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
             model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
 

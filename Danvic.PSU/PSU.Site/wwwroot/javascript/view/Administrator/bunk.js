@@ -98,6 +98,21 @@ $(function () {
         dataTable = $('#bunk-table').dataTable($.dataTableSetting);
     });
 
+    //add
+    $(document).on('click', '#add', function () {
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: '/Administrator/Dormitory/EditBunk',
+            success: function (html) {
+                bootbox.dialog({
+                    title: '宿舍类型编辑',
+                    message: html
+                });
+            }
+        });
+    });
+
     //edit
     $(document).on('click', '#edit', function () {
         window.location.href = '/Administrator/Dormitory/EditBunk/' + $(this).attr('data-id');
@@ -147,6 +162,6 @@ $(function () {
                     });
                 }
             }
-        })
+        });
     });
-})
+});

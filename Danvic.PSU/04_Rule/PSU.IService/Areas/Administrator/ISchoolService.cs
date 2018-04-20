@@ -72,9 +72,10 @@ namespace PSU.IService.Areas.Administrator
         /// <summary>
         /// 获取下拉列表
         /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<MajorClassEditViewModel> GetDropDownListAsync(ApplicationDbContext context);
+        Task<MajorClassEditViewModel> GetDropDownListAsync(MajorClassEditViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
         /// 查找数据

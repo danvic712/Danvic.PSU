@@ -286,7 +286,7 @@ namespace PSU.Domain.Areas.Administrator
                         Id = item.Id.ToString(),
                         Name = item.Name,
                         ImageSrc = item.ImageSrc,
-                        Number = item.Number,
+                        Number = item.Number + "人",
                         Toward = item.Toward,
                         IsEnabled = item.IsEnabled
                     }));

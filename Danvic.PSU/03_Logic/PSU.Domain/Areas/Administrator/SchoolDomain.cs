@@ -222,13 +222,11 @@ namespace PSU.Domain.Areas.Administrator
         /// </summary>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public async Task<MajorClassEditViewModel> GetDropDownListAsync(ApplicationDbContext context)
+        public async Task<MajorClassEditViewModel> GetDropDownListAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
             //Get Source Data
             var departmentList = await SchoolRepository.GetDepartmentList(context);
             var staffList = await SchoolRepository.GetStaffList(context);
-
-            MajorClassEditViewModel webModel = new MajorClassEditViewModel();
 
             if (departmentList != null && departmentList.Any())
             {
@@ -268,7 +266,13 @@ namespace PSU.Domain.Areas.Administrator
                 webModel.Name = model.Name;
                 webModel.QQ = model.QQ;
                 webModel.Wechat = model.Wechat;
-                //Todo:Not Add All Attribute
+                webModel.DepartmentId = model.DepartmentId.ToString();
+                webModel.DepartmentName = model.DepartmentName;
+                webModel.InstructorId = model.InstructorId.ToString();
+                webModel.InstructorName = model.InstructorName;
+                webModel.MajorCode = model.MajorCode.ToString();
+                webModel.MajorName = model.MajorName;
+                webModel.SessionNum = model.SessionNum;
             }
             catch (Exception ex)
             {
@@ -329,7 +333,7 @@ namespace PSU.Domain.Areas.Administrator
                     {
                         Id = item.Id.ToString(),
                         Name = item.Name,
-                        SessionNum = item.SessionNum,
+                        SessionNum = item.SessionNum + "级",
                         IsEnabled = item.IsEnabled,
                         MajorName = item.MajorName,
                         MajorCode = item.MajorCode,

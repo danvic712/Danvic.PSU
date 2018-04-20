@@ -81,7 +81,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 级数
         /// </summary>
-        public string SessionNum { get; set; }
+        public int SessionNum { get; set; }
 
         /// <summary>
         /// 是否启用

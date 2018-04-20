@@ -39,8 +39,7 @@ namespace PSU.Entity.Dormitory
         /// 可容纳人数
         /// </summary>
         [Required]
-        [MaxLength(10)]
-        public string Number { get; set; }
+        public int Number { get; set; }
 
         /// <summary>
         /// 朝向
