@@ -102,6 +102,21 @@ $(function() {
             dataTable = $("#information-table").dataTable($.dataTableSetting);
         });
 
+    //add
+    $(document).on('click', '#add', function () {
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: '/Administrator/Dormitory/EditInformation',
+            success: function (html) {
+                bootbox.dialog({
+                    title: '宿舍信息编辑',
+                    message: html
+                });
+            }
+        });
+    });
+
     //edit
     $(document).on("click",
         "#edit",

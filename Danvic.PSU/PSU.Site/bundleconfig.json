@@ -62,6 +62,18 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/template/datetimepicker.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/bootstrap-datetimepicker.js",
+      "wwwroot/javascript/template/bootstrap-datetimepicker.zh-CN.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/index.min.js",
     "inputFiles": [
       "wwwroot/javascript/template/echarts.common.min.js",
@@ -197,6 +209,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editinformation.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editinformation.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/service.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/service.js"
@@ -208,9 +231,31 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editservice.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editservice.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/goods.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/goods.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editgoods.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editgoods.js"
     ],
     "minify": {
       "enabled": true,
@@ -309,6 +354,7 @@
   {
     "outputFileName": "wwwroot/javascript/view/Administrator/editbunk.min.js",
     "inputFiles": [
+      "wwwroot/javascript/template/ajaxupload.js",
       "wwwroot/javascript/view/Administrator/editbunk.js"
     ],
     "minify": {

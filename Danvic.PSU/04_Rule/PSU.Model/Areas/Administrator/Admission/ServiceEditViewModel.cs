@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Model.Areas.Administrator.Admission
 {
@@ -21,6 +22,11 @@ namespace PSU.Model.Areas.Administrator.Admission
         /// 迎新服务编号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public Enable IsEnabled { get; set; }
 
         #endregion
     }

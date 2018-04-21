@@ -1,107 +1,78 @@
 ﻿@model PSU.Model.Areas.Administrator.Dormitory.InformationEditViewModel
 @using PSU.Model.Areas
 @{
+    Layout = null;
     ViewData["Title"] = "寝室信息";
     ViewData["NavTitle"] = "宿舍信息管理";
     ViewData["CurrName"] = "寝室信息维护";
 }
 
-<section class="content-header">
-    <h1>
-        寝室信息
-        <small>Dormitory Information</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li>
-            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
-                <i class="fa fa-dashboard"></i> 首页
-            </a>
-        </li>
-        <li>宿舍信息</li>
-        <li class="active">
-            <a asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
-                寝室信息
-            </a>
-        </li>
-        <li class="active">编辑</li>
-    </ol>
-</section>
-
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <form asp-area="Administrator" asp-controller="School" asp-action="EditMajorClass" method="post" class="form-horizontal" role="form">
-                <div class="box">
-                    <div class="box box-body">
-                        <div class="form-group">
-                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name"> 宿舍名称： </label>
-                            <div class="col-md-4 col-xs-9">
-                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
-                            </div>
-                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="campus"> 所属宿舍楼： </label>
-                            <div class="col-md-4 col-xs-9">
-                                <select id="campus" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option value="">我是宿舍楼1</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label no-padding-right" for="floor">所在楼层：</label>
-                            <div class="col-md-4">
-                                <select id="floor" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    @for (int i = 1; i < 6; i++)
-                                    {
-                                        <option value="">@i 层</option>
-                                    }
-                                </select>
-                            </div>
-                            <label class="col-md-2 control-label no-padding-right" for="type">宿舍类型：</label>
-                            <div class="col-md-4">
-                                <select id="type" name="" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option value="">四人间</option>
-                                    <option value="">六人间</option>
-                                    <option value="">八人间</option>
-                                    <option value="">套房</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label no-padding-right" for="count">可容纳人数：</label>
-                            <div class="col-md-4 col-xs-9">
-                                <input class="col-md-5 col-xs-12 form-control" id="count" type="text" placeholder="">
-                            </div>
-                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="enable"> 是否启用： </label>
-                            <div class="col-md-4 col-xs-9">
-                                <select class="form-control"></select>
-                                @*<select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>*@
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <div class="text-right">
-                            <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
-                                <i class="fa fa-check"></i>
-                                保存
-                            </a>
-                            &nbsp; &nbsp;
-                            <a class="btn btn-default" asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
-                                <i class="fa fa-undo"></i>
-                                返回
-                            </a>
-                        </div>
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-area="Administrator" asp-controller="School" asp-action="EditMajorClass" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name"> 宿舍号 </label>
+                <div class="col-md-4 col-xs-9">
+                    <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="">
                 </div>
-            </form>
-        </div>
+                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="campus"> 所属宿舍楼 </label>
+                <div class="col-md-4 col-xs-9">
+                    <select id="campus" name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">我是宿舍楼1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="floor"> 所在楼层 </label>
+                <div class="col-md-2">
+                    <input class="form-control" id="floor" type="number" min="1">
+                </div>
+                <label class="control-label" for="floor">层</label>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="type"> 宿舍类型 </label>
+                <div class="col-md-4">
+                    <select id="type" name="" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="">四人间</option>
+                        <option value="">六人间</option>
+                        <option value="">八人间</option>
+                        <option value="">套房</option>
+                    </select>
+                </div>
+                <label class="col-md-2 control-label no-padding-right" for="count"> 可容纳人数 </label>
+                <div class="col-md-2">
+                    <input class="form-control" id="count" type="number">
+                </div>
+                <label class="control-label" for="floor">人</label>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="enable"> 是否启用 </label>
+                <div class="col-md-4 col-xs-9">
+                    <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
+                </div>
+            </div>
+            <div class="text-right">
+                <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                    <i class="fa fa-check"></i>
+                    保存
+                </a>
+                &nbsp; &nbsp;
+                <a class="btn btn-default" asp-area="Administrator" asp-controller="Dormitory" asp-action="Information">
+                    <i class="fa fa-undo"></i>
+                    返回
+                </a>
+            </div>
+        </form>
     </div>
-</section>
+</div>
 
 @section scripts{
     <environment include="Development">
+        <script src="~/javascript/view/Administrator/editinformation.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/editinformation.min.js" asp-append-version="true"></script>
     </environment>
 }
