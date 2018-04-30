@@ -7,9 +7,11 @@
 // Modified by:
 // Description: 学生信息表
 //-----------------------------------------------------------------------
+using PSU.Entity.Identity;
 using PSU.Utility.System;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSU.Entity.Basic
 {
@@ -179,6 +181,9 @@ namespace PSU.Entity.Basic
         /// 账号主键
         /// </summary>
         public string IdentityUserFK { get; set; }
+
+        [ForeignKey("IdentityUserFK")]
+        public virtual AppUser IdentityUser { get; set; }
 
         #endregion
     }
