@@ -15,6 +15,7 @@
       "wwwroot/css/template/bootstrap-datepicker.css",
       "wwwroot/css/template/dataTables.bootstrap.css",
       "wwwroot/css/template/pace.css",
+      "wwwroot/css/template/green.css",
       "wwwroot/css/view/layout.css"
     ]
   },
@@ -379,6 +380,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/profile.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/profile.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/staff.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/staff.js"
@@ -390,9 +402,31 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editstaff.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editstaff.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/studentaccount.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/studentaccount.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Administrator/editstudent.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Administrator/editstudent.js"
     ],
     "minify": {
       "enabled": true,

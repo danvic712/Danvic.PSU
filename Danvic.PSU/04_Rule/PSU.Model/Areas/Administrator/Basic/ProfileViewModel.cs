@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Administrator-Basic-个人信息页面 View Model
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Model.Areas.Administrator.Basic
 {
@@ -18,9 +16,47 @@ namespace PSU.Model.Areas.Administrator.Basic
         #region Attribute
 
         /// <summary>
-        /// 编号
+        /// 工号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 联系地址
+        /// </summary>
+        [StringLength(200)]
+        public string Address { get; set; }
+
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        public int Age { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public bool Gender { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public string CreateTime { get; set; }
+        
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 电子邮箱
+        /// </summary>
+        public string Email { get; set; }
 
         #endregion
     }

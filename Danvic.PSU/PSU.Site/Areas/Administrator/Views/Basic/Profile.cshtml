@@ -47,8 +47,8 @@
                     <div class="profile-user-info profile-user-info-striped">
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 真实姓名 </div>
-                            <div class="profile-info-value">
-                                <span class="editable editable-click" id="username">alexdoe</span>
+                            <div class="profile-info-value col-md-4">
+                                <input type="text" class="form-control" maxlength="20" asp-for="Name" required />
                             </div>
                         </div>
 
@@ -56,10 +56,12 @@
                             <div class="profile-info-name"> 联系地址 </div>
 
                             <div class="profile-info-value">
-                                <i class="fa fa-map-marker text-orange bigger-110"></i>
-                                <span class="editable editable-click" id="country">中国</span>
-                                <span class="editable editable-click" id="city">安徽省</span>
-                                <span class="editable editable-click" id="city">芜湖市</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" maxlength="200" asp-for="Address" />
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-map-marker text-orange"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -67,15 +69,15 @@
                             <div class="profile-info-name"> 工号 </div>
 
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="age">20180101000000</span>
+                                <span class="editable editable-click">@Model.Id</span>
                             </div>
                         </div>
 
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 年龄 </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable editable-click" id="age">38</span>
+                            <div class="profile-info-value col-md-2">
+                                <input type="number" class="form-control" maxlength="20" min="0" asp-for="Age" />
                             </div>
                         </div>
 
@@ -83,7 +85,7 @@
                             <div class="profile-info-name"> 创建日期 </div>
 
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="signup">@DateTime.Now.AddMonths(-13).ToString()</span>
+                                <span class="editable editable-click" id="signup">@Model.CreateTime</span>
                             </div>
                         </div>
 
@@ -91,15 +93,16 @@
                             <div class="profile-info-name"> 性别 </div>
 
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="login">男</span>
+                                <input type="radio" class="iradio_flat-green" name="gender" checked> 男
+                                <input type="radio" class="iradio_flat-green" name="gender"> 女
                             </div>
                         </div>
 
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 手机号 </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable editable-click" id="about">13912345678</span>
+                            <div class="profile-info-value col-md-4">
+                                <input type="text" class="form-control" maxlength="20" asp-for="Phone" required />
                             </div>
                         </div>
 
@@ -107,7 +110,7 @@
                             <div class="profile-info-name"> 电子邮箱 </div>
 
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="about">admin@example.com</span>
+                                <span class="editable editable-click" id="email">@Model.Email</span>
                             </div>
                         </div>
                     </div>
@@ -118,11 +121,6 @@
                             <i class="fa fa-check"></i>
                             保存
                         </a>
-                        &nbsp;&nbsp;
-                        <a class="btn btn-default" asp-area="Administrator" asp-controller="Home" asp-action="Bulletin">
-                            <i class="fa fa-undo"></i>
-                            返回
-                        </a>
                     </div>
                 </div>
             </div>
@@ -130,3 +128,11 @@
     </div>
 </section>
 
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/profile.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/profile.min.js" asp-append-version="true"></script>
+    </environment>
+}

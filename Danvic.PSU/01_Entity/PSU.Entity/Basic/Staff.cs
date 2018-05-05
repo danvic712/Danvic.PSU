@@ -66,11 +66,6 @@ namespace PSU.Entity.Basic
         public string Department { get; set; }
 
         /// <summary>
-        /// 是否为学校负责人
-        /// </summary>
-        public bool IsSupervisor { get; set; }
-
-        /// <summary>
         /// 是否为院系负责人
         /// </summary>
         public bool IsMaster { get; set; }

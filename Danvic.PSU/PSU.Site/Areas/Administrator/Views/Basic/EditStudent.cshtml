@@ -1,4 +1,5 @@
-﻿
+﻿@model PSU.Model.Areas.Administrator.Basic.StudentEditViewModel
+@using PSU.Model.Areas
 @{
     ViewData["Title"] = "学生账户";
     ViewData["NavTitle"] = "基础信息管理";
@@ -25,3 +26,154 @@
     </ol>
 </section>
 
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" role="form" id="edit_form">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box box-header">
+                                <div class="box-title">账户信息</div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
+                                        <span class="required-label">*</span> 邮箱地址
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="email" type="email" placeholder="">
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="endtime">
+                                        <span class="required-label">*</span> 手机号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="email" type="email" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label no-padding-right col-md-2 col-xs-3" for="password">
+                                        <span class="required-label">*</span> 登录密码
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input id="password" type="password" class="form-control" value="123456789">
+                                    </div>
+                                    <strong>
+                                        <i class="fa fa-file-text-o margin-r-5"></i>
+                                        默认密码：123456789
+                                    </strong>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <div class="box box-header">
+                                <div class="box-title">个人信息</div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                                        <span class="required-label">*</span> 用户姓名
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="name" type="text" placeholder="">
+                                    </div>
+                                    <label class="col-md-1 col-xs-3 control-label no-padding-right" for="gender">
+                                        性别
+                                    </label>
+                                    <div class="col-md-2 col-xs-9" style="margin-top:5px;">
+                                        <input type="radio" class="iradio_flat-green" name="gender" checked> 男
+                                        <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                    </div>
+                                    <label class="col-md-1 col-xs-3 control-label no-padding-right" for="age">
+                                        年龄
+                                    </label>
+                                    <div class="col-md-1 col-xs-9">
+                                        <input class="form-control" id="age" type="number" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="department">
+                                        <span class="required-label">*</span> 所属院系
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <select id="department" class="form-control">
+                                            <option value="-1">请选择</option>
+                                            @*@{
+                                                    if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                                    {
+                                                        foreach (var item in Model.DepartmentList.AsReadOnly())
+                                                        {
+                                                            if (item.Name.Equals(Model.DepartmentName))
+                                                            {
+                                                                <option value="@item.Id" selected="selected">@item.Name</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Id">@item.Name</option>
+                                                            }
+                                                        }
+                                                    }
+                                                }*@
+                                        </select>
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="deptnumber">
+                                        <span class="required-label">*</span> 院系编号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <div class="input-group">
+                                            <input type="text" id="deptnumber" class="form-control" readonly />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-id-card-o fa-flip-horizontal"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label no-padding-right" for="address">
+                                        家庭地址
+                                    </label>
+                                    <div class="col-md-8 col-xs-9">
+                                        <input class="form-control" id="address" type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="text-right">
+                        <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                            <i class="fa fa-check"></i>
+                            保存
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="btn btn-default" asp-area="Administrator" asp-controller="Basic" asp-action="Student">
+                            <i class="fa fa-undo"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Administrator/editstudent.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Administrator/editstudent.min.js" asp-append-version="true"></script>
+    </environment>
+}
