@@ -100,11 +100,39 @@ $(function () {
             dataTable = $('#goods-table').dataTable($.dataTableSetting);
         });
 
+    //add
+    $(document).on('click', '#add', function () {
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: '/Administrator/Admission/EditGoods',
+            success: function (html) {
+                bootbox.dialog({
+                    title: '物品信息编辑',
+                    message: html
+                });
+            }
+        });
+    });
+
     //edit
     $(document).on('click',
         '#edit',
         function () {
-            window.location.href = '/Administrator/Admission/EditGoods/' + $(this).attr('data-id');
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: '/Administrator/Admission/EditGoods',
+                data: {
+                    id: $(this).attr('data-id')
+                },
+                success: function (html) {
+                    bootbox.dialog({
+                        title: '物品信息编辑',
+                        message: html
+                    });
+                }
+            });
         });
 
     //delete

@@ -286,6 +286,21 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Administrator/reply.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/module.js",
+      "wwwroot/javascript/template/hotkeys.js",
+      "wwwroot/javascript/template/uploader.js",
+      "wwwroot/javascript/template/simditor.js",
+      "wwwroot/javascript/view/Administrator/reply.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Administrator/register.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/register.js"

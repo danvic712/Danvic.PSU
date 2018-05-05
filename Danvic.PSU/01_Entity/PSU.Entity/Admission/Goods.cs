@@ -32,7 +32,7 @@ namespace PSU.Entity.Admission
         /// 物品名称
         /// </summary>
         [Required]
-        [MaxLength(50)]
+        [MaxLength(30)]
         public string Name { get; set; }
 
         /// <summary>

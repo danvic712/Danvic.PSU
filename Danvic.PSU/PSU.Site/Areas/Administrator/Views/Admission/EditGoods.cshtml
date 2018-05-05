@@ -1,31 +1,65 @@
-﻿
+﻿@model PSU.Model.Areas.Administrator.Admission.GoodsEditViewModel
+@using PSU.Model.Areas
 @{
+    Layout = null;
     ViewData["Title"] = "物品信息";
     ViewData["NavTitle"] = "入学信息管理";
     ViewData["CurrName"] = "物品信息维护";
 }
 
-<section class="content-header">
-    <h1>
-        物品信息
-        <small>Bedding Information</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li>
-            <a asp-area="Administrator" asp-controller="Home" asp-action="Index">
-                <i class="fa fa-dashboard"></i> 首页
-            </a>
-        </li>
-        <li class="active">
-            <a asp-area="Administrator" asp-controller="Admission" asp-action="Goods">
-                入学信息
-            </a>
-        </li>
-        <li class="active">编辑</li>
-    </ol>
-</section>
-
-<section class="content"></section>
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" role="form" id="goods_form">
+            <div class="form-group">
+                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                    <span class="required-label">*</span> 物品名称
+                </label>
+                <div class="col-md-5 col-xs-10">
+                    <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="" maxlength="30" asp-for="Name">
+                </div>
+                <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
+                <div class="col-md-3">
+                    <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="size"> 物品尺寸 </label>
+                <div class="col-md-9">
+                    <input class="col-md-5 col-xs-12 form-control" id="size" type="text" placeholder="" maxlength="60" asp-for="Size">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="description"> 物品描述 </label>
+                <div class="col-md-9">
+                    <textarea id="description" class="form-control" maxlength="200" rows="6" style="resize:none" asp-for="Description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="enable"> 示意图 </label>
+                <div class="col-md-10">
+                    <button class="btn btn-sm btn-round" id="iconpath">
+                        <i class="fa fa-cloud-upload red2"></i>
+                        <span id="pathName">图片上传</span>
+                    </button>
+                    <span id="fname">图片限制1M以内，仅支持GIF,BMP,PNG,JPG,JPEG图片</span>
+                    <input type="hidden" id="hideUrl" value="" asp-for="ImageSrc"/>
+                    <input style="visibility:hidden" type="file" id="iconupload">
+                </div>
+            </div>
+            <div class="text-right">
+                <button id="save" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
+                    <i class="ace-icon fa fa-check"></i>
+                    保存
+                </button>
+                &nbsp; &nbsp;
+                <a class="btn btn-default" asp-area="Administrator" asp-controller="Admission" asp-action="Goods">
+                    <i class="fa fa-undo"></i>
+                    返回
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 
 @section scripts{
     <environment include="Development">

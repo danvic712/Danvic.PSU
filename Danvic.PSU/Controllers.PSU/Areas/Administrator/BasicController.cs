@@ -88,9 +88,14 @@ namespace Controllers.PSU.Areas.Administrator
             return View(webModel);
         }
 
+        /// <summary>
+        /// 个人信息页面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Profile()
         {
-            return View();
+            var webModel = new ProfileViewModel();
+            return View(webModel);
         }
 
         #endregion

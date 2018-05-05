@@ -115,7 +115,21 @@ $(function () {
 
     //edit
     $(document).on('click', '#edit', function () {
-        window.location.href = '/Administrator/Dormitory/EditBunk/' + $(this).attr('data-id');
+        $.ajax({
+            type: "GET",
+            dataType: "html",
+            url: '/Administrator/Dormitory/EditBunk',
+            data: {
+                id: $(this).attr('data-id')
+            },
+            success: function (html) {
+                bootbox.dialog({
+                    title: '宿舍类型编辑',
+                    message: html
+                });
+            }
+        });
+        //window.location.href = '/Administrator/Dormitory/EditBunk/' + $(this).attr('data-id');
     });
 
     //delete

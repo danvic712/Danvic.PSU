@@ -113,7 +113,7 @@ namespace Controllers.PSU.Areas.Administrator
                 var webModel = await _service.GetQuestionAsync(Convert.ToInt64(id), _context);
                 return View(webModel);
             }
-            return View("Question");
+            return Redirect("Question");
         }
 
         /// <summary>
