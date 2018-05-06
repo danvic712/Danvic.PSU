@@ -1,5 +1,5 @@
 ﻿/*!
- *   Administrator Basic Profile Page JavaScript v1.0.0
+ *   Instructor Profile Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {
@@ -9,4 +9,4 @@ $(function () {
         radioClass: 'iradio_flat-green',
         increaseArea: '20%' /* optional */
     });
-});
+})

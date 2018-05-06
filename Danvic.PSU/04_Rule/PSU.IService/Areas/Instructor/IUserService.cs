@@ -36,10 +36,10 @@ namespace PSU.IService.Areas.Instructor
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <param name="id">班级编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<ClassEditViewModel> UpdateClassAsync(long id, ApplicationDbContext context);
+        Task<bool> UpdateClassAsync(ClassEditViewModel webModel, ApplicationDbContext context);
 
         #endregion
 
@@ -56,10 +56,10 @@ namespace PSU.IService.Areas.Instructor
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <param name="id">编号</param>
+        /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<ProfileViewModel> UpdateProfileAsync(long id, ApplicationDbContext context);
+        Task<bool> UpdateProfileAsync(ProfileViewModel webModel, ApplicationDbContext context);
 
         #endregion
     }

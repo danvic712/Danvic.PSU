@@ -1,0 +1,165 @@
+﻿@model PSU.Model.Areas.Instructor.User.ClassEditViewModel
+@using PSU.Model.Areas
+@{
+    ViewData["Title"] = "编辑班级";
+    ViewData["NavTitle"] = "我的班级管理";
+    ViewData["CurrName"] = "";
+}
+
+<section class="content-header">
+    <h1>
+        我的班级
+        <small>My Classes</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Instructor" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> 首页
+            </a>
+        </li>
+        <li>
+            <a asp-area="Instructor" asp-controller="User" asp-action="Classes">
+                我的班级
+            </a>
+        </li>
+        <li class="active">编辑</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" class="form-horizontal" role="form" id="majorclass_form">
+                <div class="box">
+                    <div class="box box-body">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                                <span class="required-label">*</span> 班级名称
+                            </label>
+                            <div class="col-md-4 col-xs-9">
+                                <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="" asp-for="Name" readonly>
+                            </div>
+                            <label class="col-md-2 control-label no-padding-right" for="wechat"> 班级微信 </label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="wechat" class="form-control" asp-for="Wechat" maxlength="20" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-weixin text-green"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label no-padding-right" for="qq"> 班级QQ </label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="qq" class="form-control" asp-for="QQ" maxlength="20" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-qq fa-flip-horizontal text-light-blue"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="major">
+                                <span class="required-label">*</span> 所属专业
+                            </label>
+                            <div class="col-md-4 col-xs-9">
+                                <div class="input-group">
+                                    <input type="text" id="major" class="form-control" asp-for="MajorName" readonly />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-graduation-cap fa-flip-horizontal"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 control-label no-padding-right" for="code">
+                                <span class="required-label">*</span> 专业代码
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="code" class="form-control" asp-for="MajorCode" readonly />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-code fa-flip-horizontal"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label no-padding-right" for="department">
+                                <span class="required-label">*</span> 所属院系
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="department" class="form-control" asp-for="DepartmentName" readonly />
+                            </div>
+                            <label class="col-md-2 control-label no-padding-right" for="deptnumber">
+                                <span class="required-label">*</span> 院系编号
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="deptnumber" class="form-control" readonly asp-for="DepartmentId" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-id-card-o fa-flip-horizontal"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="instructor">
+                                <span class="required-label">*</span> 班级辅导员
+                            </label>
+                            <div class="col-md-4 col-xs-9">
+                                <input type="text" id="instructor" class="form-control" asp-for="InstructorName" readonly />
+                            </div>
+                            <label class="col-md-2 control-label no-padding-right" for="insnumber">
+                                <span class="required-label">*</span> 辅导员工号
+                            </label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" id="insnumber" class="form-control" readonly asp-for="InstructorId" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-id-card fa-flip-horizontal"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-3 control-label no-padding-right" for="session"> 班级级数 </label>
+                            <div class="col-md-4 col-xs-9">
+                                <input type="text" id="session" class="form-control" asp-for="SessionNum" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
+                            <div class="col-md-4">
+                                <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled" disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="text-right">
+                            <button id="save" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
+                                <i class="ace-icon fa fa-check"></i>
+                                保存
+                            </button>
+                            &nbsp; &nbsp;
+                            <a class="btn btn-default" asp-area="Administrator" asp-controller="School" asp-action="MajorClass">
+                                <i class="fa fa-undo"></i>
+                                返回
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/view/Instructor/editclass.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Instructor/editclass.min.js" asp-append-version="true"></script>
+    </environment>
+}

@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSU.Model", "04_Rule\PSU.Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSU.EFCore", "02_Infrastructure\PSU.EFCore\PSU.EFCore.csproj", "{D624643A-BD17-4302-9092-BF8D981E44EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSU.Site", "PSU.Site\PSU.Site.csproj", "{CBA2D8D6-4A3F-4782-9BD1-03457D6E6038}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSU.Site", "PSU.Site\PSU.Site.csproj", "{CBA2D8D6-4A3F-4782-9BD1-03457D6E6038}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

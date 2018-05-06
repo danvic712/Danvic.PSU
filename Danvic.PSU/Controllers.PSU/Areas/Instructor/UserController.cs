@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using PSU.Utility;
 using PSU.Model.Areas.Instructor.User;
 using PSU.Utility.Web;
+using System.Linq;
 
 namespace Controllers.PSU.Areas.Instructor
 {
@@ -105,6 +106,45 @@ namespace Controllers.PSU.Areas.Instructor
             };
 
             return Json(returnData);
+        }
+
+        /// <summary>
+        /// 专业班级编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditClass(ClassEditViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "专业班级信息编辑失败,班级编号为空"
+                    });
+                }
+                else
+                {
+                    //Update Major Class
+                    flag = await _service.UpdateClassAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "专业班级信息编辑成功" : "专业班级信息编辑失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
         }
 
         #endregion

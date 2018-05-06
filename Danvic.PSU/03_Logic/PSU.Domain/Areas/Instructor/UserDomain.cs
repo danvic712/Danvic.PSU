@@ -9,12 +9,16 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
+using PSU.Model.Areas;
 using PSU.Model.Areas.Instructor.User;
+using PSU.Repository;
+using PSU.Repository.Areas.Instructor;
 
 namespace PSU.Domain.Areas.Instructor
 {
@@ -33,31 +37,130 @@ namespace PSU.Domain.Areas.Instructor
 
         #region Class Interface Service Implement
 
-        public Task<ClassEditViewModel> GetClassAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 获取我的班级信息
+        /// </summary>
+        /// <param name="id">班级编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<ClassEditViewModel> GetClassAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new ClassEditViewModel();
+            try
+            {
+                var model = await UserRepository.GetClassAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.QQ = model.QQ;
+                webModel.Wechat = model.Wechat;
+                webModel.DepartmentId = model.DepartmentId.ToString();
+                webModel.DepartmentName = model.DepartmentName;
+                webModel.InstructorId = model.InstructorId.ToString();
+                webModel.InstructorName = model.InstructorName;
+                webModel.MajorCode = model.MajorCode.ToString();
+                webModel.MajorName = model.MajorName;
+                webModel.SessionNum = model.SessionNum + "级";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取我的班级数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
-        public Task<ClassViewModel> SearchClassAsync(ClassViewModel webModel, ApplicationDbContext context)
+        /// <summary>
+        /// 搜索我的班级数据
+        /// </summary>
+        /// <param name="webModel">班级列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<ClassViewModel> SearchClassAsync(ClassViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await UserRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<ClassData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new ClassData
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        Department = item.DepartmentName,
+                        QQ = item.QQ,
+                        Wechat = item.Wechat,
+                        SessionNum = item.SessionNum + "级",
+                        MajorName = item.MajorName,
+                        MajorCode = item.MajorCode,
+                    }));
+                }
+
+                webModel.ClassList = dataList;
+                webModel.Total = await UserRepository.GetListCountAsync(webModel, context);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取我的班级列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
-        public Task<ClassEditViewModel> UpdateClassAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 更新班级数据
+        /// </summary>
+        /// <param name="webModel">班级编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateClassAsync(ClassEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Class Data
+                UserRepository.UpdateEntityAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改我的班级信息，专业班级编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync("MajorClass", "UserDomain", "UpdateClassAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新我的班级失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion
 
         #region Profile Interface Service Implement
 
-        public Task<ProfileViewModel> GetProfileAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 获取个人信息
+        /// </summary>
+        /// <param name="id">用户编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<ProfileViewModel> GetProfileAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new ProfileViewModel { };
+            return webModel;
         }
 
-        public Task<ProfileViewModel> UpdateProfileAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 更新个人信息
+        /// </summary>
+        /// <param name="webModel">个人信息页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public Task<bool> UpdateProfileAsync(ProfileViewModel webModel, ApplicationDbContext context)
         {
             throw new NotImplementedException();
         }

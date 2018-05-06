@@ -494,6 +494,21 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Instructor/reply.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/module.js",
+      "wwwroot/javascript/template/hotkeys.js",
+      "wwwroot/javascript/template/uploader.js",
+      "wwwroot/javascript/template/simditor.js",
+      "wwwroot/javascript/view/Instructor/reply.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Instructor/register.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/register.js"
@@ -516,6 +531,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Instructor/editclass.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/editclass.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Instructor/dormitory.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/dormitory.js"
@@ -530,6 +556,17 @@
     "outputFileName": "wwwroot/javascript/view/Instructor/information.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/information.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Instructor/profile.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/profile.js"
     ],
     "minify": {
       "enabled": true,

@@ -17,6 +17,7 @@ using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Admission;
 using PSU.Model.Areas.Administrator.School;
+using PSU.Repository;
 using PSU.Repository.Areas.Administrator;
 
 namespace PSU.Domain.Areas.Administrator
@@ -214,23 +215,59 @@ namespace PSU.Domain.Areas.Administrator
         /// <summary>
         /// 获取提问详情
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="id">疑问编号</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public Task<QuestionReplyViewModel> GetQuestionAsync(long id, ApplicationDbContext context)
+        public async Task<QuestionReplyViewModel> GetQuestionAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new QuestionReplyViewModel();
+            try
+            {
+                var model = await AdmissionRepository.GetQuestionAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.AskForName = model.AskForName;
+                webModel.AskTime = model.AskTime.ToString("yyyy-MM-dd HH:mm:ss");
+                webModel.Content = model.Content;
+                webModel.IsReply = model.IsReply;
+                webModel.ReplyContent = model.ReplyContent;
+                webModel.ReplyId = model.ReplyId;
+                webModel.ReplyName = model.ReplyName;
+                webModel.ReplyTime = model.ReplyTime.ToString("yyyy-MM-dd HH:mm:ss");
+                webModel.StuName = model.StuName;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取疑问信息数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
         /// 回复提问信息
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="context"></param>
+        /// <param name="webModel">疑问回复页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public Task<QuestionReplyViewModel> ReplyQuestionAsync(long id, ApplicationDbContext context)
+        public async Task<bool> ReplyQuestionAsync(QuestionReplyViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Question Data
+                AdmissionRepository.ReplyQuestionAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("回复学生疑问信息，学生疑问编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync("Question", "AdmissionDomain", "ReplyQuestionAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("回复学生疑问失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         /// <summary>

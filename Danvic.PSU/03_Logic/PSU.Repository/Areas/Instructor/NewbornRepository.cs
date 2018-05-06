@@ -67,6 +67,51 @@ namespace PSU.Repository.Areas.Instructor
             }
         }
 
+        /// <summary>
+        /// 根据搜索条件获取新生报名信息列表个数
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(RegisterViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SDate))
+            {
+                var list= await context.Set<Register>().Where(i => i.InstructorId == CurrentUser.UserId).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Register> registers = context.Register.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Register>();
+
+                //当前登录人数据
+                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //专业班级名称
+                if (!string.IsNullOrEmpty(webModel.SMajorClass))
+                {
+                    predicate = predicate.And(i => i.MajorClass.Contains(webModel.SMajorClass));
+                }
+
+                //预计到校时间
+                if (!string.IsNullOrEmpty(webModel.SDate))
+                {
+                    predicate = predicate.And(i => i.ArriveTime.ToString("yyyy-MM-dd") == webModel.SDate);
+                }
+
+                var list = await registers.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Dormitory API
@@ -115,6 +160,52 @@ namespace PSU.Repository.Areas.Instructor
                 }
 
                 return await students.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取新生信息列表个数
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(InformationViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId))
+            {
+                var list = await context.Set<Entity.Basic.Student>().AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId)
+                    .Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<Entity.Basic.Student> students = context.Student.AsQueryable();
+
+                var predicate = PredicateBuilder.New<Entity.Basic.Student>();
+
+                //当前登录人数据
+                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+
+                //学生学号
+                if (!string.IsNullOrEmpty(webModel.SId))
+                {
+                    predicate = predicate.And(i => i.Id == Convert.ToInt64(webModel.SId));
+                }
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.Name == webModel.SName);
+                }
+
+                //专业班级名称
+                if (!string.IsNullOrEmpty(webModel.SMajorClass))
+                {
+                    predicate = predicate.And(i => i.MajorClass.Contains(webModel.SMajorClass));
+                }
+
+                var list = await students.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
             }
         }
 

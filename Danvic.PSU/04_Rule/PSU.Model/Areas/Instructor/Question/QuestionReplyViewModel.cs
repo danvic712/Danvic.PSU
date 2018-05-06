@@ -7,9 +7,7 @@
 // Modified by:
 // Description: Instructor-Question-学生疑问回复页面 View Model 
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Model.Areas.Instructor.Question
 {
@@ -21,6 +19,52 @@ namespace PSU.Model.Areas.Instructor.Question
         /// 学生提问编号
         /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
+        public string StuName { get; set; }
+
+        /// <summary>
+        /// 提问时间
+        /// </summary>
+        public string AskTime { get; set; }
+
+        /// <summary>
+        /// 提问对象姓名
+        /// </summary>
+        public string AskForName { get; set; }
+
+        /// <summary>
+        /// 提问内容
+        /// </summary>
+        public string Content { get; set; }
+
+        /// <summary>
+        /// 是否回复
+        /// </summary>
+        public bool IsReply { get; set; }
+
+        /// <summary>
+        /// 回复人编号
+        /// </summary>
+        public long ReplyId { get; set; }
+
+        /// <summary>
+        /// 回复人姓名
+        /// </summary>
+        public string ReplyName { get; set; }
+
+        /// <summary>
+        /// 回复内容
+        /// </summary>
+        [StringLength(200, ErrorMessage = "回复内容不能超过200个字符长度")]
+        public string ReplyContent { get; set; }
+
+        /// <summary>
+        /// 回复时间
+        /// </summary>
+        public string ReplyTime { get; set; }
 
         #endregion
     }

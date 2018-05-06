@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Admission;
 using PSU.Model.Areas.Administrator.Admission;
+using PSU.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -198,6 +199,18 @@ namespace PSU.Repository.Areas.Administrator
         #region Question API
 
         /// <summary>
+        /// 获取提问信息
+        /// </summary>
+        /// <param name="id">问题编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Question> GetQuestionAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Question.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
         /// 根据学生疑问信息搜索数据
         /// </summary>
         /// <param name="webModel">列表页视图模型</param>
@@ -279,6 +292,29 @@ namespace PSU.Repository.Areas.Administrator
                 var list = await questions.AsExpandable().Where(predicate).ToListAsync();
                 return list.Count();
             }
+        }
+
+        /// <summary>
+        /// 回复疑问信息
+        /// </summary>
+        /// <param name="webModel">疑问信息回复页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void ReplyQuestionAsync(QuestionReplyViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Question.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            //Update
+            model.IsReply = true;
+            model.ReplyContent = webModel.ReplyContent;
+            model.ReplyFK = CurrentUser.UserOID;
+            model.ReplyId = CurrentUser.UserId;
+            model.ReplyName = CurrentUser.UserName;
+            model.ReplyTime = DateTime.Now;
         }
 
         #endregion

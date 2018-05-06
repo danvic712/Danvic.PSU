@@ -66,6 +66,7 @@ namespace PSU.Domain.Areas.Instructor
                 }
 
                 webModel.RegisterList = dataList;
+                webModel.Total = await NewbornRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {
@@ -124,6 +125,7 @@ namespace PSU.Domain.Areas.Instructor
                 }
 
                 webModel.StudentList = dataList;
+                webModel.Total = await NewbornRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {

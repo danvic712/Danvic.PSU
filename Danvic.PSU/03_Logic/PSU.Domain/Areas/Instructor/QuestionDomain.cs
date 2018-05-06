@@ -7,16 +7,16 @@
 // Modified by:
 // Description: Instructor-Question控制器邻域功能接口实现
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
 using PSU.Model.Areas.Instructor.Question;
+using PSU.Repository;
 using PSU.Repository.Areas.Instructor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PSU.Domain.Areas.Instructor
 {
@@ -35,16 +35,70 @@ namespace PSU.Domain.Areas.Instructor
 
         #region Question Interface Service Implement
 
-        public Task<QuestionReplyViewModel> GetQuestionAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 获取学生疑问信息
+        /// </summary>
+        /// <param name="id">问题编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<QuestionReplyViewModel> GetQuestionAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            var webModel = new QuestionReplyViewModel();
+            try
+            {
+                var model = await QuestionRepository.GetQuestionAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.AskForName = model.AskForName;
+                webModel.AskTime = model.AskTime.ToString("yyyy-MM-dd HH:mm:ss");
+                webModel.Content = model.Content;
+                webModel.IsReply = model.IsReply;
+                webModel.ReplyContent = model.ReplyContent;
+                webModel.ReplyId = model.ReplyId;
+                webModel.ReplyName = model.ReplyName;
+                webModel.ReplyTime = model.ReplyTime.ToString("yyyy-MM-dd HH:mm:ss");
+                webModel.StuName = model.StuName;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取疑问信息数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
-        public Task<QuestionReplyViewModel> ReplyQuestionAsync(long id, ApplicationDbContext context)
+        /// <summary>
+        /// 回复学生疑问信息
+        /// </summary>
+        /// <param name="webModel">回复信息页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> ReplyQuestionAsync(QuestionReplyViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Question Data
+                QuestionRepository.ReplyQuestionAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("回复学生疑问信息，学生疑问编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync("Question", "QuestionDomain", "ReplyQuestionAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("回复学生疑问失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
+        /// <summary>
+        /// 搜索学生疑问信息
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task<QuestionViewModel> SearchQuestionAsync(QuestionViewModel webModel, ApplicationDbContext context)
         {
             try
@@ -68,6 +122,7 @@ namespace PSU.Domain.Areas.Instructor
                 }
 
                 webModel.QuestionList = dataList;
+                webModel.Total = await QuestionRepository.GetListCountAsync(webModel, context);
             }
             catch (Exception ex)
             {

@@ -313,6 +313,45 @@ namespace Controllers.PSU.Areas.Administrator
             return Json(returnData);
         }
 
+        /// <summary>
+        /// 回复学生疑问信息页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Reply(QuestionReplyViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "回复学生疑问信息失败,问题编号为空"
+                    });
+                }
+                else
+                {
+                    //Update Question
+                    flag = await _service.ReplyQuestionAsync(webModel, _context);
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "回复学生疑问信息成功" : "回复学生疑问信息失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
         #endregion
     }
 }

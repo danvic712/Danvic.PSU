@@ -39,19 +39,50 @@ namespace Controllers.PSU.Areas.Instructor
 
         #region View
 
+        /// <summary>
+        /// 新生报名情况页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        /// <summary>
+        /// 新生宿舍选择页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Dormitory()
         {
             return View();
         }
 
+        /// <summary>
+        /// 新生信息页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Information()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 新生详细信息页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Detail(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                var webModel = await _service.GetStudentAsync(Convert.ToInt64(id), _context);
+                return View(webModel);
+            }
+            return Redirect("Information");
         }
 
         #endregion

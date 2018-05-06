@@ -116,10 +116,10 @@ namespace PSU.IService.Areas.Administrator
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <param name="id">问题编号</param>
+        /// <param name="webModel">疑问回复页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<QuestionReplyViewModel> ReplyQuestionAsync(long id, ApplicationDbContext context);
+        Task<bool> ReplyQuestionAsync(QuestionReplyViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
         /// 搜索数据
