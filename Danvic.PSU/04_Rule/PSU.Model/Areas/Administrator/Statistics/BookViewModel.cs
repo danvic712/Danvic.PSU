@@ -97,6 +97,13 @@ namespace PSU.Model.Areas.Administrator.Statistics
         /// </summary>
         public string Remark { get; set; }
 
+        /// <summary>
+        /// 是否取消
+        /// </summary>
+        public bool IsCancel { get; set; }
+
+        public string IsCancelStr => IsCancel ? "是" : "否";
+
         #endregion
     }
 }

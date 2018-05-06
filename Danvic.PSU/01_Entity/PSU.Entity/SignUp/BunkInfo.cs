@@ -32,19 +32,35 @@ namespace PSU.Entity.SignUp
 
         /// <summary>
         /// 学生姓名
-        /// 张三|李四...
         /// </summary>
         [Required]
-        [MaxLength(100)]
+        [MaxLength(20)]
         public string StudentName { get; set; }
 
         /// <summary>
         /// 学生学号
-        /// 20171222104569|20180214053521
         /// </summary>
         [Required]
-        [MaxLength(100)]
-        public string StudentId { get; set; }
+        public long StudentId { get; set; }
+
+        /// <summary>
+        /// 辅导员工号
+        /// </summary>
+        [Required]
+        public long InstructorId { get; set; }
+
+        /// <summary>
+        /// 专业班级编号
+        /// </summary>
+        [Required]
+        public long MajorClassId { get; set; }
+
+        /// <summary>
+        /// 专业班级名称
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string MajorClassName { get; set; }
 
         /// <summary>
         /// 可容纳人数
@@ -89,9 +105,9 @@ namespace PSU.Entity.SignUp
         [Required]
         [MaxLength(20)]
         public string DormName { get; set; }
-        
+
         /// <summary>
-        /// 完成选择时间
+        /// 选择时间
         /// </summary>
         public DateTime DateTime { get; set; }
 

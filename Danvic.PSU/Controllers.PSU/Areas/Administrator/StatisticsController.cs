@@ -89,7 +89,12 @@ namespace Controllers.PSU.Areas.Administrator
         [HttpGet]
         public async Task<IActionResult> BookInfo(string id)
         {
-            return View();
+            if (!string.IsNullOrEmpty(id))
+            {
+                var webModel = await _service.GetBookAsync(Convert.ToInt64(id), _context);
+                return View(webModel);
+            }
+            return View(new BookDetailViewModel());
         }
 
         #endregion
@@ -185,7 +190,7 @@ namespace Controllers.PSU.Areas.Administrator
             BookViewModel webModel = JsonUtility.ToObject<BookViewModel>(search);
 
             webModel = await _service.SearchBookAsync(webModel, _context);
-          
+
             //Search Or Init
             bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SDate);
 

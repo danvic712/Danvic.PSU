@@ -50,6 +50,21 @@ namespace PSU.Model.Areas.Administrator.Statistics
         #region Table
 
         /// <summary>
+        /// 学生学号
+        /// </summary>
+        public string StudentId { get; set; }
+
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 专业班级
+        /// </summary>
+        public string MajorClass { get; set; }
+
+        /// <summary>
         /// 宿舍名称
         /// </summary>
         public string Dorm { get; set; }
@@ -67,23 +82,9 @@ namespace PSU.Model.Areas.Administrator.Statistics
         public string Building { get; set; }
 
         /// <summary>
-        /// 可容纳人数
+        /// 选择时间
         /// </summary>
-        public int Count { get; set; }
-
-        public string CountStr => Count + "人";
-
-        /// <summary>
-        /// 已选择人数
-        /// </summary>
-        public int Chosen { get; set; }
-
-        public string ChosenStr => Chosen + "人";
-
-        /// <summary>
-        /// 学生姓名
-        /// </summary>
-        public string StudentName { get; set; }
+        public string DateTime { get; set; }
 
         #endregion
     }

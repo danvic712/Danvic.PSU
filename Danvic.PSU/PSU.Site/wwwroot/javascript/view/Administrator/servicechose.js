@@ -35,7 +35,7 @@ $.dataTableSetting = {
     "processing": true,
     "columnDefs": [
         {
-            "targets": 8,
+            "targets": 7,
             "data": null,
             "render": function (data, type, row) {
                 var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>查看</a>';
@@ -50,8 +50,7 @@ $.dataTableSetting = {
         { "data": "scheduledTime" },
         { "data": "serviceName" },
         { "data": "departureTime" },
-        { "data": "place" },
-        { "data": "remark" }
+        { "data": "isCancelStr" }
     ],
 
     ajax: function (data, callback, settings) {
@@ -101,6 +100,13 @@ $(function () {
 
     var dataTable = $('#book-table').dataTable($.dataTableSetting);
 
+    //radio
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green',
+        increaseArea: '20%' /* optional */
+    });
+
     //search
     $(document).on('click', '#search', function () {
         dataTable.fnDestroy(false);
@@ -113,12 +119,13 @@ $(function () {
         $.ajax({
             type: "GET",
             dataType: "html",
-            url: '',
+            url: '/Administrator/Statistics/BookInfo',
             data: {
                 id: id
             },
             success: function (html) {
                 window.bootbox.dialog({
+                    title: '预定信息详情',
                     message: html
                 });
             }

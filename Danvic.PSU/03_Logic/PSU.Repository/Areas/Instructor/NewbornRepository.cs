@@ -77,7 +77,7 @@ namespace PSU.Repository.Areas.Instructor
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SDate))
             {
-                var list= await context.Set<Register>().Where(i => i.InstructorId == CurrentUser.UserId).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+                var list = await context.Set<Register>().Where(i => i.InstructorId == CurrentUser.UserId).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
                 return list.Count();
             }
             else
@@ -115,6 +115,95 @@ namespace PSU.Repository.Areas.Instructor
         #endregion
 
         #region Dormitory API
+
+        /// <summary>
+        /// 根据搜索条件获取新生宿舍选择信息
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<BunkInfo>> GetListAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SBuilding))
+            {
+                return await context.Set<BunkInfo>().Where(i => i.InstructorId == CurrentUser.UserId).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+            }
+            else
+            {
+                IQueryable<BunkInfo> bunkInfos = context.BunkInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<BunkInfo>();
+
+                //当前登录人数据
+                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.StudentName == webModel.SStudent);
+                }
+
+                //寝室号
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.DormName == webModel.SName);
+                }
+
+                //寝室楼
+                if (!string.IsNullOrEmpty(webModel.SBuilding))
+                {
+                    predicate = predicate.And(i => i.BuildingName == webModel.SBuilding);
+                }
+
+                return await bunkInfos.AsExpandable().Where(predicate).ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// 根据搜索条件获取新生宿舍选择信息列表个数
+        /// </summary>
+        /// <param name="webModel">列表页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<int> GetListCountAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        {
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SStudent) && string.IsNullOrEmpty(webModel.SBuilding))
+            {
+                var list = await context.Set<BunkInfo>().Where(i => i.InstructorId == CurrentUser.UserId).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.DateTime).ToListAsync();
+                return list.Count();
+            }
+            else
+            {
+                IQueryable<BunkInfo> bunkInfos = context.BunkInfo.AsQueryable();
+
+                var predicate = PredicateBuilder.New<BunkInfo>();
+
+                //当前登录人数据
+                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+
+                //学生姓名
+                if (!string.IsNullOrEmpty(webModel.SStudent))
+                {
+                    predicate = predicate.And(i => i.StudentName == webModel.SStudent);
+                }
+
+                //寝室号
+                if (!string.IsNullOrEmpty(webModel.SName))
+                {
+                    predicate = predicate.And(i => i.DormName == webModel.SName);
+                }
+
+                //寝室楼
+                if (!string.IsNullOrEmpty(webModel.SBuilding))
+                {
+                    predicate = predicate.And(i => i.BuildingName == webModel.SBuilding);
+                }
+
+                var list = await bunkInfos.AsExpandable().Where(predicate).ToListAsync();
+                return list.Count();
+            }
+        }
+
         #endregion
 
         #region Information API

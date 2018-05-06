@@ -45,71 +45,98 @@
                 <div class="box-body">
                     <div class="profile-user-info profile-user-info-striped">
                         <div class="profile-info-row">
-                            <div class="profile-info-name"> 真实姓名 </div>
-                            <div class="profile-info-value col-md-4">
-                                <input type="text" class="form-control" maxlength="20" asp-for="Name" required />
+                            <div class="profile-info-name"> 用户姓名 </div>
+                            <div class="profile-info-value">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" maxlength="20" asp-for="Name" required />
+                                </div>
                             </div>
                         </div>
-
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 联系地址 </div>
-
                             <div class="profile-info-value">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" maxlength="200" asp-for="Address" />
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-map-marker text-orange"></i>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" maxlength="200" asp-for="Address" />
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-map-marker text-orange"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 工号 </div>
-
                             <div class="profile-info-value">
-                                <span class="editable editable-click">@Model.Id</span>
+                                <div class="col-md-12">
+                                    <span class="editable editable-click">@Model.Id</span>
+                                </div>
                             </div>
                         </div>
-
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 所属院系 </div>
+                            <div class="profile-info-value">
+                                <div class="col-md-12">
+                                    <span class="editable editable-click">计算机与软件工程学院</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 年龄 </div>
-
-                            <div class="profile-info-value col-md-2">
-                                <input type="number" class="form-control" maxlength="20" min="0" asp-for="Age" />
+                            <div class="profile-info-value ">
+                                <div class="col-md-3" style="display:inline-flex">
+                                    <input type="number" class="form-control" maxlength="20" min="0" asp-for="Age" />
+                                    <span style="margin:7px 0px 0px 5px;">岁</span>
+                                </div>
                             </div>
                         </div>
-
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 创建日期 </div>
-
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="signup">@Model.CreateTime</span>
+                                <div class="col-md-12">
+                                    <span class="editable editable-click" id="signup">@Model.CreateTime</span>
+                                </div>
                             </div>
                         </div>
-
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 性别 </div>
-
                             <div class="profile-info-value">
-                                <input type="radio" class="iradio_flat-green" name="gender" checked> 男
-                                <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                <div class="col-md-12">
+                                    <input type="radio" class="iradio_flat-green" name="gender" checked> 男
+                                    <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                </div>
                             </div>
                         </div>
-
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 手机号 </div>
-
-                            <div class="profile-info-value col-md-4">
-                                <input type="text" class="form-control" maxlength="20" asp-for="Phone" required />
+                            <div class="profile-info-value">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" maxlength="20" asp-for="Phone" required />
+                                </div>
                             </div>
                         </div>
-
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 微信号 </div>
+                            <div class="profile-info-value">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" maxlength="20" id="wechat" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> QQ号 </div>
+                            <div class="profile-info-value">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" maxlength="20" id="qq" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="profile-info-row">
                             <div class="profile-info-name"> 电子邮箱 </div>
-
                             <div class="profile-info-value">
-                                <span class="editable editable-click" id="email">@Model.Email</span>
+                                <div class="col-md-12">
+                                    <span class="editable editable-click" id="email">@Model.Email</span>
+                                </div>
                             </div>
                         </div>
                     </div>

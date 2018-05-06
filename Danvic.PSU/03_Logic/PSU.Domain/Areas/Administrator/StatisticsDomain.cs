@@ -143,12 +143,13 @@ namespace PSU.Domain.Areas.Administrator
                 {
                     dataList.AddRange(list.Select(item => new DormitoryData
                     {
+                        Building = item.BuildingName,
+                        DateTime = item.DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                         Dorm = item.DormName,
                         Floor = item.Floor,
-                        Building = item.BuildingName,
-                        Count = item.Count,
-                        Chosen = item.Chosen,
-                        StudentName = item.StudentName
+                        MajorClass = item.MajorClassName,
+                        Name = item.StudentName,
+                        StudentId = item.StudentId.ToString()
                     }));
                 }
 
@@ -194,7 +195,8 @@ namespace PSU.Domain.Areas.Administrator
                         ServiceName = item.ServiceName,
                         DepartureTime = item.DepartureTime.ToString("yyyy-MM-dd HH:mm"),
                         Place = item.Place,
-                        Remark = item.Remark.Length > 20 ? item.Remark.Substring(0, 20) : item.Remark
+                        Remark = !string.IsNullOrEmpty(item.Remark) && (item.Remark.Length > 20) ? item.Remark.Substring(0, 20) : item.Remark,
+                        IsCancel = item.IsCancel
                     }));
                 }
 
@@ -204,6 +206,26 @@ namespace PSU.Domain.Areas.Administrator
             catch (Exception ex)
             {
                 _logger.LogError("获取迎新服务预定列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取服务预定详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task<BookDetailViewModel> GetBookAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new BookDetailViewModel();
+            try
+            {
+                var model = await StatisticsRepository.GetEntityAsync(id, context);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取服务预定详细信息失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
             }
             return webModel;
         }

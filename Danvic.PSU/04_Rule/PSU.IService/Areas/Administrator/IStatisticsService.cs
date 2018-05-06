@@ -61,6 +61,14 @@ namespace PSU.IService.Areas.Administrator
         /// <returns></returns>
         Task<BookViewModel> SearchBookAsync(BookViewModel webModel, ApplicationDbContext context);
 
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">服务预定编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BookDetailViewModel> GetBookAsync(long id, ApplicationDbContext context);
+
         #endregion
     }
 }

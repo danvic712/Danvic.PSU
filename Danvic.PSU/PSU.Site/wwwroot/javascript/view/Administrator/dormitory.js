@@ -45,12 +45,13 @@ $.dataTableSetting = {
     //    }
     //],
     "columns": [
+        { "data": "studentId" },
+        { "data": "name" },
+        { "data": "majorClass" },
         { "data": "dorm" },
         { "data": "floorStr" },
         { "data": "building" },
-        { "data": "countStr" },
-        { "data": "chosenStr" },
-        { "data": "studentName" }
+        { "data": "dateTime" }
     ],
 
     ajax: function (data, callback, settings) {

@@ -85,9 +85,38 @@ namespace PSU.Domain.Areas.Instructor
         /// <param name="webModel">列表页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<DormitoryViewModel> SearchDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        public async Task<DormitoryViewModel> SearchDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Source Data List
+                var list = await NewbornRepository.GetListAsync(webModel, context);
+
+                //Return Data List
+                var dataList = new List<DormitoryData>();
+
+                if (list != null && list.Any())
+                {
+                    dataList.AddRange(list.Select(item => new DormitoryData
+                    {
+                        Building = item.BuildingName,
+                        DateTime = item.DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                        Dorm = item.DormName,
+                        Floor = item.Floor,
+                        MajorClass = item.MajorClassName,
+                        Name = item.StudentName,
+                        StudentId = item.StudentId.ToString()
+                    }));
+                }
+
+                webModel.DormitoryList = dataList;
+                webModel.Total = await NewbornRepository.GetListCountAsync(webModel, context);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取新生列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         #endregion

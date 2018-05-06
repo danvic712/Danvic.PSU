@@ -362,6 +362,18 @@ namespace PSU.Repository.Areas.Administrator
             }
         }
 
+        /// <summary>
+        /// 获取服务预定详细信息
+        /// </summary>
+        /// <param name="id">服务预定编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<ServiceInfo> GetEntityAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.ServiceInfo.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return model;
+        }
+
         #endregion
     }
 }
