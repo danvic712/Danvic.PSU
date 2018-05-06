@@ -39,6 +39,18 @@ namespace PSU.Entity.Basic
         public string Name { get; set; }
 
         /// <summary>
+        /// 微信号
+        /// </summary>
+        [MaxLength(50)]
+        public string Wechat { get; set; }
+
+        /// <summary>
+        /// QQ
+        /// </summary>
+        [MaxLength(20)]
+        public string QQ { get; set; }
+
+        /// <summary>
         /// 准考证号
         /// </summary>
         [Required]
@@ -74,7 +86,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 兴趣爱好
         /// </summary>
-        [MaxLength(500)]
+        [MaxLength(100)]
         public string Hobbies { get; set; }
 
         /// <summary>
@@ -147,6 +159,13 @@ namespace PSU.Entity.Basic
         public long InstructorId { get; set; }
 
         /// <summary>
+        /// 辅导员姓名
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string InstructorName { get; set; }
+
+        /// <summary>
         /// 高中名称
         /// </summary>
         [MaxLength(50)]
@@ -161,12 +180,6 @@ namespace PSU.Entity.Basic
         /// 毕业年月
         /// </summary>
         public DateTime EndDate { get; set; }
-
-        /// <summary>
-        /// 附件
-        /// </summary>
-        [MaxLength(1000)]
-        public string Files { get; set; }
 
         /// <summary>
         /// 是否启用

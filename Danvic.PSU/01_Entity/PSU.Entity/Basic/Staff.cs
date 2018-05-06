@@ -49,6 +49,18 @@ namespace PSU.Entity.Basic
         public bool Gender { get; set; }
 
         /// <summary>
+        /// 微信号
+        /// </summary>
+        [MaxLength(50)]
+        public string Wechat { get; set; }
+
+        /// <summary>
+        /// QQ
+        /// </summary>
+        [MaxLength(20)]
+        public string QQ { get; set; }
+
+        /// <summary>
         /// 联系地址
         /// </summary>
         [MaxLength(200)]

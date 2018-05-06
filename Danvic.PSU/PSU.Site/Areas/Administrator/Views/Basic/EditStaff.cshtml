@@ -45,11 +45,11 @@
                                     <div class="col-md-3 col-xs-9">
                                         <input class="form-control" id="email" type="email" placeholder="">
                                     </div>
-                                    <label class="col-md-2 control-label no-padding-right" for="endtime">
+                                    <label class="col-md-2 control-label no-padding-right" for="phone">
                                         <span class="required-label">*</span> 手机号
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="email" type="email" placeholder="">
+                                        <input class="form-control" id="phone" type="tel" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -60,7 +60,7 @@
                                         <input id="password" type="password" class="form-control" value="123456789">
                                     </div>
                                     <strong>
-                                        <i class="fa fa-file-text-o margin-r-5"></i>
+                                        <i class="fa fa-file-text-o margin-r-5" style="margin-top:9px;"></i>
                                         默认密码：123456789
                                     </strong>
 
@@ -98,6 +98,30 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="wechat">
+                                        微信号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <div class="input-group">
+                                            <input class="form-control" id="wechat" type="text" placeholder="">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-wechat text-green"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="qq">
+                                        QQ号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <div class="input-group">
+                                            <input class="form-control" id="qq" type="text" placeholder="">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-qq text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="department">
                                         <span class="required-label">*</span> 所属院系
                                     </label>
@@ -105,21 +129,21 @@
                                         <select id="department" class="form-control">
                                             <option value="-1">请选择</option>
                                             @*@{
-                                                    if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
-                                                    {
-                                                        foreach (var item in Model.DepartmentList.AsReadOnly())
-                                                        {
-                                                            if (item.Name.Equals(Model.DepartmentName))
-                                                            {
-                                                                <option value="@item.Id" selected="selected">@item.Name</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@item.Id">@item.Name</option>
-                                                            }
-                                                        }
-                                                    }
-                                                }*@
+                        if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                        {
+                            foreach (var item in Model.DepartmentList.AsReadOnly())
+                            {
+                                if (item.Name.Equals(Model.DepartmentName))
+                                {
+                                    <option value="@item.Id" selected="selected">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        }
+                    }*@
                                         </select>
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="deptnumber">
