@@ -7,13 +7,60 @@
 // Modified by:
 // Description: Instructor-User控制器邻域功能接口
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PSU.EFCore;
+using PSU.Model.Areas.Instructor.User;
+using System.Threading.Tasks;
 
 namespace PSU.IService.Areas.Instructor
 {
     public interface IUserService
     {
+        #region User-Classes
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ClassEditViewModel> GetClassAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ClassViewModel> SearchClassAsync(ClassViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="id">班级编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ClassEditViewModel> UpdateClassAsync(long id, ApplicationDbContext context);
+
+        #endregion
+
+        #region User-Profile
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ProfileViewModel> GetProfileAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ProfileViewModel> UpdateProfileAsync(long id, ApplicationDbContext context);
+
+        #endregion
     }
 }

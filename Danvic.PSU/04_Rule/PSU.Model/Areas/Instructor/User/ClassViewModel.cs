@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace PSU.Model.Areas.Instructor.User
 {
-    public class ClassViewModel
+    public class ClassViewModel : PagingViewModel
     {
         #region Search
 
@@ -21,14 +21,14 @@ namespace PSU.Model.Areas.Instructor.User
         public string SName { get; set; }
 
         /// <summary>
-        /// 院系名称
-        /// </summary>
-        public string SDepartment { get; set; }
-
-        /// <summary>
         /// 专业名称
         /// </summary>
         public string SMajor { get; set; }
+
+        /// <summary>
+        /// 班级QQ
+        /// </summary>
+        public string SQQ { get; set; }
 
         #endregion
 

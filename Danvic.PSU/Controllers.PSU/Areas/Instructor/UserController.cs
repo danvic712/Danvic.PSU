@@ -14,6 +14,10 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
+using System.Threading.Tasks;
+using PSU.Utility;
+using PSU.Model.Areas.Instructor.User;
+using PSU.Utility.Web;
 
 namespace Controllers.PSU.Areas.Instructor
 {
@@ -36,19 +40,73 @@ namespace Controllers.PSU.Areas.Instructor
 
         #region View
 
+        /// <summary>
+        /// 我的班级
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Classes()
         {
             return View();
         }
 
-        public IActionResult Profile()
+        /// <summary>
+        /// 班级编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> EditClass(string id)
         {
-            return View();
+            if (!string.IsNullOrEmpty(id))
+            {
+                var webModel = await _service.GetClassAsync(Convert.ToInt64(id), _context);
+                return View(webModel);
+            }
+            return Redirect("Classes");
+        }
+
+        /// <summary>
+        /// 个人中心
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var webModel = await _service.GetProfileAsync(CurrentUser.UserId, _context);
+            return View(webModel);
         }
 
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 我的班级页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchClass(string search)
+        {
+            ClassViewModel webModel = JsonUtility.ToObject<ClassViewModel>(search);
+
+            webModel = await _service.SearchClassAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajor) && string.IsNullOrEmpty(webModel.SQQ);
+
+            var returnData = new
+            {
+                data = webModel.ClassList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.Total
+            };
+
+            return Json(returnData);
+        }
+
         #endregion
     }
 }
