@@ -18,6 +18,7 @@
         <link href="~/css/template/AdminLTE.css" rel="stylesheet" />
         <link href="~/css/template/skins/skin-green.css" rel="stylesheet" />
         <link href="~/css/template/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="~/css/template/green.css" rel="stylesheet" />
         <link href="~/css/view/ulayout.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
@@ -57,14 +58,14 @@
 
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            <li class="@(ViewData["NavTitle"].ToString() == "我的大学"?"active":"")">
                                 <a asp-area="Student" asp-controller="Home" asp-action="Index">我的大学 <span class="sr-only">(current)</span></a>
                             </li>
-                            <li>
+                            <li class="@(ViewData["NavTitle"].ToString() == "个人中心"?"active":"")">
                                 <a asp-area="Student" asp-controller="User" asp-action="Profile">个人中心</a>
                             </li>
-                            <li>
-                                <a asp-area="Student" asp-controller="Home" asp-action="Index">入学报名</a>
+                            <li class="@(ViewData["NavTitle"].ToString() == "入学报名"?"active":"")">
+                                <a asp-area="Student" asp-controller="Register" asp-action="Index">入学报名</a>
                             </li>
                         </ul>
                     </div>
@@ -123,6 +124,10 @@
         <script src="~/javascript/template/bootstrap-datepicker.zh-CN.min.js"></script>
         <script src="~/javascript/template/jquery.slimscroll.js"></script>
         <script src="~/javascript/template/adminlte.js"></script>
+        <script src="~/javascript/template/pace.js"></script>
+        <script src="~/javascript/template/bootbox.min.js"></script>
+        <script src="~/javascript/template/icheck.js"></script>
+        <script src="~/javascript/view/layout.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"
@@ -130,6 +135,9 @@
         </script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js">
+        </script>
+        <script src="https://cdn.bootcss.com/iCheck/1.0.1/icheck.min.js"
+                asp-fallback-src="~/javascript/template/icheck.min.js">
         </script>
         <script src="~/javascript/view/layout.min.js" asp-append-version="true"></script>
     </environment>

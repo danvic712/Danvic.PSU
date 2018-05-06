@@ -1,11 +1,11 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "HomeRepository.cs">
+// <copyright file= "RegisterRepository.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018/4/12 星期四 20:00:45
+// Date Created: 2018-05-06 22:58:33
 // Modified by:
-// Description: Student-Home-功能实现仓储
+// Description: Student-Register-功能实现仓储
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Text;
 
 namespace PSU.Repository.Areas.Student
 {
-    public class HomeRepository
+    public class RegisterRepository
     {
     }
 }

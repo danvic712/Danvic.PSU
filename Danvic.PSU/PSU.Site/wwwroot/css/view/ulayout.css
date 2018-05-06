@@ -3,7 +3,7 @@
  *   Author: Danvic712
  */
 body {
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
 
 .card {
@@ -299,3 +299,123 @@ body {
         .card .body .col-lg-12 {
             margin-bottom: 20px;
         }
+
+.required-label {
+    vertical-align: middle;
+    color: red
+}
+
+.info-box-4 {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    display: flex;
+    cursor: default;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+    .info-box-4 .icon {
+        position: absolute;
+        right: 10px;
+        bottom: 2px;
+        text-align: center;
+    }
+
+        .info-box-4 .icon i {
+            color: rgba(0, 0, 0, 0.15);
+            font-size: 60px;
+        }
+
+    .info-box-4 .chart {
+        margin-right: 5px;
+    }
+
+        .info-box-4 .chart.chart-bar {
+            height: 100%;
+            line-height: 50px;
+        }
+
+            .info-box-4 .chart.chart-bar canvas {
+                vertical-align: baseline !important;
+            }
+
+        .info-box-4 .chart.chart-pie {
+            height: 100%;
+            line-height: 34px;
+        }
+
+            .info-box-4 .chart.chart-pie canvas {
+                vertical-align: baseline !important;
+            }
+
+        .info-box-4 .chart.chart-line {
+            height: 100%;
+            line-height: 40px;
+        }
+
+            .info-box-4 .chart.chart-line canvas {
+                vertical-align: baseline !important;
+            }
+
+    .info-box-4 .content {
+        display: inline-block;
+        padding: 7px 16px;
+    }
+
+        .info-box-4 .content .text {
+            font-size: 13px;
+            margin-top: 11px;
+            color: #555;
+        }
+
+        .info-box-4 .content .number {
+            font-weight: normal;
+            font-size: 26px;
+            margin-top: -4px;
+            color: #555;
+        }
+
+    .info-box-4.hover-zoom-effect .icon i {
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .info-box-4.hover-zoom-effect:hover .icon i {
+        opacity: 0.4;
+        -moz-transform: rotate(-32deg) scale(1.4);
+        -ms-transform: rotate(-32deg) scale(1.4);
+        -o-transform: rotate(-32deg) scale(1.4);
+        -webkit-transform: rotate(-32deg) scale(1.4);
+        transform: rotate(-32deg) scale(1.4);
+    }
+
+    .info-box-4.hover-expand-effect:after {
+        background-color: rgba(0, 0, 0, 0.05);
+        content: ".";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        color: transparent;
+        -moz-transition: all 0.95s;
+        -o-transition: all 0.95s;
+        -webkit-transition: all 0.95s;
+        transition: all 0.95s;
+    }
+
+    .info-box-4.hover-expand-effect:hover:after {
+        width: 100%;
+    }
+
+.bg-white {
+    background-color: white !important;
+}
+
+    .bg-white:hover {
+        color:black;
+    }

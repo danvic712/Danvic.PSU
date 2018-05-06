@@ -1,0 +1,178 @@
+﻿@model PSU.Model.Areas.Student.ProfileViewModel
+@{
+    ViewData["Title"] = "个人中心";
+    ViewData["NavTitle"] = "个人中心";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="box box-success">
+                    <div class="box-body box-profile">
+                        <img class="img-responsive" src="~/images/template/user2-160x160.jpg" alt="我的头像" style="margin:0px auto;">
+                        <h3 class="profile-username text-center">这是我的名字啊</h3>
+
+                        <p class="text-muted text-center">学生用户</p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>所属院系</b> <a class="pull-right">计算机与软件工程学院</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>专业班级</b> <a class="pull-right">网络1401</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>入学年月</b> <a class="pull-right">2014-09</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>毕业年月</b> <a class="pull-right">2018-07</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <form class="form-horizontal" role="form" id="edit_form">
+                    <div class="box box-success">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                                    <span class="required-label">*</span> 用户姓名
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control" id="name" type="text" placeholder="">
+                                </div>
+                                <label class="col-md-1 col-xs-3 control-label no-padding-right" for="gender">
+                                    性别
+                                </label>
+                                <div class="col-md-2 col-xs-9" style="margin-top:5px;">
+                                    <input type="radio" class="iradio_flat-green" name="gender" checked> 男
+                                    <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                </div>
+                                <label class="col-md-1 col-xs-3 control-label no-padding-right" for="age">
+                                    年龄
+                                </label>
+                                <div class="col-md-2 col-xs-9">
+                                    <input class="form-control" id="age" type="number" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="wechat">
+                                    微信号
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <div class="input-group">
+                                        <input class="form-control" id="wechat" type="text" placeholder="">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-wechat text-green"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="qq">
+                                    QQ号
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <div class="input-group">
+                                        <input class="form-control" id="qq" type="text" placeholder="">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-qq text-blue"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="ticketid">
+                                    准考证号
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control" id="ticketid" type="text" placeholder="">
+                                </div>
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="idnumber">
+                                    身份证号
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control" id="idnumber" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="birthday">
+                                    出生年月
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <div class="input-group">
+                                        <input id="birthday" type="text" class="form-control date-picker" readonly>
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="highschool">
+                                    高中名称
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control" id="highschool" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label no-padding-right">
+                                    生源地
+                                </label>
+                                <div class="col-md-8" style="display:inline-flex" data-toggle="distpicker">
+                                    <select class="form-control" style="width:150px;" data-province="选择省份"></select>
+                                    &nbsp;&nbsp;
+                                    <select class="form-control" style="width:150px;" data-city="选择城市"></select>
+                                    &nbsp;&nbsp;
+                                    <select class="form-control" style="width:150px;" data-district="选择县区"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label no-padding-right" for="address">
+                                    家庭地址
+                                </label>
+                                <div class="col-md-10 col-xs-9">
+                                    <input class="form-control" id="address" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label no-padding-right" for="hobbies">
+                                    兴趣爱好
+                                </label>
+                                <div class="col-md-10 col-xs-9">
+                                    <input class="form-control" id="hobbies" type="text" max="100" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label no-padding-right" for="winning">
+                                    获奖情况
+                                </label>
+                                <div class="col-md-10 col-xs-9">
+                                    <textarea class="form-control" id="winning" max="200" rows="3" style="resize:none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="text-right">
+                                <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                                    <i class="fa fa-check"></i>
+                                    保存
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/javascript/template/distpicker.js"></script>
+        <script src="~/javascript/view/Student/profile.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/javascript/view/Student/profile.min.js" asp-append-version="true"></script>
+    </environment>
+}

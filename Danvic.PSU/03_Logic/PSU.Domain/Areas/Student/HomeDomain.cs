@@ -7,13 +7,14 @@
 // Modified by:
 // Description: Student-Home控制器邻域功能接口实现
 //-----------------------------------------------------------------------
+using PSU.IService.Areas.Student;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PSU.Domain.Areas.Student
 {
-    public class HomeDomain
+    public class HomeDomain : IHomeService
     {
     }
 }

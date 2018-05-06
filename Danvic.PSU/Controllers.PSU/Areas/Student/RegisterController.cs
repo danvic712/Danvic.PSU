@@ -1,19 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file= "HomeRepository.cs">
+// <copyright file= "RegisterController.cs">
 //     Copyright (c) Danvic712. All rights reserved.
 // </copyright>
 // Author: Danvic712
-// Date Created: 2018/4/12 星期四 20:00:45
+// Date Created: 2018-05-06 22:57:02
 // Modified by:
-// Description: Student-Home-功能实现仓储
+// Description: 
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PSU.Repository.Areas.Student
+namespace Controllers.PSU.Areas.Student
 {
-    public class HomeRepository
+    [Area("Student")]
+    public class RegisterController : Controller
     {
     }
 }

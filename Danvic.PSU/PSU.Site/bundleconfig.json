@@ -28,6 +28,12 @@
   {
     "outputFileName": "wwwroot/css/view/ulayout.min.css",
     "inputFiles": [
+      "wwwroot/css/template/AdminLTE.css",
+      "wwwroot/css/template/skins/skin-green.css",
+      "wwwroot/css/template/bootstrap-datepicker.css",
+      "wwwroot/css/template/dataTables.bootstrap.css",
+      "wwwroot/css/template/pace.css",
+      "wwwroot/css/template/green.css",
       "wwwroot/css/view/ulayout.css"
     ]
   },
@@ -426,6 +432,7 @@
   {
     "outputFileName": "wwwroot/javascript/view/Administrator/editstudent.min.js",
     "inputFiles": [
+      "wwwroot/javascript/template/distpicker.js",
       "wwwroot/javascript/view/Administrator/editstudent.js"
     ],
     "minify": {
@@ -567,6 +574,29 @@
     "outputFileName": "wwwroot/javascript/view/Instructor/profile.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/profile.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/home.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/home.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/profile.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/template/distpicker.js",
+      "wwwroot/javascript/view/Student/profile.js"
     ],
     "minify": {
       "enabled": true,
