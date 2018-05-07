@@ -4,10 +4,19 @@
     ViewData["NavTitle"] = "我的大学";
 }
 
+@section styles{
+    <environment include="Development">
+        <link href="~/css/template/simditor.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/template/simditor.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+}
+
 <section class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-7">
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-7 col-xs-12">
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
@@ -22,16 +31,61 @@
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
-                            <h3>10</h3>
-                            <p>我的提问信息</p>
+                            <h3>7</h3>
+                            <p>我的提问个数</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-android-notifications text-green"></i>
+                            <i class="ion ion-android-notifications-none text-green"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <h3>2</h3>
+                            <p>待办事项</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-android-checkbox-outline text-purple"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="small-box bg-white">
+                        <div class="inner">
+                            <h3>10</h3>
+                            <p>距离开学</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-calendar text-yellow"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                <i class="ion ion-compose"></i>
+                                我要提问
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <textarea class="col-md-6" rows="3" id="editor" maxlength="1000"></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <a class="btn btn-success" id="save" data-id="">
+                                        <i class="fa fa-check"></i>
+                                        保存
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <div class="card">
                     <div class="header">
                         <h2>
@@ -128,7 +182,11 @@
 
 @section scripts{
     <environment include="Development">
-        <script src="~/javascript/view/Student/home.js"></script>
+        <script src="~/javascript/template/module.js"></script>
+        <script src="~/javascript/template/hotkeys.js"></script>
+        <script src="~/javascript/template/uploader.js"></script>
+        <script src="~/javascript/template/simditor.js"></script>
+        <script src="~/javascript/view/Student/home.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/javascript/view/Student/home.min.js" asp-append-version="true"></script>

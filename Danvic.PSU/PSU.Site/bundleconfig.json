@@ -584,6 +584,10 @@
   {
     "outputFileName": "wwwroot/javascript/view/Student/home.min.js",
     "inputFiles": [
+      "wwwroot/javascript/template/module.js",
+      "wwwroot/javascript/template/hotkeys.js",
+      "wwwroot/javascript/template/uploader.js",
+      "wwwroot/javascript/template/simditor.js",
       "wwwroot/javascript/view/Student/home.js"
     ],
     "minify": {
