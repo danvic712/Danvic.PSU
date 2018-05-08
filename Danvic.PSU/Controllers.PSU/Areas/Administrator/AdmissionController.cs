@@ -23,7 +23,7 @@ using System.Linq;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "Administrator")]
     public class AdmissionController : Controller
     {
         #region Initialize

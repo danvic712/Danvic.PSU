@@ -7,6 +7,8 @@
 // Modified by:
 // Description: Secret控制器邻域功能接口
 //-----------------------------------------------------------------------
+using PSU.EFCore;
+using PSU.Entity.Basic;
 using System.Threading.Tasks;
 
 namespace PSU.IService
@@ -16,17 +18,24 @@ namespace PSU.IService
         #region Service
 
         /// <summary>
-        /// 添加用户登录记录
+        /// 获取用户信息
         /// </summary>
-        /// <param name="userOID">用户主键</param>
-        /// <param name="userName">用户姓名</param>
+        /// <param name="account">账户</param>
+        /// <param name="password">密码</param>
+        /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        Task AddLogSync(string userOID, string userName);
+        Task<IdentityUser> GetUserAsync(string account, string password, ApplicationDbContext context);
 
         /// <summary>
         /// 设置当前登录用户
         /// </summary>
-        void SetCurrentUser();
+        Task SetCurrentUser();
+
+        /// <summary>
+        /// 移除当前用户
+        /// </summary>
+        /// <returns></returns>
+        Task RemoveCurrentUser();
 
         #endregion
     }

@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-School控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
@@ -20,7 +21,7 @@ using System.Threading.Tasks;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "Administrator")]
     public class SchoolController : Controller
     {
         #region Initialize

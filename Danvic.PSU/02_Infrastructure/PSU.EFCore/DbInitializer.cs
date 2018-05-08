@@ -7,9 +7,9 @@
 // Modified by:
 // Description: 数据库创建数据初始化
 //-----------------------------------------------------------------------
-using PSU.Entity.Identity;
+using PSU.Entity.Basic;
+using PSU.Utility.System;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PSU.EFCore
@@ -23,50 +23,26 @@ namespace PSU.EFCore
             if (context.IdentityUser.Any())
                 return;
 
-            //AppUser user = new AppUser
-            //{
-            //    UserName = "Admin",
-            //    Email = "admin@example.com",
+            var salt = Guid.NewGuid().ToString();
 
-            //};
-            //context.IdentityUser.Add(user);
-            //context.SaveChanges();
-
-
-
-
-            InitializerRole(context);
-
-        }
-
-        /// <summary>
-        /// 初始化角色信息
-        /// </summary>
-        /// <param name="context"></param>
-        private static void InitializerRole(ApplicationDbContext context)
-        {
-            var admin = new AppRole
+            IdentityUser user = new IdentityUser
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Administrator"
+                Name = "管理员",
+                Account = "Administrator",
+                AccountType = 0,
+                Age = 0,
+                Birthday = new DateTime(),
+                Salt = salt,
+                Password = MD5Utility.Sign("123456789", salt),
+                Gender = true,
+                IsEnabled = true,
+                Email = "administrator@jixia.com",
+                HomePage = "/Administrator",
+
             };
-
-            var instructor = new AppRole
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Instructor"
-            };
-
-            var student = new AppRole
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Student"
-            };
-
-            var list = new List<AppRole> { admin, instructor, student };
-
-            context.IdentityRole.AddRange(list);
+            context.IdentityUser.Add(user);
             context.SaveChanges();
+
         }
     }
 }

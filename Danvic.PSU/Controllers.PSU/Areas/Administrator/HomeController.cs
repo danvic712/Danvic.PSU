@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-Home-控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
@@ -14,14 +15,13 @@ using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Home;
 using PSU.Utility.Web;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "Administrator")]
     public class HomeController : Controller
     {
         #region Initialize

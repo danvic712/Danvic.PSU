@@ -71,7 +71,7 @@ namespace PSU.Repository.Areas.Instructor
         public static async Task<List<PieData>> GetPieInfo(ApplicationDbContext context)
         {
             //Data Source
-            var list = await context.Student.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToListAsync();
+            var list = await context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 1 && i.IsEnabled == true).ToListAsync();
 
             //Get Result Data
             var result = list.GroupBy(i => new { i.ProvinceId, i.Province })
@@ -120,9 +120,9 @@ namespace PSU.Repository.Areas.Instructor
         /// <returns></returns>
         public static double GetProportion(ApplicationDbContext context)
         {
-            if (context.Student.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count() != 0)
+            if (context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 1 && i.IsEnabled == true).ToList().Count() != 0)
             {
-                return Convert.ToDouble((context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count() / context.Student.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count()) * 100);
+                return Convert.ToDouble((context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count() / context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 1 && i.IsEnabled == true).ToList().Count()) * 100);
             }
             return 0;
         }

@@ -290,9 +290,9 @@ namespace PSU.Repository.Areas.Administrator
         /// </summary>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<List<Staff>> GetStaffList(ApplicationDbContext context)
+        public static async Task<List<IdentityUser>> GetStaffList(ApplicationDbContext context)
         {
-            return await context.Staff.AsNoTracking().Where(i => i.IsEnabled).ToListAsync();
+            return await context.IdentityUser.AsNoTracking().Where(i => i.IsEnabled == true && i.AccountType == 1).ToListAsync();
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace PSU.Repository.Areas.Administrator
         {
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
+            var staff = await context.IdentityUser.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.InstructorId) && i.AccountType == 1).FirstOrDefaultAsync();
             var department = await context.Department.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
             //return error 
@@ -320,7 +320,7 @@ namespace PSU.Repository.Areas.Administrator
             var model = InsertModel(webModel);
 
             model.InstructorId = Convert.ToInt64(webModel.InstructorId);
-            model.InstructorFK = staff.StaffOID;
+            model.InstructorFK = staff.IdentityUserOID;
             model.InstructorName = staff.Name;
 
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
@@ -350,11 +350,11 @@ namespace PSU.Repository.Areas.Administrator
 
             //Get Foreign Key Association Table Information
             //
-            var staff = await context.Staff.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
+            var staff = await context.IdentityUser.Where(i => i.Id == Convert.ToInt64(webModel.InstructorId) && i.AccountType == 1).FirstOrDefaultAsync();
             var department = await context.Department.Where(i => i.Id == Convert.ToInt64(webModel.DepartmentId)).FirstOrDefaultAsync();
 
             model.InstructorId = Convert.ToInt64(webModel.InstructorId);
-            model.InstructorFK = staff.StaffOID;
+            model.InstructorFK = staff.IdentityUserOID;
             model.InstructorName = staff.Name;
 
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);

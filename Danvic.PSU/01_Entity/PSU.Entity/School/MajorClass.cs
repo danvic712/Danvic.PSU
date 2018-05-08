@@ -109,7 +109,7 @@ namespace PSU.Entity.School
         public string DepartmentFK { get; set; }
 
         [ForeignKey("InstructorFK")]
-        public virtual Staff Instructor { get; set; }
+        public virtual IdentityUser Instructor { get; set; }
 
         [ForeignKey("DepartmentFK")]
         public virtual Department Department { get; set; }

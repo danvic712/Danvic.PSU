@@ -10,12 +10,14 @@
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
+using PSU.Entity.Basic;
 using PSU.Entity.SignUp;
 using PSU.Model.Areas.Instructor.Newborn;
 using PSU.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace PSU.Repository.Areas.Instructor
@@ -214,21 +216,21 @@ namespace PSU.Repository.Areas.Instructor
         /// <param name="webModel">列表页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<List<Entity.Basic.Student>> GetListAsync(InformationViewModel webModel, ApplicationDbContext context)
+        public static async Task<List<IdentityUser>> GetListAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId))
             {
-                return await context.Set<Entity.Basic.Student>().AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId)
+                return await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 2 && i.InstructorId == CurrentUser.UserId)
                     .Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
-                IQueryable<Entity.Basic.Student> students = context.Student.AsQueryable();
+                IQueryable<IdentityUser> students = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Entity.Basic.Student>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
 
                 //当前登录人数据
-                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+                predicate = predicate.And(i => i.AccountType == 2 && i.InstructorId == CurrentUser.UserId);
 
                 //学生学号
                 if (!string.IsNullOrEmpty(webModel.SId))
@@ -262,18 +264,18 @@ namespace PSU.Repository.Areas.Instructor
         {
             if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId))
             {
-                var list = await context.Set<Entity.Basic.Student>().AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId)
+                var list = await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 2 && i.InstructorId == CurrentUser.UserId)
                     .Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
                 return list.Count();
             }
             else
             {
-                IQueryable<Entity.Basic.Student> students = context.Student.AsQueryable();
+                IQueryable<IdentityUser> students = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Entity.Basic.Student>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
 
                 //当前登录人数据
-                predicate = predicate.And(i => i.InstructorId == CurrentUser.UserId);
+                predicate = predicate.And(i => i.AccountType == 2 && i.InstructorId == CurrentUser.UserId);
 
                 //学生学号
                 if (!string.IsNullOrEmpty(webModel.SId))
@@ -304,9 +306,9 @@ namespace PSU.Repository.Areas.Instructor
         /// <param name="id">学生学号</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<Entity.Basic.Student> GetEntityAsync(long id, ApplicationDbContext context)
+        public static async Task<IdentityUser> GetEntityAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Student.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.IdentityUser.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 

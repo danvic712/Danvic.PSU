@@ -72,7 +72,7 @@ namespace PSU.Repository.Areas.Administrator
         public static async Task<List<PieData>> GetPieInfo(ApplicationDbContext context)
         {
             //Data Source
-            var list = await context.Student.AsNoTracking().ToListAsync();
+            var list = await context.IdentityUser.AsNoTracking().Where(i => i.AccountType == 2 && i.IsEnabled == true).ToListAsync();
 
             //Get Result Data
             var result = list.GroupBy(i => new { i.ProvinceId, i.Province })
@@ -121,9 +121,9 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static double GetProportion(ApplicationDbContext context)
         {
-            if (context.Student.ToList().Count() != 0)
+            if (context.IdentityUser.Where(i => i.AccountType == 1 && i.IsEnabled == true).ToList().Count() != 0)
             {
-                return Convert.ToDouble((context.Register.AsNoTracking().ToList().Count() / context.Student.AsNoTracking().ToList().Count()) * 100);
+                return Convert.ToDouble((context.Register.AsNoTracking().ToList().Count() / context.IdentityUser.Where(i => i.AccountType == 1 && i.IsEnabled == true).AsNoTracking().ToList().Count()) * 100);
             }
             return 0;
         }
@@ -216,7 +216,7 @@ namespace PSU.Repository.Areas.Administrator
 
                 return await bulletins.AsExpandable().Where(predicate).ToListAsync();
             }
-            
+
         }
 
         /// <summary>

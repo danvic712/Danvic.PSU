@@ -32,17 +32,20 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="webModel">列表页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<List<Staff>> GetListAsync(StaffViewModel webModel, ApplicationDbContext context)
+        public static async Task<List<IdentityUser>> GetListAsync(StaffViewModel webModel, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDepartment))
             {
-                return await context.Set<Staff>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 1).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
-                IQueryable<Staff> staves = context.Staff.AsQueryable();
+                IQueryable<IdentityUser> staves = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Staff>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
+
+                //教职工账户
+                predicate = predicate.And(i => i.AccountType == 1);
 
                 //教职工工号
                 if (!string.IsNullOrEmpty(webModel.SId))
@@ -76,14 +79,17 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SDepartment))
             {
-                var list = await context.Set<Staff>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                var list = await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 2).OrderByDescending(i => i.CreatedOn).ToListAsync();
                 return list.Count();
             }
             else
             {
-                IQueryable<Staff> staves = context.Staff.AsQueryable();
+                IQueryable<IdentityUser> staves = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Staff>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
+
+                //教职工账户
+                predicate = predicate.And(i => i.AccountType == 1);
 
                 //教职工工号
                 if (!string.IsNullOrEmpty(webModel.SId))
@@ -118,17 +124,20 @@ namespace PSU.Repository.Areas.Administrator
         /// <param name="webModel">列表页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<List<Entity.Basic.Student>> GetListAsync(StudentViewModel webModel, ApplicationDbContext context)
+        public static async Task<List<IdentityUser>> GetListAsync(StudentViewModel webModel, ApplicationDbContext context)
         {
             if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass))
             {
-                return await context.Set<Entity.Basic.Student>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
+                return await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 2).Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
             else
             {
-                IQueryable<Entity.Basic.Student> students = context.Student.AsQueryable();
+                IQueryable<IdentityUser> students = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Entity.Basic.Student>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
+
+                //学生账户
+                predicate = predicate.And(i => i.AccountType == 2);
 
                 //学生学号
                 if (!string.IsNullOrEmpty(webModel.SId))
@@ -162,14 +171,17 @@ namespace PSU.Repository.Areas.Administrator
         {
             if (string.IsNullOrEmpty(webModel.SId) && string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass))
             {
-                var list = await context.Set<Entity.Basic.Student>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
+                var list = await context.Set<IdentityUser>().AsNoTracking().Where(i => i.AccountType == 2).OrderByDescending(i => i.CreatedOn).ToListAsync();
                 return list.Count();
             }
             else
             {
-                IQueryable<Entity.Basic.Student> students = context.Student.AsQueryable();
+                IQueryable<IdentityUser> students = context.IdentityUser.AsQueryable();
 
-                var predicate = PredicateBuilder.New<Entity.Basic.Student>();
+                var predicate = PredicateBuilder.New<IdentityUser>();
+
+                //学生账户
+                predicate = predicate.And(i => i.AccountType == 2);
 
                 //学生学号
                 if (!string.IsNullOrEmpty(webModel.SId))

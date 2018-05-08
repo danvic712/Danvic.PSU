@@ -7,7 +7,10 @@
 // Modified by:
 // Description: Secret控制器邻域功能接口实现
 //-----------------------------------------------------------------------
+using PSU.EFCore;
+using PSU.Entity.Basic;
 using PSU.IService;
+using PSU.Repository;
 using System;
 using System.Threading.Tasks;
 
@@ -18,17 +21,22 @@ namespace PSU.Domain
         #region Interface Service Implement
 
         /// <summary>
-        /// 添加用户登录记录
+        /// 登录系统
         /// </summary>
-        /// <param name="userOID">用户主键</param>
-        /// <param name="userName">用户姓名</param>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
         /// <returns></returns>
-        public Task AddLogSync(string userOID, string userName)
+        public async Task<IdentityUser> GetUserAsync(string account, string password, ApplicationDbContext context)
         {
-            //1、新增登录日志信息记录
+            return await PSURepository.GetUserAsync(account, context);
+        }
 
-            //2、更新用户登录次数
-
+        /// <summary>
+        /// 移除登录用户信息
+        /// </summary>
+        /// <returns></returns>
+        public Task RemoveCurrentUser()
+        {
             throw new NotImplementedException();
         }
 
@@ -36,6 +44,11 @@ namespace PSU.Domain
         /// 设置当前登录用户
         /// </summary>
         public void SetCurrentUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ISecretService.SetCurrentUser()
         {
             throw new NotImplementedException();
         }

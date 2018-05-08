@@ -22,7 +22,7 @@ using PSU.Utility.Web;
 namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "Administrator")]
     public class StatisticsController : Controller
     {
         #region Initialize

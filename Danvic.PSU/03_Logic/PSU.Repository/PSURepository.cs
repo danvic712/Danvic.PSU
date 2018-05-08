@@ -14,7 +14,6 @@ using PSU.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PSU.Entity.Identity;
 
 namespace PSU.Repository
 {
@@ -74,17 +73,17 @@ namespace PSU.Repository
 
         #endregion
 
-        #region Service-IdentityUser
+        #region Service-Login
 
         /// <summary>
-        /// 获取用户账号表相关信息
+        /// 获取对同一对象操作信息
         /// </summary>
-        /// <param name="oid">教职工/学生用户关联的账号表主键</param>
+        /// <param name="account">帐户名</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public static async Task<AppUser> GetUserAsync(string oid, ApplicationDbContext context)
+        public static async Task<IdentityUser> GetUserAsync(string account, ApplicationDbContext context)
         {
-            return await context.IdentityUser.AsNoTracking().FirstOrDefaultAsync(i => i.Id == oid);
+            return await context.IdentityUser.AsNoTracking().Where(i => i.Account == account).FirstOrDefaultAsync();
         }
 
         #endregion

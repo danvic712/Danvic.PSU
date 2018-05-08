@@ -8,11 +8,9 @@
 // Description: 数据库连接上下文
 //-----------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using PSU.Entity.Admission;
 using PSU.Entity.Basic;
 using PSU.Entity.Dormitory;
-using PSU.Entity.Identity;
 using PSU.Entity.School;
 using PSU.Entity.SignUp;
 
@@ -60,14 +58,9 @@ namespace PSU.EFCore
         public virtual DbSet<Record> Record { get; set; }
 
         /// <summary>
-        /// 教职工信息表
+        /// 账号信息表
         /// </summary>
-        public virtual DbSet<Staff> Staff { get; set; }
-
-        /// <summary>
-        /// 学生信息表
-        /// </summary>
-        public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<IdentityUser> IdentityUser { get; set; }
 
         #endregion
 
@@ -87,14 +80,6 @@ namespace PSU.EFCore
         /// 寝室信息表
         /// </summary>
         public virtual DbSet<Dorm> Dorm { get; set; }
-
-        #endregion
-
-        #region Identity
-
-        public virtual DbSet<AppUser> IdentityUser { get; set; }
-
-        public virtual DbSet<AppRole> IdentityRole { get; set; }
 
         #endregion
 
@@ -145,9 +130,6 @@ namespace PSU.EFCore
             modelBuilder.Entity<Goods>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Service>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Bulletin>().Property(p => p.ModifiedOn).IsConcurrencyToken();
-
-            modelBuilder.Entity<Staff>().Property(p => p.ModifiedOn).IsConcurrencyToken();
-            modelBuilder.Entity<Student>().Property(p => p.ModifiedOn).IsConcurrencyToken();
 
             modelBuilder.Entity<Building>().Property(p => p.ModifiedOn).IsConcurrencyToken();
             modelBuilder.Entity<Bunk>().Property(p => p.ModifiedOn).IsConcurrencyToken();

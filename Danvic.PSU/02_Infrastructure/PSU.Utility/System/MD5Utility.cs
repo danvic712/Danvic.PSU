@@ -5,7 +5,7 @@
 // Author: Danvic712
 // Date Created: 2018/2/12 星期一 11:27:59
 // Modified by:
-// Description: MD5
+// Description: MD5校验
 //-----------------------------------------------------------------------
 
 using System.Linq;

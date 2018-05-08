@@ -114,15 +114,13 @@ namespace PSU.Domain.Areas.Administrator
                 {
                     foreach (var item in list)
                     {
-                        var appUser = await PSURepository.GetUserAsync(item.IdentityUserFK, context);
-
                         var staff = new StaffData
                         {
                             Id = item.Id.ToString(),
                             Name = item.Name,
                             Gender = item.Gender,
-                            Account = appUser.UserName,
-                            Phone = appUser.PhoneNumber,
+                            Account = item.Account,
+                            Phone = item.Phone,
                             Department = item.Department
                         };
 
@@ -209,15 +207,13 @@ namespace PSU.Domain.Areas.Administrator
                 {
                     foreach (var item in list)
                     {
-                        var appUser = await PSURepository.GetUserAsync(item.IdentityUserFK, context);
-
                         var student = new StudentData
                         {
                             Id = item.Id.ToString(),
                             Name = item.Name,
                             Gender = item.Gender,
-                            Account = appUser.UserName,
-                            Phone = appUser.PhoneNumber,
+                            Account = item.Account,
+                            Phone = item.Phone,
                             Department = item.Department,
                             MajorClass = item.MajorClass
                         };

@@ -9,13 +9,16 @@
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PSU.Entity.Identity;
+using PSU.EFCore;
+using PSU.Entity.Basic;
 using PSU.IService;
 using PSU.Model;
+using PSU.Utility.System;
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU
@@ -25,20 +28,14 @@ namespace Controllers.PSU
     {
         #region Initialize
 
-        private readonly UserManager<AppUser> _userManager;
-
-        private readonly SignInManager<AppUser> _signInManager;
-
+        private readonly ApplicationDbContext _context;
         private readonly ISecretService _service;
-
         private readonly ILogger _logger;
-
-        public SecretController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ISecretService service, ILogger<SecretController> logger)
+        public SecretController(ISecretService service, ILogger<SecretController> logger, ApplicationDbContext context)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _service = service;
             _logger = logger;
+            _context = context;
         }
 
         #endregion
@@ -49,7 +46,7 @@ namespace Controllers.PSU
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            //移除当前登录人信息
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -66,16 +63,10 @@ namespace Controllers.PSU
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            //await _signInManager.SignOutAsync();
+            //登出系统
             _logger.LogInformation("用户登出");
             return RedirectToAction(nameof(SecretController.Login), "Secret");
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPassword()
-        {
-            return View();
         }
 
         public IActionResult Error()
@@ -95,33 +86,69 @@ namespace Controllers.PSU
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: true);
+                var user = await _service.GetUserAsync(viewModel.Account, viewModel.Password, _context);
 
-                //Todo:根据用户角色创建claim进行权限验证
-
-                if (result.Succeeded)
+                if (user != null)
                 {
+                    if (user.Password.Trim() != MD5Utility.Sign(viewModel.Password, user.Salt))
+                    {
+                        ModelState.AddModelError(string.Empty, "登录密码错误");
+                        return View(viewModel);
+                    }
+
                     _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
 
-                    //记录登录日志信息
-                    await _service.AddLogSync("", "");
+                    string role = GetRole(user);
 
-                    //记录用户信息session
-                    //var user = await _userManager.GetUserAsync(User);//此处未做验证,代码可能有错
-                    //HttpContext.Session.Set("CurrentUser", ByteUtility.Object2Bytes(user));
+                    //根据用户角色创建claim声明
+                    List<Claim> claim = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Role, "SiteRole")
+                    };
 
-                    return RedirectToLocal(returnUrl);
-                }
-                else if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("用户：{0}于{1}账户被锁定", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
-                    return RedirectToAction(nameof(Lockout));
+                    var userIdentity = new ClaimsIdentity(role);
+                    userIdentity.AddClaims(claim);
+
+                    var userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                    await AuthenticationHttpContextExtensions.SignInAsync(HttpContext, "IdentityRole", userPrincipal, new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(20),
+                        IsPersistent = false,
+                        AllowRefresh = false
+                    });
+
+                    //设置当前用户信息
+
+                    return Redirect(user.HomePage);
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "无效的登录尝试");
                     return View(viewModel);
                 }
+
+                //var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: true);
+
+                //Todo:根据用户角色创建claim进行权限验证
+
+                //if (true)
+                //{
+                //    _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+
+                //    //记录登录日志信息
+                //    await _service.AddLogSync("", "");
+
+                //    //记录用户信息session
+                //    //var user = await _userManager.GetUserAsync(User);//此处未做验证,代码可能有错
+                //    //HttpContext.Session.Set("CurrentUser", ByteUtility.Object2Bytes(user));
+
+                //    return RedirectToLocal(returnUrl);
+                //}
+                //else
+                //{
+                //    
+                //}
             }
 
             return View(viewModel);
@@ -131,6 +158,34 @@ namespace Controllers.PSU
 
         #region Method
 
+        /// <summary>
+        /// 获取角色名称
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private static string GetRole(IdentityUser user)
+        {
+            string role = string.Empty;
+            switch (user.AccountType)
+            {
+                case 0:
+                    role = "Administrator";
+                    break;
+                case 1:
+                    role = "Instructor";
+                    break;
+                case 2:
+                    role = "Student";
+                    break;
+            }
+            return role;
+        }
+
+        /// <summary>
+        /// 重定向
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
