@@ -307,11 +307,11 @@ namespace PSU.Repository.Areas.Administrator
                 //学生姓名
                 if (!string.IsNullOrEmpty(webModel.SStudent))
                 {
-                    predicate = predicate.And(i => i.Name.Contains(webModel.SStudent));
+                    predicate = predicate.And(i => i.Name == webModel.SStudent);
                 }
 
                 //预定日期
-                if (!string.IsNullOrEmpty(webModel.SStudent))
+                if (!string.IsNullOrEmpty(webModel.SDate))
                 {
                     predicate = predicate.And(i => i.ScheduledTime.ToString("yyyy-MM-dd") == webModel.SDate);
                 }
@@ -348,11 +348,11 @@ namespace PSU.Repository.Areas.Administrator
                 //学生姓名
                 if (!string.IsNullOrEmpty(webModel.SStudent))
                 {
-                    predicate = predicate.And(i => i.Name.Contains(webModel.SStudent));
+                    predicate = predicate.And(i => i.Name == webModel.SStudent);
                 }
 
                 //预定日期
-                if (!string.IsNullOrEmpty(webModel.SStudent))
+                if (!string.IsNullOrEmpty(webModel.SDate))
                 {
                     predicate = predicate.And(i => i.ScheduledTime.ToString("yyyy-MM-dd") == webModel.SDate);
                 }

@@ -7,4 +7,46 @@ $(function () {
     var editor = new Simditor({
         textarea: $('#editor')
     });
+
+    //save
+    $(document).on('click', '#save', function () {
+
+        if ($('#editor').val() === '') {
+            bootbox.dialog({
+                message: '回复信息为空'
+            });
+            return false;
+        }
+
+        //build ajax request param
+        var param = {};
+        param.Id = $(this).attr('data-id');
+        param.ReplyContent = $('#editor').val();
+
+        $(this).attr('disabled', 'disabled');
+
+        $.ajax({
+            type: "POST",
+            url: "/Administrator/Admission/Reply",
+            data: param,
+            dataType: "json",
+            success: function (result) {
+                if (result.msg !== undefined) {
+                    bootbox.dialog({
+                        message: result.msg
+                    });
+                    if (result.success) {
+                        setTimeout(function () {
+                            window.location.href = "/Administrator/Admission/Question";
+                        }, 2000);
+                    }
+                }
+                $('#save').removeAttr('disabled');
+            },
+            error: function (msg) {
+                console.log(msg);
+                $('#save').removeAttr('disabled');
+            }
+        });
+    });
 });

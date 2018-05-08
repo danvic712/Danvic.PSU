@@ -42,7 +42,7 @@ namespace PSU.Entity.Admission
         /// 学号
         /// </summary>
         [Required]
-        public int SId { get; set; }
+        public long SId { get; set; }
 
         /// <summary>
         /// 提问时间

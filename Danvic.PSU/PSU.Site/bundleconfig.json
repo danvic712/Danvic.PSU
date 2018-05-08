@@ -262,6 +262,7 @@
   {
     "outputFileName": "wwwroot/javascript/view/Administrator/editgoods.min.js",
     "inputFiles": [
+      "wwwroot/javascript/template/ajaxupload.js",
       "wwwroot/javascript/view/Administrator/editgoods.js"
     ],
     "minify": {

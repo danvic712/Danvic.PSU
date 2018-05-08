@@ -58,8 +58,8 @@ $.dataTableSetting = {
         param.Limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
         param.Start = data.start;//开始的记录序号
         param.Page = (data.start / data.length) + 1;//当前页码
-        param.SName = $('#name').val();//迎新服务名称
-        param.SGoodsName = $('#goodsname').val();//迎新服务地点
+        param.SName = $('#servicename').val();//迎新服务名称
+        param.SStudent = $('#name').val();//迎新服务地点
         param.SDate = $('#datetime').val();//服务时间
 
         //ajax请求数据

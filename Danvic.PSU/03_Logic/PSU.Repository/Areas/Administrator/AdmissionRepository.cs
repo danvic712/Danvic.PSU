@@ -168,6 +168,19 @@ namespace PSU.Repository.Areas.Administrator
         #region Goods API
 
         /// <summary>
+        /// 删除物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task DeleteGoodsAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Goods.FirstOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
         /// 根据搜索条件获取物品信息
         /// </summary>
         /// <param name="webModel">列表页视图模型</param>
@@ -249,6 +262,50 @@ namespace PSU.Repository.Areas.Administrator
                 var list = await goods.AsExpandable().Where(predicate).ToListAsync();
                 return list.Count();
             }
+        }
+
+        /// <summary>
+        /// 获取物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Goods> GetGoodsAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Goods.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 新增物品信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Goods> InsertAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
+        {
+            Goods model = InsertModel(webModel);
+
+            await context.Goods.AddAsync(model);
+
+            return model;
+        }
+
+        /// <summary>
+        /// 更新物品信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Goods.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model = UpdateModel(webModel, model);
         }
 
         #endregion
@@ -400,6 +457,26 @@ namespace PSU.Repository.Areas.Administrator
             };
         }
 
+        /// <summary>
+        /// Insert Goods Model
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        private static Goods InsertModel(GoodsEditViewModel webModel)
+        {
+            return new Goods
+            {
+                CreatedBy = CurrentUser.UserOID,
+                CreatedId = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName,
+                Description = webModel.Description,
+                Name = webModel.Name,
+                ImageSrc = webModel.ImageSrc,
+                Size = webModel.Size,
+                IsEnabled = (int)webModel.IsEnabled == 1,
+            };
+        }
+
         #endregion
 
         #region Method-Update
@@ -418,6 +495,27 @@ namespace PSU.Repository.Areas.Administrator
             model.Name = webModel.Name;
             model.Place = webModel.Place;
             model.StartTime = Convert.ToDateTime(webModel.StartTime);
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
+            model.ModifiedName = CurrentUser.UserName;
+
+            return model;
+        }
+
+        /// <summary>
+        /// Update Goods Model
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private static Goods UpdateModel(GoodsEditViewModel webModel, Goods model)
+        {
+            model.Size = webModel.Size;
+            model.ImageSrc = webModel.ImageSrc;
+            model.Description = webModel.Description;
+            model.Name = webModel.Name;
             model.IsEnabled = (int)webModel.IsEnabled == 1;
             model.ModifiedOn = DateTime.Now;
             model.ModifiedId = CurrentUser.UserId;

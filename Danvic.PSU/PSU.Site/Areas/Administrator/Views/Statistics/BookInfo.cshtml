@@ -1,80 +1,51 @@
 ﻿@model PSU.Model.Areas.Administrator.Statistics.BookDetailViewModel
 @{
     Layout = null;
-    ViewData["Title"] = "报名数据";
+    ViewData["Title"] = "服务预定";
     ViewData["NavTitle"] = "数据统计分析";
     ViewData["CurrName"] = "服务预定分析";
 }
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="profile-user-info profile-user-info-striped">
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 学生姓名 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">1111111111</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 联系电话 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">1111111111</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 服务名称 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">放到沙发上地方的时候说的话</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 预定时间 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">2018-12-21 12:32</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 服务时间 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">2018-12-21 12:32</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 服务地点 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">火车站啊啊啊</span>
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 是否取消 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <input type="radio" class="iradio_flat-green" name="gender" checked disabled>否
-                        <input type="radio" class="iradio_flat-green" name="gender" disabled> 是
-                    </div>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 备注 </div>
-                <div class="profile-info-value">
-                    <div class="col-md-12">
-                        <span class="editable editable-click">火车站啊啊啊</span>
-                    </div>
-                </div>
-            </div>
+    @if (Model != null)
+    {
+        <div class="col-md-12">
+            <table class="profile-user-info profile-user-info-striped">
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">学生姓名</th>
+                    <td class="profile-info-value">@Model.Name</td>
+                    <th class="profile-info-name">联系电话</th>
+                    <td class="profile-info-value">@Model.Tel</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">服务名称</th>
+                    <td class="profile-info-value">@Model.ServiceName</td>
+                    <th class="profile-info-name">预定人数</th>
+                    <td class="profile-info-value">@Model.Count 人</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">预定时间</th>
+                    <td class="profile-info-value">@Model.ScheduledTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <th class="profile-info-name">服务时间</th>
+                    <td class="profile-info-value">@Model.DepartureTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">服务地点</th>
+                    <td class="profile-info-value">@Model.Place</td>
+                    <th class="profile-info-name">是否取消</th>
+                    <td class="profile-info-value">
+                        @{
+                            string str = Model.IsCancel ? "已取消" : "未取消";
+                        }
+                        <span>@str</span>
+                    </td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">备注</th>
+                    <td class="profile-info-value" colspan="3">@Model.Remark</td>
+                </tr>
+            </table>
         </div>
-    </div>
+    }
 </div>
 

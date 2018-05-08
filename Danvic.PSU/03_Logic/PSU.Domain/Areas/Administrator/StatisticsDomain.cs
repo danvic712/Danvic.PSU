@@ -222,6 +222,16 @@ namespace PSU.Domain.Areas.Administrator
             try
             {
                 var model = await StatisticsRepository.GetEntityAsync(id, context);
+                webModel.Count = model.Count;
+                webModel.DepartureTime = model.DepartureTime;
+                webModel.Id = model.Id.ToString();
+                webModel.IsCancel = model.IsCancel;
+                webModel.Name = model.Name;
+                webModel.Place = model.Place;
+                webModel.Remark = model.Remark;
+                webModel.ScheduledTime = model.ScheduledTime;
+                webModel.ServiceName = model.ServiceName;
+                webModel.Tel = model.Tel;
             }
             catch (Exception ex)
             {

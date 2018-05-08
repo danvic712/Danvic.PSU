@@ -7,10 +7,7 @@
 // Modified by:
 // Description: Administrator-Admission-物品编辑页面 View Model
 //-----------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Model.Areas.Administrator.Admission

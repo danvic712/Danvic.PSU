@@ -37,6 +37,86 @@ namespace PSU.Domain.Areas.Administrator
         #region Service Interface Service Implement
 
         /// <summary>
+        ///删除迎新服务信息
+        /// </summary>
+        /// <param name="id">迎新服务编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteServiceAsync(long id, ApplicationDbContext context)
+        {
+            try
+            {
+                //Delete Service Data
+                await AdmissionRepository.DeleteServiceAsync(id, context);
+
+                //Add Operate Information
+                var operate = string.Format("删除迎新服务信息，迎新服务编号:{0}", id);
+                PSURepository.InsertRecordAsync("Service", "AdmissionDomain", "DeleteServiceAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
+
+                var index = await context.SaveChangesAsync();
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除迎新服务失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取迎新服务信息
+        /// </summary>
+        /// <param name="id">迎新服务编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<ServiceEditViewModel> GetServiceAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new ServiceEditViewModel();
+            try
+            {
+                var model = await AdmissionRepository.GetServiceAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Description = model.Description;
+                webModel.EndTime = model.EndTime.ToString();
+                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.Place = model.Place;
+                webModel.Address = model.Address;
+                webModel.StartTime = model.StartTime.ToString();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取迎新服务数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 新增迎新服务信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> InsertServiceAsync(ServiceEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Add the Service Data
+                var model = await AdmissionRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建迎新服务失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 搜索迎新服务信息
         /// </summary>
         /// <param name="webModel">列表页视图Model</param>
@@ -77,86 +157,6 @@ namespace PSU.Domain.Areas.Administrator
         }
 
         /// <summary>
-        /// 新增迎新服务信息
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public async Task<bool> InsertServiceAsync(ServiceEditViewModel webModel, ApplicationDbContext context)
-        {
-            try
-            {
-                //Add the Service Data
-                var model = await AdmissionRepository.InsertAsync(webModel, context);
-
-                //Make the transaction commit
-                var index = await context.SaveChangesAsync();
-
-                return index == 1;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("创建迎新服务失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 获取迎新服务信息
-        /// </summary>
-        /// <param name="id">迎新服务编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public async Task<ServiceEditViewModel> GetServiceAsync(long id, ApplicationDbContext context)
-        {
-            var webModel = new ServiceEditViewModel();
-            try
-            {
-                var model = await AdmissionRepository.GetServiceAsync(id, context);
-                webModel.Id = model.Id.ToString();
-                webModel.Description = model.Description;
-                webModel.EndTime = model.EndTime.ToString();
-                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
-                webModel.Name = model.Name;
-                webModel.Place = model.Place;
-                webModel.Address = model.Address;
-                webModel.StartTime = model.StartTime.ToString();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("获取迎新服务数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
-            }
-            return webModel;
-        }
-
-        /// <summary>
-        ///删除迎新服务信息
-        /// </summary>
-        /// <param name="id">迎新服务编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public async Task<bool> DeleteServiceAsync(long id, ApplicationDbContext context)
-        {
-            try
-            {
-                //Delete Service Data
-                await AdmissionRepository.DeleteServiceAsync(id, context);
-
-                //Add Operate Information
-                var operate = string.Format("删除迎新服务信息，迎新服务编号:{0}", id);
-                PSURepository.InsertRecordAsync("Service", "AdmissionDomain", "DeleteServiceAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
-
-                var index = await context.SaveChangesAsync();
-                return index == 2;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("删除迎新服务失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
         /// 更新迎新服务信息
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
@@ -189,6 +189,84 @@ namespace PSU.Domain.Areas.Administrator
         #region Goods Interface Service Implement
 
         /// <summary>
+        ///删除物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteGoodsAsync(long id, ApplicationDbContext context)
+        {
+            try
+            {
+                //Delete Goods Data
+                await AdmissionRepository.DeleteGoodsAsync(id, context);
+
+                //Add Operate Information
+                var operate = string.Format("删除物品信息，物品编号:{0}", id);
+                PSURepository.InsertRecordAsync("Goods", "AdmissionDomain", "DeleteGoodsAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
+
+                var index = await context.SaveChangesAsync();
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("删除物品信息失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<GoodsEditViewModel> GetGoodsAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new GoodsEditViewModel();
+            try
+            {
+                var model = await AdmissionRepository.GetGoodsAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Description = model.Description;
+                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.ImageSrc = model.ImageSrc;
+                webModel.Size = model.Size;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 新增物品信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<bool> InsertGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
+        {
+            try
+            {
+                //Add the Goods Data
+                var model = await AdmissionRepository.InsertAsync(webModel, context);
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建物品失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 搜索物品信息
         /// </summary>
         /// <param name="webModel">列表页视图Model</param>
@@ -213,7 +291,7 @@ namespace PSU.Domain.Areas.Administrator
                         IsEnabled = item.IsEnabled,
                         Size = item.Size,
                         ImageSrc = item.ImageSrc,
-                        Description = item.Description.Length > 20 ? item.Description.Substring(0, 20) + "..." : item.Description
+                        Description = !string.IsNullOrEmpty(item.Description) && item.Description.Length > 20 ? item.Description.Substring(0, 20) + "..." : item.Description
                     }));
                 }
 
@@ -228,47 +306,31 @@ namespace PSU.Domain.Areas.Administrator
         }
 
         /// <summary>
-        /// 新增物品信息
-        /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<bool> InsertGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 获取物品信息
-        /// </summary>
-        /// <param name="id">物品编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<GoodsEditViewModel> GetGoodsAsync(long id, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        ///删除物品信息
-        /// </summary>
-        /// <param name="id">物品编号</param>
-        /// <param name="context">数据库连接上下文对象</param>
-        /// <returns></returns>
-        public Task<bool> DeleteGoodsAsync(long id, ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// 更新物品信息
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> UpdateGoodsAsync(GoodsEditViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update Service Data
+                AdmissionRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改物品信息，物品编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync("Goods", "AdmissionDomain", "UpdateGoodsAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新物品信息失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion
@@ -358,7 +420,7 @@ namespace PSU.Domain.Areas.Administrator
                         AskFor = item.AskForName,
                         DateTime = item.AskTime.ToString("yyyy-MM-dd HH:mm"),
                         IsReply = item.IsReply,
-                        Content = item.Content.Length > 20 ? item.Content.Substring(0, 20) + "..." : item.Content
+                        Content = !string.IsNullOrEmpty(item.Content) && item.Content.Length > 20 ? item.Content.Substring(0, 20) + "..." : item.Content
                     }));
                 }
 
