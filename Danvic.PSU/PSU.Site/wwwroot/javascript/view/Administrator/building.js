@@ -97,6 +97,29 @@ $(function () {
 
     //add
     $(document).on("click", "#add", function () {
+
+        //verification
+        if ($('#edit_name').val() === '') {
+            bootbox.dialog({
+                message: '请输入寝室楼名称'
+            });
+            return false;
+        }
+
+        if ($('#edit_floor').val() === '') {
+            bootbox.dialog({
+                message: '请输入寝室楼总楼层'
+            });
+            return false;
+        }
+
+        if ($('#edit_type').val() === '0') {
+            bootbox.dialog({
+                message: '请选择寝室楼类型'
+            });
+            return false;
+        }
+
         var param = {};
         param.Id = $('#edit_id').val();
         param.Name = $('#edit_name').val();
@@ -113,7 +136,7 @@ $(function () {
                 if (result.msg !== undefined) {
                     bootbox.dialog({
                         message: result.msg,
-                        closeButton: false,
+                        //closeButton: false,
                     });
                     if (result.success) {
                         setTimeout(function () {

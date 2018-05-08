@@ -48,7 +48,7 @@ $.dataTableSetting = {
         { "data": "id" },
         { "data": "name" },
         { "data": "number" },
-        { "data": "toward" },
+        { "data": "towardStr" },
         { "data": "imageSrc" },
         { "data": "isEnabledStr" }
     ],

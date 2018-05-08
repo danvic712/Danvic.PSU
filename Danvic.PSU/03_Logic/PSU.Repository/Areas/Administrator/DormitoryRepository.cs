@@ -287,6 +287,12 @@ namespace PSU.Repository.Areas.Administrator
         {
             var model = new Bunk
             {
+                IsEnabled = (int)webModel.IsEnabled == 1,
+                ImageSrc = webModel.ImageSrc,
+                Name = webModel.Name,
+                Number = webModel.Number,
+                Toward = webModel.Toward.ToString(),
+                CreatedId = CurrentUser.UserId,
                 CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
@@ -309,7 +315,13 @@ namespace PSU.Repository.Areas.Administrator
                 return;
             }
 
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.ImageSrc = webModel.ImageSrc;
+            model.Name = webModel.Name;
+            model.Number = webModel.Number;
+            model.Toward = webModel.Toward.ToString();
             model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
             model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
         }
@@ -350,7 +362,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<List<Dorm>> GetListAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
-            if (string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1)
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SType) && webModel.SFloor == -1)
             {
                 return await context.Set<Dorm>().AsNoTracking().Skip(webModel.Start).Take(webModel.Limit).OrderByDescending(i => i.CreatedOn).ToListAsync();
             }
@@ -367,9 +379,9 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 //宿舍楼类型
-                if (webModel.SType != 0)
+                if (!string.IsNullOrEmpty(webModel.SType))
                 {
-                    predicate = predicate.And(i => i.Type == webModel.SType);
+                    predicate = predicate.And(i => i.BunkName == webModel.SType);
                 }
 
                 //宿舍楼是否启用
@@ -390,7 +402,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<int> GetListCountAsync(InformationViewModel webModel, ApplicationDbContext context)
         {
-            if (string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1)
+            if (string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SType) && webModel.SFloor == -1)
             {
                 var list = await context.Set<Dorm>().AsNoTracking().OrderByDescending(i => i.CreatedOn).ToListAsync();
                 return list.Count();
@@ -408,9 +420,9 @@ namespace PSU.Repository.Areas.Administrator
                 }
 
                 //宿舍楼类型
-                if (webModel.SType != 0)
+                if (!string.IsNullOrEmpty(webModel.SType))
                 {
-                    predicate = predicate.And(i => i.Type == webModel.SType);
+                    predicate = predicate.And(i => i.BunkName == webModel.SType);
                 }
 
                 //宿舍楼是否启用

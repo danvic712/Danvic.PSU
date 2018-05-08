@@ -2,7 +2,7 @@
 @using PSU.Model.Areas
 @{
     Layout = null;
-    ViewData["Title"] = "床铺信息";
+    ViewData["Title"] = "宿舍类型";
     ViewData["NavTitle"] = "宿舍信息管理";
     ViewData["CurrName"] = "宿舍类型维护";
 }
@@ -11,40 +11,45 @@
     <div class="col-md-12">
         <form class="form-horizontal" role="form" id="majorclass_form">
             <div class="form-group">
-                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="edit_name">
                     <span class="required-label">*</span> 类型名称
                 </label>
                 <div class="col-md-4 col-xs-9">
-                    <input class="col-md-5 col-xs-12 form-control" id="name" type="text" placeholder="" maxlength="20">
+                    <input class="col-md-5 col-xs-12 form-control" id="edit_name" type="text" maxlength="20" asp-for="Name">
                 </div>
-                <label class="col-md-2 control-label no-padding-right" for="toward"> 寝室朝向 </label>
+                <label class="col-md-2 control-label no-padding-right" for="edit_number"> 可容纳人数 </label>
+                <div class="col-md-2">
+                    <input class="form-control" id="edit_number" type="number" min="1" asp-for="Number">
+                </div>
+                <label class="control-label" for="edit_number">人</label>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label no-padding-right" for="edit_toward"> 寝室朝向 </label>
                 <div class="col-md-4">
-                    <select id="toward" asp-items="@Html.GetEnumSelectList(typeof(EnumType.BunkToward))" class="form-control" asp-for="Toward"></select>
+                    <select id="edit_toward" asp-items="@Html.GetEnumSelectList(typeof(EnumType.BunkToward))" class="form-control" asp-for="Toward"></select>
+                </div>
+                <label class="col-md-2 control-label no-padding-right" for="edit_enable"> 是否启用 </label>
+                <div class="col-md-4">
+                    <select id="edit_enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
-                <div class="col-md-4">
-                    <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label no-padding-right" for="enable"> 示意图 </label>
+                <label class="col-md-2 control-label no-padding-right"> 示意图 </label>
                 <div class="col-md-10">
-                    <button class="btn btn-sm btn-round" id="iconpath">
+                    <a class="btn btn-sm btn-upload" id="iconpath">
                         <i class="fa fa-cloud-upload red2"></i>
                         <span id="pathName">图片上传</span>
-                    </button>
+                    </a>
                     <span id="fname">图片限制1M以内，仅支持GIF,BMP,PNG,JPG,JPEG图片</span>
-                    <input type="hidden" id="hideUrl" value="" />
+                    <input type="hidden" id="edit_hideUrl" value="" />
                     <input style="visibility:hidden" type="file" id="iconupload">
                 </div>
             </div>
             <div class="text-right">
-                <button id="save" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
+                <a id="save" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
                     <i class="ace-icon fa fa-check"></i>
                     保存
-                </button>
+                </a>
                 &nbsp; &nbsp;
                 <a class="btn btn-default" asp-area="Administrator" asp-controller="Dormitory" asp-action="Bunk">
                     <i class="fa fa-undo"></i>
@@ -54,13 +59,3 @@
         </form>
     </div>
 </div>
-
-@section scripts{
-    <environment include="Development">
-        <script src="~/javascript/template/ajaxupload.js"></script>
-        <script src="~/javascript/view/Administrator/editbunk.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/javascript/view/Administrator/editbunk.min.js" asp-append-version="true"></script>
-    </environment>
-}

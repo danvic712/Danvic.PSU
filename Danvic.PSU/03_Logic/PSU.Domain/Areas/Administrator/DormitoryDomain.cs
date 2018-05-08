@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PSU.Model.Areas;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -226,10 +227,11 @@ namespace PSU.Domain.Areas.Administrator
             {
                 var model = await DormitoryRepository.GetBunkAsync(id, context);
                 webModel.Id = model.Id.ToString();
-                //webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
-                //webModel.Name = model.Name;
-                //webModel.Floor = model.Floor;
-                //webModel.Type = (EnumType.BuildingType)model.Type;
+                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
+                webModel.ImageSrc = model.ImageSrc;
+                webModel.Toward = (BunkToward)Enum.Parse(typeof(BunkToward), model.Toward);
+                webModel.Number = model.Number;
             }
             catch (Exception ex)
             {
@@ -433,7 +435,7 @@ namespace PSU.Domain.Areas.Administrator
                         Name = item.Name,
                         BuildingName = item.BuildingName,
                         Floor = item.Floor,
-                        Type = item.Type,
+                        Type = item.BunkName,
                         Count = item.Count,
                         SelectedCount = item.SelectedCount,
                         IsEnabled = item.IsEnabled

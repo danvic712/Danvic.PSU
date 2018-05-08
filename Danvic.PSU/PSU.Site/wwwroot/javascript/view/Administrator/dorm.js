@@ -49,7 +49,7 @@ $.dataTableSetting = {
         { "data": "name" },
         { "data": "buildingName" },
         { "data": "floorStr" },
-        { "data": "typeStr" },
+        { "data": "type" },
         { "data": "countStr" },
         { "data": "selectedCountStr" },
         { "data": "isEnabledStr" }

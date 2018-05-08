@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "床铺信息";
+    ViewData["Title"] = "宿舍类型";
     ViewData["NavTitle"] = "宿舍信息管理";
     ViewData["CurrName"] = "宿舍类型维护";
 }
@@ -48,7 +48,7 @@
             <div class="form-group col-md-3">
                 <label class="control-label no-padding-right col-md-5 col-xs-4" for="enable">是否启用：</label>
                 <div class="input-group col-md-7 col-xs-8">
-                    <select id="campus" name="" class="form-control">
+                    <select id="enable" class="form-control">
                         <option value="-1">请选择</option>
                         <option value="1">启用</option>
                         <option value="0">未启用</option>
@@ -74,8 +74,11 @@
 @section scripts{
     <environment include="Development">
         <script src="~/javascript/view/Administrator/bunk.js"></script>
+        <script src="~/javascript/template/ajaxupload.js"></script>
+        <script src="~/javascript/view/Administrator/editbunk.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/javascript/view/Administrator/bunk.min.js" asp-append-version="true"></script>
+        <script src="~/javascript/view/Administrator/editbunk.min.js" asp-append-version="true"></script>
     </environment>
 }

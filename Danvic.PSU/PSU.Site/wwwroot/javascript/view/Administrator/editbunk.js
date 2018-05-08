@@ -3,6 +3,7 @@
  *   Author: Danvic712
  */
 $(function () {
+    //upload
     new AjaxUpload($('#iconpath'), {
         action: "/Administrator/Dormitory/Upload",
         onSubmit: function (file, ext) {
@@ -48,5 +49,43 @@ $(function () {
                 }, 1000);
             }
         }
+    });
+
+    //save
+    $(document).on('click', '#save', function () {
+        //build ajax request param
+        var param = {};
+        param.Id = $(this).attr('data-id');
+        param.Name = $('#edit_name').val();
+        param.Number = $('#edit_number').val();
+        param.Toward = $('#edit_toward').val();
+        param.ImageSrc = $('#edit_hideUrl').val();
+        param.IsEnabled = $('#edit_enable').val();
+
+        $(this).attr('disabled', 'disabled');
+
+        $.ajax({
+            type: "POST",
+            url: "/Administrator/Dormitory/EditBunk",
+            data: param,
+            dataType: "json",
+            success: function (result) {
+                if (result.msg !== undefined) {
+                    bootbox.dialog({
+                        message: result.msg
+                    });
+                    if (result.success) {
+                        setTimeout(function () {
+                            window.location.href = "/Administrator/Dormitory/Bunk";
+                        }, 2000);
+                    }
+                }
+                $('#save').removeAttr('disabled');
+            },
+            error: function (msg) {
+                console.log(msg);
+                $('#save').removeAttr('disabled');
+            }
+        });
     });
 });

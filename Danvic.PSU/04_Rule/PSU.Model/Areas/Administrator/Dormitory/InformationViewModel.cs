@@ -23,7 +23,7 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         /// <summary>
         /// 宿舍类型
         /// </summary>
-        public short SType { get; set; }
+        public string SType { get; set; }
 
         /// <summary>
         /// 所在楼层
@@ -71,38 +71,8 @@ namespace PSU.Model.Areas.Administrator.Dormitory
 
         /// <summary>
         /// 寝室类型
-        /// 1:4人间;2:6人间;3:8人间;4:套房;5:其它
         /// </summary>
-        public short Type { get; set; }
-
-        public string TypeStr
-        {
-            get
-            {
-                string str = string.Empty;
-
-                switch (Type)
-                {
-                    case 1:
-                        str = "4人间";
-                        break;
-                    case 2:
-                        str = "6人间";
-                        break;
-                    case 3:
-                        str = "8人间";
-                        break;
-                    case 4:
-                        str = "套房";
-                        break;
-                    case 5:
-                        str = "其它";
-                        break;
-                }
-
-                return str;
-            }
-        }
+        public string Type { get; set; }
 
         /// <summary>
         /// 可容纳人数

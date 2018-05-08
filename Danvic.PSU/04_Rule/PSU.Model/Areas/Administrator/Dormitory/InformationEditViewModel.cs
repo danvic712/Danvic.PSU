@@ -23,11 +23,60 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         /// </summary>
         public string Id { get; set; }
 
+
+
         /// <summary>
         /// 是否启用
         /// </summary>
         public Enable IsEnabled { get; set; }
 
+        /// <summary>
+        /// 宿舍楼下拉列表
+        /// </summary>
+        public List<BuildingDropDown> BuildingList { get; set; }
+
+        /// <summary>
+        /// 宿舍类型下拉
+        /// </summary>
+        public List<BunkDropDown> BunkList { get; set; }
+
         #endregion
+    }
+
+    /// <summary>
+    /// 宿舍楼下拉
+    /// </summary>
+    public class BuildingDropDown
+    {
+        /// <summary>
+        /// 宿舍楼编号
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 宿舍楼名称
+        /// </summary>
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// 宿舍类型下拉
+    /// </summary>
+    public class BunkDropDown
+    {
+        /// <summary>
+        /// 宿舍类型编号
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// 宿舍类型名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 可容纳人数
+        /// </summary>
+        public int Count { get; set; }
     }
 }

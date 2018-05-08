@@ -8,6 +8,7 @@
 // Description: Administrator-School-院系编辑信息页面 View Model
 //-----------------------------------------------------------------------
 using System.ComponentModel.DataAnnotations;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Model.Areas.Administrator.School
 {
@@ -37,7 +38,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 联系电话
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "联系电话不能为空")]
-        [Phone(ErrorMessage = "输入内容不符合格式要求")]
+        [Phone(ErrorMessage = "联系电话不符合格式要求")]
         [StringLength(20, ErrorMessage = "联系电话不能超过20个字符长度")]
         public string Tel { get; set; }
 
@@ -74,12 +75,12 @@ namespace PSU.Model.Areas.Administrator.School
         /// <summary>
         /// 是否启用
         /// </summary>
-        public EnumType.Enable IsEnabled { get; set; }
+        public Enable IsEnabled { get; set; }
 
         /// <summary>
         /// 是否为部门
         /// </summary>
-        public EnumType.Branch IsBranch { get; set; }
+        public Branch IsBranch { get; set; }
 
         #endregion
     }

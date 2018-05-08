@@ -33,6 +33,7 @@ namespace PSU.Model.Areas.Administrator.School
         /// 专业代码
         /// </summary>
         [Required(ErrorMessage = "专业代码不能为空")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "专业代码只能输入数字")]
         public string MajorCode { get; set; }
 
         /// <summary>
@@ -46,12 +47,14 @@ namespace PSU.Model.Areas.Administrator.School
         /// 所属院系编号
         /// </summary>
         [Required(ErrorMessage = "院系编号不能为空")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "院系编号只能是数字")]
         public string DepartmentId { get; set; }
 
         /// <summary>
         /// 所属院系名称
         /// </summary>
         [Required(ErrorMessage = "请选择所属院系信息")]
+        [StringLength(20, ErrorMessage = "院系名称不能超过20个字符长度")]
         public string DepartmentName { get; set; }
 
         /// <summary>
@@ -64,18 +67,21 @@ namespace PSU.Model.Areas.Administrator.School
         /// 班级QQ
         /// </summary>
         [StringLength(20, ErrorMessage = "班级QQ不能超过20个字符长度")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "班级QQ只能输入数字")]
         public string QQ { get; set; }
 
         /// <summary>
         /// 辅导员工号
         /// </summary>
         [Required(ErrorMessage = "辅导员工号不能为空")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "辅导员工号只能是数字")]
         public string InstructorId { get; set; }
 
         /// <summary>
         /// 辅导员姓名
         /// </summary>
         [Required(ErrorMessage = "请选择班级辅导员信息")]
+        [StringLength(20, ErrorMessage = "辅导员姓名不能超过20个字符长度")]
         public string InstructorName { get; set; }
 
         /// <summary>

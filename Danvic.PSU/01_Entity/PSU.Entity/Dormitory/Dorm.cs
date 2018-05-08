@@ -29,10 +29,17 @@ namespace PSU.Entity.Dormitory
         public long Id { get; set; } = TimeUtility.GetTimespans();
 
         /// <summary>
-        /// 寝室名
+        /// 宿舍号
         /// </summary>
         [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 寝室楼编号
+        /// </summary>
+        [Required]
+        public string BuildingId { get; set; }
 
         /// <summary>
         /// 寝室楼名称
@@ -48,10 +55,17 @@ namespace PSU.Entity.Dormitory
         public short Floor { get; set; }
 
         /// <summary>
-        /// 寝室类型
-        /// 1:4人间;2:6人间;3:8人间;4:套房;5:其它
+        /// 寝室类型编号
         /// </summary>
-        public short Type { get; set; }
+        [Required]
+        public long BunkId { get; set; }
+
+        /// <summary>
+        /// 寝室类型名称
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string BunkName { get; set; }
 
         /// <summary>
         /// 可容纳人数

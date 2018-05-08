@@ -70,6 +70,31 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         /// </summary>
         public string Toward { get; set; }
 
+        public string TowardStr
+        {
+            get
+            {
+                string str = string.Empty;
+                if (Toward.Equals("East"))
+                {
+                    str = "面朝东";
+                }
+                if (Toward.Equals("South"))
+                {
+                    str = "面朝南";
+                }
+                if (Toward.Equals("West"))
+                {
+                    str = "面朝西";
+                }
+                if (Toward.Equals("North"))
+                {
+                    str = "面朝北";
+                }
+                return str;
+            }
+        }
+
         /// <summary>
         /// 类型示意图地址
         /// </summary>

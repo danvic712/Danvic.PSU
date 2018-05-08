@@ -336,7 +336,7 @@ namespace Controllers.PSU.Areas.Administrator
             webModel = await _service.SearchInformationAsync(webModel, _context);
 
             //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && webModel.SType == 0 && webModel.SFloor == -1;
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SType) && webModel.SFloor == -1;
 
             var returnData = new
             {

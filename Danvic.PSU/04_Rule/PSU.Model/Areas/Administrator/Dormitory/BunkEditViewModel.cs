@@ -29,6 +29,11 @@ namespace PSU.Model.Areas.Administrator.Dormitory
         public string Name { get; set; }
 
         /// <summary>
+        /// 可容纳人数
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
         /// 朝向
         /// </summary>
         public BunkToward Toward { get; set; }
