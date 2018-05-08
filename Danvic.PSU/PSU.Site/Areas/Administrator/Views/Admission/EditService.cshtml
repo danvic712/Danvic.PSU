@@ -46,9 +46,11 @@
                         <div class="box box-default">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="title"> 服务名称 </label>
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                                        <span class="required-label">*</span> 服务名称
+                                    </label>
                                     <div class="col-md-4 col-xs-9">
-                                        <input class="form-control" id="title" type="text" maxlength="20" placeholder="">
+                                        <input class="form-control" id="name" type="text" maxlength="20" asp-for="Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -57,7 +59,7 @@
                                     </label>
                                     <div class="col-md-4">
                                         <div class="input-group">
-                                            <input id="starttime" class="form-control date-picker" type="text" readonly />
+                                            <input id="starttime" class="form-control date-picker" type="text" readonly asp-for="StartTime" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -68,7 +70,7 @@
                                     </label>
                                     <div class="col-md-4">
                                         <div class="input-group">
-                                            <input id="endtime" class="form-control date-picker" type="text" readonly />
+                                            <input id="endtime" class="form-control date-picker" type="text" readonly asp-for="EndTime" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
@@ -76,19 +78,32 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label no-padding-right" for="address"> 服务地点 </label>
+                                    <label class="col-md-2 control-label no-padding-right" for="address">
+                                        <span class="required-label">*</span> 服务地点
+                                    </label>
                                     <div class="col-md-4">
-                                        <select id="address" class="form-control"></select>
+                                        <select id="address" class="form-control" asp-for="Place">
+                                            <option value="-1">请选择</option>
+                                            <option value="train">火车站</option>
+                                            <option value="bus">汽车站</option>
+                                            <option value="school">学校</option>
+                                            <option value="other">其它</option>
+                                        </select>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" id="address_custom" type="text" maxlength="20" asp-for="Address">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label no-padding-right" for="enable"> 是否启用 </label>
                                     <div class="col-md-4">
                                         <select id="enable" asp-items="@Html.GetEnumSelectList(typeof(EnumType.Enable))" class="form-control" asp-for="IsEnabled"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label no-padding-right" for="address"> 服务描述 </label>
+                                    <label class="col-md-2 control-label no-padding-right" for="description"> 服务描述 </label>
                                     <div class="col-md-9">
-                                        <textarea id="editor" class="form-control" maxlength="500" rows="6" style="resize:none"></textarea>
+                                        <textarea id="description" class="form-control" maxlength="500" rows="6" style="resize:none" asp-for="Description"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +114,7 @@
                                         保存
                                     </a>
                                     &nbsp;&nbsp;
-                                    <a class="btn btn-default" asp-area="Administrator" asp-controller="Home" asp-action="Bulletin">
+                                    <a class="btn btn-default" asp-area="Administrator" asp-controller="Admission" asp-action="Service">
                                         <i class="fa fa-undo"></i>
                                         返回
                                     </a>
@@ -120,7 +135,7 @@
         <script src="~/javascript/view/Administrator/editservice.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/javascript/template/datetimepicker.min.js" asp-append-version="true"></script>
+        <script src="~/javascript/template/datetimepicker.min.js"></script>
         <script src="~/javascript/view/Administrator/editservice.min.js" asp-append-version="true"></script>
     </environment>
 }

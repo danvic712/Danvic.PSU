@@ -444,11 +444,30 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Dorm> InsertAsync(InformationEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = new Dorm
+            //Get Foreign Key Association Table Information
+            //
+            var building = await context.Building.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.BuildingId)).FirstOrDefaultAsync();
+            var bunk = await context.Bunk.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.BunkId)).FirstOrDefaultAsync();
+
+            //return error 
+            if (building == null || bunk == null)
             {
-                CreatedBy = CurrentUser.UserOID,
-                CreatedName = CurrentUser.UserName
-            };
+                return new Dorm
+                {
+                    Id = -1
+                };
+            }
+
+            Dorm model = InsertModel(webModel);
+
+            model.BuildingFK = building.BuildingOID;
+            model.BuildingId = Convert.ToInt64(webModel.BuildingId);
+            model.BuildingName = building.Name;
+
+            model.BunkFK = bunk.BunkOID;
+            model.BunkId = Convert.ToInt64(webModel.BunkId);
+            model.BunkName = bunk.Name;
+
             await context.Dorm.AddAsync(model);
 
             return model;
@@ -468,9 +487,26 @@ namespace PSU.Repository.Areas.Administrator
                 return;
             }
 
-            model.ModifiedOn = DateTime.Now;
-            model.ModifiedBy = CurrentUser.UserOID;
-            model.ModifiedName = CurrentUser.UserName;
+            UpdateModel(webModel, model);
+
+            //Get Foreign Key Association Table Information
+            //
+            var building = await context.Building.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.BuildingId)).FirstOrDefaultAsync();
+            var bunk = await context.Bunk.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.BunkId)).FirstOrDefaultAsync();
+
+            //return error 
+            if (building == null || bunk == null)
+            {
+                return;
+            }
+
+            model.BuildingFK = building.BuildingOID;
+            model.BuildingId = Convert.ToInt64(webModel.BuildingId);
+            model.BuildingName = building.Name;
+
+            model.BunkFK = bunk.BunkOID;
+            model.BunkId = Convert.ToInt64(webModel.BunkId);
+            model.BunkName = bunk.Name;
         }
 
         /// <summary>
@@ -488,6 +524,64 @@ namespace PSU.Repository.Areas.Administrator
         #endregion
 
         #region Method
+
+        /// <summary>
+        /// Insert Dorm Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        private static Dorm InsertModel(InformationEditViewModel webModel)
+        {
+            return new Dorm
+            {
+                Count = webModel.Count,
+                CreatedId = CurrentUser.UserId,
+                Floor = webModel.Floor,
+                SelectedCount = 0,
+                Name = webModel.Name,
+                IsEnabled = (int)webModel.IsEnabled == 1,
+                CreatedBy = CurrentUser.UserOID,
+                CreatedName = CurrentUser.UserName
+            };
+        }
+
+        /// <summary>
+        /// Update Dorm Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="model"></param>
+        private static void UpdateModel(InformationEditViewModel webModel, Dorm model)
+        {
+            model.Count = webModel.Count;
+            model.Floor = webModel.Floor;
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.Name = webModel.Name;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
+            model.ModifiedName = CurrentUser.UserName;
+        }
+
+        /// <summary>
+        /// 获取寝室楼下拉
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Building>> GetBuildingList(ApplicationDbContext context)
+        {
+            return await context.Building.AsNoTracking().Where(i => i.IsEnabled == true).ToListAsync();
+        }
+
+        /// <summary>
+        /// 获取寝室类型下拉
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Bunk>> GetBunkList(ApplicationDbContext context)
+        {
+            return await context.Bunk.AsNoTracking().Where(i => i.IsEnabled == true).ToListAsync();
+        }
+
         #endregion
     }
 }

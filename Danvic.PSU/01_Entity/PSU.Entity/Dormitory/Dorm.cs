@@ -39,7 +39,7 @@ namespace PSU.Entity.Dormitory
         /// 寝室楼编号
         /// </summary>
         [Required]
-        public string BuildingId { get; set; }
+        public long BuildingId { get; set; }
 
         /// <summary>
         /// 寝室楼名称

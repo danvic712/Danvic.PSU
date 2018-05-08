@@ -33,7 +33,7 @@ namespace PSU.Entity.Admission
         /// 名称
         /// </summary>
         [Required]
-        [MaxLength(30)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
         /// <summary>
@@ -57,8 +57,15 @@ namespace PSU.Entity.Admission
         /// <summary>
         /// 服务地点
         /// </summary>
-        [MaxLength(100)]
+        [MaxLength(10)]
         public string Place { get; set; }
+
+        /// <summary>
+        /// 详细地址
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string Address { get; set; }
 
         /// <summary>
         /// 是否启用

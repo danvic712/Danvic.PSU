@@ -5,6 +5,18 @@
     ViewData["CurrName"] = "迎新服务维护";
 }
 
+@section styles{
+    <environment include="Development">
+        <link href="~/css/template/bootstrap-datetimepicker.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/template/simditor.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/template/bootstrap-datetimepicker.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/template/simditor.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+}
+
+
 <section class="content-header">
     <h1>
         迎新服务
@@ -68,9 +80,12 @@
 
 @section scripts{
     <environment include="Development">
+        <script src="~/javascript/template/bootstrap-datetimepicker.js"></script>
+        <script src="~/javascript/template/bootstrap-datetimepicker.zh-CN.js"></script>
         <script src="~/javascript/view/Administrator/service.js"></script>
     </environment>
     <environment exclude="Development">
+        <script src="~/javascript/template/datetimepicker.min.js"></script>
         <script src="~/javascript/view/Administrator/service.min.js" asp-append-version="true"></script>
     </environment>
 }

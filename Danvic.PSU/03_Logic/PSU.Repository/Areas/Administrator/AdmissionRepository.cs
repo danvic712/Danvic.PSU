@@ -25,6 +25,31 @@ namespace PSU.Repository.Areas.Administrator
         #region Service API
 
         /// <summary>
+        /// 删除迎新服务信息
+        /// </summary>
+        /// <param name="id">院系编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task DeleteServiceAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Service.FirstOrDefaultAsync(i => i.Id == id);
+
+            context.Remove(model);
+        }
+
+        /// <summary>
+        /// 获取迎新服务信息
+        /// </summary>
+        /// <param name="id">问题编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Service> GetServiceAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.Service.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
         /// 根据搜索条件获取迎新服务信息
         /// </summary>
         /// <param name="webModel">列表页视图模型</param>
@@ -51,7 +76,7 @@ namespace PSU.Repository.Areas.Administrator
                 //迎新服务地点
                 if (!string.IsNullOrEmpty(webModel.SAddress))
                 {
-                    predicate = predicate.And(i => i.Place == webModel.SAddress);
+                    predicate = predicate.And(i => i.Address == webModel.SAddress);
                 }
 
                 //迎新服务时间
@@ -92,7 +117,7 @@ namespace PSU.Repository.Areas.Administrator
                 //迎新服务地点
                 if (!string.IsNullOrEmpty(webModel.SAddress))
                 {
-                    predicate = predicate.And(i => i.Place == webModel.SAddress);
+                    predicate = predicate.And(i => i.Address == webModel.SAddress);
                 }
 
                 //迎新服务时间
@@ -104,6 +129,38 @@ namespace PSU.Repository.Areas.Administrator
                 var list = await services.AsExpandable().Where(predicate).ToListAsync();
                 return list.Count();
             }
+        }
+
+        /// <summary>
+        /// 新增院系信息
+        /// </summary>
+        /// <param name="webModel">院系编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<Service> InsertAsync(ServiceEditViewModel webModel, ApplicationDbContext context)
+        {
+            Service model = InsertModel(webModel);
+
+            await context.Service.AddAsync(model);
+
+            return model;
+        }
+
+        /// <summary>
+        /// 更新院系信息
+        /// </summary>
+        /// <param name="webModel">院系编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(ServiceEditViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.Service.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model = UpdateModel(webModel, model);
         }
 
         #endregion
@@ -315,6 +372,59 @@ namespace PSU.Repository.Areas.Administrator
             model.ReplyId = CurrentUser.UserId;
             model.ReplyName = CurrentUser.UserName;
             model.ReplyTime = DateTime.Now;
+        }
+
+        #endregion
+
+        #region Method-Insert
+
+        /// <summary>
+        /// Insert Service Model
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        private static Service InsertModel(ServiceEditViewModel webModel)
+        {
+            return new Service
+            {
+                Address = webModel.Address,
+                CreatedBy = CurrentUser.UserOID,
+                CreatedId = CurrentUser.UserId,
+                CreatedName = CurrentUser.UserName,
+                Description = webModel.Description,
+                EndTime = Convert.ToDateTime(webModel.EndTime),
+                Name = webModel.Name,
+                Place = webModel.Place,
+                StartTime = Convert.ToDateTime(webModel.StartTime),
+                IsEnabled = (int)webModel.IsEnabled == 1,
+            };
+        }
+
+        #endregion
+
+        #region Method-Update
+
+        /// <summary>
+        /// Update Service Model
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private static Service UpdateModel(ServiceEditViewModel webModel, Service model)
+        {
+            model.Address = webModel.Address;
+            model.Description = webModel.Description;
+            model.EndTime = Convert.ToDateTime(webModel.EndTime);
+            model.Name = webModel.Name;
+            model.Place = webModel.Place;
+            model.StartTime = Convert.ToDateTime(webModel.StartTime);
+            model.IsEnabled = (int)webModel.IsEnabled == 1;
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedId = CurrentUser.UserId;
+            model.ModifiedBy = CurrentUser.UserOID;
+            model.ModifiedName = CurrentUser.UserName;
+
+            return model;
         }
 
         #endregion

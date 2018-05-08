@@ -91,13 +91,13 @@ $.dataTableSetting = {
         });
     }
 };
-$(function() {
+$(function () {
     var dataTable = $("#information-table").dataTable($.dataTableSetting);
 
     //search
     $(document).on("click",
         "#search",
-        function() {
+        function () {
             dataTable.fnDestroy(false);
             dataTable = $("#information-table").dataTable($.dataTableSetting);
         });
@@ -120,14 +120,27 @@ $(function() {
     //edit
     $(document).on("click",
         "#edit",
-        function() {
-            window.location.href = "/Administrator/Dormitory/EditInformation/" + $(this).attr("data-id");
+        function () {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: '/Administrator/Dormitory/EditInformation',
+                data: {
+                    id: $(this).attr("data-id")
+                },
+                success: function (html) {
+                    bootbox.dialog({
+                        title: '宿舍信息编辑',
+                        message: html
+                    });
+                }
+            });
         });
 
     //delete
     $(document).on("click",
         "#delete",
-        function() {
+        function () {
             var id = $(this).attr("data-id");
             window.bootbox.confirm({
                 message: '宿舍楼编号：<b class="text-red">' + id + '</b>，确定删除该宿舍楼数据吗？',
@@ -141,7 +154,7 @@ $(function() {
                         className: 'btn btn-default btn-flat'
                     }
                 },
-                callback: function(result) {
+                callback: function (result) {
                     if (result) {
                         $.ajax({
                             url: '/Administrator/Dormitory/DeleteInformation',
@@ -150,7 +163,7 @@ $(function() {
                             data: {
                                 id: id
                             },
-                            success: function(result) {
+                            success: function (result) {
                                 window.bootbox.alert({
                                     message: result.msg,
                                     buttons: {
@@ -159,12 +172,12 @@ $(function() {
                                             className: 'btn bg-olive btn-flat margin'
                                         }
                                     },
-                                    callback: function() {
+                                    callback: function () {
                                         window.location = "/Administrator/Dormitory/Information";
                                     }
                                 });
                             },
-                            error: function(msg) {
+                            error: function (msg) {
                                 console.log(msg);
                             }
                         });

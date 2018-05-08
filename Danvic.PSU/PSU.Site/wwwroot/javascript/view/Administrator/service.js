@@ -90,12 +90,14 @@ $.dataTableSetting = {
         });
     }
 };
-$(function() {
-    $('.date-picker').datepicker({
+$(function () {
+    //datetime
+    $('.date-picker').datetimepicker({
         autoclose: true,
         todayHighlight: true,
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd'
+        language: "zh-CN",
+        weekStart: 1,
+        format: 'yyyy-mm-dd hh:ii'
     });
 
     var dataTable = $('#service-table').dataTable($.dataTableSetting);

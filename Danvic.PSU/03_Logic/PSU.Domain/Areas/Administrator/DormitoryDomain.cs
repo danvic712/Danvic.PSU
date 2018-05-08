@@ -377,12 +377,50 @@ namespace PSU.Domain.Areas.Administrator
             {
                 var model = await DormitoryRepository.GetDormAsync(id, context);
                 webModel.Id = model.Id.ToString();
-                //Todo:Add All Data
+                webModel.BuildingId = model.BuildingId.ToString();
+                webModel.BunkId = model.BunkId.ToString();
+                webModel.Count = model.Count;
+                webModel.Floor = model.Floor;
+                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
+                webModel.Name = model.Name;
             }
             catch (Exception ex)
             {
                 _logger.LogError("获取宿舍数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
             }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取编辑页面下拉列表
+        /// </summary>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<InformationEditViewModel> GetDropDownListAsync(InformationEditViewModel webModel, ApplicationDbContext context)
+        {
+            //Get Source Data
+            var buildingList = await DormitoryRepository.GetBuildingList(context);
+            var bunkList = await DormitoryRepository.GetBunkList(context);
+
+            if (buildingList != null && buildingList.Any())
+            {
+                webModel.BuildingList = buildingList.Select(item => new BuildingDropDown
+                {
+                    Id = item.Id.ToString(),
+                    Name = item.Name
+                }).ToList();
+            }
+
+            if (bunkList != null && bunkList.Any())
+            {
+                webModel.BunkList = bunkList.Select(item => new BunkDropDown
+                {
+                    Id = item.Id.ToString(),
+                    Name = item.Name,
+                    Count = item.Number
+                }).ToList();
+            }
+
             return webModel;
         }
 
@@ -398,6 +436,11 @@ namespace PSU.Domain.Areas.Administrator
             {
                 //Add the Dorm Information Data
                 var model = await DormitoryRepository.InsertAsync(webModel, context);
+
+                if (model.Id == -1)
+                {
+                    return false;
+                }
 
                 //Make the transaction commit
                 var index = await context.SaveChangesAsync();

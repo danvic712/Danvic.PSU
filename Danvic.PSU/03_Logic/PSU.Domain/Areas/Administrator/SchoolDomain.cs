@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PSU.Model.Areas;
+using static PSU.Model.Areas.EnumType;
 
 namespace PSU.Domain.Areas.Administrator
 {
@@ -262,7 +263,7 @@ namespace PSU.Domain.Areas.Administrator
             {
                 var model = await SchoolRepository.GetMajorClassAsync(id, context);
                 webModel.Id = model.Id.ToString();
-                webModel.IsEnabled = (EnumType.Enable)(model.IsEnabled ? 1 : 0);
+                webModel.IsEnabled = (Enable)(model.IsEnabled ? 1 : 0);
                 webModel.Name = model.Name;
                 webModel.QQ = model.QQ;
                 webModel.Wechat = model.Wechat;

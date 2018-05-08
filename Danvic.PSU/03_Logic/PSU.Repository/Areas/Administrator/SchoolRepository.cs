@@ -303,8 +303,6 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<MajorClass> InsertAsync(MajorClassEditViewModel webModel, ApplicationDbContext context)
         {
-            var model = InsertModel(webModel);
-
             //Get Foreign Key Association Table Information
             //
             var staff = await context.Staff.AsNoTracking().Where(i => i.Id == Convert.ToInt64(webModel.InstructorId)).FirstOrDefaultAsync();
@@ -318,6 +316,8 @@ namespace PSU.Repository.Areas.Administrator
                     Id = -1
                 };
             }
+
+            var model = InsertModel(webModel);
 
             model.InstructorId = Convert.ToInt64(webModel.InstructorId);
             model.InstructorFK = staff.StaffOID;

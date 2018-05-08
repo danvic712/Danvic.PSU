@@ -78,6 +78,14 @@ namespace PSU.IService.Areas.Administrator
         Task<bool> InsertBunkAsync(BunkEditViewModel webModel, ApplicationDbContext context);
 
         /// <summary>
+        /// 获取下拉列表数据
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<InformationEditViewModel> GetDropDownListAsync(InformationEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
         /// 查找数据
         /// </summary>
         /// <param name="id">专业班级编号</param>
