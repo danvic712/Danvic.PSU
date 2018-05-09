@@ -82,7 +82,7 @@ namespace PSU.Model.Areas.Instructor.User
         /// <summary>
         /// 班级QQ
         /// </summary>
-        public string QQ { get; set; }
+        public string QQNumber { get; set; }
 
         /// <summary>
         /// 班级微信

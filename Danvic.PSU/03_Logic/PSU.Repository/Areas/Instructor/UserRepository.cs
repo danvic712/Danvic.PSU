@@ -148,6 +148,35 @@ namespace PSU.Repository.Areas.Instructor
         #endregion
 
         #region Profile API
+
+        /// <summary>
+        /// 更新个人信息
+        /// </summary>
+        /// <param name="webModel">编辑页视图模型</param>
+        /// <param name="context">数据库上下文对象</param>
+        public static async void UpdateAsync(ProfileViewModel webModel, ApplicationDbContext context)
+        {
+            var model = await context.IdentityUser.FirstOrDefaultAsync(i => i.Id == Convert.ToInt64(webModel.Id));
+
+            if (model == null)
+            {
+                return;
+            }
+
+            model.Address = webModel.Address;
+            model.Age = webModel.Age;
+            model.Gender = webModel.Gender;
+            model.Phone = webModel.Phone;
+            model.Email = webModel.Email;
+            model.QQ = Convert.ToInt64(webModel.QQ);
+            model.Wechat = webModel.Wechat;
+            model.Name = webModel.Name;
+
+            model.ModifiedOn = DateTime.Now;
+            model.ModifiedBy = CurrentUser.UserOID;
+            model.ModifiedName = CurrentUser.UserName;
+        }
+
         #endregion
     }
 }

@@ -55,12 +55,14 @@ namespace PSU.Model.Areas.Administrator.Basic
         /// 手机号
         /// </summary>
         [Phone(ErrorMessage = "输入内容不符合手机号格式")]
+        [StringLength(20, ErrorMessage = "手机号不能超过20个字符长度")]
         public string Phone { get; set; }
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
         [EmailAddress(ErrorMessage = "输入内容不符合电子邮箱格式")]
+        [StringLength(50, ErrorMessage = "电子邮箱不能超过20个字符长度")]
         public string Email { get; set; }
 
         #endregion

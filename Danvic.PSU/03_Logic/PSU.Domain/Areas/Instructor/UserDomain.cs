@@ -92,8 +92,8 @@ namespace PSU.Domain.Areas.Instructor
                         Id = item.Id.ToString(),
                         Name = item.Name,
                         Department = item.DepartmentName,
-                        QQ = item.QQ,
-                        Wechat = item.Wechat,
+                        QQNumber = !string.IsNullOrEmpty(item.QQ) ? item.QQ : " ",
+                        Wechat = !string.IsNullOrEmpty(item.Wechat) ? item.Wechat : " ",
                         SessionNum = item.SessionNum + "级",
                         MajorName = item.MajorName,
                         MajorCode = item.MajorCode,
@@ -150,7 +150,27 @@ namespace PSU.Domain.Areas.Instructor
         /// <returns></returns>
         public async Task<ProfileViewModel> GetProfileAsync(long id, ApplicationDbContext context)
         {
-            var webModel = new ProfileViewModel { };
+            var webModel = new ProfileViewModel();
+            try
+            {
+                var model = await PSURepository.GetUserByIdAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Name = model.Name;
+                webModel.Address = model.Address;
+                webModel.Age = model.Age;
+                webModel.CreateTime = model.CreatedOn.ToString();
+                webModel.Email = model.Email;
+                webModel.Gender = model.Gender;
+                webModel.Phone = model.Phone;
+                webModel.Account = model.Account;
+                webModel.Department = model.Department;
+                webModel.QQ = model.QQ.ToString();
+                webModel.Wechat = model.Wechat;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取用户个人数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
             return webModel;
         }
 
@@ -160,9 +180,26 @@ namespace PSU.Domain.Areas.Instructor
         /// <param name="webModel">个人信息页视图Model</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateProfileAsync(ProfileViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> UpdateProfileAsync(ProfileViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Update IdentityUser Data
+                UserRepository.UpdateAsync(webModel, context);
+
+                //Add Operate Information
+                var operate = string.Format("修改个人信息，账户编号:{0}", webModel.Id);
+                PSURepository.InsertRecordAsync("IdentityUser", "UserDomain", "UpdateProfileAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+
+                var index = await context.SaveChangesAsync();
+
+                return index == 2;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("更新个人信息失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion

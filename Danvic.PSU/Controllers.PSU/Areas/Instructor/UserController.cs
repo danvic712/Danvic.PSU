@@ -152,6 +152,44 @@ namespace Controllers.PSU.Areas.Instructor
             });
         }
 
+        /// <summary>
+        /// 个人信息编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(ProfileViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (!string.IsNullOrEmpty(webModel.Id))
+                {
+                    flag = await _service.UpdateProfileAsync(webModel, _context);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "个人信息编辑失败，编号为0"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "个人信息编辑成功" : "个人信息编辑失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
         #endregion
     }
 }

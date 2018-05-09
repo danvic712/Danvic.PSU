@@ -1,11 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using PSU.Entity.Identity
-
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
-
+﻿@using PSU.Utility
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -59,20 +53,22 @@
                     <span class="sr-only">切换菜单</span>
                 </a>
                 <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="user user-menu">
-                            <a asp-area="Instructor" asp-controller="User" asp-action="Profile">
-                                <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@UserManager.GetUserName(User)        这是我的名字啊</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="control-sidebar">
-                                <i class="fa fa-sign-out"></i>
-                                <span>退出</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <form asp-area="" asp-controller="Secret" asp-action="Logout" method="post">
+                        <ul class="nav navbar-nav">
+                            <li class="user user-menu">
+                                <a asp-area="Instructor" asp-controller="User" asp-action="Profile">
+                                    <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">@CurrentUser.UserName</span>
+                                </a>
+                            </li>
+                            <li>
+                                <button type="submit" class="btn btn-link navbar-btn text-white btn-logout ">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>退出</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
             </nav>
         </header>

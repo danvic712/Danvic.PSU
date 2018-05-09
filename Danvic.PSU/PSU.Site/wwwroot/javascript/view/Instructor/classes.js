@@ -50,8 +50,8 @@ $.dataTableSetting = {
         { "data": "department" },
         { "data": "majorCode" },
         { "data": "majorName" },
-        { "data": "qQ" },
-        { "data": "wechat" }
+        { "data": "wechat" },
+        { "data": "qqNumber" }
     ],
 
     ajax: function (data, callback, settings) {
