@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-School控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
     [Authorize(Policy = "Administrator")]
-    public class SchoolController : Controller
+    public class SchoolController : DanvicController
     {
         #region Initialize
 

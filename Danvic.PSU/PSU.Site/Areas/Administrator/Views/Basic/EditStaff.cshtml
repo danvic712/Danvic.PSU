@@ -39,17 +39,20 @@
                             </div>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
-                                        <span class="required-label">*</span> 邮箱地址
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="account">
+                                        <span class="required-label">*</span> 登录账户名
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="email" type="email" placeholder="">
-                                    </div>
-                                    <label class="col-md-2 control-label no-padding-right" for="phone">
-                                        <span class="required-label">*</span> 手机号
-                                    </label>
-                                    <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="phone" type="tel" placeholder="">
+                                        @{
+                                            if (string.IsNullOrEmpty(Model.Account))
+                                            {
+                                                <input class="form-control" id="account" asp-for="Account" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input class="form-control" id="account" asp-for="Account" type="text" readonly>
+                                            }
+                                        }
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -57,13 +60,26 @@
                                         <span class="required-label">*</span> 登录密码
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input id="password" type="password" class="form-control" value="123456789">
+                                        <input id="password" type="password" class="form-control" asp-for="Password" value="123456789">
                                     </div>
                                     <strong>
                                         <i class="fa fa-file-text-o margin-r-5" style="margin-top:9px;"></i>
                                         默认密码：123456789
                                     </strong>
-
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
+                                        邮箱地址
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="email" type="email" asp-for="Email">
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="phone">
+                                        手机号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="phone" type="tel" asp-for="Phone">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,20 +97,41 @@
                                         <span class="required-label">*</span> 用户姓名
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="name" type="text" placeholder="">
+                                        <input class="form-control" id="name" type="text" asp-for="Name">
                                     </div>
                                     <label class="col-md-1 col-xs-3 control-label no-padding-right" for="gender">
                                         性别
                                     </label>
                                     <div class="col-md-2 col-xs-9" style="margin-top:5px;">
-                                        <input type="radio" class="iradio_flat-green" name="gender" checked> 男
-                                        <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                        @if (Model.Gender)
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="true" checked><span>男</span>
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="false"><span>女</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="true"><span>男</span>
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="false" checked><span>女</span>
+                                        }
                                     </div>
                                     <label class="col-md-1 col-xs-3 control-label no-padding-right" for="age">
                                         年龄
                                     </label>
                                     <div class="col-md-1 col-xs-9">
-                                        <input class="form-control" id="age" type="number" placeholder="">
+                                        <input class="form-control" id="age" type="number" asp-for="Age">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="idnumber">
+                                        <span class="required-label">*</span> 身份证号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <div class="input-group">
+                                            <input class="form-control" id="idnumber" type="text" asp-for="IdNumber">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-id-card"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -103,7 +140,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input class="form-control" id="wechat" type="text" placeholder="">
+                                            <input class="form-control" id="wechat" type="text" asp-for="Wechat">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-wechat text-green"></i>
                                             </div>
@@ -114,7 +151,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input class="form-control" id="qq" type="text" placeholder="">
+                                            <input class="form-control" id="qq" type="text" asp-for="QQ">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-qq text-blue"></i>
                                             </div>
@@ -128,22 +165,22 @@
                                     <div class="col-md-3 col-xs-9">
                                         <select id="department" class="form-control">
                                             <option value="-1">请选择</option>
-                                            @*@{
-                        if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
-                        {
-                            foreach (var item in Model.DepartmentList.AsReadOnly())
-                            {
-                                if (item.Name.Equals(Model.DepartmentName))
-                                {
-                                    <option value="@item.Id" selected="selected">@item.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
-                            }
-                        }
-                    }*@
+                                            @{
+                                                if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                                {
+                                                    foreach (var item in Model.DepartmentList.AsReadOnly())
+                                                    {
+                                                        if (item.Name.Equals(Model.DepartmentName))
+                                                        {
+                                                            <option value="@item.Id" selected="selected">@item.Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.Id">@item.Name</option>
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         </select>
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="deptnumber">
@@ -151,7 +188,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input type="text" id="deptnumber" class="form-control" readonly />
+                                            <input type="text" id="deptnumber" class="form-control" asp-for="DepartmentId" readonly />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-id-card-o fa-flip-horizontal"></i>
                                             </span>
@@ -165,8 +202,16 @@
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right"> 是否为院系负责人 </label>
                                     <div class="col-md-2 col-xs-9" style="margin-top:5px;">
-                                        <input type="radio" class="iradio_flat-green" name="master" checked> 是
-                                        <input type="radio" class="iradio_flat-green" name="master"> 否
+                                        @if (Model.IsMaster)
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="master" value="true" checked><span>是</span>
+                                            <input type="radio" class="iradio_flat-green" name="master" value="false"><span>否</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="master" value="true"><span>是</span>
+                                            <input type="radio" class="iradio_flat-green" name="master" value="false" checked><span>否</span>
+                                        }
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -174,7 +219,7 @@
                                         联络地址
                                     </label>
                                     <div class="col-md-8 col-xs-9">
-                                        <input class="form-control" id="address" type="text" placeholder="">
+                                        <input class="form-control" id="address" type="text" asp-for="Address">
                                     </div>
                                 </div>
                             </div>

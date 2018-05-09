@@ -122,5 +122,33 @@ namespace PSU.IService.Areas.Administrator
         Task<bool> UpdateStudentAsync(StudentEditViewModel webModel, ApplicationDbContext context);
 
         #endregion
+
+        #region Basic-Common
+
+        /// <summary>
+        /// 判断数据
+        /// </summary>
+        /// <param name="account">账户名</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<bool> CheckAccountAsync(string account, ApplicationDbContext context);
+
+        /// <summary>
+        /// 获取下拉列表
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<StaffEditViewModel> GetDropDownListAsync(StaffEditViewModel webModel, ApplicationDbContext context);
+
+        /// <summary>
+        /// 获取下拉列表
+        /// </summary>
+        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<StudentEditViewModel> GetDropDownListAsync(StudentEditViewModel webModel, ApplicationDbContext context);
+
+        #endregion
     }
 }

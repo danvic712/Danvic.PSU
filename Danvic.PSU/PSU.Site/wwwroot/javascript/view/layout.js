@@ -3,7 +3,8 @@
  *   Author: Danvic712
  */
 $(function () {
+    //page
     $(document).ajaxStart(function () {
         Pace.restart();
-    })
-})
+    });
+});

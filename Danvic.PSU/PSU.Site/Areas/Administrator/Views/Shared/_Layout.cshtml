@@ -54,20 +54,22 @@
                     <span class="sr-only">切换菜单</span>
                 </a>
                 <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="user user-menu">
-                            <a asp-area="Administrator" asp-controller="Basic" asp-action="Profile">
-                                <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@CurrentUser.UserName</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="control-sidebar">
-                                <i class="fa fa-sign-out"></i>
-                                <span>退出</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <form asp-area="" asp-controller="Secret" asp-action="Logout" method="post">
+                        <ul class="nav navbar-nav">
+                            <li class="user user-menu">
+                                <a asp-area="Administrator" asp-controller="Basic" asp-action="Profile">
+                                    <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">@CurrentUser.UserName</span>
+                                </a>
+                            </li>
+                            <li>
+                                <button type="submit" class="btn btn-link navbar-btn text-white btn-logout ">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>退出</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
             </nav>
         </header>

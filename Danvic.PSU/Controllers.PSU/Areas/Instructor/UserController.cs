@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Instructor-User-控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
     [Authorize(Policy = "Instructor")]
-    public class UserController : Controller
+    public class UserController : DanvicController
     {
         #region Initialize
 

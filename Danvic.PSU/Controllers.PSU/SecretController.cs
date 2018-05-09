@@ -45,33 +45,40 @@ namespace Controllers.PSU
 
         #region View
 
+        /// <summary>
+        /// 登录页面
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl = null)
         {
             //移除当前登录人信息
-
+            _service.RemoveCurrentUser(_httpContextAccessor);
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Lockout()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// 注销
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            //await _signInManager.SignOutAsync();
             //登出系统
+            _service.ClearSession(_httpContextAccessor);
             _logger.LogInformation("用户登出");
             return RedirectToAction(nameof(SecretController.Login), "Secret");
         }
 
+        /// <summary>
+        /// 错误页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Error()
         {
             return View();
@@ -123,6 +130,11 @@ namespace Controllers.PSU
 
                     //设置当前用户信息
                     await _service.SetCurrentUser(user.IdentityUserOID, _httpContextAccessor, _context);
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
 
                     return RedirectToRoute(new { area = user.HomePage, controller = "Home", action = "Index" });
                 }

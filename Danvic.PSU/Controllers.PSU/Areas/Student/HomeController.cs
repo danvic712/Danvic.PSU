@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Student-Home控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace Controllers.PSU.Areas.Student
 {
     [Area("Student")]
     [Authorize(Policy = "Student")]
-    public class HomeController : Controller
+    public class HomeController : DanvicController
     {
         #region Initialize
 

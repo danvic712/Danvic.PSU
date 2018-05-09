@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-Basic控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
     [Authorize(Policy = "Administrator")]
-    public class BasicController : Controller
+    public class BasicController : DanvicController
     {
         #region Initialize
 
@@ -45,6 +46,11 @@ namespace Controllers.PSU.Areas.Administrator
 
         #region View
 
+        /// <summary>
+        /// 职工管理页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Staff()
         {
             return View();
@@ -65,9 +71,17 @@ namespace Controllers.PSU.Areas.Administrator
                 webModel = await _service.GetStaffAsync(Convert.ToInt64(id), _context);
             }
 
+            //加载下拉列表信息
+            webModel = await _service.GetDropDownListAsync(webModel, _context);
+
             return View(webModel);
         }
 
+        /// <summary>
+        /// 学生用户管理页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Student()
         {
             return View();
@@ -88,6 +102,9 @@ namespace Controllers.PSU.Areas.Administrator
                 webModel = await _service.GetStudentAsync(Convert.ToInt64(id), _context);
             }
 
+            //加载下拉列表信息
+            webModel = await _service.GetDropDownListAsync(webModel, _context);
+
             return View(webModel);
         }
 
@@ -95,15 +112,62 @@ namespace Controllers.PSU.Areas.Administrator
         /// 个人信息页面
         /// </summary>
         /// <returns></returns>
-        public IActionResult Profile()
+        [HttpGet]
+        public async Task<IActionResult> Profile()
         {
-            var webModel = new ProfileViewModel();
-            return View(webModel);
+            if (CurrentUser.UserId != 0)
+            {
+                var webModel = await _service.GetUserProfileAsync(CurrentUser.UserId, _context);
+                return View(webModel);
+            }
+            return Redirect("/");
         }
 
         #endregion
 
-        #region Service
+        #region Service-Profile
+
+        /// <summary>
+        /// 个人信息编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(ProfileViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (!string.IsNullOrEmpty(webModel.Id))
+                {
+                    flag = await _service.UpdateUserProfileAsync(webModel, _context);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "个人信息编辑失败，编号为0"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "个人信息编辑成功" : "个人信息编辑失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
+        #endregion
+
+        #region Service-Staff
 
         /// <summary>
         /// 教职工信息页面搜索
@@ -132,32 +196,6 @@ namespace Controllers.PSU.Areas.Administrator
         }
 
         /// <summary>
-        /// 学生信息页面搜索
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> SearchStudent(string search)
-        {
-            StudentViewModel webModel = JsonUtility.ToObject<StudentViewModel>(search);
-
-            webModel = await _service.SearchStudentAsync(webModel, _context);
-
-            //Search Or Init
-            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId);
-
-            var returnData = new
-            {
-                data = webModel.StudentList,
-                limit = webModel.Limit,
-                page = flag ? webModel.Page : 1,
-                total = webModel.Total
-            };
-
-            return Json(returnData);
-        }
-
-        /// <summary>
         /// 删除教职工数据
         /// </summary>
         /// <param name="id"></param>
@@ -171,23 +209,6 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 sueeess = flag,
                 msg = flag ? "数据删除成功，教职工工号：" + id : "数据删除失败，教职工工号：" + id
-            });
-        }
-
-        /// <summary>
-        /// 删除学生数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> DeleteStudent(string id)
-        {
-            bool flag = await _service.DeleteStudentAsync(Convert.ToInt64(id), _context);
-
-            return Json(new
-            {
-                sueeess = flag,
-                msg = flag ? "数据删除成功，学生学号：" + id : "数据删除失败，学生学号：" + id
             });
         }
 
@@ -227,6 +248,53 @@ namespace Controllers.PSU.Areas.Administrator
             });
         }
 
+        #endregion
+
+        #region Service-Student
+
+        /// <summary>
+        /// 学生信息页面搜索
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> SearchStudent(string search)
+        {
+            StudentViewModel webModel = JsonUtility.ToObject<StudentViewModel>(search);
+
+            webModel = await _service.SearchStudentAsync(webModel, _context);
+
+            //Search Or Init
+            bool flag = string.IsNullOrEmpty(webModel.SName) && string.IsNullOrEmpty(webModel.SMajorClass) && string.IsNullOrEmpty(webModel.SId);
+
+            var returnData = new
+            {
+                data = webModel.StudentList,
+                limit = webModel.Limit,
+                page = flag ? webModel.Page : 1,
+                total = webModel.Total
+            };
+
+            return Json(returnData);
+        }
+
+        /// <summary>
+        /// 删除学生数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DeleteStudent(string id)
+        {
+            bool flag = await _service.DeleteStudentAsync(Convert.ToInt64(id), _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "数据删除成功，学生学号：" + id : "数据删除失败，学生学号：" + id
+            });
+        }
+
         /// <summary>
         /// 学生编辑页面
         /// </summary>
@@ -260,6 +328,26 @@ namespace Controllers.PSU.Areas.Administrator
             {
                 success = false,
                 msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
+        #endregion
+
+        #region Service-Common
+
+        /// <summary>
+        /// 判断当前账户名是否存在
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> CheckAccount(string account)
+        {
+            bool flag = await _service.CheckAccountAsync(account, _context);
+
+            return Json(new
+            {
+                sueeess = flag,
+                msg = flag ? "当前用户名已存在：" : "当前用户名未存在"
             });
         }
 

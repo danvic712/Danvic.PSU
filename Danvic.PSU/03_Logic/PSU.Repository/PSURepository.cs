@@ -73,7 +73,7 @@ namespace PSU.Repository
 
         #endregion
 
-        #region Service-Login
+        #region Service-Account
 
         /// <summary>
         /// 获取登录账户信息
@@ -89,12 +89,34 @@ namespace PSU.Repository
         /// <summary>
         /// 获取账户信息
         /// </summary>
-        /// <param name="oid">帐户名</param>
+        /// <param name="oid">主键</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public static async Task<IdentityUser> GetUserByOIDAsync(string oid, ApplicationDbContext context)
         {
             return await context.IdentityUser.AsNoTracking().Where(i => i.IdentityUserOID == oid).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// 获取账户信息
+        /// </summary>
+        /// <param name="account">帐户名</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<IdentityUser> GetUserByAccountAsync(string account, ApplicationDbContext context)
+        {
+            return await context.IdentityUser.AsNoTracking().Where(i => i.Account == account).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// 获取账户信息
+        /// </summary>
+        /// <param name="account">编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<IdentityUser> GetUserByIdAsync(long id, ApplicationDbContext context)
+        {
+            return await context.IdentityUser.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
         #endregion

@@ -38,8 +38,16 @@ namespace PSU.IService
         /// <summary>
         /// 移除当前用户
         /// </summary>
+        /// <param name="httpContextAccessor"></param>
         /// <returns></returns>
-        Task RemoveCurrentUser();
+        void RemoveCurrentUser(IHttpContextAccessor httpContextAccessor);
+
+        /// <summary>
+        /// 清除session数据
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
+        /// <returns></returns>
+        void ClearSession(IHttpContextAccessor httpContextAccessor);
 
         #endregion
     }

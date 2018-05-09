@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Student-User控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Controllers.PSU.Areas.Student
 {
     [Area("Student")]
     [Authorize(Policy = "Student")]
-    public class UserController : Controller
+    public class UserController : DanvicController
     {
         #region Initialize
 

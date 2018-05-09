@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Instructor-Newborn-控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
     [Authorize(Policy = "Instructor")]
-    public class NewbornController : Controller
+    public class NewbornController : DanvicController
     {
         #region Initialize
 

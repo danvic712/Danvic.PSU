@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Administrator-Home-控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Controllers.PSU.Areas.Administrator
 {
     [Area("Administrator")]
     [Authorize(Policy = "Administrator")]
-    public class HomeController : Controller
+    public class HomeController : DanvicController
     {
         #region Initialize
 

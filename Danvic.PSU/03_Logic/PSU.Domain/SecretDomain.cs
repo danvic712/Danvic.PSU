@@ -36,10 +36,26 @@ namespace PSU.Domain
         /// <summary>
         /// 移除登录用户信息
         /// </summary>
+        /// <param name="httpContextAccessor"></param>
         /// <returns></returns>
-        public Task RemoveCurrentUser()
+        public void RemoveCurrentUser(IHttpContextAccessor httpContextAccessor)
         {
-            throw new NotImplementedException();
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserOID", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserId", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserName", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserAccount", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserImage", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserRole", "");
+        }
+
+        /// <summary>
+        /// 清除Session数据
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
+        /// <returns></returns>
+        public void ClearSession(IHttpContextAccessor httpContextAccessor)
+        {
+            httpContextAccessor.HttpContext.Session.Clear();
         }
 
         /// <summary>

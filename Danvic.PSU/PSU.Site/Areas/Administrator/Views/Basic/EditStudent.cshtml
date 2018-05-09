@@ -38,17 +38,20 @@
                             </div>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
-                                        <span class="required-label">*</span> 邮箱地址
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="account">
+                                        <span class="required-label">*</span> 登录账户名
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="email" type="email" placeholder="">
-                                    </div>
-                                    <label class="col-md-2 control-label no-padding-right" for="phone">
-                                        <span class="required-label">*</span> 手机号
-                                    </label>
-                                    <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="phone" type="tel" placeholder="">
+                                        @{
+                                            if (string.IsNullOrEmpty(Model.Account))
+                                            {
+                                                <input class="form-control" id="account" asp-for="Account" type="text">
+                                            }
+                                            else
+                                            {
+                                                <input class="form-control" id="account" asp-for="Account" type="text" readonly>
+                                            }
+                                        }
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -56,13 +59,26 @@
                                         <span class="required-label">*</span> 登录密码
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input id="password" type="password" class="form-control" value="123456789">
+                                        <input id="password" type="password" class="form-control" asp-for="Password" value="123456789">
                                     </div>
                                     <strong>
                                         <i class="fa fa-file-text-o margin-r-5" style="margin-top:9px;"></i>
                                         默认密码：123456789
                                     </strong>
-
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
+                                        邮箱地址
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="email" type="email" asp-for="Email">
+                                    </div>
+                                    <label class="col-md-2 control-label no-padding-right" for="phone">
+                                        手机号
+                                    </label>
+                                    <div class="col-md-3 col-xs-9">
+                                        <input class="form-control" id="phone" type="tel" asp-for="Phone">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,20 +96,28 @@
                                         <span class="required-label">*</span> 用户姓名
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="name" type="text" placeholder="">
+                                        <input class="form-control" id="name" type="text" asp-for="Name">
                                     </div>
                                     <label class="col-md-1 col-xs-3 control-label no-padding-right" for="gender">
                                         性别
                                     </label>
                                     <div class="col-md-2 col-xs-9" style="margin-top:5px;">
-                                        <input type="radio" class="iradio_flat-green" name="gender" checked> 男
-                                        <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                        @if (Model.Gender)
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="true" checked><span>男</span>
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="false"><span>女</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="true"><span>男</span>
+                                            <input type="radio" class="iradio_flat-green" name="gender" value="false" checked><span>女</span>
+                                        }
                                     </div>
                                     <label class="col-md-1 col-xs-3 control-label no-padding-right" for="age">
                                         年龄
                                     </label>
                                     <div class="col-md-1 col-xs-9">
-                                        <input class="form-control" id="age" type="number" placeholder="">
+                                        <input class="form-control" id="age" type="number" asp-for="Age">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -102,7 +126,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input class="form-control" id="wechat" type="text" placeholder="">
+                                            <input class="form-control" id="wechat" type="text" asp-for="Wechat">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-wechat text-green"></i>
                                             </div>
@@ -113,7 +137,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input class="form-control" id="qq" type="text" placeholder="">
+                                            <input class="form-control" id="qq" type="text" asp-for="QQ">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-qq text-blue"></i>
                                             </div>
@@ -125,13 +149,13 @@
                                         准考证号
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="ticketid" type="text" placeholder="">
+                                        <input class="form-control" id="ticketid" type="text" asp-for="TicketId">
                                     </div>
                                     <label class="col-md-2 col-xs-3 control-label no-padding-right" for="idnumber">
-                                        身份证号
+                                        <span class="required-label">*</span>  身份证号
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="idnumber" type="text" placeholder="">
+                                        <input class="form-control" id="idnumber" type="text" asp-for="IdNumber">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -140,7 +164,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input id="birthday" type="text" class="form-control date-picker" readonly>
+                                            <input id="birthday" type="text" class="form-control date-picker" asp-for="Birthday" readonly>
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
@@ -150,7 +174,7 @@
                                         高中名称
                                     </label>
                                     <div class="col-md-3 col-xs-9">
-                                        <input class="form-control" id="highschool" type="text" placeholder="">
+                                        <input class="form-control" id="highschool" type="text" asp-for="HighSchool">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -160,22 +184,22 @@
                                     <div class="col-md-3 col-xs-9">
                                         <select id="department" class="form-control">
                                             <option value="-1">请选择</option>
-                                            @*@{
-                                                    if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                            @{
+                                                if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                                {
+                                                    foreach (var item in Model.DepartmentList.AsReadOnly())
                                                     {
-                                                        foreach (var item in Model.DepartmentList.AsReadOnly())
+                                                        if (item.Name.Equals(Model.DepartmentName))
                                                         {
-                                                            if (item.Name.Equals(Model.DepartmentName))
-                                                            {
-                                                                <option value="@item.Id" selected="selected">@item.Name</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@item.Id">@item.Name</option>
-                                                            }
+                                                            <option value="@item.Id" selected="selected">@item.Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.Id">@item.Name</option>
                                                         }
                                                     }
-                                                }*@
+                                                }
+                                            }
                                         </select>
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="deptnumber">
@@ -183,7 +207,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input type="text" id="deptnumber" class="form-control" readonly />
+                                            <input type="text" id="deptnumber" class="form-control" asp-for="DepartmentId" readonly />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-id-card-o fa-flip-horizontal"></i>
                                             </span>
@@ -197,22 +221,22 @@
                                     <div class="col-md-3 col-xs-9">
                                         <select id="majorclass" class="form-control">
                                             <option value="-1">请选择</option>
-                                            @*@{
-                                                    if (Model != null && Model.DepartmentList != null && Model.DepartmentList.Any())
+                                            @{
+                                                if (Model != null && Model.MajorClassList != null && Model.MajorClassList.Any())
+                                                {
+                                                    foreach (var item in Model.MajorClassList.AsReadOnly())
                                                     {
-                                                        foreach (var item in Model.DepartmentList.AsReadOnly())
+                                                        if (item.Name.Equals(Model.MajorClass))
                                                         {
-                                                            if (item.Name.Equals(Model.DepartmentName))
-                                                            {
-                                                                <option value="@item.Id" selected="selected">@item.Name</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@item.Id">@item.Name</option>
-                                                            }
+                                                            <option value="@item.Id" selected="selected">@item.Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.Id">@item.Name</option>
                                                         }
                                                     }
-                                                }*@
+                                                }
+                                            }
                                         </select>
                                     </div>
                                     <label class="col-md-2 control-label no-padding-right" for="classnumber">
@@ -220,7 +244,7 @@
                                     </label>
                                     <div class="col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input type="text" id="classnumber" class="form-control" readonly />
+                                            <input type="text" id="classnumber" asp-for="MajorClassId" class="form-control" readonly />
                                             <span class="input-group-addon">
                                                 <i class="fa fa fa-id-card fa-flip-horizontal"></i>
                                             </span>
@@ -233,7 +257,7 @@
                                     </label>
                                     <div class=" col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input id="startdate" type="text" class="form-control date-picker" readonly>
+                                            <input id="startdate" type="text" class="form-control date-picker" asp-for="StartDate" readonly>
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
@@ -244,7 +268,7 @@
                                     </label>
                                     <div class=" col-md-3 col-xs-9">
                                         <div class="input-group">
-                                            <input id="enddate" type="text" class="form-control date-picker" readonly>
+                                            <input id="enddate" type="text" class="form-control date-picker" asp-for="EndDate" readonly>
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
@@ -262,11 +286,16 @@
                                         生源地
                                     </label>
                                     <div class="col-md-6" style="display:inline-flex" data-toggle="distpicker">
-                                        <select class="form-control" style="width:150px;" data-province="选择省份"></select>
+                                        @{
+                                            string province = string.IsNullOrEmpty(Model.Province) ? "选择省份" : Model.Province;
+                                            string city = string.IsNullOrEmpty(Model.City) ? "选择城市" : Model.City;
+                                            string distinct = string.IsNullOrEmpty(Model.District) ? "选择县区" : Model.District;
+                                        }
+                                        <select class="form-control" id="province" style="width:150px;" data-province="@province" asp-for="ProvinceId"></select>
                                         &nbsp;&nbsp;
-                                        <select class="form-control" style="width:150px;" data-city="选择城市"></select>
+                                        <select class="form-control" id="city" style="width:150px;" data-city="@city" asp-for="CityId"></select>
                                         &nbsp;&nbsp;
-                                        <select class="form-control" style="width:150px;" data-district="选择县区"></select>
+                                        <select class="form-control" id="distinct" style="width:150px;" data-district="@distinct" asp-for="DistrictId"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -274,7 +303,7 @@
                                         家庭地址
                                     </label>
                                     <div class="col-md-8 col-xs-9">
-                                        <input class="form-control" id="address" type="text" placeholder="">
+                                        <input class="form-control" id="address" type="text" asp-for="Address" maxlength="200">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -282,7 +311,7 @@
                                         兴趣爱好
                                     </label>
                                     <div class="col-md-8 col-xs-9">
-                                        <input class="form-control" id="hobbies" type="text" max="100" placeholder="">
+                                        <input class="form-control" id="hobbies" type="text" max="100" asp-for="Hobbies">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -290,7 +319,7 @@
                                         获奖情况
                                     </label>
                                     <div class="col-md-8 col-xs-9">
-                                        <textarea class="form-control" id="winning" max="200" rows="3" style="resize:none"></textarea>
+                                        <textarea class="form-control" id="winning" max="500" rows="3" style="resize:none" asp-for="Winning"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Instructor-Home-控制器
 //-----------------------------------------------------------------------
+using Controllers.PSU.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
     [Authorize(Policy = "Instructor")]
-    public class HomeController : Controller
+    public class HomeController : DanvicController
     {
         #region Initialize
 

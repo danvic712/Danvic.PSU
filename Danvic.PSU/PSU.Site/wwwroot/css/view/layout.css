@@ -233,3 +233,11 @@ a:hover {
     .btn-upload:hover {
         color: orangered;
     }
+
+.btn-logout :hover {
+    text-decoration: none;
+}
+
+.text-white {
+    color: white !important;
+}

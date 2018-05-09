@@ -76,7 +76,8 @@ namespace PSU.Entity.Basic
         /// 身份证号
         /// </summary>
         [Required]
-        public long IdNumber { get; set; }
+        [MaxLength(20)]
+        public string IdNumber { get; set; }
 
         /// <summary>
         /// 生日日期
@@ -102,8 +103,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// QQ
         /// </summary>
-        [MaxLength(20)]
-        public string QQ { get; set; }
+        public long QQ { get; set; }
 
         /// <summary>
         /// 省份代码
@@ -154,7 +154,7 @@ namespace PSU.Entity.Basic
         /// 所属院系、部门名称
         /// </summary>
         [Required]
-        [MaxLength(50)]
+        [MaxLength(20)]
         public string Department { get; set; }
 
         /// <summary>

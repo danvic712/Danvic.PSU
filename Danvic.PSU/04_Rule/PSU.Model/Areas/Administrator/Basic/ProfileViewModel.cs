@@ -23,14 +23,17 @@ namespace PSU.Model.Areas.Administrator.Basic
         /// <summary>
         /// 真实姓名
         /// </summary>
-        [Required]
-        [StringLength(20)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 登录账户名
+        /// </summary>
+        public string Account { get; set; }
 
         /// <summary>
         /// 联系地址
         /// </summary>
-        [StringLength(200)]
+        [StringLength(200, ErrorMessage = "联系地址内容不能超过200个字符长度")]
         public string Address { get; set; }
 
         /// <summary>
@@ -47,15 +50,17 @@ namespace PSU.Model.Areas.Administrator.Basic
         /// 创建时间
         /// </summary>
         public string CreateTime { get; set; }
-        
+
         /// <summary>
         /// 手机号
         /// </summary>
+        [Phone(ErrorMessage = "输入内容不符合手机号格式")]
         public string Phone { get; set; }
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
+        [EmailAddress(ErrorMessage = "输入内容不符合电子邮箱格式")]
         public string Email { get; set; }
 
         #endregion

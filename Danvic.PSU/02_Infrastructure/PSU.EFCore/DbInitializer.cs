@@ -25,9 +25,9 @@ namespace PSU.EFCore
 
             var salt = Guid.NewGuid().ToString();
 
-            IdentityUser user = new IdentityUser
+            IdentityUser admin = new IdentityUser
             {
-                Name = "管理员",
+                Name = "管理员姓名",
                 Account = "Administrator",
                 AccountType = 0,
                 Age = 0,
@@ -37,13 +37,14 @@ namespace PSU.EFCore
                 Gender = true,
                 IsEnabled = true,
                 Email = "administrator@jixia.com",
-                HomePage = "/Administrator",
-                IdNumber = 0,
+                HomePage = "Administrator",
+                IdNumber = "0",
                 DepartmentId = 0,
-                Department="管理员部门"
+                Department = "管理员部门"
 
             };
-            context.IdentityUser.Add(user);
+
+            context.IdentityUser.Add(admin);
             context.SaveChanges();
 
         }
