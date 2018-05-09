@@ -76,14 +76,25 @@ namespace PSU.Repository
         #region Service-Login
 
         /// <summary>
-        /// 获取对同一对象操作信息
+        /// 获取登录账户信息
         /// </summary>
         /// <param name="account">帐户名</param>
         /// <param name="context">数据库上下文对象</param>
         /// <returns></returns>
         public static async Task<IdentityUser> GetUserAsync(string account, ApplicationDbContext context)
         {
-            return await context.IdentityUser.AsNoTracking().Where(i => i.Account == account).FirstOrDefaultAsync();
+            return await context.IdentityUser.AsNoTracking().Where(i => i.Account == account && i.IsEnabled == true).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// 获取账户信息
+        /// </summary>
+        /// <param name="oid">帐户名</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<IdentityUser> GetUserByOIDAsync(string oid, ApplicationDbContext context)
+        {
+            return await context.IdentityUser.AsNoTracking().Where(i => i.IdentityUserOID == oid).FirstOrDefaultAsync();
         }
 
         #endregion

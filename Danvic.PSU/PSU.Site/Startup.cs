@@ -1,6 +1,9 @@
 ﻿using Controllers.PSU.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +50,18 @@ namespace PSU.Site
                 options.AddPolicy("Student", policy =>
                     policy.Requirements.Add(new RoleRequirement("Student")));
             });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Secret/Login");
+                options.LoginPath = new PathString("/Secret/Login");
+                options.LogoutPath = new PathString("/Secret/Logout");
+            });
+
+            services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 
             services.AddSession();
         }

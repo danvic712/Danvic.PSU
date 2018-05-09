@@ -38,6 +38,9 @@ namespace PSU.EFCore
                 IsEnabled = true,
                 Email = "administrator@jixia.com",
                 HomePage = "/Administrator",
+                IdNumber = 0,
+                DepartmentId = 0,
+                Department="管理员部门"
 
             };
             context.IdentityUser.Add(user);

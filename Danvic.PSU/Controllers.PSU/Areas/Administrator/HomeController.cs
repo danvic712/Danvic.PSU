@@ -8,11 +8,13 @@
 // Description: Administrator-Home-控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Home;
+using PSU.Utility;
 using PSU.Utility.Web;
 using System;
 using System.Linq;
@@ -29,11 +31,14 @@ namespace Controllers.PSU.Areas.Administrator
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly IHomeService _service;
-        public HomeController(IHomeService service, ILogger<HomeController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public HomeController(IHomeService service, ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion

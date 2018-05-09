@@ -7,20 +7,22 @@
 // Modified by:
 // Description: Instructor-Newborn-控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
-using System.Threading.Tasks;
-using PSU.Utility.Web;
 using PSU.Model.Areas.Instructor.Newborn;
+using PSU.Utility;
+using PSU.Utility.Web;
+using System;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
+    [Authorize(Policy = "Instructor")]
     public class NewbornController : Controller
     {
         #region Initialize
@@ -28,11 +30,14 @@ namespace Controllers.PSU.Areas.Instructor
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly INewbornService _service;
-        public NewbornController(INewbornService service, ILogger<NewbornController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public NewbornController(INewbornService service, ILogger<NewbornController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion

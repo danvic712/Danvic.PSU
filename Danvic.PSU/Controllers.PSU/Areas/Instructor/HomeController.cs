@@ -7,18 +7,19 @@
 // Modified by:
 // Description: Instructor-Home-控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
+using PSU.Utility;
 using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
+    [Authorize(Policy = "Instructor")]
     public class HomeController : Controller
     {
         #region Initialize
@@ -26,11 +27,14 @@ namespace Controllers.PSU.Areas.Instructor
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly IHomeService _service;
-        public HomeController(IHomeService service, ILogger<HomeController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public HomeController(IHomeService service, ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion

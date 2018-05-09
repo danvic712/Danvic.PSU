@@ -1,9 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using PSU.Entity.Identity
-
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
-
+﻿@using PSU.Utility
 <!DOCTYPE html>
 
 <html>
@@ -63,7 +58,7 @@
                         <li class="user user-menu">
                             <a asp-area="Administrator" asp-controller="Basic" asp-action="Profile">
                                 <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@UserManager.GetUserName(User)        这是我的名字啊</span>
+                                <span class="hidden-xs">@CurrentUser.UserName</span>
                             </a>
                         </li>
                         <li>

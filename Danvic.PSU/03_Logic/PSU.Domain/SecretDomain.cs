@@ -7,10 +7,12 @@
 // Modified by:
 // Description: Secret控制器邻域功能接口实现
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Http;
 using PSU.EFCore;
 using PSU.Entity.Basic;
 using PSU.IService;
 using PSU.Repository;
+using PSU.Utility;
 using System;
 using System.Threading.Tasks;
 
@@ -43,14 +45,35 @@ namespace PSU.Domain
         /// <summary>
         /// 设置当前登录用户
         /// </summary>
-        public void SetCurrentUser()
+        public async Task SetCurrentUser(string oid, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
-        }
+            CurrentUser.Configure(httpContextAccessor);
 
-        Task ISecretService.SetCurrentUser()
-        {
-            throw new NotImplementedException();
+            var user = await PSURepository.GetUserByOIDAsync(oid, context);
+
+            if (user != null)
+            {
+                string role = string.Empty;
+                switch (user.AccountType)
+                {
+                    case 0:
+                        role = "Administrator";
+                        break;
+                    case 1:
+                        role = "Instructor";
+                        break;
+                    case 2:
+                        role = "Student";
+                        break;
+                }
+
+                CurrentUser.UserAccount = user.Account;
+                CurrentUser.UserId = user.Id;
+                CurrentUser.UserImage = user.ImageSrc;
+                CurrentUser.UserName = user.Name;
+                CurrentUser.UserOID = user.IdentityUserOID;
+                CurrentUser.UserRole = role;
+            }
         }
 
         #endregion

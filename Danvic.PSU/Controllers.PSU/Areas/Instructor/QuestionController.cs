@@ -7,21 +7,23 @@
 // Modified by:
 // Description: Instructor-Question-控制器
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Instructor;
 using PSU.Model.Areas.Instructor.Question;
+using PSU.Utility;
 using PSU.Utility.Web;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Instructor
 {
     [Area("Instructor")]
+    [Authorize(Policy = "Instructor")]
     public class QuestionController : Controller
     {
         #region Initialize
@@ -29,11 +31,14 @@ namespace Controllers.PSU.Areas.Instructor
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly IQuestionService _service;
-        public QuestionController(IQuestionService service, ILogger<QuestionController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public QuestionController(IQuestionService service, ILogger<QuestionController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion

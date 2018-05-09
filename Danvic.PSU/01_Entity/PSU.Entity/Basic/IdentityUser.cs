@@ -147,6 +147,7 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 所属院系、部门编号
         /// </summary>
+        [Required]
         public long DepartmentId { get; set; }
 
         /// <summary>
@@ -160,11 +161,13 @@ namespace PSU.Entity.Basic
         /// 账户类型
         /// 0：管理员账户；1：教职工账户；2：学生用户
         /// </summary>
+        [Required]
         public short AccountType { get; set; }
 
         /// <summary>
         /// 是否启用
         /// </summary>
+        [Required]
         public bool IsEnabled { get; set; }
 
         /// <summary>
@@ -190,7 +193,6 @@ namespace PSU.Entity.Basic
         /// <summary>
         /// 准考证号
         /// </summary>
-        [Required]
         public long TicketId { get; set; }
 
         /// <summary>

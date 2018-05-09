@@ -7,15 +7,38 @@
 // Modified by:
 // Description: 
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Logging;
+using PSU.EFCore;
+using PSU.IService.Areas.Student;
+using PSU.Utility;
 
 namespace Controllers.PSU.Areas.Student
 {
     [Area("Student")]
+    [Authorize(Policy = "Student")]
     public class RegisterController : Controller
     {
+        #region Initialize
+
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
+        private readonly IRegisterService _service;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RegisterController(IRegisterService service, ILogger<RegisterController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
+        {
+            _service = service;
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+            _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
+        }
+
+        #endregion
+
+        #region View
+        #endregion
     }
 }

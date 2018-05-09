@@ -7,6 +7,7 @@
 // Modified by:
 // Description: Secret控制器邻域功能接口
 //-----------------------------------------------------------------------
+using Microsoft.AspNetCore.Http;
 using PSU.EFCore;
 using PSU.Entity.Basic;
 using System.Threading.Tasks;
@@ -29,7 +30,10 @@ namespace PSU.IService
         /// <summary>
         /// 设置当前登录用户
         /// </summary>
-        Task SetCurrentUser();
+        /// <param name="oid"></param>
+        /// <param name="context"></param>
+        /// <param name="httpContextAccessor"></param>
+        Task SetCurrentUser(string oid, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context);
 
         /// <summary>
         /// 移除当前用户

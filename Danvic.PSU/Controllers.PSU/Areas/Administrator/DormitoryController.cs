@@ -8,17 +8,17 @@
 // Description: Administrator-Dormitory控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.Dormitory;
+using PSU.Utility;
 using PSU.Utility.Web;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Administrator
 {
@@ -31,11 +31,14 @@ namespace Controllers.PSU.Areas.Administrator
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly IDormitoryService _service;
-        public DormitoryController(IDormitoryService service, ILogger<DormitoryController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DormitoryController(IDormitoryService service, ILogger<DormitoryController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion

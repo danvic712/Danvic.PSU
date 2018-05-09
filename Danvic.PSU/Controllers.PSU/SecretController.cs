@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
@@ -31,10 +32,12 @@ namespace Controllers.PSU
         private readonly ApplicationDbContext _context;
         private readonly ISecretService _service;
         private readonly ILogger _logger;
-        public SecretController(ISecretService service, ILogger<SecretController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public SecretController(ISecretService service, ILogger<SecretController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -103,7 +106,7 @@ namespace Controllers.PSU
                     //根据用户角色创建claim声明
                     List<Claim> claim = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Role, "SiteRole")
+                        new Claim(ClaimTypes.Role, role)
                     };
 
                     var userIdentity = new ClaimsIdentity(role);
@@ -111,7 +114,7 @@ namespace Controllers.PSU
 
                     var userPrincipal = new ClaimsPrincipal(userIdentity);
 
-                    await AuthenticationHttpContextExtensions.SignInAsync(HttpContext, "IdentityRole", userPrincipal, new AuthenticationProperties
+                    await AuthenticationHttpContextExtensions.SignInAsync(HttpContext, userPrincipal, new AuthenticationProperties
                     {
                         ExpiresUtc = DateTime.UtcNow.AddMinutes(20),
                         IsPersistent = false,
@@ -119,36 +122,15 @@ namespace Controllers.PSU
                     });
 
                     //设置当前用户信息
+                    await _service.SetCurrentUser(user.IdentityUserOID, _httpContextAccessor, _context);
 
-                    return Redirect(user.HomePage);
+                    return RedirectToRoute(new { area = user.HomePage, controller = "Home", action = "Index" });
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "无效的登录尝试");
                     return View(viewModel);
                 }
-
-                //var result = await _signInManager.PasswordSignInAsync(viewModel.Account, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: true);
-
-                //Todo:根据用户角色创建claim进行权限验证
-
-                //if (true)
-                //{
-                //    _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
-
-                //    //记录登录日志信息
-                //    await _service.AddLogSync("", "");
-
-                //    //记录用户信息session
-                //    //var user = await _userManager.GetUserAsync(User);//此处未做验证,代码可能有错
-                //    //HttpContext.Session.Set("CurrentUser", ByteUtility.Object2Bytes(user));
-
-                //    return RedirectToLocal(returnUrl);
-                //}
-                //else
-                //{
-                //    
-                //}
             }
 
             return View(viewModel);

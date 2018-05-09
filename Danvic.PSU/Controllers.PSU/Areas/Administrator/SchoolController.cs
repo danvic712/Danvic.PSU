@@ -8,11 +8,13 @@
 // Description: Administrator-School控制器
 //-----------------------------------------------------------------------
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
 using PSU.IService.Areas.Administrator;
 using PSU.Model.Areas.Administrator.School;
+using PSU.Utility;
 using PSU.Utility.Web;
 using System;
 using System.Linq;
@@ -29,11 +31,14 @@ namespace Controllers.PSU.Areas.Administrator
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly ISchoolService _service;
-        public SchoolController(ISchoolService service, ILogger<SchoolController> logger, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public SchoolController(ISchoolService service, ILogger<SchoolController> logger, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _service = service;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion
@@ -86,7 +91,7 @@ namespace Controllers.PSU.Areas.Administrator
             }
 
             //加载下拉列表信息
-            webModel = await _service.GetDropDownListAsync(webModel,_context);
+            webModel = await _service.GetDropDownListAsync(webModel, _context);
 
             return View(webModel);
         }
