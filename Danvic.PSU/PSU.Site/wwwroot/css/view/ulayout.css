@@ -417,5 +417,13 @@ body {
 }
 
     .bg-white:hover {
-        color:black;
+        color: black;
     }
+
+.btn-logout :hover {
+    text-decoration: none;
+}
+
+.text-white {
+    color: white !important;
+}

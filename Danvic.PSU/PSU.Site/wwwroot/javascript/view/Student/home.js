@@ -5,6 +5,9 @@
 $(function () {
     //Editor
     var editor = new Simditor({
-        textarea: $('#editor')
+        textarea: $('#editor'),
+        toolbar: [
+            'title', 'bold', 'italic', 'fontScale', 'color', 'ol', 'ul', 'table', 'link', 'hr', 'indent', 'outdent', 'alignment',
+        ]
     });
 });

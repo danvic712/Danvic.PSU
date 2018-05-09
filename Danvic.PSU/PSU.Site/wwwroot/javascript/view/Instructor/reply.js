@@ -5,12 +5,14 @@
 $(function () {
     //Edit
     var editor = new Simditor({
-        textarea: $('#editor')
+        textarea: $('#editor'),
+        toolbar: [
+            'title', 'bold', 'italic', 'fontScale', 'color', 'ol', 'ul', 'table', 'link', 'hr', 'indent', 'outdent', 'alignment',
+        ]
     });
 
     //save
     $(document).on('click', '#save', function () {
-
         if ($('#editor').val() === '') {
             bootbox.dialog({
                 message: '回复信息为空'

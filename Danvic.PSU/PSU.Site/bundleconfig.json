@@ -161,17 +161,6 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/javascript/view/Administrator/major.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/major.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
     "outputFileName": "wwwroot/javascript/view/Administrator/majorclass.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/majorclass.js"
@@ -272,17 +261,6 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/javascript/view/Administrator/tuition.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/tuition.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
     "outputFileName": "wwwroot/javascript/view/Administrator/question.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/question.js"
@@ -345,17 +323,6 @@
     "outputFileName": "wwwroot/javascript/view/Administrator/servicechose.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Administrator/servicechose.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/javascript/view/Administrator/login.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/login.js"
     ],
     "minify": {
       "enabled": true,
@@ -435,41 +402,6 @@
     "inputFiles": [
       "wwwroot/javascript/template/distpicker.js",
       "wwwroot/javascript/view/Administrator/editstudent.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/javascript/view/Administrator/branch.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/branch.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/javascript/view/Administrator/region.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/view/Administrator/region.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/javascript/view/Administrator/loginchart.min.js",
-    "inputFiles": [
-      "wwwroot/javascript/template/echarts.common.min.js",
-      "wwwroot/javascript/template/macarons.js",
-      "wwwroot/javascript/view/Administrator/loginchart.js"
     ],
     "minify": {
       "enabled": true,

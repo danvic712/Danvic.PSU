@@ -11,6 +11,9 @@ $(function () {
     });
 
     var editor = new Simditor({
-        textarea: $('#detail')
+        textarea: $('#detail'),
+        toolbar: [
+            'title', 'bold', 'italic', 'fontScale', 'color', 'ol', 'ul', 'table', 'link', 'hr', 'indent', 'outdent', 'alignment',
+        ]
     });
 })
