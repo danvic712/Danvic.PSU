@@ -43,7 +43,23 @@ namespace PSU.IService.Areas.Student
         /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<BookingViewModel> GetBookingAsync(long id, ApplicationDbContext context);
+        Task<BookingViewModel> GetBookingAsync(ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">服务编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<ServiceDetailViewModel> GetBookingAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">服务预定编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BookingServiceViewModel> GetServiceBookingAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 新增数据
@@ -51,7 +67,7 @@ namespace PSU.IService.Areas.Student
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> InsertBookingAsync(BookingViewModel webModel, ApplicationDbContext context);
+        Task<bool> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context);
 
         #endregion
 
@@ -63,7 +79,15 @@ namespace PSU.IService.Areas.Student
         /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<GoodsViewModel> GetGoodsAsync(long id, ApplicationDbContext context);
+        Task<GoodsViewModel> GetGoodsAsync(ApplicationDbContext context);
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">学生编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<GoodsDetailViewModel> GetGoodsAsync(long id, ApplicationDbContext context);
 
         /// <summary>
         /// 新增数据

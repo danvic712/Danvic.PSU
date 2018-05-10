@@ -1,0 +1,114 @@
+﻿@model PSU.Model.Areas.Student.InformationViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "入学报名";
+    ViewData["NavTitle"] = "入学报名";
+}
+
+<section class="content">
+    <div class="row">
+        <form class="form-horizontal" role="form" id="edit_form" style="margin-top:20px;">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
+                            学生姓名
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <input class="form-control" id="name" type="text" asp-for="Name" readonly>
+                        </div>
+                        <label class="col-md-1 col-xs-3 control-label no-padding-right" for="sid">
+                            学生学号
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <input class="form-control" id="sid" type="text" asp-for="SId" readonly>
+                        </div>
+                        <label class="col-md-1 col-xs-3 control-label no-padding-right" for="department">
+                            所属院系
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <input class="form-control" id="department" type="text" asp-for="Department" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="majorclass">
+                            专业班级
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <input class="form-control" id="majorclass" type="text" asp-for="MajorClass" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="way">
+                            <span class="required-label">*</span> 来校方式
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <select id="way" class="form-control" asp-for="Way">
+                                <option value="-1">请选择</option>
+                                <option value="1">火车</option>
+                                <option value="2">客车</option>
+                                <option value="3">飞机</option>
+                                <option value="4">自驾</option>
+                                <option value="5">客船</option>
+                                <option value="6">其它</option>
+                            </select>
+                        </div>
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="place">
+                            <span class="required-label">*</span> 到达地点
+                        </label>
+                        <div class="col-md-3 col-xs-9">
+                            <input class="form-control" id="place" maxlength="30" type="text" asp-for="Place">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="arrivetime">
+                            <span class="required-label">*</span> 预计到达日期
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <div class="input-group">
+                                <input id="arrivetime" type="text" class="form-control date-picker" asp-for="ArriveTime" readonly>
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="express">
+                            <span class="required-label">*</span> 档案是否快递
+                        </label>
+                        <div class="col-md-2 col-xs-9">
+                            <select id="express" class="form-control" asp-for="IsExpress">
+                                <option value="-1">请选择</option>
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" id="expressid" maxlength="30" placeholder="请填写快递单号" type="text" asp-for="ExpressId">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="col-md-2 col-xs-3 control-label no-padding-right" for="remark">
+                            备注
+                        </label>
+                        <div class="col-md-8 col-xs-9">
+                            <textarea class="form-control" id="remark" max="200" rows="3" style="resize:none" asp-for="Remark"></textarea>
+                        </div>
+                    </div>
+                </div>
+                @if (string.IsNullOrEmpty(Model.Id))
+                {
+                    <div class="box-footer">
+                        <div class="text-right">
+                            <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                                <i class="fa fa-check"></i>
+                                保存
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+</section>

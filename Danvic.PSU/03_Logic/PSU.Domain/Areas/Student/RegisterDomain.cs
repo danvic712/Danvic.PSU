@@ -12,10 +12,12 @@ using PSU.EFCore;
 using PSU.IService.Areas.Student;
 using PSU.Model.Areas.Student;
 using PSU.Repository;
+using PSU.Repository.Areas.Administrator;
 using PSU.Repository.Areas.Student;
 using PSU.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -110,14 +112,101 @@ namespace PSU.Domain.Areas.Student
         #region Booking Interface Service Implement
 
         /// <summary>
-        /// 查找当前学生服务预定信息
+        /// 获取服务预定信息
         /// </summary>
-        /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<BookingViewModel> GetBookingAsync(long id, ApplicationDbContext context)
+        public async Task<BookingViewModel> GetBookingAsync(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            BookingViewModel webModel = new BookingViewModel();
+            try
+            {
+                //Source Data List
+                var list = await RegisterRepository.GetServiceListAsync(context);
+
+                //Return Data List
+                var dataList = new List<ServiceData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var info = await RegisterRepository.GetServiceAsync(item.Id, context);
+                        var model = new ServiceData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            Address = item.Address,
+                            StartDateTime = item.StartTime.ToString("yyyy-MM-dd HH:mm"),
+                            EndDateTime = item.EndTime.ToString("yyyy-MM-dd HH:mm"),
+                            IsBooking = info != null,
+                            Description = !string.IsNullOrEmpty(item.Description) && item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description
+                        };
+                        dataList.Add(model);
+                    }
+                }
+                webModel.ServiceList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取迎新服务列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取服务详细信息
+        /// </summary>
+        /// <param name="id">迎新服务编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<ServiceDetailViewModel> GetBookingAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new ServiceDetailViewModel();
+            try
+            {
+                var model = await AdmissionRepository.GetServiceAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Description = model.Description;
+                webModel.EndTime = model.EndTime.ToString();
+                webModel.Name = model.Name;
+                webModel.Place = model.Place;
+                webModel.Address = model.Address;
+                webModel.StartTime = model.StartTime.ToString();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取迎新服务数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取当前用户预定该服务的详细信息
+        /// </summary>
+        /// <param name="id">服务编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public async Task<BookingServiceViewModel> GetServiceBookingAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new BookingServiceViewModel();
+            try
+            {
+                var model = await RegisterRepository.GetServiceAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Count = model.Count;
+                webModel.DepartureTime = model.DepartureTime;
+                webModel.Remark = model.Remark;
+                webModel.ScheduledTime = model.ScheduledTime;
+                webModel.ServiceName = model.ServiceName;
+                webModel.Tel = model.Tel;
+                webModel.Place = model.Place;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取迎新服务预定数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -126,9 +215,28 @@ namespace PSU.Domain.Areas.Student
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> InsertBookingAsync(BookingViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Add the Service Data
+                var model = await RegisterRepository.InsertAsync(webModel, context);
+
+                if (model.Id == -1)
+                {
+                    return false;
+                }
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("创建迎新服务失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion
@@ -136,14 +244,69 @@ namespace PSU.Domain.Areas.Student
         #region Goods Interface Service Implement
 
         /// <summary>
-        /// 查找当前学生物品选择信息
+        /// 获取物品信息
         /// </summary>
         /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<GoodsViewModel> GetGoodsAsync(long id, ApplicationDbContext context)
+        public async Task<GoodsViewModel> GetGoodsAsync(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            GoodsViewModel webModel = new GoodsViewModel();
+            try
+            {
+                //Source Data List
+                var list = await RegisterRepository.GetGoodsListAsync(context);
+
+                //Return Data List
+                var dataList = new List<GoodsData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var goods = await RegisterRepository.GetGoodsAsync(item.Id, context);
+                        var model = new GoodsData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            Size = item.Size,
+                            IsChosen = goods != null,
+                            Description = !string.IsNullOrEmpty(item.Description) && item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description
+                        };
+                        dataList.Add(model);
+                    }
+                }
+                webModel.GoodsList = dataList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品信息列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
+        /// 获取物品详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task<GoodsDetailViewModel> GetGoodsAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new GoodsDetailViewModel();
+            try
+            {
+                var model = await AdmissionRepository.GetGoodsAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Description = model.Description;
+                webModel.Name = model.Name;
+                webModel.Size = model.Size;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
@@ -182,6 +345,12 @@ namespace PSU.Domain.Areas.Student
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+
 
         #endregion
     }

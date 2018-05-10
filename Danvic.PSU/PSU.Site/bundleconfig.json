@@ -575,6 +575,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Student/register.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/register.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Student/booking.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Student/booking.js"

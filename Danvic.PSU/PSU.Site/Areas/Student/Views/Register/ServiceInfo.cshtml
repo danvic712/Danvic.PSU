@@ -1,0 +1,39 @@
+﻿@model PSU.Model.Areas.Student.ServiceDetailViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "服务预定";
+    ViewData["NavTitle"] = "入学报名";
+}
+
+<div class="row">
+    @if (Model != null)
+    {
+        <div class="col-md-12">
+            <table class="profile-user-info profile-user-info-striped">
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">迎新服务名称</th>
+                    <td class="profile-info-value">@Model.Name</td>
+                    <th class="profile-info-name">服务编号</th>
+                    <td class="profile-info-value">@Model.Id</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">服务地点</th>
+                    <td class="profile-info-value" colspan="3">@Model.Address</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">开始时间</th>
+                    <td class="profile-info-value">@Model.StartTime</td>
+                    <th class="profile-info-name"> 结束时间</th>
+                    <td class="profile-info-value">@Model.EndTime</td>
+                </tr>
+                <tr class="profile-info-row">
+                    <th class="profile-info-name">服务描述</th>
+                    <td class="profile-info-value" colspan="3">@Model.Description</td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+
+

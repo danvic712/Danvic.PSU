@@ -9,8 +9,10 @@
 //-----------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
+using PSU.Entity.Admission;
 using PSU.Entity.SignUp;
 using PSU.Model.Areas.Student;
+using PSU.Repository.Areas.Administrator;
 using PSU.Utility;
 using System;
 using System.Collections.Generic;
@@ -75,6 +77,96 @@ namespace PSU.Repository.Areas.Student
 
         #endregion
 
+        #region Booking-API
+
+        /// <summary>
+        /// 获取迎新服务信息
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Service>> GetServiceListAsync(ApplicationDbContext context)
+        {
+            var model = await context.Service.AsNoTracking().Where(i => i.IsEnabled == true).ToListAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 获取迎新服务信息
+        /// </summary>
+        /// <param name="id">迎新服务编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<ServiceInfo> GetServiceAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.ServiceInfo.AsNoTracking().Where(i => i.ServiceId == id && i.StudentId == CurrentUser.UserId).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 新增服务预定信息
+        /// </summary>
+        /// <param name="webModel">服务预定页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<ServiceInfo> InsertAsync(BookingServiceViewModel webModel, ApplicationDbContext context)
+        {
+            ServiceInfo model = InsertModel(webModel);
+
+            var user = await PSURepository.GetUserByIdAsync(CurrentUser.UserId, context);
+            var service = await AdmissionRepository.GetServiceAsync(Convert.ToInt64(webModel.ServiceId), context);
+
+            if (user == null || service == null)
+            {
+                return new ServiceInfo
+                {
+                    Id = -1
+                };
+            }
+
+            model.StudentId = user.Id;
+            model.Name = user.Name;
+
+            model.ServiceId = service.Id;
+            model.ServiceInfoOID = service.ServiceOID;
+            model.ServiceName = service.ServiceOID;
+
+            await context.ServiceInfo.AddAsync(model);
+
+            return model;
+        }
+
+        #endregion
+
+        #region Goods-API
+
+        /// <summary>
+        /// 获取物品信息
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Goods>> GetGoodsListAsync(ApplicationDbContext context)
+        {
+            var model = await context.Goods.AsNoTracking().Where(i => i.IsEnabled == true).ToListAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 获取物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<GoodsInfo> GetGoodsAsync(long id, ApplicationDbContext context)
+        {
+            var model = await context.GoodsInfo.AsNoTracking().Where(i => i.GoodsId == id && i.StudentId == CurrentUser.UserId).FirstOrDefaultAsync();
+            return model;
+        }
+
+        #endregion
+
+        #region Dormitory-API
+        #endregion
+
         #region Method-Insert
 
         /// <summary>
@@ -93,6 +185,24 @@ namespace PSU.Repository.Areas.Student
                 Place = webModel.Place,
                 Remark = webModel.Remark,
                 Way = webModel.Way
+            };
+        }
+
+        /// <summary>
+        /// Insert ServiceInfo Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        private static ServiceInfo InsertModel(BookingServiceViewModel webModel)
+        {
+            return new ServiceInfo
+            {
+                Count = webModel.Count,
+                DepartureTime = webModel.DepartureTime,
+                IsCancel = false,
+                Tel = webModel.Tel,
+                Place = webModel.Place,
+                Remark = webModel.Remark,
             };
         }
 

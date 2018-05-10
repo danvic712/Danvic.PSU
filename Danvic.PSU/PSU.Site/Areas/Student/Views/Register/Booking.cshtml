@@ -1,4 +1,4 @@
-﻿
+﻿@model PSU.Model.Areas.Student.BookingViewModel
 @{
     Layout = null;
     ViewData["Title"] = "服务预定";
@@ -7,6 +7,51 @@
 
 <section class="content">
     <div class="row">
-        4234324
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th class="text-center">编号</th>
+                    <th class="text-center">服务名称</th>
+                    <th class="text-center">服务地点</th>
+                    <th class="text-center">开始时间</th>
+                    <th class="text-center">结束时间</th>
+                    <th class="text-center">服务描述</th>
+                    <th class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @if (Model.ServiceList != null && Model.ServiceList.Any())
+                {
+                    foreach (var item in Model.ServiceList.AsReadOnly())
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Address</td>
+                            <td>@item.StartDateTime</td>
+                            <td>@item.EndDateTime</td>
+                            <td>@item.Description</td>
+                            <td>
+                                <a id="service_detail" href="javascript:void(0)" data-id="@item.Id">服务详情</a>
+                                @if (item.IsBooking)
+                                {
+                                    <a id="book_service" href="javascript:void(0)" data-id="@item.Id" data-booking="@item.IsBooking">预定详情</a>
+                                }
+                                else
+                                {
+                                    <a id="book_serviceInfo" href="javascript:void(0)" data-id="@item.Id" data-booking="@item.IsBooking">预定服务</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">Ops,暂无迎新服务信息~~~</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </section>

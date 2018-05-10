@@ -1,5 +1,5 @@
 ﻿/*!
- *   Student Register Booking Page JavaScript v1.0.0
+ *   Student Register Page JavaScript v1.0.0
  *   Author: Danvic712
  */
 $(function () {
@@ -11,72 +11,8 @@ $(function () {
         format: 'yyyy-mm-dd'
     });
 
-    //detail
-    $(document).on('click',
-        '#service_detail',
-        function () {
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: '/Student/Register/ServiceInfo',
-                data: {
-                    id: $(this).attr('data-id')
-                },
-                success: function (html) {
-                    bootbox.dialog({
-                        title: '迎新服务详细信息',
-                        message: html
-                    });
-                }
-            });
-        });
-
-    //add
-    $(document).on('click',
-        '#book_service',
-        function () {
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: '/Student/Register/BookingService',
-                data: {
-                    Id: $(this).attr('data-id'),
-                    IsBooking: $(this).attr('data-booking')
-                },
-                success: function (html) {
-                    bootbox.dialog({
-                        title: '预定迎新服务',
-                        message: html
-                    });
-                }
-            });
-        });
-
-    //info
-    $(document).on('click',
-        '#book_serviceInfo',
-        function () {
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: '/Student/Register/BookingService',
-                data: {
-                    id: $(this).attr('data-id'),
-                    IsBooking: $(this).attr('data-booking')
-                },
-                success: function (html) {
-                    bootbox.dialog({
-                        title: '迎新服务预定详情',
-                        message: html
-                    });
-                }, error: function (msg) {
-                    console.log(msg.responseText);
-                }
-            });
-        });
-
     //save
-    $(document).on('click', '#book_save', function () {
+    $(document).on('click', '#save', function () {
 
         if ($('#way').val() === '-1') {
             bootbox.dialog({

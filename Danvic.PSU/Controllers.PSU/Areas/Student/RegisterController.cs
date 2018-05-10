@@ -16,6 +16,7 @@ using PSU.EFCore;
 using PSU.IService.Areas.Student;
 using PSU.Model.Areas.Student;
 using PSU.Utility;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,11 +46,21 @@ namespace Controllers.PSU.Areas.Student
         #region View
 
         /// <summary>
+        /// 入学报名总页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Information()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 报名信息页面
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Information()
+        public async Task<IActionResult> Register()
         {
             var webModel = await _service.GetInformationAsync(CurrentUser.UserId, _context);
             return View(webModel);
@@ -60,9 +71,48 @@ namespace Controllers.PSU.Areas.Student
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Booking()
+        public async Task<IActionResult> Booking()
         {
-            return View();
+            var webModel = await _service.GetBookingAsync(_context);
+            return View(webModel);
+        }
+
+        /// <summary>
+        /// 迎新服务编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> ServiceInfo(string id)
+        {
+            ServiceDetailViewModel webModel = new ServiceDetailViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                //编辑信息，加载迎新服务信息
+                webModel = await _service.GetBookingAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
+        }
+
+        /// <summary>
+        ///预定服务详情页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> BookingService(string id, bool isBooking)
+        {
+            BookingServiceViewModel webModel = new BookingServiceViewModel();
+
+            if (isBooking)
+            {
+                //编辑信息，加载迎新服务信息
+                webModel = await _service.GetServiceBookingAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
         }
 
         /// <summary>
@@ -70,9 +120,29 @@ namespace Controllers.PSU.Areas.Student
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Goods()
+        public async Task<IActionResult> Goods()
         {
-            return View();
+            var webModel = await _service.GetGoodsAsync(_context);
+            return View(webModel);
+        }
+
+        /// <summary>
+        /// 物品信息编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GoodsInfo(string id)
+        {
+            GoodsDetailViewModel webModel = new GoodsDetailViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                //编辑信息，加载物品相关信息
+                webModel = await _service.GetGoodsAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
         }
 
         /// <summary>
@@ -131,6 +201,46 @@ namespace Controllers.PSU.Areas.Student
         #endregion
 
         #region Service-Booking
+
+        /// <summary>
+        /// 迎新服务编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> BookingService(BookingServiceViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add Data
+                    flag = await _service.InsertBookingAsync(webModel, _context);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "迎新服务预定信息禁止修改"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "迎新服务预定成功" : "迎新服务预定失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
         #endregion
 
         #region Service-Goods

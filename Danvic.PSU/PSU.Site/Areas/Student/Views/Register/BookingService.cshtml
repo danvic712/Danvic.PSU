@@ -1,0 +1,100 @@
+﻿@model PSU.Model.Areas.Student.BookingServiceViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "服务预定";
+    ViewData["NavTitle"] = "入学报名";
+}
+
+<div class="row">
+    @if (Model != null)
+    {
+        if (string.IsNullOrEmpty(Model.Id))
+        {
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" id="edit_form">
+                    <div class="box box-success">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="tel">
+                                    <span class="required-label">*</span> 联系电话
+                                </label>
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="tel" type="text" asp-for="Tel">
+                                </div>
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="count">
+                                    人数
+                                </label>
+                                <div class="col-md-2 col-xs-9">
+                                    <input class="form-control" id="count" type="number" min="1" asp-for="Count">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="place">
+                                    提供服务地点
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control" id="place" type="text" asp-for="Place">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label no-padding-right" for="departuretime">
+                                    提供服务时间
+                                </label>
+                                <div class="col-md-4 col-xs-9">
+                                    <input class="form-control  date-picker" id="departuretime" type="tel" asp-for="DepartureTime">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label no-padding-right" for="remark">
+                                    备注
+                                </label>
+                                <div class="col-md-8 col-xs-9">
+                                    <textarea class="form-control" id="remark" max="200" rows="3" style="resize:none" asp-for="Remark"></textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="text-right">
+                                    <a class="btn btn-success col-md-offset-2" id="book_save" data-id="@Model.Id">
+                                        <i class="fa fa-check"></i>
+                                        保存
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <table class="profile-user-info profile-user-info-striped">
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">服务名称</th>
+                        <td class="profile-info-value">@Model.ServiceName</td>
+                        <th class="profile-info-name">预定人数</th>
+                        <td class="profile-info-value">@Model.Count 人</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">预定时间</th>
+                        <td class="profile-info-value">@Model.ScheduledTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <th class="profile-info-name">服务时间</th>
+                        <td class="profile-info-value">@Model.DepartureTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">服务地点</th>
+                        <td class="profile-info-value">@Model.Place</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">备注</th>
+                        <td class="profile-info-value" colspan="3">@Model.Remark</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
+</div>
+
+
+
+
