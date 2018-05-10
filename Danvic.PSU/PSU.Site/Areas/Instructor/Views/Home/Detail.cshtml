@@ -1,0 +1,20 @@
+﻿@model PSU.Model.Areas.Instructor.Home.BulletinDetailViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "公告详情";
+    ViewData["NavTitle"] = "数据全局概览";
+    ViewData["CurrName"] = "";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box box-header">
+                <h4 class="box-title">@Model.Title</h4>
+            </div>
+            <div class="box-body">
+                @Html.Raw(Model.Content)
+            </div>
+        </div>
+    </div>
+</div>

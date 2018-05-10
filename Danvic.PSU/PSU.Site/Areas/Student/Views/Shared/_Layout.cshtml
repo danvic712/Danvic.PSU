@@ -12,6 +12,7 @@
         <link href="~/css/template/AdminLTE.css" rel="stylesheet" />
         <link href="~/css/template/skins/skin-green.css" rel="stylesheet" />
         <link href="~/css/template/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="~/css/template/pace.css" rel="stylesheet" />
         <link href="~/css/template/green.css" rel="stylesheet" />
         <link href="~/css/view/ulayout.css" rel="stylesheet" />
     </environment>
@@ -67,7 +68,7 @@
                         <form asp-area="" asp-controller="Secret" asp-action="Logout" method="post">
                             <ul class="nav navbar-nav">
                                 <li class="user user-menu">
-                                    <a asp-area="Administrator" asp-controller="Basic" asp-action="Profile">
+                                    <a asp-area="Student" asp-controller="User" asp-action="Profile">
                                         <img src="~/images/template/user2-160x160.jpg" class="user-image" alt="User Image">
                                         <span class="hidden-xs">@CurrentUser.UserName</span>
                                     </a>

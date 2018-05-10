@@ -40,5 +40,25 @@ namespace PSU.IService.Areas.Instructor
         Task<List<PieData>> InitPieChartAsync(ApplicationDbContext context);
 
         #endregion
+
+        #region Home-Bulletin
+
+        /// <summary>
+        /// 获取详情
+        /// </summary>
+        /// <param name="id">公告编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BulletinDetailViewModel> GetBulletinDetailAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
+        /// 搜索数据
+        /// </summary>
+        /// <param name="webModel">列表页视图Model</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<BulletinViewModel> SearchBulletinAsync(BulletinViewModel webModel, ApplicationDbContext context);
+
+        #endregion
     }
 }

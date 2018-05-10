@@ -33,7 +33,7 @@ namespace PSU.Entity.SignUp
         /// 学生学号
         /// </summary>
         [Required]
-        public string StudentId { get; set; }
+        public long StudentId { get; set; }
 
         /// <summary>
         /// 学生姓名

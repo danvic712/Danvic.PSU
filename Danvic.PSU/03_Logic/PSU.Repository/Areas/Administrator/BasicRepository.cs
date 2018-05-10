@@ -301,7 +301,7 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
-        /// 新增教职工信息
+        /// 新增学生信息
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库上下文对象</param>
@@ -327,6 +327,9 @@ namespace PSU.Repository.Areas.Administrator
             model.MajorClassId = Convert.ToInt64(webModel.MajorClassId);
             model.MajorClass = majorclass.Name;
 
+            model.InstructorId = majorclass.InstructorId;
+            model.InstructorName = majorclass.InstructorName;
+
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.Department = department.Name;
 
@@ -336,7 +339,7 @@ namespace PSU.Repository.Areas.Administrator
         }
 
         /// <summary>
-        /// 更新教职工信息
+        /// 更新学生信息
         /// </summary>
         /// <param name="webModel">专业班级编辑页视图模型</param>
         /// <param name="context">数据库上下文对象</param>
@@ -364,6 +367,9 @@ namespace PSU.Repository.Areas.Administrator
 
             model.MajorClassId = Convert.ToInt64(webModel.MajorClassId);
             model.MajorClass = majorclass.Name;
+
+            model.InstructorId = majorclass.InstructorId;
+            model.InstructorName = majorclass.InstructorName;
 
             model.DepartmentId = Convert.ToInt64(webModel.DepartmentId);
             model.Department = department.Name;

@@ -423,6 +423,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/javascript/view/Instructor/bulletin.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Instructor/bulletin.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/javascript/view/Instructor/question.min.js",
     "inputFiles": [
       "wwwroot/javascript/view/Instructor/question.js"
@@ -522,6 +533,17 @@
       "wwwroot/javascript/template/uploader.js",
       "wwwroot/javascript/template/simditor.js",
       "wwwroot/javascript/view/Student/home.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/bulletin.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/bulletin.js"
     ],
     "minify": {
       "enabled": true,

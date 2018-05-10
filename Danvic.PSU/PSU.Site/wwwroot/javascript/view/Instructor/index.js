@@ -112,7 +112,7 @@ function InitPieChart() {
         },
         series: [
             {
-                name: '访问来源',
+                name: '生源地',
                 type: 'pie',
                 radius: '55%',
                 center: ['50%', '60%'],
@@ -161,7 +161,7 @@ function InitPieChart() {
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '生源地',
                             type: 'pie',
                             radius: '55%',
                             center: ['50%', '60%'],

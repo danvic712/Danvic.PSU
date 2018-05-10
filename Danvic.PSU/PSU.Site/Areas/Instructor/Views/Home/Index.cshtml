@@ -113,7 +113,7 @@
                                             @item.Name
                                         </a>
                                         <p class="message-content">
-                                            @item.Content
+                                            @Html.Raw(item.Content)
                                         </p>
                                     </div>
                                 </div>
@@ -123,7 +123,9 @@
                 </div>
                 <!-- /.chat -->
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default pull-right" id="more_question"><i class="fa fa-hand-o-right"></i> 查看更多 </button>
+                    <a class="btn btn-default pull-right" asp-area="Instructor" asp-controller="Question" asp-action="Information">
+                        <i class="fa fa-hand-o-right"></i> 查看更多
+                    </a>
                 </div>
             </div>
             <!-- /.Question Box -->
@@ -138,10 +140,6 @@
                     <h3 class="box-title">公告 & 政策</h3>
 
                     <div class="pull-right box-tools">
-                        <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="tooltip"
-                                title="添加" id="add">
-                            <i class="fa fa-pencil"></i>
-                        </button>
                         <button type="button" class="btn btn-default btn-sm pull-right" data-widget="collapse"
                                 data-toggle="tooltip" title="折叠" style="margin-right: 5px;">
                             <i class="fa fa-minus"></i>
@@ -158,20 +156,8 @@
                                     <li>
                                         <i class="fa fa-bullhorn" aria-hidden="true"></i>
                                         <span class="text">
-                                            <a href="/Administrator/Home/Detail/@item.Id">@item.Title</a>
+                                            <a href="/Instructor/Home/Detail/@item.Id">@item.Title</a>
                                         </span>
-                                        <div class="tools">
-                                            <i class="fa fa-edit text-light-blue">
-                                                <a href="/Administrator/Home/Edit/@item.Id">
-                                                    编辑
-                                                </a>
-                                            </i>
-                                            <i class="fa fa-trash-o text-light-blue">
-                                                <a id="delete" data-id="@item.Id" data-title="@item.Title">
-                                                    删除
-                                                </a>
-                                            </i>
-                                        </div>
                                     </li>
                                 }
                             }
@@ -179,7 +165,9 @@
                     </ul>
                 </div>
                 <div class="box-footer clearfix">
-                    <button type="button" class="btn btn-default pull-right" id="more_bulletin"><i class="fa fa-hand-o-right"></i> 查看更多 </button>
+                    <a class="btn btn-default pull-right" asp-area="Instructor" asp-controller="Home" asp-action="Bulletin">
+                        <i class="fa fa-hand-o-right"></i> 查看更多
+                    </a>
                 </div>
             </div>
             <!-- /.Bulletin Box -->

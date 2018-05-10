@@ -1,4 +1,4 @@
-﻿
+﻿@model PSU.Model.Areas.Student.IndexViewModel
 @{
     ViewData["Title"] = "首页";
     ViewData["NavTitle"] = "我的大学";
@@ -20,18 +20,18 @@
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
-                            <h3>10</h3>
+                            <h3>@Model.Count</h3>
                             <p>和我来自同一个地方</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-ios-people-outline text-teal"></i>
+                            <i class="ion ion-map text-teal"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
-                            <h3>7</h3>
+                            <h3>@Model.Question</h3>
                             <p>我的提问个数</p>
                         </div>
                         <div class="icon">
@@ -42,8 +42,8 @@
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
-                            <h3>2</h3>
-                            <p>待办事项</p>
+                            <h3>@Model.Todo</h3>
+                            <p>未完成的报名事项</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-android-checkbox-outline text-purple"></i>
@@ -53,11 +53,11 @@
                 <div class="col-md-6 col-xs-6">
                     <div class="small-box bg-white">
                         <div class="inner">
-                            <h3>10</h3>
-                            <p>距离开学</p>
+                            <h3>@Model.ClassCount</h3>
+                            <p>班级总人数</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-calendar text-yellow"></i>
+                            <i class="ion ion-ios-people-outline text-yellow"></i>
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@
                         <div class="body">
                             <div class="row clearfix">
                                 <div class="col-md-12">
-                                    <textarea class="col-md-6" rows="3" id="editor" maxlength="1000"></textarea>
+                                    <textarea class="col-md-6" rows="3" id="editor" maxlength="500"></textarea>
                                 </div>
                                 <div class="text-right">
-                                    <a class="btn btn-success" id="save" data-id="">
+                                    <a class="btn btn-success" id="save" style="margin-right:14px;">
                                         <i class="fa fa-check"></i>
                                         保存
                                     </a>
@@ -86,6 +86,35 @@
                 </div>
             </div>
             <div class="col-md-5 col-xs-12">
+                <div class="card">
+                    @if (Model.MyClass != null)
+                    {
+                        <div class="header">
+                            <h2>
+                                <i class="ion ion-university"></i>
+                                @Model.MyClass.Name - @Model.MyClass.Session
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <dl class="dl-horizontal">
+                                <dt style="width:80px;">班级辅导员</dt>
+                                <dd style="margin-left:100px;">@Model.MyClass.InstructorName - @Model.MyClass.InstructorPhone</dd>
+                                <dd style="margin:0px 0px 10px 100px;">
+                                    <i class="fa fa-wechat text-green"></i> @Model.MyClass.InstructorWechat
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-qq text-blue"></i> @Model.MyClass.InstructorQQ
+                                </dd>
+                                <dt style="width:80px;">班级信息</dt>
+                                <dd style="margin-left:100px;">@Model.MyClass.Department - @Model.MyClass.Major</dd>
+                                <dd style="margin:0px 0px 0px 100px;">
+                                    <i class="fa fa-wechat text-green"></i> @Model.MyClass.Wechat
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-qq text-blue"></i> @Model.MyClass.QQ
+                                </dd>
+                            </dl>
+                        </div>
+                    }
+                </div>
                 <div class="card">
                     <div class="header">
                         <h2>
@@ -98,7 +127,9 @@
                                     <i class="ion ion-navicon-round"></i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">更多</a></li>
+                                    <li>
+                                        <a asp-area="Student" asp-controller="Home" asp-action="Bulletin" class=" waves-effect waves-block">更多</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -107,69 +138,23 @@
                         <div class="row clearfix">
                             <div class="col-md-12">
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading" role="tab" id="headingOne_2">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2">
-                                                    我是第一条公告
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne_2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_2">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                                non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                                                single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                                                helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
-                                                raw denim aesthetic synth nesciunt you probably haven't heard of them
-                                                accusamus labore sustainable VHS.
+                                    @if (Model.BulletinInfo != null)
+                                    {
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading" role="tab" id="headingOne_2">
+                                                <h4 class="panel-title">
+                                                    <a data-id="@Model.BulletinInfo.Id" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2">
+                                                        @Model.BulletinInfo.Title
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne_2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_2">
+                                                <div class="panel-body">
+                                                    @Html.Raw(Model.BulletinInfo.Content)
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading" role="tab" id="headingTwo_2">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_2" href="#collapseTwo_2" aria-expanded="false" aria-controls="collapseTwo_2">
-                                                    我是第二条公告
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_2">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                                non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                                                single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                                                helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
-                                                raw denim aesthetic synth nesciunt you probably haven't heard of them
-                                                accusamus labore sustainable VHS.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading" role="tab" id="headingThree_2">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_2" href="#collapseThree_2" aria-expanded="false" aria-controls="collapseThree_2">
-                                                    我是第三条公告
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree_2">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                                non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                                                single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                                                helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
-                                                raw denim aesthetic synth nesciunt you probably haven't heard of them
-                                                accusamus labore sustainable VHS.
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -41,7 +41,7 @@ namespace PSU.Domain
         public void RemoveCurrentUser(IHttpContextAccessor httpContextAccessor)
         {
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserOID", "");
-            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserId", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserId", "0");
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserName", "");
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserAccount", "");
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserImage", "");

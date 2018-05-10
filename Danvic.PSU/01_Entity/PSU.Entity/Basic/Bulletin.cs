@@ -51,7 +51,7 @@ namespace PSU.Entity.Basic
 
         /// <summary>
         /// 针对用户
-        /// 0:全部用户;1:教职工用户;2:学生用户
+        /// 1:全部用户;2:教职工用户;3:学生用户
         /// </summary>
         [Required]
         public short Target { get; set; }

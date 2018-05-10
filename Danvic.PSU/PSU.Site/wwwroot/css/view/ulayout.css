@@ -427,3 +427,13 @@ body {
 .text-white {
     color: white !important;
 }
+
+.bg-light-green {
+    background-color: #8BC34A !important;
+    color: #fff;
+}
+
+    .bg-light-green .content .text,
+    .bg-light-green .content .number {
+        color: #fff !important;
+    }

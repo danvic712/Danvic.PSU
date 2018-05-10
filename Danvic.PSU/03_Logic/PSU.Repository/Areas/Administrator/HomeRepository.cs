@@ -280,6 +280,7 @@ namespace PSU.Repository.Areas.Administrator
                 Content = content,
                 Type = type,
                 Target = target,
+                CreatedId = CurrentUser.UserId,
                 CreatedBy = CurrentUser.UserOID,
                 CreatedName = CurrentUser.UserName
             };
@@ -311,6 +312,7 @@ namespace PSU.Repository.Areas.Administrator
             model.Target = target;
             model.Type = type;
             model.Content = content;
+            model.ModifiedId = CurrentUser.UserId;
             model.ModifiedBy = CurrentUser.UserOID;
             model.ModifiedName = CurrentUser.UserName;
             model.ModifiedOn = DateTime.Now;
