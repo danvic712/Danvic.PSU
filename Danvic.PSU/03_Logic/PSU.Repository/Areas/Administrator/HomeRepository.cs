@@ -91,7 +91,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static int GetTodayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.AsNoTracking().Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Where(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static int GetYesterdayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.AsNoTracking().Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Where(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -121,9 +121,11 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static double GetProportion(ApplicationDbContext context)
         {
-            if (context.IdentityUser.Where(i => i.AccountType == 1 && i.IsEnabled == true).ToList().Count() != 0)
+            if (context.IdentityUser.AsNoTracking().Where(i => i.AccountType == 2 && i.IsEnabled == true).ToList().Count() != 0)
             {
-                return Convert.ToDouble((context.Register.AsNoTracking().ToList().Count() / context.IdentityUser.Where(i => i.AccountType == 1 && i.IsEnabled == true).AsNoTracking().ToList().Count()) * 100);
+                var register = context.Register.AsNoTracking().ToList().Count();
+                var user = context.IdentityUser.AsNoTracking().Where(i => i.AccountType == 2 && i.IsEnabled == true).ToList().Count();
+                return (double)register / user * 100;
             }
             return 0;
         }

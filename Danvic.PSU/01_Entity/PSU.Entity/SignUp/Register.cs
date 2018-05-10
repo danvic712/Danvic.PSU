@@ -100,6 +100,7 @@ namespace PSU.Entity.SignUp
         /// 到达地点
         /// </summary>
         [Required]
+        [MaxLength(30)]
         public string Place { get; set; }
 
         /// <summary>

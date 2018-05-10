@@ -16,6 +16,8 @@ using PSU.EFCore;
 using PSU.IService.Areas.Student;
 using PSU.Model.Areas.Student;
 using PSU.Utility;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Controllers.PSU.Areas.Student
 {
@@ -47,14 +49,45 @@ namespace Controllers.PSU.Areas.Student
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View(new ProfileViewModel());
+            var webModel = await _service.GetStudentAsync(CurrentUser.UserId, _context);
+            return View(webModel);
         }
 
         #endregion
 
         #region Service
+
+        /// <summary>
+        /// 学生编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(ProfileViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+
+                //Update Student
+                flag = await _service.UpdateStudentAsync(webModel, _context);
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "个人信息编辑成功" : "个人信息编辑失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
         #endregion
     }
 }

@@ -91,7 +91,7 @@ namespace PSU.Repository.Areas.Instructor
         /// <returns></returns>
         public static int GetTodayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.DateTime.ToString("yyyyMMdd") == DateTime.Now.ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace PSU.Repository.Areas.Instructor
         /// <returns></returns>
         public static int GetYesterdayEnrollmentCount(ApplicationDbContext context)
         {
-            return context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).Select(i => i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
+            return context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.DateTime.ToString("yyyyMMdd") == DateTime.Now.AddDays(-1).ToString("yyyyMMdd")).ToList().Count();
         }
 
         /// <summary>
@@ -121,9 +121,11 @@ namespace PSU.Repository.Areas.Instructor
         /// <returns></returns>
         public static double GetProportion(ApplicationDbContext context)
         {
-            if (context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 1 && i.IsEnabled == true).ToList().Count() != 0)
+            if (context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 2 && i.IsEnabled == true).ToList().Count() != 0)
             {
-                return Convert.ToDouble((context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count() / context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 1 && i.IsEnabled == true).ToList().Count()) * 100);
+                var register = context.Register.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId).ToList().Count();
+                var user = context.IdentityUser.AsNoTracking().Where(i => i.InstructorId == CurrentUser.UserId && i.AccountType == 2 && i.IsEnabled == true).ToList().Count();
+                return (double)register / user * 100;
             }
             return 0;
         }

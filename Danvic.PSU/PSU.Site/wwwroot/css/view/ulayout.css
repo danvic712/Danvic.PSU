@@ -437,3 +437,7 @@ body {
     .bg-light-green .content .number {
         color: #fff !important;
     }
+
+.text-grey {
+    color: #555 !important;
+}

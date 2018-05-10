@@ -562,5 +562,49 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/information.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/information.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/booking.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/booking.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/goods.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/goods.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/javascript/view/Student/dormitory.min.js",
+    "inputFiles": [
+      "wwwroot/javascript/view/Student/dormitory.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

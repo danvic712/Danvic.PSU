@@ -112,7 +112,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除教职工数据，教职工编号:{0}", id);
-                PSURepository.InsertRecordAsync("Identity", "BasicDomain", "DeleteStaffAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("IdentityUser", "BasicDomain", "DeleteStaffAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -250,7 +250,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改教职工信息，教职工编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync("Identity", "BasicDomain", "UpdateStaffAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("IdentityUser", "BasicDomain", "UpdateStaffAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 
@@ -282,7 +282,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("删除学生数据，学生编号:{0}", id);
-                PSURepository.InsertRecordAsync("Identity", "BasicDomain", "DeleteStudentAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
+                PSURepository.InsertRecordAsync("IdentityUser", "BasicDomain", "DeleteStudentAsync", operate, (short)PSURepository.OperateCode.Delete, id, context);
 
                 var index = await context.SaveChangesAsync();
                 return index == 2;
@@ -310,7 +310,7 @@ namespace PSU.Domain.Areas.Administrator
                 webModel.Account = model.Account;
                 webModel.Address = model.Address;
                 webModel.Age = model.Age;
-                webModel.Birthday = model.Birthday.ToString("yyyy-MM-dd HH:mm:ss");
+                webModel.Birthday = model.Birthday.ToString("yyyy-MM-dd");
                 webModel.City = model.City;
                 webModel.CityId = model.CityId;
                 webModel.DepartmentId = model.DepartmentId;
@@ -318,11 +318,11 @@ namespace PSU.Domain.Areas.Administrator
                 webModel.District = model.District;
                 webModel.DistrictId = model.DistrictId;
                 webModel.Email = model.Email;
-                webModel.EndDate = model.EndDate.ToString("yyyy-MM-dd HH:mm:ss");
-                webModel.StartDate = model.StartDate.ToString("yyyy-MM-dd HH:mm:ss");
-                webModel.TicketId = webModel.TicketId;
-                webModel.HighSchool = webModel.HighSchool;
-                webModel.Hobbies = webModel.Hobbies;
+                webModel.EndDate = model.EndDate.ToString("yyyy-MM-dd");
+                webModel.StartDate = model.StartDate.ToString("yyyy-MM-dd");
+                webModel.TicketId = model.TicketId.ToString();
+                webModel.HighSchool = model.HighSchool;
+                webModel.Hobbies = model.Hobbies;
                 webModel.MajorClass = model.MajorClass;
                 webModel.MajorClassId = model.MajorClassId;
                 webModel.Province = model.Province;
@@ -436,7 +436,7 @@ namespace PSU.Domain.Areas.Administrator
 
                 //Add Operate Information
                 var operate = string.Format("修改学生信息，学生编号:{0}", webModel.Id);
-                PSURepository.InsertRecordAsync("Identity", "BasicDomain", "UpdateStudentAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
+                PSURepository.InsertRecordAsync("IdentityUser", "BasicDomain", "UpdateStudentAsync", operate, (short)PSURepository.OperateCode.Update, Convert.ToInt64(webModel.Id), context);
 
                 var index = await context.SaveChangesAsync();
 

@@ -11,22 +11,22 @@
                 <div class="box box-success">
                     <div class="box-body box-profile">
                         <img class="img-responsive" src="~/images/template/user2-160x160.jpg" alt="我的头像" style="margin:0px auto;">
-                        <h3 class="profile-username text-center">这是我的名字啊</h3>
+                        <h3 class="profile-username text-center">@Model.Name</h3>
 
                         <p class="text-muted text-center">学生用户</p>
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>所属院系</b> <a class="pull-right">计算机与软件工程学院</a>
+                                <b>所属院系</b> <a class="pull-right">@Model.DepartmentName</a>
                             </li>
                             <li class="list-group-item">
-                                <b>专业班级</b> <a class="pull-right">网络1401</a>
+                                <b>专业班级</b> <a class="pull-right">@Model.MajorClass</a>
                             </li>
                             <li class="list-group-item">
-                                <b>入学年月</b> <a class="pull-right">2014-09</a>
+                                <b>入学年月</b> <a class="pull-right">@Model.StartDate</a>
                             </li>
                             <li class="list-group-item">
-                                <b>毕业年月</b> <a class="pull-right">2018-07</a>
+                                <b>毕业年月</b> <a class="pull-right">@Model.EndDate</a>
                             </li>
                         </ul>
 
@@ -41,30 +41,52 @@
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="name">
                                     <span class="required-label">*</span> 用户姓名
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control" id="name" type="text" placeholder="">
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="name" type="text" asp-for="Name">
                                 </div>
                                 <label class="col-md-1 col-xs-3 control-label no-padding-right" for="gender">
                                     性别
                                 </label>
                                 <div class="col-md-2 col-xs-9" style="margin-top:5px;">
-                                    <input type="radio" class="iradio_flat-green" name="gender" checked> 男
-                                    <input type="radio" class="iradio_flat-green" name="gender"> 女
+                                    @if (Model.Gender)
+                                    {
+                                        <input type="radio" class="iradio_flat-green" name="gender" value="true" checked><span>男</span>
+                                        <input type="radio" class="iradio_flat-green" name="gender" value="false"><span>女</span>
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" class="iradio_flat-green" name="gender" value="true"><span>男</span>
+                                        <input type="radio" class="iradio_flat-green" name="gender" value="false" checked><span>女</span>
+                                    }
                                 </div>
                                 <label class="col-md-1 col-xs-3 control-label no-padding-right" for="age">
                                     年龄
                                 </label>
                                 <div class="col-md-2 col-xs-9">
-                                    <input class="form-control" id="age" type="number" placeholder="">
+                                    <input class="form-control" id="age" type="number" min="1" asp-for="Age">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="email">
+                                    邮箱地址
+                                </label>
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="email" type="email" asp-for="Email">
+                                </div>
+                                <label class="col-md-2 control-label no-padding-right" for="phone">
+                                    手机号
+                                </label>
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="phone" type="tel" asp-for="Phone">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="wechat">
                                     微信号
                                 </label>
-                                <div class="col-md-4 col-xs-9">
+                                <div class="col-md-3 col-xs-9">
                                     <div class="input-group">
-                                        <input class="form-control" id="wechat" type="text" placeholder="">
+                                        <input class="form-control" id="wechat" type="text" asp-for="Wechat">
                                         <div class="input-group-addon">
                                             <i class="fa fa-wechat text-green"></i>
                                         </div>
@@ -73,9 +95,9 @@
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="qq">
                                     QQ号
                                 </label>
-                                <div class="col-md-4 col-xs-9">
+                                <div class="col-md-3 col-xs-9">
                                     <div class="input-group">
-                                        <input class="form-control" id="qq" type="text" placeholder="">
+                                        <input class="form-control" id="qq" type="text" asp-for="QQ">
                                         <div class="input-group-addon">
                                             <i class="fa fa-qq text-blue"></i>
                                         </div>
@@ -86,23 +108,23 @@
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="ticketid">
                                     准考证号
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control" id="ticketid" type="text" placeholder="">
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="ticketid" type="text" asp-for="TicketId">
                                 </div>
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="idnumber">
-                                    身份证号
+                                    <span class="required-label">*</span>  身份证号
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control" id="idnumber" type="text" placeholder="">
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="idnumber" type="text" asp-for="IdNumber">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="birthday">
                                     出生年月
                                 </label>
-                                <div class="col-md-4 col-xs-9">
+                                <div class="col-md-3 col-xs-9">
                                     <div class="input-group">
-                                        <input id="birthday" type="text" class="form-control date-picker" readonly>
+                                        <input id="birthday" type="text" class="form-control date-picker" asp-for="Birthday" readonly>
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
@@ -111,53 +133,58 @@
                                 <label class="col-md-2 col-xs-3 control-label no-padding-right" for="highschool">
                                     高中名称
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control" id="highschool" type="text" placeholder="">
+                                <div class="col-md-3 col-xs-9">
+                                    <input class="form-control" id="highschool" type="text" asp-for="HighSchool">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label no-padding-right">
                                     生源地
                                 </label>
-                                <div class="col-md-8" style="display:inline-flex" data-toggle="distpicker">
-                                    <select class="form-control" style="width:150px;" data-province="选择省份"></select>
+                                <div class="col-md-6" style="display:inline-flex" data-toggle="distpicker">
+                                    @{
+                                        string province = string.IsNullOrEmpty(Model.Province) ? "选择省份" : Model.Province;
+                                        string city = string.IsNullOrEmpty(Model.City) ? "选择城市" : Model.City;
+                                        string distinct = string.IsNullOrEmpty(Model.District) ? "选择县区" : Model.District;
+                                    }
+                                    <select class="form-control" id="province" style="width:150px;" data-province="@province" asp-for="ProvinceId"></select>
                                     &nbsp;&nbsp;
-                                    <select class="form-control" style="width:150px;" data-city="选择城市"></select>
+                                    <select class="form-control" id="city" style="width:150px;" data-city="@city" asp-for="CityId"></select>
                                     &nbsp;&nbsp;
-                                    <select class="form-control" style="width:150px;" data-district="选择县区"></select>
+                                    <select class="form-control" id="distinct" style="width:150px;" data-district="@distinct" asp-for="DistrictId"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label no-padding-right" for="address">
                                     家庭地址
                                 </label>
-                                <div class="col-md-10 col-xs-9">
-                                    <input class="form-control" id="address" type="text" placeholder="">
+                                <div class="col-md-8 col-xs-9">
+                                    <input class="form-control" id="address" type="text" asp-for="Address" maxlength="200">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label no-padding-right" for="hobbies">
                                     兴趣爱好
                                 </label>
-                                <div class="col-md-10 col-xs-9">
-                                    <input class="form-control" id="hobbies" type="text" max="100" placeholder="">
+                                <div class="col-md-8 col-xs-9">
+                                    <input class="form-control" id="hobbies" type="text" max="100" asp-for="Hobbies">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label no-padding-right" for="winning">
                                     获奖情况
                                 </label>
-                                <div class="col-md-10 col-xs-9">
-                                    <textarea class="form-control" id="winning" max="200" rows="3" style="resize:none"></textarea>
+                                <div class="col-md-8 col-xs-9">
+                                    <textarea class="form-control" id="winning" max="500" rows="3" style="resize:none" asp-for="Winning"></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-footer">
-                            <div class="text-right">
-                                <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
-                                    <i class="fa fa-check"></i>
-                                    保存
-                                </a>
+                            <div class="box-footer">
+                                <div class="text-right">
+                                    <a class="btn btn-success col-md-offset-2" id="save" data-id="@Model.Id">
+                                        <i class="fa fa-check"></i>
+                                        保存
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
