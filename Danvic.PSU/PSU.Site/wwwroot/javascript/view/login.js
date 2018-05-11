@@ -28,4 +28,10 @@ $(function () {
             $.removeCookie("Jixia_Password");
         }
     });
+
+    if ($("#errorInfo").val()) {
+        layer.tips($("#errorInfo").val(), "#btnLogin", {
+            tips: [2, '#78BA32']
+        });
+    };
 });

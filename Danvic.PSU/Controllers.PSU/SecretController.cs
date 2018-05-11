@@ -20,6 +20,7 @@ using PSU.Utility;
 using PSU.Utility.System;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -106,8 +107,8 @@ namespace Controllers.PSU
                 {
                     if (user.Password.Trim() != MD5Utility.Sign(viewModel.Password, user.Salt))
                     {
-                        ModelState.AddModelError(string.Empty, "登录密码错误");
-                        return View(viewModel);
+                        ViewBag.ErrorInfo = "用户名或密码错误";
+                        return View();
                     }
 
                     _logger.LogInformation("用户：{0}于{1}登录系统", viewModel.Account, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
@@ -140,15 +141,22 @@ namespace Controllers.PSU
                         return RedirectToLocal(returnUrl);
                     }
 
-                    return RedirectToRoute(new { area = user.HomePage, controller = "Home", action = "Index" });
+                    return RedirectToRoute(new
+                    {
+                        area = user.HomePage,
+                        controller = "Home",
+                        action = "Index"
+                    });
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "无效的登录尝试");
-                    return View(viewModel);
+                    ViewBag.ErrorInfo = "当前用户不存在";
+                    return View();
                 }
             }
 
+            //返回模型验证错误信息
+            ViewBag.ErrorInfo = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage;
             return View(viewModel);
         }
 
