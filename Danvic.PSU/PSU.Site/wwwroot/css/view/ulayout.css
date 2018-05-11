@@ -503,3 +503,9 @@ body {
         border-top: 1px dotted #DCEBF7;
         padding-left: 12px
     }
+
+.ace-alert-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f
+}

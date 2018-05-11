@@ -34,7 +34,7 @@
                     <textarea id="edit_description" class="form-control" maxlength="200" rows="6" style="resize:none" asp-for="Description"></textarea>
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label class="col-md-2 control-label no-padding-right" > 示意图 </label>
                 <div class="col-md-10">
                     <a class="btn btn-sm btn-upload" id="iconpath">
@@ -45,7 +45,7 @@
                     <input type="hidden" id="hideUrl" value="" asp-for="ImageSrc"/>
                     <input style="visibility:hidden" type="file" id="iconupload">
                 </div>
-            </div>
+            </div>*@
             <div class="text-right">
                 <a id="save" class="btn btn-success col-md-offset-2" data-id="@Model.Id">
                     <i class="ace-icon fa fa-check"></i>

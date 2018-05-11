@@ -113,18 +113,17 @@ namespace PSU.IService.Areas.Student
         /// <summary>
         /// 查找数据
         /// </summary>
-        /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<DormitoryViewModel> GetDormitoryAsync(long id, ApplicationDbContext context);
+        Task<DormitoryViewModel> GetDormitoryAsync(ApplicationDbContext context);
 
         /// <summary>
         /// 新增数据
         /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="id">寝室编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> InsertDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context);
+        Task<int> InsertDormitoryAsync(long id, ApplicationDbContext context);
 
         #endregion
     }

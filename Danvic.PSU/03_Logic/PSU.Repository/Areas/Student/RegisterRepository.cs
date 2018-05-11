@@ -10,6 +10,7 @@
 using Microsoft.EntityFrameworkCore;
 using PSU.EFCore;
 using PSU.Entity.Admission;
+using PSU.Entity.Dormitory;
 using PSU.Entity.SignUp;
 using PSU.Model.Areas.Student;
 using PSU.Repository.Areas.Administrator;
@@ -204,6 +205,84 @@ namespace PSU.Repository.Areas.Student
         #endregion
 
         #region Dormitory-API
+
+        /// <summary>
+        /// 获取寝室信息
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<List<Dorm>> GetDormitoryListAsync(ApplicationDbContext context)
+        {
+            var user = await PSURepository.GetUserByIdAsync(CurrentUser.UserId, context);
+            int gender = user.Gender ? 1 : 2;
+            var model = await context.Dorm.AsNoTracking().Where(i => i.IsEnabled == true && i.Count > i.SelectedCount && (i.Type == 3 || i.Type == gender)).ToListAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 获取寝室选择信息
+        /// </summary>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<BunkInfo> GetDormitoryAsync(ApplicationDbContext context)
+        {
+            var model = await context.BunkInfo.AsNoTracking().Where(i => i.StudentId == CurrentUser.UserId).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 选择寝室信息
+        /// </summary>
+        /// <param name="id">寝室编号</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<BunkInfo> InsertAsync(long id, ApplicationDbContext context)
+        {
+            var user = await PSURepository.GetUserByIdAsync(CurrentUser.UserId, context);
+            var dorm = await DormitoryRepository.GetDormAsync(id, context);
+
+            //数据不准确
+            if (user == null || dorm == null)
+            {
+                return new BunkInfo
+                {
+                    Id = -1
+                };
+            }
+
+            // 寝室已被选完
+            if (dorm.SelectedCount == dorm.Count)
+            {
+                return new BunkInfo
+                {
+                    Id = -2
+                };
+            }
+
+            dorm.SelectedCount = Convert.ToInt16(dorm.SelectedCount + 1);
+
+            BunkInfo model = new BunkInfo
+            {
+                BuildingId = dorm.BuildingId,
+                BuildingName = dorm.BuildingName,
+                Chosen = dorm.SelectedCount,
+                Count = dorm.Count,
+                DormId = dorm.Id,
+                DormName = dorm.Name,
+                Floor = dorm.Floor,
+                InstructorId = user.InstructorId,
+                MajorClassId = user.MajorClassId,
+                MajorClassName = user.MajorClass,
+                StudentId = user.Id,
+                StudentName = user.Name,
+                BunkType = dorm.BunkName,
+            };
+
+            await context.BunkInfo.AddAsync(model);
+
+            return model;
+        }
+
         #endregion
 
         #region Method-Insert

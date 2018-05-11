@@ -171,9 +171,10 @@ namespace Controllers.PSU.Areas.Student
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Dormitory()
+        public async Task<IActionResult> Dormitory()
         {
-            return View();
+            var webModel = await _service.GetDormitoryAsync(_context);
+            return View(webModel);
         }
 
         #endregion
@@ -328,6 +329,57 @@ namespace Controllers.PSU.Areas.Student
         #endregion
 
         #region Service-Dormitory
+
+        /// <summary>
+        /// 迎新服务编辑页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> BookingDormitory(string id)
+        {
+            bool flag;
+            if (!string.IsNullOrEmpty(id))
+            {
+                //Add Data
+                int index = await _service.InsertDormitoryAsync(Convert.ToInt64(id), _context);
+
+                if (index == -1)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "寝室选择失败"
+                    });
+                }
+
+                if (index == -2)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "寝室选择失败，当前寝室人数已满"
+                    });
+                }
+
+                flag = index == 2;
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    msg = "寝室选择信息禁止修改"
+                });
+            }
+
+            return Json(new
+            {
+                success = flag,
+                msg = flag ? "寝室选择成功" : "寝室选择失败"
+            });
+        }
+
         #endregion
     }
 }

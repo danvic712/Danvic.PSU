@@ -369,25 +369,88 @@ namespace PSU.Domain.Areas.Student
         #region Dormitory Interface Service Implement
 
         /// <summary>
-        /// 查找当前学生寝室选择信息
+        /// 获取寝室信息
         /// </summary>
-        /// <param name="id">学生编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<DormitoryViewModel> GetDormitoryAsync(long id, ApplicationDbContext context)
+        public async Task<DormitoryViewModel> GetDormitoryAsync(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            DormitoryViewModel webModel = new DormitoryViewModel();
+            try
+            {
+                //Source Data List
+                var list = await RegisterRepository.GetDormitoryListAsync(context);
+
+                //Return Data List
+                var dataList = new List<InformationData>();
+
+                if (list != null && list.Any())
+                {
+                    foreach (var item in list)
+                    {
+                        var model = new InformationData
+                        {
+                            Id = item.Id.ToString(),
+                            Name = item.Name,
+                            BuildingName = item.BuildingName,
+                            Count = item.Count,
+                            Floor = item.Floor,
+                            SelectedCount = item.SelectedCount,
+                            Type = item.BunkName,
+                        };
+                        dataList.Add(model);
+                    }
+                }
+                webModel.InformationList = dataList;
+                var dorm = await RegisterRepository.GetDormitoryAsync(context);
+                webModel.IsChosen = dorm != null;
+
+                if (dorm != null)
+                {
+                    webModel.DormitoryInfo = new DormitoryInfo
+                    {
+                        BuildingName = dorm.BuildingName,
+                        Floor = (short)dorm.Floor,
+                        Id = dorm.Id.ToString(),
+                        Name = dorm.DormName,
+                        Type = dorm.BunkType,
+                        DateTime = dorm.DateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品信息列表失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
         }
 
         /// <summary>
         /// 新增当前用户寝室选择信息
         /// </summary>
-        /// <param name="webModel">编辑页视图Model</param>
+        /// <param name="id">寝室编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> InsertDormitoryAsync(DormitoryViewModel webModel, ApplicationDbContext context)
+        public async Task<int> InsertDormitoryAsync(long id, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Add the Service Data
+                var model = await RegisterRepository.InsertAsync(id, context);
+
+                if (model.Id == -1 || model.Id == -2)
+                {
+                    return (int)model.Id;
+                }
+
+                //Make the transaction commit
+                return await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("寝室选择失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return -1;
+            }
         }
 
         #endregion

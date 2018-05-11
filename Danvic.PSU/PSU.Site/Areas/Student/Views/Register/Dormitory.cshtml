@@ -1,9 +1,88 @@
-﻿
+﻿@model PSU.Model.Areas.Student.DormitoryViewModel
 @{
     Layout = null;
     ViewData["Title"] = "选择寝室";
     ViewData["NavTitle"] = "入学报名";
 }
 
-<h2>Dormitory</h2>
+<section class="content">
+    <div class="row">
+        @if (Model.IsChosen)
+        {
+            if (Model.DormitoryInfo != null)
+            {
+                <div class="alert alert-block ace-alert-info">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <i class="fa fa-check text-green"></i>
+                    你已经成功选择好寝室了~~~
+                </div>
+                <table class="profile-user-info profile-user-info-striped">
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">寝室号</th>
+                        <td class="profile-info-value">@Model.DormitoryInfo.Name</td>
+                        <th class="profile-info-name">宿舍楼</th>
+                        <td class="profile-info-value">@Model.DormitoryInfo.BuildingName</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">所在楼层</th>
+                        <td class="profile-info-value">@Model.DormitoryInfo.FloorStr</td>
+                        <th class="profile-info-name">寝室类型</th>
+                        <td class="profile-info-value">@Model.DormitoryInfo.Type</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">选择时间</th>
+                        <td class="profile-info-value">@Model.DormitoryInfo.DateTime</td>
+                    </tr>
+                </table>
+            }
+        }
+        else
+        {
+            <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th class="text-center">序号</th>
+                        <th class="text-center">编号</th>
+                        <th class="text-center">宿舍号</th>
+                        <th class="text-center">所属宿舍楼</th>
+                        <th class="text-center">所在楼层</th>
+                        <th class="text-center">宿舍类型</th>
+                        <th class="text-center">容纳人数</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if (Model.InformationList != null && Model.InformationList.Any())
+                    {
+                        int index = 1;
+                        foreach (var item in Model.InformationList.AsReadOnly())
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.BuildingName</td>
+                                <td>@item.FloorStr</td>
+                                <td>@item.Type</td>
+                                <td>@item.CountStr</td>
+                                <td>
+                                    <a id="book_dormitory" href="javascript:void(0)" data-id="@item.Id">选择寝室</a>
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">Ops,暂无寝室信息~~~</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</section>
 

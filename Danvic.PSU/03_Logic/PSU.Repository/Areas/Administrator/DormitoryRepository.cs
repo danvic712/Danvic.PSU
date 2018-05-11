@@ -463,6 +463,7 @@ namespace PSU.Repository.Areas.Administrator
             model.BuildingFK = building.BuildingOID;
             model.BuildingId = Convert.ToInt64(webModel.BuildingId);
             model.BuildingName = building.Name;
+            model.Type = building.Type;
 
             model.BunkFK = bunk.BunkOID;
             model.BunkId = Convert.ToInt64(webModel.BunkId);
@@ -503,6 +504,7 @@ namespace PSU.Repository.Areas.Administrator
             model.BuildingFK = building.BuildingOID;
             model.BuildingId = Convert.ToInt64(webModel.BuildingId);
             model.BuildingName = building.Name;
+            model.Type = building.Type;
 
             model.BunkFK = bunk.BunkOID;
             model.BunkId = Convert.ToInt64(webModel.BunkId);
@@ -517,7 +519,7 @@ namespace PSU.Repository.Areas.Administrator
         /// <returns></returns>
         public static async Task<Dorm> GetDormAsync(long id, ApplicationDbContext context)
         {
-            var model = await context.Dorm.AsNoTracking().Where(i => i.Id == id).FirstOrDefaultAsync();
+            var model = await context.Dorm.Where(i => i.Id == id).FirstOrDefaultAsync();
             return model;
         }
 

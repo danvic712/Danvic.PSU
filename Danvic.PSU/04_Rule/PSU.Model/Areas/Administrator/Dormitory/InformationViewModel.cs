@@ -34,6 +34,9 @@ namespace PSU.Model.Areas.Administrator.Dormitory
 
         #region Result
 
+        /// <summary>
+        /// 数据列表
+        /// </summary>
         public List<InformationData> InformationList { get; set; }
 
         #endregion

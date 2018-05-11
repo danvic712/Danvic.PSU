@@ -79,6 +79,13 @@ namespace PSU.Entity.Dormitory
         public short SelectedCount { get; set; }
 
         /// <summary>
+        /// 寝室楼类型
+        /// 1:male;2:female;3:remix
+        /// </summary>
+        [Required]
+        public short Type { get; set; }
+
+        /// <summary>
         /// 是否启用
         /// </summary>
         public bool IsEnabled { get; set; }

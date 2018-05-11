@@ -107,9 +107,16 @@ namespace PSU.Entity.SignUp
         public string DormName { get; set; }
 
         /// <summary>
+        /// 寝室类型名称
+        /// </summary>
+        [Required]
+        [MaxLength(20)]
+        public string BunkType { get; set; }
+
+        /// <summary>
         /// 选择时间
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         #endregion
     }
