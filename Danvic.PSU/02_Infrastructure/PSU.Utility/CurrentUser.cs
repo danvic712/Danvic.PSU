@@ -84,6 +84,15 @@ namespace PSU.Utility
             set => _session.SetString("CurrentUser_UserRole", !string.IsNullOrEmpty(value) ? value : "");
         }
 
+        /// <summary>
+        /// 主页地址
+        /// </summary>
+        public static string UserPage
+        {
+            get => _session == null ? "" : _session.GetString("CurrentUser_UserPage");
+            set => _session.SetString("CurrentUser_UserPage", !string.IsNullOrEmpty(value) ? value : "");
+        }
+
         #endregion
     }
 }

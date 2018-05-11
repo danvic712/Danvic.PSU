@@ -16,6 +16,7 @@ using PSU.EFCore;
 using PSU.Entity.Basic;
 using PSU.IService;
 using PSU.Model;
+using PSU.Utility;
 using PSU.Utility.System;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ namespace Controllers.PSU
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
+            CurrentUser.Configure(_httpContextAccessor);
         }
 
         #endregion
@@ -79,8 +81,10 @@ namespace Controllers.PSU
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Error()
         {
+            ViewBag.HomePage = CurrentUser.UserPage;
             return View();
         }
 

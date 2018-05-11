@@ -46,6 +46,7 @@ namespace PSU.Domain
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserAccount", "");
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserImage", "");
             httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserRole", "");
+            httpContextAccessor.HttpContext.Session.SetString("CurrentUser_UserPage", "");
         }
 
         /// <summary>
@@ -89,6 +90,7 @@ namespace PSU.Domain
                 CurrentUser.UserName = user.Name;
                 CurrentUser.UserOID = user.IdentityUserOID;
                 CurrentUser.UserRole = role;
+                CurrentUser.UserPage = user.HomePage;
             }
         }
 
