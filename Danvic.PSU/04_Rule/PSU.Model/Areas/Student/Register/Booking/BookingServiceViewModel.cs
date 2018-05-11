@@ -8,6 +8,7 @@
 // Description: Student-Register-新生预定服务信息 View Model 
 //-----------------------------------------------------------------------
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PSU.Model.Areas.Student
 {
@@ -23,11 +24,15 @@ namespace PSU.Model.Areas.Student
         /// <summary>
         /// 联系方式
         /// </summary>
+        [Required(ErrorMessage = "请输入联系方式")]
+        [Phone(ErrorMessage = "联系方式字段请输入符合电话格式的内容")]
         public string Tel { get; set; }
 
         /// <summary>
         /// 人数
         /// </summary>
+        [Required(ErrorMessage = "请输入人数")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "人数只能输入数字")]
         public int Count { get; set; }
 
         /// <summary>
@@ -48,16 +53,21 @@ namespace PSU.Model.Areas.Student
         /// <summary>
         /// 服务时间
         /// </summary>
-        public DateTime DepartureTime { get; set; }
+        [Required(ErrorMessage = "请选择需要提供服务的时间")]
+        [DataType(DataType.DateTime, ErrorMessage = "需要服务时间不符合日期格式要求")]
+        public string DepartureTime { get; set; }
 
         /// <summary>
         /// 服务地点
         /// </summary>
+        [Required(ErrorMessage = "请输入需要提供服务的地点")]
+        [StringLength(20, ErrorMessage = "服务地点不能超过20个字符长度")]
         public string Place { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
+        [StringLength(200, ErrorMessage = "备注字段不能超过200个字符长度")]
         public string Remark { get; set; }
 
         #endregion

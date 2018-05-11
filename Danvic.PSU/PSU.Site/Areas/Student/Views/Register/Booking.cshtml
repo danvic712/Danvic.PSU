@@ -10,6 +10,7 @@
         <table class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
+                    <th class="text-center">序号</th>
                     <th class="text-center">编号</th>
                     <th class="text-center">服务名称</th>
                     <th class="text-center">服务地点</th>
@@ -22,9 +23,11 @@
             <tbody class="text-center">
                 @if (Model.ServiceList != null && Model.ServiceList.Any())
                 {
+                    int index = 1;
                     foreach (var item in Model.ServiceList.AsReadOnly())
                     {
                         <tr>
+                            <td>@index</td>
                             <td>@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.Address</td>
@@ -43,6 +46,7 @@
                                 }
                             </td>
                         </tr>
+                        index++;
                     }
                 }
                 else

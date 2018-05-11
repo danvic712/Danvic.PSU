@@ -64,7 +64,7 @@
                         <label class="col-md-2 col-xs-3 control-label no-padding-right" for="arrivetime">
                             <span class="required-label">*</span> 预计到达日期
                         </label>
-                        <div class="col-md-2 col-xs-9">
+                        <div class="col-md-3 col-xs-9">
                             <div class="input-group">
                                 <input id="arrivetime" type="text" class="form-control date-picker" asp-for="ArriveTime" readonly>
                                 <div class="input-group-addon">
@@ -112,3 +112,16 @@
         </form>
     </div>
 </section>
+
+<script type="text/javascript">
+    $(function () {
+        //datetime
+        $('.date-picker').datetimepicker({
+            autoclose: true,
+            todayHighlight: true,
+            language: "zh-CN",
+            weekStart: 1,
+            format: 'yyyy-mm-dd hh:ii'
+        });
+    })
+</script>

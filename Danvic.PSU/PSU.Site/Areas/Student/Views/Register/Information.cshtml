@@ -4,6 +4,15 @@
     ViewData["NavTitle"] = "入学报名";
 }
 
+@section styles{
+    <environment include="Development">
+        <link href="~/css/template/bootstrap-datetimepicker.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/template/bootstrap-datetimepicker.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+}
+
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -49,6 +58,8 @@
 
 @section scripts{
     <environment include="Development">
+        <script src="~/javascript/template/bootstrap-datetimepicker.js"></script>
+        <script src="~/javascript/template/bootstrap-datetimepicker.zh-CN.js"></script>
         <script src="~/javascript/view/Student/information.js" asp-append-version="true"></script>
         <script src="~/javascript/view/Student/register.js" asp-append-version="true"></script>
         <script src="~/javascript/view/Student/booking.js" asp-append-version="true"></script>
@@ -56,6 +67,7 @@
         <script src="~/javascript/view/Student/dormitory.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <script src="~/javascript/template/datetimepicker.min.js"></script>
         <script src="~/javascript/view/Student/information.min.js" asp-append-version="true"></script>
         <script src="~/javascript/view/Student/register.min.js" asp-append-version="true"></script>
         <script src="~/javascript/view/Student/booking.min.js" asp-append-version="true"></script>

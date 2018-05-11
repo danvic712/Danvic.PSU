@@ -86,6 +86,7 @@ namespace PSU.Entity.SignUp
         /// <summary>
         /// 备注
         /// </summary>
+        [MaxLength(200)]
         public string Remark { get; set; }
 
         /// <summary>

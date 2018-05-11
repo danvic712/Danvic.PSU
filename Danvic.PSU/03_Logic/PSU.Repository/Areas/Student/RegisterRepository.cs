@@ -123,12 +123,19 @@ namespace PSU.Repository.Areas.Student
                 };
             }
 
+            if (!(Convert.ToDateTime(webModel.DepartureTime) >= service.StartTime && Convert.ToDateTime(webModel.DepartureTime) <= service.EndTime))
+            {
+                return new ServiceInfo
+                {
+                    Id = -2
+                };
+            }
+
             model.StudentId = user.Id;
             model.Name = user.Name;
 
             model.ServiceId = service.Id;
-            model.ServiceInfoOID = service.ServiceOID;
-            model.ServiceName = service.ServiceOID;
+            model.ServiceName = service.Name;
 
             await context.ServiceInfo.AddAsync(model);
 
@@ -159,6 +166,38 @@ namespace PSU.Repository.Areas.Student
         public static async Task<GoodsInfo> GetGoodsAsync(long id, ApplicationDbContext context)
         {
             var model = await context.GoodsInfo.AsNoTracking().Where(i => i.GoodsId == id && i.StudentId == CurrentUser.UserId).FirstOrDefaultAsync();
+            return model;
+        }
+
+        /// <summary>
+        /// 新增物品选择信息
+        /// </summary>
+        /// <param name="webModel">物品选择页视图Model</param>
+        /// <param name="context">数据库上下文对象</param>
+        /// <returns></returns>
+        public static async Task<GoodsInfo> InsertAsync(GoodsChosenViewModel webModel, ApplicationDbContext context)
+        {
+            GoodsInfo model = InsertModel(webModel);
+
+            var user = await PSURepository.GetUserByIdAsync(CurrentUser.UserId, context);
+            var goods = await AdmissionRepository.GetGoodsAsync(Convert.ToInt64(webModel.GoodsId), context);
+
+            if (user == null || goods == null)
+            {
+                return new GoodsInfo
+                {
+                    Id = -1
+                };
+            }
+
+            model.StudentId = user.Id;
+            model.StudentName = user.Name;
+
+            model.GoodsId = goods.Id;
+            model.GoodsName = goods.Name;
+
+            await context.GoodsInfo.AddAsync(model);
+
             return model;
         }
 
@@ -198,10 +237,24 @@ namespace PSU.Repository.Areas.Student
             return new ServiceInfo
             {
                 Count = webModel.Count,
-                DepartureTime = webModel.DepartureTime,
+                DepartureTime = Convert.ToDateTime(webModel.DepartureTime),
                 IsCancel = false,
                 Tel = webModel.Tel,
                 Place = webModel.Place,
+                Remark = webModel.Remark,
+            };
+        }
+
+        /// <summary>
+        /// Insert GoodsInfo Entity
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        private static GoodsInfo InsertModel(GoodsChosenViewModel webModel)
+        {
+            return new GoodsInfo
+            {
+                Size = webModel.Size,
                 Remark = webModel.Remark,
             };
         }

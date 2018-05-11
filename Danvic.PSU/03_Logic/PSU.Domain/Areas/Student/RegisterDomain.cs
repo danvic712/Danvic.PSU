@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------------
 using Microsoft.Extensions.Logging;
 using PSU.EFCore;
+using PSU.Entity.SignUp;
 using PSU.IService.Areas.Student;
 using PSU.Model.Areas.Student;
 using PSU.Repository;
@@ -195,7 +196,7 @@ namespace PSU.Domain.Areas.Student
                 var model = await RegisterRepository.GetServiceAsync(id, context);
                 webModel.Id = model.Id.ToString();
                 webModel.Count = model.Count;
-                webModel.DepartureTime = model.DepartureTime;
+                webModel.DepartureTime = model.DepartureTime.ToString("yyyy-MM-dd HH:mm");
                 webModel.Remark = model.Remark;
                 webModel.ScheduledTime = model.ScheduledTime;
                 webModel.ServiceName = model.ServiceName;
@@ -215,27 +216,25 @@ namespace PSU.Domain.Areas.Student
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public async Task<bool> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context)
+        public async Task<int> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context)
         {
             try
             {
                 //Add the Service Data
                 var model = await RegisterRepository.InsertAsync(webModel, context);
 
-                if (model.Id == -1)
+                if (model.Id == -1 || model.Id == -2)
                 {
-                    return false;
+                    return (int)model.Id;
                 }
 
                 //Make the transaction commit
-                var index = await context.SaveChangesAsync();
-
-                return index == 1;
+                return await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError("创建迎新服务失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
-                return false;
+                return -1;
             }
         }
 
@@ -310,14 +309,59 @@ namespace PSU.Domain.Areas.Student
         }
 
         /// <summary>
+        /// 获取当前用户选择的物品信息
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        public async Task<GoodsChosenViewModel> GetGoodsChosenAsync(long id, ApplicationDbContext context)
+        {
+            var webModel = new GoodsChosenViewModel();
+            try
+            {
+                var model = await RegisterRepository.GetGoodsAsync(id, context);
+                webModel.Id = model.Id.ToString();
+                webModel.Remark = model.Remark;
+                webModel.GoodsId = model.GoodsId.ToString();
+                webModel.GoodsName = model.GoodsName;
+                webModel.Size = model.Size;
+                webModel.ChosenTime = model.ChosenTime;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("获取物品选择数据失败：{0},\r\n内部错误信息：{1}", ex.Message, ex.InnerException.Message);
+            }
+            return webModel;
+        }
+
+        /// <summary>
         /// 新增当前用户物品选择信息
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        public Task<bool> InsertGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context)
+        public async Task<bool> InsertGoodsAsync(GoodsChosenViewModel webModel, ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Add the goodsinfo Data
+                var model = await RegisterRepository.InsertAsync(webModel, context);
+
+                if (model.Id == -1)
+                {
+                    return false;
+                }
+
+                //Make the transaction commit
+                var index = await context.SaveChangesAsync();
+
+                return index == 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("物品选择失败：{0},\r\n内部错误详细信息:{1}", ex.Message, ex.InnerException.Message);
+                return false;
+            }
         }
 
         #endregion
@@ -345,12 +389,6 @@ namespace PSU.Domain.Areas.Student
         {
             throw new NotImplementedException();
         }
-
-
-
-
-
-
 
         #endregion
     }

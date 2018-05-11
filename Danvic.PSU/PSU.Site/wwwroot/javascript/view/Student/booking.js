@@ -3,14 +3,6 @@
  *   Author: Danvic712
  */
 $(function () {
-    //datetime
-    $('.date-picker').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd'
-    });
-
     //detail
     $(document).on('click',
         '#service_detail',
@@ -78,27 +70,27 @@ $(function () {
     //save
     $(document).on('click', '#book_save', function () {
 
-        if ($('#way').val() === '-1') {
+        if ($('#book_tel').val() === '') {
             bootbox.dialog({
-                message: "请选择来校方式"
+                message: "请输入联系电话"
             });
             return false;
         }
-        if ($('#place').val() === '') {
+        if ($('#book_count').val() === '0' || $('#book_count').val() === '') {
             bootbox.dialog({
-                message: "请输入到达地点"
+                message: "请输入人数"
             });
             return false;
         }
-        if ($('#arrivetime').val() === '') {
+        if ($('#book_place').val() === '') {
             bootbox.dialog({
-                message: "请输入预计到达日期"
+                message: "请输入需要服务地点"
             });
             return false;
         }
-        if ($('#express').val() === '-1') {
+        if ($('#book_departuretime').val() === '') {
             bootbox.dialog({
-                message: "请选择档案是否快递寄送"
+                message: "请输入需要服务时间"
             });
             return false;
         }
@@ -106,18 +98,18 @@ $(function () {
         //build ajax request param
         var param = {};
         param.Id = $(this).attr('data-id');
-        param.Way = $('#way').val();
-        param.Place = $('#place').val();
-        param.ArriveTime = $('#arrivetime').val();
-        param.IsExpress = $('#express').val();
-        param.ExpressId = $('#expressid').val();
-        param.Remark = $('#remark').val();
+        param.ServiceId = $('#serviceid').val();
+        param.Tel = $('#book_tel').val();
+        param.Count = $('#book_count').val();
+        param.DepartureTime = $('#book_departuretime').val();
+        param.Place = $('#book_place').val();
+        param.Remark = $('#book_remark').val();
 
         $(this).attr('disabled', 'disabled');
 
         $.ajax({
             type: "POST",
-            url: "/Student/Register/SignUp",
+            url: "/Student/Register/BookingService",
             data: param,
             dataType: "json",
             success: function (result) {
@@ -132,11 +124,11 @@ $(function () {
                         }, 2000);
                     }
                 }
-                $('#save').removeAttr('disabled');
+                $('#book_save').removeAttr('disabled');
             },
             error: function (msg) {
                 console.log(msg);
-                $('#save').removeAttr('disabled');
+                $('#book_save').removeAttr('disabled');
             }
         });
     });

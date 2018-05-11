@@ -8,6 +8,7 @@
 // Description: Student-Register-控制器邻域功能接口
 //-----------------------------------------------------------------------
 using PSU.EFCore;
+using PSU.Entity.SignUp;
 using PSU.Model.Areas.Student;
 using System.Threading.Tasks;
 
@@ -56,7 +57,7 @@ namespace PSU.IService.Areas.Student
         /// <summary>
         /// 查找数据
         /// </summary>
-        /// <param name="id">服务预定编号</param>
+        /// <param name="id">服务编号</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
         Task<BookingServiceViewModel> GetServiceBookingAsync(long id, ApplicationDbContext context);
@@ -67,7 +68,7 @@ namespace PSU.IService.Areas.Student
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context);
+        Task<int> InsertBookingAsync(BookingServiceViewModel webModel, ApplicationDbContext context);
 
         #endregion
 
@@ -90,12 +91,20 @@ namespace PSU.IService.Areas.Student
         Task<GoodsDetailViewModel> GetGoodsAsync(long id, ApplicationDbContext context);
 
         /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <param name="id">物品编号</param>
+        /// <param name="context">数据库连接上下文对象</param>
+        /// <returns></returns>
+        Task<GoodsChosenViewModel> GetGoodsChosenAsync(long id, ApplicationDbContext context);
+
+        /// <summary>
         /// 新增数据
         /// </summary>
         /// <param name="webModel">编辑页视图Model</param>
         /// <param name="context">数据库连接上下文对象</param>
         /// <returns></returns>
-        Task<bool> InsertGoodsAsync(GoodsViewModel webModel, ApplicationDbContext context);
+        Task<bool> InsertGoodsAsync(GoodsChosenViewModel webModel, ApplicationDbContext context);
 
         #endregion
 

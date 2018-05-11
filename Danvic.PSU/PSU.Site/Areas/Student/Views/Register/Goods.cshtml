@@ -10,6 +10,7 @@
         <table class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
+                    <th class="text-center">序号</th>
                     <th class="text-center">编号</th>
                     <th class="text-center">物品名称</th>
                     <th class="text-center">物品描述</th>
@@ -20,9 +21,11 @@
             <tbody class="text-center">
                 @if (Model.GoodsList != null && Model.GoodsList.Any())
                 {
+                    int index = 1;
                     foreach (var item in Model.GoodsList.AsReadOnly())
                     {
                         <tr>
+                            <td>@index</td>
                             <td>@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.Description</td>
@@ -31,15 +34,16 @@
                                 <a id="goods_detail" href="javascript:void(0)" data-id="@item.Id">物品详情</a>
                                 @if (item.IsChosen)
                                 {
-                                    <a id="book" href="javascript:void(0)" data-id="@item.Id">选择物品详情</a>
+                                    <a id="book_goodsInfo" href="javascript:void(0)" data-id="@item.Id" data-booking="@item.IsChosen">选择物品详情</a>
                                 }
                                 else
                                 {
-                                    <a id="book" href="javascript:void(0)" data-id="@item.Id">选择物品</a>
+                                    <a id="book_goods" href="javascript:void(0)" data-id="@item.Id" data-booking="@item.IsChosen">选择物品</a>
                                 }
 
                             </td>
                         </tr>
+                        index++;
                     }
                 }
                 else

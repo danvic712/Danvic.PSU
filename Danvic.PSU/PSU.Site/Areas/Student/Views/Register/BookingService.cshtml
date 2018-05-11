@@ -15,41 +15,46 @@
                     <div class="box box-success">
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="tel">
+                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="book_tel">
                                     <span class="required-label">*</span> 联系电话
                                 </label>
                                 <div class="col-md-3 col-xs-9">
-                                    <input class="form-control" id="tel" type="text" asp-for="Tel">
+                                    <input class="form-control" id="book_tel" type="text" asp-for="Tel">
                                 </div>
-                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="count">
-                                    人数
+                                <label class="col-md-2 col-xs-3 control-label no-padding-right" for="book_count">
+                                    <span class="required-label">*</span> 人数
                                 </label>
                                 <div class="col-md-2 col-xs-9">
-                                    <input class="form-control" id="count" type="number" min="1" asp-for="Count">
+                                    <input class="form-control" id="book_count" type="number" min="1" asp-for="Count">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="place">
-                                    提供服务地点
+                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="book_place">
+                                    <span class="required-label">*</span> 需要服务地点
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control" id="place" type="text" asp-for="Place">
+                                <div class="col-md-5 col-xs-9">
+                                    <input class="form-control" id="book_place" type="text" maxlength="20" asp-for="Place">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label no-padding-right" for="departuretime">
-                                    提供服务时间
+                                <label class="col-md-3 control-label no-padding-right" for="book_departuretime">
+                                    <span class="required-label">*</span> 需要服务时间
                                 </label>
-                                <div class="col-md-4 col-xs-9">
-                                    <input class="form-control  date-picker" id="departuretime" type="tel" asp-for="DepartureTime">
+                                <div class="col-md-5 col-xs-9">
+                                    <div class="input-group">
+                                        <input class="form-control  date-picker" id="book_departuretime" type="text" asp-for="DepartureTime" readonly>
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label no-padding-right" for="remark">
+                                <label class="col-md-3 control-label no-padding-right" for="book_remark">
                                     备注
                                 </label>
                                 <div class="col-md-8 col-xs-9">
-                                    <textarea class="form-control" id="remark" max="200" rows="3" style="resize:none" asp-for="Remark"></textarea>
+                                    <textarea class="form-control" id="book_remark" max="200" rows="4" style="resize:none" asp-for="Remark"></textarea>
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -79,7 +84,7 @@
                         <th class="profile-info-name">预定时间</th>
                         <td class="profile-info-value">@Model.ScheduledTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                         <th class="profile-info-name">服务时间</th>
-                        <td class="profile-info-value">@Model.DepartureTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td class="profile-info-value">@Model.DepartureTime</td>
                     </tr>
                     <tr class="profile-info-row">
                         <th class="profile-info-name">服务地点</th>
@@ -95,6 +100,18 @@
     }
 </div>
 
+<input type="hidden" id="serviceid" value="@Model.ServiceId" />
 
-
+<script type="text/javascript">
+    $(function () {
+        //datetime
+        $('.date-picker').datetimepicker({
+            autoclose: true,
+            todayHighlight: true,
+            language: "zh-CN",
+            weekStart: 1,
+            format: 'yyyy-mm-dd hh:ii'
+        });
+    })
+</script>
 

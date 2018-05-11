@@ -105,6 +105,7 @@ namespace Controllers.PSU.Areas.Student
         public async Task<IActionResult> BookingService(string id, bool isBooking)
         {
             BookingServiceViewModel webModel = new BookingServiceViewModel();
+            webModel.ServiceId = id;
 
             if (isBooking)
             {
@@ -140,6 +141,26 @@ namespace Controllers.PSU.Areas.Student
             {
                 //编辑信息，加载物品相关信息
                 webModel = await _service.GetGoodsAsync(Convert.ToInt64(id), _context);
+            }
+
+            return View(webModel);
+        }
+
+        /// <summary>
+        ///选择物品页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> BookingGoods(string id, bool isChosen)
+        {
+            GoodsChosenViewModel webModel = new GoodsChosenViewModel();
+            webModel.GoodsId = id;
+
+            if (isChosen)
+            {
+                //加载物品选择信息
+                webModel = await _service.GetGoodsChosenAsync(Convert.ToInt64(id), _context);
             }
 
             return View(webModel);
@@ -216,7 +237,27 @@ namespace Controllers.PSU.Areas.Student
                 if (string.IsNullOrEmpty(webModel.Id))
                 {
                     //Add Data
-                    flag = await _service.InsertBookingAsync(webModel, _context);
+                    int index = await _service.InsertBookingAsync(webModel, _context);
+
+                    if (index == -1)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            msg = "迎新服务预定失败"
+                        });
+                    }
+
+                    if (index == -2)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            msg = "需要服务时间不在迎新服务提供时间段内"
+                        });
+                    }
+
+                    flag = index == 1;
                 }
                 else
                 {
@@ -244,6 +285,46 @@ namespace Controllers.PSU.Areas.Student
         #endregion
 
         #region Service-Goods
+
+        /// <summary>
+        /// 学生编辑页面
+        /// </summary>
+        /// <param name="webModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> BookingGoods(GoodsChosenViewModel webModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool flag;
+                if (string.IsNullOrEmpty(webModel.Id))
+                {
+                    //Add goods
+                    flag = await _service.InsertGoodsAsync(webModel, _context);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        msg = "物品选择信息禁止修改"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = flag,
+                    msg = flag ? "物品选择成功" : "物品选择失败"
+                });
+            }
+
+            return Json(new
+            {
+                success = false,
+                msg = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors).FirstOrDefault().ErrorMessage
+            });
+        }
+
         #endregion
 
         #region Service-Dormitory

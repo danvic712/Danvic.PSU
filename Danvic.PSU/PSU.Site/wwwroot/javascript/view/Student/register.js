@@ -3,14 +3,6 @@
  *   Author: Danvic712
  */
 $(function () {
-    //datetime
-    $('.date-picker').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd'
-    });
-
     //save
     $(document).on('click', '#save', function () {
 

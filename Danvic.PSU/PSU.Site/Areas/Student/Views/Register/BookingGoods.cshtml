@@ -1,0 +1,75 @@
+﻿@model PSU.Model.Areas.Student.GoodsChosenViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "选择物品";
+    ViewData["NavTitle"] = "入学报名";
+}
+
+<div class="row">
+    @if (Model != null)
+    {
+        if (string.IsNullOrEmpty(Model.Id))
+        {
+            <div class="col-md-12">
+                <form class="form-horizontal" role="form" id="edit_form">
+                    <div class="box box-success">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-3 control-label no-padding-right" for="goods_size">
+                                    <span class="required-label">*</span> 物品尺寸
+                                </label>
+                                <div class="col-md-5 col-xs-9">
+                                    <input class="form-control" id="goods_size" type="text" maxlength="100" asp-for="Size">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label no-padding-right" for="goods_remark">
+                                    备注
+                                </label>
+                                <div class="col-md-8 col-xs-9">
+                                    <textarea class="form-control" id="goods_remark" max="200" rows="4" style="resize:none" asp-for="Remark"></textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="text-right">
+                                    <a class="btn btn-success col-md-offset-2" id="goods_save" data-id="@Model.Id">
+                                        <i class="fa fa-check"></i>
+                                        保存
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <table class="profile-user-info profile-user-info-striped">
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">物品编号</th>
+                        <td class="profile-info-value">@Model.GoodsId</td>
+                        <th class="profile-info-name">物品名称</th>
+                        <td class="profile-info-value">@Model.GoodsName</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">选择尺寸</th>
+                        <td class="profile-info-value" colspan="3">@Model.Size</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">备注</th>
+                        <td class="profile-info-value" colspan="3">@Model.Remark</td>
+                    </tr>
+                    <tr class="profile-info-row">
+                        <th class="profile-info-name">选择时间</th>
+                        <td class="profile-info-value">@Model.ChosenTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    }
+</div>
+
+<input type="hidden" id="goodsid" value="@Model.GoodsId" />
+
