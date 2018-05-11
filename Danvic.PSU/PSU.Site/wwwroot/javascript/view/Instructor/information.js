@@ -33,16 +33,16 @@ $.dataTableSetting = {
     },
     "paging": true,
     "processing": true,
-    "columnDefs": [
-        {
-            "targets": 7,
-            "data": null,
-            "render": function (data, type, row) {
-                var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>详情</a>';
-                return html;
-            }
-        }
-    ],
+    //"columnDefs": [
+    //    {
+    //        "targets": 7,
+    //        "data": null,
+    //        "render": function (data, type, row) {
+    //            var html = '<a id="detail" class="btn btn-xs btn-link" data-id=' + data.id + '>详情</a>';
+    //            return html;
+    //        }
+    //    }
+    //],
     "columns": [
         { "data": "id" },
         { "data": "name" },

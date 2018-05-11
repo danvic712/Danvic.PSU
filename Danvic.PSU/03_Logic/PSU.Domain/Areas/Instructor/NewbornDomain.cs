@@ -145,7 +145,7 @@ namespace PSU.Domain.Areas.Instructor
                     {
                         Id = item.Id.ToString(),
                         Name = item.Name,
-                        Address = item.Province + "省 " + item.City + "市",
+                        Address = item.Province + " " + item.City,
                         Department = item.Department,
                         MajorClass = item.MajorClass,
                         Age = item.Age,

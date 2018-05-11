@@ -58,7 +58,7 @@ $.dataTableSetting = {
         param.Page = (data.start / data.length) + 1;//当前页码
         param.SName = $('#name').val();//迎新服务名称
         param.SDateTime = $('#datetime').val();//迎新服务地点
-        param.IsReply = $('#reply').val();//服务时间
+        param.IsReply = $('#status').val();//服务时间
 
         //ajax请求数据
         $.ajax({
