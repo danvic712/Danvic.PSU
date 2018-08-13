@@ -6,7 +6,7 @@ Danvic.PSU is my graduation project of dotnet core version, this is a ASP.NET Co
 - ORM: Entity Framework Core(using Code-First to create database)
 - SQL Engine: MySQL Server 5.7
 - Permission Validation: Policy-Based Authorization
-- UI Template: AdminLte(a opern source ui template based on Bootstrap 3.x, this repository address is https://github.com/almasaeed2010/AdminLTE)
+- UI Template: AdminLte(a open source ui template based on Bootstrap 3.x, this repository address is https://github.com/almasaeed2010/AdminLTE)
 - Tables Control: Jquery Datatables
 - Data Visualization Control: ECharts
 - Log: NLog
