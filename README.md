@@ -18,11 +18,16 @@ Danvic.PSU is my graduation project of dotnet core version, this is a ASP.NET Co
   1. PSU.EFCore: a class library which add EF Core to operate database 
   2. PSU.Utility: a class library which contains some useful code helper class like json convert helper, html convert helper etc.
 - 03_Logic: business logic layer, contains two system component PSU.Domain and PSU.Repository
-  1. PSU.Domain:
-  2. PSU.Repository:
+  1. PSU.Domain: a class library which achieve interfaces of PSU.IService
+  2. PSU.Repository: a class library which contains some functions where using linq to achieve some operate of PSU.Domain
 - 04_Rule: business rules layer, contains two system component PSU.IService and PSU.Model
-  1. PSU.IService:
-  2. PSU.Model:
+  1. PSU.IService: a class library which definition business rules
+  2. PSU.Model: a class library which contains view model of site pages model
 - Controller.PSU: controller of mvc
-- PSU.Site: a mvc project template(without controller)
+- PSU.Site: a mvc project template(without controller), using areas to distinguish different roles
+
+## Page effect
+![login page](https://images2018.cnblogs.com/blog/1310859/201807/1310859-20180722152527671-1937628083.png)
+![administrator home page](https://images2018.cnblogs.com/blog/1310859/201807/1310859-20180722151554922-1069570383.png)
+![student home page](https://images2018.cnblogs.com/blog/1310859/201807/1310859-20180722152608486-1544802079.png)
 
