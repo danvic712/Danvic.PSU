@@ -4,7 +4,7 @@ Danvic.PSU is my graduation project of dotnet core version, this is a ASP.NET Co
 ## Get Started
 - First you need to restore nuget packages to add used packages in this project, also you can build solution to achieve this target.
 - Second you need to set sql connection string according to your own configuration, the config info at the appsettings.json file, the config node is SQLConnection which under the ConnectionStrings node.
-- Third and last you just set the PSU.Site as the startup project and then run it. 
+- Third and last you just need to set the PSU.Site as the startup project and then run it. 
 
 ## Using Things
 - Project Framework: ASP.NET Core 2.0 MVC
