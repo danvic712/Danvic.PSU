@@ -25,7 +25,7 @@ namespace PSU.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("SQLConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("SQLConnection")));
 
             //反射加载接口实现类，批量注入
             Assembly assembly = Assembly.Load("PSU.Domain");
