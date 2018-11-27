@@ -13,7 +13,7 @@ namespace PSU.Site
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
+            var host = CreateWebHostBuilder(args).Build();
             var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
             try
             {
@@ -34,7 +34,7 @@ namespace PSU.Site
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
@@ -42,7 +42,6 @@ namespace PSU.Site
                     logging.ClearProviders();
                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                 })
-                .UseNLog()
-                .Build();
+                .UseNLog();
     }
 }

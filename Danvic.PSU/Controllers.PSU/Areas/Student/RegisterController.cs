@@ -104,8 +104,10 @@ namespace Controllers.PSU.Areas.Student
         [HttpGet]
         public async Task<IActionResult> BookingService(string id, bool isBooking)
         {
-            BookingServiceViewModel webModel = new BookingServiceViewModel();
-            webModel.ServiceId = id;
+            BookingServiceViewModel webModel = new BookingServiceViewModel
+            {
+                ServiceId = id
+            };
 
             if (isBooking)
             {
@@ -154,8 +156,10 @@ namespace Controllers.PSU.Areas.Student
         [HttpGet]
         public async Task<IActionResult> BookingGoods(string id, bool isChosen)
         {
-            GoodsChosenViewModel webModel = new GoodsChosenViewModel();
-            webModel.GoodsId = id;
+            GoodsChosenViewModel webModel = new GoodsChosenViewModel
+            {
+                GoodsId = id
+            };
 
             if (isChosen)
             {

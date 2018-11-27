@@ -89,6 +89,16 @@ namespace Controllers.PSU
             return View();
         }
 
+        /// <summary>
+        /// 隐私政策
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Service
