@@ -1,6 +1,6 @@
-﻿version: '3'
-services:
+﻿version: '3.7'
 
+services:
   docker.mysql:
     image: mysql
     ports:
@@ -9,15 +9,13 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=123456@sql
     volumes:
-      - /usr/local/mysql/lib:/usr/mysql
+      - /usr/mysql:/var/lib/mysql
     networks:
       - psu-net
 
   psu.site:
     build: /usr/wwwroot/psu/
     restart: always
-    expose:
-      - "80"
     depends_on:
       - docker.mysql
     networks:
