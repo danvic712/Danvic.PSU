@@ -1,0 +1,40 @@
+﻿version: '3'
+services:
+
+  docker.mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456@sql
+    volumes:
+      - /usr/local/mysql/lib:/usr/mysql
+    networks:
+      - psu-net
+
+  psu.site:
+    build: /usr/wwwroot/psu/
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - docker.mysql
+    networks:
+      - psu-net
+
+  docker.nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - psu.site
+    networks:
+      - psu-net
+
+networks:
+  psu-net:
+    driver: bridge
